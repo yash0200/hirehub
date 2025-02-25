@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JobsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,4 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register'); // Create a register page later
 });
+Route::get('/jobs',[JobsController::class, 'index']);

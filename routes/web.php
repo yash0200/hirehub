@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobsController;
-use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\EmployersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +16,6 @@ use App\Http\Controllers\CompaniesController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('index');
-// });
 Route::get('/', [HomeController::class, 'index']);
 //Route::get('/jobs', [JobController::class, 'index']);
 //Route::get('/jobs/{id}', [JobController::class, 'show']);
@@ -31,4 +27,4 @@ Route::get('/register', function () {
     return view('auth.register'); // Create a register page later
 });
 Route::get('/jobs',[JobsController::class, 'index']);
-Route::get('/companies',[CompaniesController::class,'index']);
+Route::get('/companies',[EmployersController::class,'index']);

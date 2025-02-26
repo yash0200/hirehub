@@ -12,7 +12,7 @@
                 <ul class="navigation" id="navbar">
                     <li><a href="{{ url('/') }}">Home</a></li>
                     <li class="dropdown has-mega-menu" id="has-mega-menu">
-                        <span><a href="{{ url('/jobs') }}" >Jobs</a></span>
+                        <span><a href="{{ url('/jobs') }}">Jobs</a></span>
                         <div class="mega-menu">
                             <div class="mega-menu-bar row">
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
@@ -54,7 +54,7 @@
                     </li>
 
                     <li class="dropdown">
-                        <span><a href="{{ url('/companies') }}" >Companies</a></span>
+                        <span><a href="{{ url('/companies') }}">Companies</a></span>
                         <ul>
                             <li class="dropdown">
                                 <span>Companies</span>
@@ -146,8 +146,8 @@
         <div class="outer-box">
             <div class="btn-box">
                 <!-- @if (!request()->is('login') && !request()->is('register')) -->
-                    <a href="{{ url('/login') }}" class="theme-btn btn-style-five">Login / Register</a>
-                    <a href="{{ url('/post-job') }}" class="theme-btn btn-style-one">Post a Job</a>
+                <a href="{{ url('/login') }}" class="theme-btn btn-style-five">Login / Register</a>
+                <a href="{{ url('/post-job') }}" class="theme-btn btn-style-one">Post a Job</a>
                 <!-- @endif -->
             </div>
         </div>

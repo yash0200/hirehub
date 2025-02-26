@@ -17,8 +17,12 @@ class JobCategoryController extends Controller
 
     public function show($slug)
     {
+        // Fetch category by slug with associated jobs
         $category = JobCategory::where('slug', $slug)->firstOrFail();
-        $jobs = $category->jobs()->latest()->paginate(10);
+
+        // Fetch jobs under this category
+        $jobs = $category->jobs()->latest()->paginate(10);  // You can change pagination as needed
+
         return view('categories.show', compact('category', 'jobs'));
     }
 

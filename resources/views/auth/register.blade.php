@@ -90,8 +90,10 @@
                         <h3>Create a Free HireHub Account</h3>
 
                         <!-- Registration Form -->
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
+                            <input type="hidden" name="user_type" id="user_type" value="candidate">
+
                             <div class="form-group">
                                 <div class="btn-box row">
                                     <div class="col-lg-6 col-md-12">
@@ -108,13 +110,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" name="first_name" placeholder="First Name" required>
+                                <label>Full Name</label>
+                                <input type="text" name="name" placeholder="Enter your full name" required>
                             </div>
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input type="text" name="last_name" placeholder="Last Name" required>
-                            </div>
+
                             <div class="form-group" id="company-field" style="display: none;">
                                 <label>Company Name</label>
                                 <input type="text" name="company_name" placeholder="Company Name">
@@ -126,6 +125,10 @@
                             <div class="form-group">
                                 <label>Password</label>
                                 <input id="password-field" type="password" name="password" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input id="password-confirm" type="password" name="password_confirmation" placeholder="Confirm Password" required>
                             </div>
                             <div class="form-group">
                                 <button class="theme-btn btn-style-one" type="submit">Register</button>
@@ -148,6 +151,24 @@
                 <!-- End Register Form -->
             </div>
         </div>
+
+        <script>
+            document.getElementById('candidate-btn').addEventListener('click', function() {
+                document.getElementById('user_type').value = 'candidate';
+                document.getElementById('company-field').style.display = 'none';
+                this.classList.add('active-btn');
+                document.getElementById('employer-btn').classList.remove('active-btn');
+            });
+
+            document.getElementById('employer-btn').addEventListener('click', function() {
+                document.getElementById('user_type').value = 'employer';
+                document.getElementById('company-field').style.display = 'block';
+                this.classList.add('active-btn');
+                document.getElementById('candidate-btn').classList.remove('active-btn');
+            });
+        </script>
+
+
         <!-- End Info Section -->
     </div>
 
@@ -157,13 +178,13 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
             let candidateBtn = document.getElementById("candidate-btn");
             let employerBtn = document.getElementById("employer-btn");
             let companyField = document.getElementById("company-field");
 
-            candidateBtn.addEventListener("click", function () {
+            candidateBtn.addEventListener("click", function() {
                 companyField.style.display = "none"; // Hide company name field
 
                 // Apply active class
@@ -171,7 +192,7 @@
                 employerBtn.classList.remove("active-btn");
             });
 
-            employerBtn.addEventListener("click", function () {
+            employerBtn.addEventListener("click", function() {
                 companyField.style.display = "block"; // Show company name field
 
                 // Apply active class
@@ -179,7 +200,7 @@
                 candidateBtn.classList.remove("active-btn");
             });
         });
-    </script>
+    </script> -->
 
 </body>
 

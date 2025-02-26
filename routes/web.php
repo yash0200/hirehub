@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\EmployersController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +25,18 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
-Route::get('/register', function () {
-    return view('auth.register'); // Create a register page later
-});
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
+
 Route::get('/jobs',[JobsController::class, 'index']);
 Route::get('/companies',[EmployersController::class,'index']);
 Route::get('/employer/dashboard', [EmployersController::class, 'dashboard'])->name('employer.dashboard');
 Route::get('/candidate/dashboard',[CandidateController::class,'dashboard'])->name('candidate.dashboard');
+<<<<<<< Updated upstream
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
+=======
+>>>>>>> Stashed changes

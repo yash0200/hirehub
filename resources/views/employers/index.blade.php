@@ -111,7 +111,7 @@
           <!-- ls Switcher -->
           <div class="ls-switcher">
             <div class="showing-result">
-              <div class="text">Showing <strong>41-60</strong> of <strong>944</strong> employer</div>
+            <div class="text">Showing {{ $employers->firstItem() }}-{{ $employers->lastItem() }} of {{ $employers->total() }} employers</div>
             </div>
             <div class="sort-by">
               <select class="chosen-select">
@@ -137,142 +137,23 @@
 
           <div class="row">
             <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-1.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Netflix</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
+            @foreach ($employers as $employer)
+              <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                  <div class="inner-box">
+                      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                      <span class="featured">Featured</span>
+                      <span class="company-logo">
+                          <img src="{{ asset($employer->logo ?? '/images/resource/company-logo/default.png') }}" alt="{{ $employer->company_name }}">
+                      </span>
+                      <h4><a href="{{ route('employers.details', $employer->id) }}">{{ $employer->company_name }}</a></h4>
+                      <ul class="job-info">
+                          <li><span class="icon flaticon-map-locator"></span> {{ $employer->location }}</li>
+                          <li><span class="icon flaticon-briefcase"></span> {{ $employer->industry }}</li>
+                      </ul>
+                      <div class="job-type">Open Jobs – {{ $employer->open_jobs ?? 0 }}</div>
+                  </div>
               </div>
-            </div>
-
-            <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-2.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Opendoor</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
-              </div>
-            </div>
-
-            <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-3.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Checkr</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
-              </div>
-            </div>
-
-            <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-4.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Mural</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
-              </div>
-            </div>
-
-            <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-5.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Astronomer</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
-              </div>
-            </div>
-
-            <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-6.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Figma</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
-              </div>
-            </div>
-
-
-            <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-7.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Mural</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
-              </div>
-            </div>
-
-            <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-8.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Astronomer</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
-              </div>
-            </div>
-
-            <!-- Company Block Four -->
-            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <span class="featured">Featured</span>
-                <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/6-9.png") }}" alt=""></span>
-                <h4><a href="{{ url("#") }}">Figma</a></h4>
-                <ul class="job-info">
-                  <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                  <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-                </ul>
-                <div class="job-type">Open Jobs – 2</div>
-              </div>
-            </div>
-
-
+              @endforeach
           </div>
 
           <!-- Pagination -->

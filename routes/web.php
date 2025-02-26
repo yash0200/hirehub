@@ -45,3 +45,6 @@ Route::get('/admin/dashboard', function () {
 
 
 
+Route::get('/employers/{id}', [EmployerController::class, 'show'])->name('employers.details');
+Route::get('/employers', [EmployerController::class, 'index'])->name('employers.list');
+

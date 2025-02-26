@@ -7,6 +7,7 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\EmployersController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\JobCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +48,13 @@ Route::get('/admin/dashboard', function () {
 
 Route::get('/employers/{id}', [EmployerController::class, 'show'])->name('employers.details');
 Route::get('/employers', [EmployerController::class, 'index'])->name('employers.list');
+
+Route::get('/categories', [JobCategoryController::class, 'index'])->name('categories.list');
+Route::get('/categories/{slug}', [JobCategoryController::class, 'show'])->name('categories.details');
+
+// Admin only: Add categories
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/categories/create', [JobCategoryController::class, 'create'])->name('categories.create');
+    Route::post('/admin/categories/store', [JobCategoryController::class, 'store'])->name('categories.store');
+});
 

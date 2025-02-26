@@ -95,7 +95,7 @@
                             <div class="form-group">
                                 <div class="btn-box row">
                                     <div class="col-lg-6 col-md-12">
-                                        <button type="button" class="theme-btn btn-style-seven" id="candidate-btn">
+                                        <button type="button" class="theme-btn btn-style-seven active-btn" id="candidate-btn">
                                             <i class="la la-user"></i> Candidate
                                         </button>
                                     </div>

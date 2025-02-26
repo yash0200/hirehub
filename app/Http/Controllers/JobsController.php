@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jobs;
 use Illuminate\Http\Request;
 
 class JobsController extends Controller
 {
-    // Display a listing of jobs
     public function index()
     {
-        // Example: return a view with jobs
-        return view('jobs.index');
+        $jobs = Jobs::with('employer')->latest()->paginate(10);
+        dd($jobs);
+        return view('jobs.index', compact('jobs'));
+    }
+
+    public function show($id)
+    {
+        $job = Jobs::findOrFail($id);
+        return view('jobs.show', compact('job'));
     }
 }
-
 //     // Show a specific job
 //     public function show($id)
 //     {

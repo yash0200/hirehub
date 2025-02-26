@@ -29,11 +29,19 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 
-Route::get('/jobs',[JobsController::class, 'index']);
+// Route::get('/jobs',[JobsController::class, 'index']);
 Route::get('/companies',[EmployersController::class,'index']);
 Route::get('/employer/dashboard', [EmployersController::class, 'dashboard'])->name('employer.dashboard');
 Route::get('/candidate/dashboard',[CandidateController::class,'dashboard'])->name('candidate.dashboard');
 
+// Job List & Details
+Route::get('/jobs', [JobsController::class, 'index'])->name('jobs.list');
+Route::get('/jobs/{id}', [JobsController::class, 'show'])->name('jobs.details');
+
+
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
+
+
+

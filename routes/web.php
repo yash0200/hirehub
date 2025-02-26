@@ -35,10 +35,13 @@ Route::get('/employer/dashboard', [EmployersController::class, 'dashboard'])->na
 Route::get('/candidate/dashboard',[CandidateController::class,'dashboard'])->name('candidate.dashboard');
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======

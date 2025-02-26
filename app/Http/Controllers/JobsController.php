@@ -10,10 +10,9 @@ class JobsController extends Controller
     public function index()
     {
         $jobs = Jobs::with('employer')->latest()->paginate(10);
-        dd($jobs);
+        // dd($jobs);
         return view('jobs.index', compact('jobs'));
     }
-
     public function show($id)
     {
         $job = Jobs::findOrFail($id);

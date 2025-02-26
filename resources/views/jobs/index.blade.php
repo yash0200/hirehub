@@ -235,7 +235,7 @@
               <div class="content">
                 <!-- Display Employer's Logo (Fallback if image doesn't exist) -->
                 <span class="company-logo">
-                  <img src="{{ asset($job->employer->logo ?? '/images/resource/company-logo/default-logo.png') }}" alt="">
+                  <img src="{{ asset($job->employer->logo ?? '/public/images/resource/company-logo/default-logo.png') }}" alt="logo">
                 </span>
                 <!-- Job Title -->
                 <h4><a href="{{ route('jobs.details', $job->id) }}">{{ $job->title }}</a></h4>

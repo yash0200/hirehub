@@ -31,4 +31,7 @@ Route::get('/jobs',[JobsController::class, 'index']);
 Route::get('/companies',[EmployersController::class,'index']);
 Route::get('/employer/dashboard', [EmployersController::class, 'dashboard'])->name('employer.dashboard');
 Route::get('/candidate/dashboard',[CandidateController::class,'dashboard'])->name('candidate.dashboard');
-// OK
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+});

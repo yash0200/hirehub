@@ -5,7 +5,7 @@
         <!--Nav Outer -->
         <div class="nav-outer">
             <div class="logo-box">
-                <div class="logo"><a href="{{ url('index.html') }}"><img style="height:55px;width:152px;" src="{{ asset('/images/logo.svg') }}" alt="Hirehub" title=""></a></div>
+                <div class="logo"><a href="{{ url('/') }}"><img style="height:55px;width:152px;" src="{{ asset('/images/logo.svg') }}" alt="Hirehub" title=""></a></div>
             </div>
 
             <nav class="nav main-menu">

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Employers')
+@section('title', 'Companies')
 
 @section('content')
 
@@ -13,7 +13,7 @@
     <div class="title-outer">
       <h1>Companies</h1>
       <ul class="page-breadcrumb">
-        <li><a href="{{ url("index.html") }}">Home</a></li>
+        <li><a href="{{ url('/') }}">Home</a></li>
         <li>Companies</li>
       </ul>
     </div>

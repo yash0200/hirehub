@@ -15,10 +15,11 @@
 </head>
 
 <body>
-    @include('partials.header')
+    
     <div class="page-wrapper dashboard">
         <!-- Preloader -->
         <div class="preloader"></div>
+        @include('partials.dashboard_header')
 
         <!-- Sidebar Backdrop -->
         <div class="sidebar-backdrop"></div>

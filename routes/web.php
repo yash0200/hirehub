@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\EmployersController;
+use App\Http\Controllers\CandidateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,5 @@ Route::get('/register', function () {
 Route::get('/jobs',[JobsController::class, 'index']);
 Route::get('/companies',[EmployersController::class,'index']);
 Route::get('/employer/dashboard', [EmployersController::class, 'dashboard'])->name('employer.dashboard');
+Route::get('/candidate/dashboard',[CandidateController::class,'dashboard'])->name('candidate.dashboard');
+// ok

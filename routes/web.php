@@ -28,3 +28,4 @@ Route::get('/register', function () {
 });
 Route::get('/jobs',[JobsController::class, 'index']);
 Route::get('/companies',[EmployersController::class,'index']);
+Route::get('/employer/dashboard', [EmployersController::class, 'dashboard'])->name('employer.dashboard');

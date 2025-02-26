@@ -2425,8 +2425,8 @@ Buttons Styles
   position: relative;
   text-align: center;
   white-space: nowrap;
-  color: #34A853;
-  background-color: #E1F2E5;
+  color: #ffffff;
+  background-color: #34A853;
   font-size: 16px;
   line-height: 20px;
   border-radius: 8px;
@@ -2482,8 +2482,8 @@ Buttons Styles
   position: relative;
   text-align: center;
   white-space: nowrap;
-  color: #ffffff;
-  background-color: #34A853;
+  color: #34A853;
+  background-color: #E1F2E5;
   line-height: 20px;
   border-radius: 8px;
   font-weight: 400;

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'HireHub - Home')
+@section('title', $job->title)
+
 @section('content')
   <div class="page-wrapper">
 

@@ -12,7 +12,7 @@
                 <ul class="navigation" id="navbar">
                     <li><a href="{{ url('/') }}">Home</a></li>
                     <li class="dropdown has-mega-menu" id="has-mega-menu">
-                        <span><a href="{{ url('/jobs') }}" >Jobs</a></span>
+                        <span><a href="{{ url('/jobs') }}">Jobs</a></span>
                         <div class="mega-menu">
                             <div class="mega-menu-bar row">
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
@@ -53,8 +53,47 @@
                         </div>
                     </li>
 
-                    <li class="dropdown">
-                        <span><a href="{{ url('/companies') }}" >Companies</a></span>
+                    <li class="dropdown has-mega-menu" id="has-mega-menu">
+                        <span><a href="{{ url('/companies') }}">Companies</a></span>
+                        <div class="mega-menu">
+                            <div class="mega-menu-bar row">
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Explore categories</h3>
+                                    <ul>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Unicorn</a></li>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">MNC</a></li>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Startup</a></li>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Product Based</a></li>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Internet</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Explore collections</h3>
+                                    <ul>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Top companies</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">IT companies</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Fintech companies</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Sponsored companies</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Featured companies</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Research companies</h3>
+                                    <ul>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Interview questions</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Company salaries</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Company reviews</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Salary calculator</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- <li class="dropdown">
+                        <span><a href="{{ url('/companies') }}">Companies</a></span>
                         <ul>
                             <li class="dropdown">
                                 <span>Companies</span>
@@ -69,8 +108,35 @@
                                 </ul>
                             </li>
                         </ul>
+                    </li> -->
+
+                    <li class="dropdown has-mega-menu" id="has-mega-menu">
+                        <span><a href="">Candidates</a></span>
+                        <div class="mega-menu">
+                            <div class="mega-menu-bar row">
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Candidates List</h3>
+                                    <ul>
+                                        <li><a href="{{ url('candidates-list-v1.html') }}">Candidates LIst v1</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Candidates Single</h3>
+                                    <ul>
+                                        <li><a href="{{ url('candidates-single-v1.html') }}">Candidates Single v1</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3><a href="{{ url('candidate-dashboard.html') }}">Candidates Dashboard</a></h3>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                    <li class="dropdown">
+
+
+                    <!-- <li class="dropdown">
                         <span>Candidates</span>
                         <ul>
                             <li class="dropdown">
@@ -87,7 +153,10 @@
                             </li>
                             <li><a href="{{ url('candidate-dashboard.html') }}">Candidates Dashboard</a></li>
                         </ul>
-                    </li>
+                    </li> -->
+
+
+
                     <li class="dropdown">
                         <span>Blog</span>
                         <ul>
@@ -146,8 +215,8 @@
         <div class="outer-box">
             <div class="btn-box">
                 <!-- @if (!request()->is('login') && !request()->is('register')) -->
-                    <a href="{{ url('/login') }}" class="theme-btn btn-style-five">Login / Register</a>
-                    <a href="{{ url('/post-job') }}" class="theme-btn btn-style-one">Post a Job</a>
+                <a href="{{ url('/login') }}" class="theme-btn btn-style-five">Login / Register</a>
+                <a href="{{ url('/post-job') }}" class="theme-btn btn-style-one">Post a Job</a>
                 <!-- @endif -->
             </div>
         </div>

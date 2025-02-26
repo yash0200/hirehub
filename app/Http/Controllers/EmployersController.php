@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Employer;
 
 class EmployersController extends Controller
 {
     public function index()
     {
-        // Fetch latest jobs for the homepage
-        //$jobs = Job::latest()->limit(6)->get();
-
-        //return view('pages.home', compact('jobs'));
-        return view('employers.index');
+        $employers = Employer::latest()->paginate(9); // Fetch employers from DB
+        return view('employers.index', compact('employers'));
     }
     public function dashboard()
     {

@@ -11,7 +11,15 @@ class Jobs extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employer_id', 'image', 'title', 'location', 'job_post_time', 'salary', 'job_type', 'category','description'
+        'employer_id',
+        'image',
+        'title',
+        'location',
+        'job_post_time',
+        'salary',
+        'job_type',
+        'category',
+        'description'
     ];
 
     protected $casts = [
@@ -21,6 +29,10 @@ class Jobs extends Model
     public function employer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'employer_id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(JobCategory::class, 'category_id');
     }
 }
 

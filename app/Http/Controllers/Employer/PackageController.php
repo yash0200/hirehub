@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
-    //
+    public function index()
+    {
+        return view('employers.employer_packages');
+    }
 }

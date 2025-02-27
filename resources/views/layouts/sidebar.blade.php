@@ -1,0 +1,43 @@
+<div class="user-sidebar">
+    <div class="sidebar-inner">
+        <ul class="navigation">
+            @if(auth()->user()->user_type === 'candidate')
+            <li class="active"><a href="{{ route('candidate.dashboard') }}"> <i class="la la-home"></i> Dashboard</a></li>
+            <li><a href="{{ route('candidate.jobs') }}"><i class="la la-briefcase"></i> View Jobs</a></li>
+            <li><a href="{{ route('candidate.applications') }}"><i class="la la-file-invoice"></i> My Applications</a></li>
+            <li><a href="{{ route('candidate.resumes') }}"><i class="la la-bookmark-o"></i> My Resumes</a></li>
+            <li><a href="{{ route('candidate.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
+            <li><a href="{{ route('candidate.profile') }}"><i class="la la-user-alt"></i> Profile</a></li>
+            <li><a href="{{ route('candidate.password.change') }}"><i class="la la-lock"></i> Change Password</a></li>
+            <li>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="la la-sign-out"></i> Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+
+            @elseif(auth()->user()->user_type === 'employer')
+            <li class="active"><a href="{{ route('employer.dashboard') }}"> <i class="la la-home"></i> Dashboard</a></li>
+            <li><a href="{{ route('employer.company.profile') }}"><i class="la la-user-tie"></i> Company Profile</a></li>
+            <li><a href="{{ route('employer.job.create') }}"><i class="la la-paper-plane"></i> Post a New Job</a></li>
+            <li><a href="{{ route('employer.job.manage') }}"><i class="la la-briefcase"></i> Manage Jobs</a></li>
+            <li><a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i> All Applicants</a></li>
+            <li><a href="{{ route('employer.resumes') }}"><i class="la la-bookmark-o"></i> Shortlisted Resumes</a></li>
+            <li><a href="{{ route('employer.packages') }}"><i class="la la-box"></i> Packages</a></li>
+            <li><a href="{{ route('employer.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
+            <li><a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i> Resume Alerts</a></li>
+            <li><a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a></li>
+            <li>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="la la-sign-out"></i> Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+            @endif
+        </ul>
+    </div>
+</div>

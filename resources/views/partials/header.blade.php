@@ -5,237 +5,135 @@
         <!--Nav Outer -->
         <div class="nav-outer">
             <div class="logo-box">
-                <div class="logo"><a href="{{ url('/') }}"><img style="height:55px;width:152px;" src="{{ asset('/images/logo.svg') }}" alt="Hirehub" title=""></a></div>
+                <div class="logo">
+                    <a href="{{ url('/') }}">
+                        <img style="height:55px;width:152px;" src="{{ asset('/images/logo.svg') }}" alt="Hirehub">
+                    </a>
+                </div>
             </div>
 
             <nav class="nav main-menu">
                 <ul class="navigation" id="navbar">
                     <li><a href="{{ url('/') }}">Home</a></li>
-                    <li class="dropdown has-mega-menu" id="has-mega-menu">
-                        <span><a href="{{ url('/jobs') }}">Jobs</a></span>
-                        <div class="mega-menu">
-                            <div class="mega-menu-bar row">
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Popular categories</h3>
-                                    <ul>
-                                        <li><a href="{{ url('job-list-v1.html') }}">It jobs</a></li>
-                                        <li><a href="{{ url('job-list-v2.html') }}">Sales jobs</a></li>
-                                        <li><a href="{{ url('job-list-v3.html') }}">Marketing jobs</a></li>
-                                        <li><a href="{{ url('job-list-v4.html') }}">Data Sciencejobs</a></li>
-                                        <li><a href="{{ url('job-list-v5.html') }}">HR jobs</a></li>
-                                        <li><a href="{{ url('job-list-v5.html') }}">Engineering jobs</a></li>
-                                    </ul>
-                                </div>
+                    <li><a href="{{ route('jobs.list') }}">Jobs</a></li>
+                    <li><a href="{{ route('employers.list') }}">Companies</a></li>
 
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Jobs in demand</h3>
-                                    <ul>
-                                        <li><a href="{{ url('job-list-v6.html') }}">Fresher jobs</a></li>
-                                        <li><a href="{{ url('job-list-v7.html') }}">MNC jobs</a></li>
-                                        <li><a href="{{ url('job-list-v8.html') }}">Work from home jobs</a></li>
-                                        <li><a href="{{ url('job-list-v9.html') }}">Walk-in jobs</a></li>
-                                        <li><a href="{{ url('job-list-v10.html') }}">Part-time jobs</a></li>
-                                    </ul>
-                                </div>
+                    @auth
+                        @if(auth()->user()->user_type === 'admin')
+                            <li><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
+                            <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
+                            <li><a href="{{ route('admin.settings') }}">Settings</a></li>
 
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Jobs by location</h3>
-                                    <ul>
-                                        <li><a href="{{ url('job-list-v11.html') }}">Jobs in Delhi</a></li>
-                                        <li><a href="{{ url('job-list-v12.html') }}">Jobs in Mumbai</a></li>
-                                        <li><a href="{{ url('job-list-v13.html') }}">Jobs in Bangalore</a></li>
-                                        <li><a href="{{ url('job-list-v14.html') }}">Jobs in Hyderabad</a></li>
-                                        <li><a href="{{ url('job-list-v15.html') }}">Jobs in Chennai</a></li>
-                                        <li><a href="{{ url('job-list-v16.html') }}">Jobs in Pune</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        @elseif(auth()->user()->user_type === 'candidate')
+                            <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
+                            <li><a href="{{ route('candidate.profile') }}">My Profile</a></li>
+                            <li><a href="{{ route('candidate.applications') }}">My Applications</a></li>
 
-                    <li class="dropdown has-mega-menu" id="has-mega-menu">
-                        <span><a href="{{ url('/companies') }}">Companies</a></span>
-                        <div class="mega-menu">
-                            <div class="mega-menu-bar row">
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Explore categories</h3>
-                                    <ul>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">Unicorn</a></li>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">MNC</a></li>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">Startup</a></li>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">Product Based</a></li>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">Internet</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Explore collections</h3>
-                                    <ul>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Top companies</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">IT companies</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Fintech companies</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Sponsored companies</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Featured companies</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Research companies</h3>
-                                    <ul>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Interview questions</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Company salaries</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Company reviews</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Salary calculator</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- <li class="dropdown">
-                        <span><a href="{{ url('/companies') }}">Companies</a></span>
-                        <ul>
-                            <li class="dropdown">
-                                <span>Companies</span>
-                                <ul>
-                                    <li><a href="{{ url('compines-list-v1.html') }}">Companies</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <span>compines Single</span>
-                                <ul>
-                                    <li><a href="{{ url('compines-single-v1.html') }}">compines Single v1</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li> -->
-
-                    <li class="dropdown has-mega-menu" id="has-mega-menu">
-                        <span><a href="">Candidates</a></span>
-                        <div class="mega-menu">
-                            <div class="mega-menu-bar row">
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Candidates List</h3>
-                                    <ul>
-                                        <li><a href="{{ url('candidates-list-v1.html') }}">Candidates LIst v1</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Candidates Single</h3>
-                                    <ul>
-                                        <li><a href="{{ url('candidates-single-v1.html') }}">Candidates Single v1</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3><a href="{{ url('candidate-dashboard.html') }}">Candidates Dashboard</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-
-                    <!-- <li class="dropdown">
-                        <span>Candidates</span>
-                        <ul>
-                            <li class="dropdown">
-                                <span>Candidates List</span>
-                                <ul>
-                                    <li><a href="{{ url('candidates-list-v1.html') }}">Candidates LIst v1</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <span>Candidates Single</span>
-                                <ul>
-                                    <li><a href="{{ url('candidates-single-v1.html') }}">Candidates Single v1</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url('candidate-dashboard.html') }}">Candidates Dashboard</a></li>
-                        </ul>
-                    </li> -->
-
-
-
-                    <li class="dropdown">
-                        <span>Blog</span>
-                        <ul>
-                            <li><a href="{{ url('blog-list-v1.html') }}">Blog LIst v1</a></li>
-                            <li><a href="{{ url('blog-single.html') }}">Blog Single</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- <li class="dropdown">
-                        <span>Pages</span>
-                        <ul>
-                            <li class="dropdown">
-                                <span>Shop</span>
-                                <ul>
-                                    <li><a href="{{ url("shop.html") }}">Shop List</a></li>
-                                    <li><a href="{{ url("shop-single.html") }}">Shop Single</a></li>
-                                    <li><a href="{{ url("shopping-cart.html") }}">Shopping Cart</a></li>
-                                    <li><a href="{{ url("shop-checkout.html") }}">Checkout</a></li>
-                                    <li><a href="{{ url("order-completed.html") }}">Order Completed</a></li>
-                                    <li><a href="{{ url("login.html") }}">Login</a></li>
-                                    <li><a href="{{ url("register.html") }}">Register</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url("about.html") }}">About</a></li>
-                            <li><a href="{{ url("pricing.html") }}">Pricing</a></li>
-                            <li><a href="{{ url("faqs.html") }}">FAQ's</a></li>
-                            <li><a href="{{ url("terms.html") }}">Terms</a></li>
-                            <li><a href="{{ url("invoice.html") }}">Invoice</a></li>
-                            <li><a href="{{ url("elements.html") }}">Ui Elements</a></li>
-                            <li><a href="{{ url("contact.html") }}">Contact</a></li>
-                        </ul>
-                    </li> -->
-
-                    <!-- Only for Mobile View -->
-                    <li class="mm-add-listing">
-                        <a href="{{ url('add-listing.html') }}" class="theme-btn btn-style-one">Job Post</a>
-                        <span>
-                            <span class="contact-info">
-                                <span class="phone-num"><span>Call us</span><a href="{{ url('tel:1234567890') }}">123 456 7890</a></span>
-                                <span class="address">329 Queensberry Street, North Melbourne VIC <br>3051, Australia.</span>
-                                <a href="{{ url('mailto:support@Hirehub.com') }}" class="email">support@Hirehub.com</a>
-                            </span>
-                            <span class="social-links">
-                                <a href="{{ url('#') }}"><span class="fab fa-facebook-f"></span></a>
-                                <a href="{{ url('#') }}"><span class="fab fa-twitter"></span></a>
-                                <a href="{{ url('#') }}"><span class="fab fa-instagram"></span></a>
-                                <a href="{{ url('#') }}"><span class="fab fa-linkedin-in"></span></a>
-                            </span>
-                        </span>
-                    </li>
+                        @elseif(auth()->user()->user_type === 'employer')
+                            <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
+                        @endif
+                    @endauth
                 </ul>
             </nav>
             <!-- Main Menu End-->
         </div>
 
         <div class="outer-box">
-            <div class="btn-box">
-                <!-- @if (!request()->is('login') && !request()->is('register')) -->
-                <a href="{{ url('/login') }}" class="theme-btn btn-style-five">Login / Register</a>
-                <a href="{{ url('/post-job') }}" class="theme-btn btn-style-one">Post a Job</a>
-                <!-- @endif -->
-            </div>
+
+            <!-- Show Login/Register & Post Job only when Logged Out -->
+            @guest
+                <div class="btn-box">
+                    <a href="{{ route('login') }}" class="theme-btn btn-style-five">Login / Register</a>
+                    <a href="{{ route('employer.job.create') }}" class="theme-btn btn-style-one">Post a Job</a>
+                </div>
+            @endguest
+
+            @auth
+                <!-- Saved Jobs (Only for Candidates) -->
+                @if(auth()->user()->user_type === 'candidate')
+                    <button class="menu-btn">
+                        <span class="count"></span>
+                        <span class="icon la la-heart-o"></span>
+                    </button>
+                @endif
+
+                <!-- Notifications -->
+                <button class="menu-btn">
+                    <span class="icon la la-bell"></span>
+                    <span class="count"></span>
+                </button>
+
+                <!-- Dashboard Option -->
+                <div class="dropdown dashboard-option">
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('/images/resource/company-6.png') }}" alt="avatar" class="thumb">
+                        <span class="name">{{ auth()->user()->name ?? 'My Account' }}</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        @if(auth()->user()->user_type === 'admin')
+                            <li class="active"><a href="{{ route('admin.dashboard') }}"><i class="la la-home"></i> Admin Dashboard</a></li>
+                            <li><a href="{{ route('admin.users') }}"><i class="la la-users"></i> Manage Users</a></li>
+                            <li><a href="{{ route('admin.jobs') }}"><i class="la la-briefcase"></i> Manage Job Posts</a></li>
+                            <li><a href="{{ route('admin.categories') }}"><i class="la la-tags"></i> Job Categories</a></li>
+                            <li><a href="{{ route('admin.payments') }}"><i class="la la-credit-card"></i> Payments</a></li>
+                            <li><a href="{{ route('admin.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
+                            <li><a href="{{ route('admin.settings') }}"><i class="la la-cogs"></i> Site Settings</a></li>
+                            <li><a href="{{ route('admin.password.change') }}"><i class="la la-lock"></i> Change Password</a></li>
+                            <li><a href="{{ route('admin.profile') }}"><i class="la la-user-alt"></i> View Profile</a></li>
+
+                        @elseif(auth()->user()->user_type === 'employer')
+                            <li class="active"><a href="{{ route('employer.dashboard') }}"><i class="la la-home"></i> Employer Dashboard</a></li>
+                            <li><a href="{{ route('employer.company.profile') }}"><i class="la la-user-tie"></i> Company Profile</a></li>
+                            <li><a href="{{ route('employer.job.create') }}"><i class="la la-paper-plane"></i> Post a New Job</a></li>
+                            <li><a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i> View Applicants</a></li>
+                            <li><a href="{{ route('employer.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
+                            <li><a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i> Resume Alerts</a></li>
+                            <li><a href="{{ route('employer.packages') }}"><i class="la la-box"></i> Packages</a></li>
+                            <li><a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a></li>
+
+                        @elseif(auth()->user()->user_type === 'candidate')
+                            <li class="active"><a href="{{ route('candidate.dashboard') }}"><i class="la la-home"></i> Candidate Dashboard</a></li>
+                            <li><a href="{{ route('candidate.jobs') }}"><i class="la la-briefcase"></i> View Jobs</a></li>
+                            <li><a href="{{ route('candidate.applications') }}"><i class="la la-file-invoice"></i> My Applications</a></li>
+                            <li><a href="{{ route('candidate.resumes') }}"><i class="la la-bookmark-o"></i> Saved Jobs</a></li>
+                            <li><a href="{{ route('candidate.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
+                            <li><a href="{{ route('candidate.profile') }}"><i class="la la-user-alt"></i> View Profile</a></li>
+                            <li><a href="{{ route('candidate.password.change') }}"><i class="la la-lock"></i> Change Password</a></li>
+                        @endif
+
+                        <!-- Logout -->
+                        <li>
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="la la-sign-out"></i> Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            @endauth
         </div>
     </div>
 
     <!-- Mobile Header -->
     <div class="mobile-header">
-        <div class="logo"><a href="{{ url('index.html') }}"><img src="{{ asset('/images/logo.svg') }}" alt="" title=""></a></div>
+        <div class="logo">
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('/images/logo.svg') }}" alt="Hirehub">
+            </a>
+        </div>
 
         <!--Nav Box-->
         <div class="nav-outer clearfix">
-
             <div class="outer-box">
-                <!-- Login/Register -->
-                <div class="login-box">
-                    <a href="{{ url('login-popup.html') }}" class="call-modal"><span class="icon-user"></span></a>
-                </div>
-
-                <a href="{{ url('#nav-mobile') }}" class="mobile-nav-toggler navbar-trigger"><span class="flaticon-menu-1"></span></a>
+                <button id="toggle-user-sidebar">
+                    <img src="{{ asset('/images/resource/company-6.png') }}" alt="avatar" class="thumb">
+                </button>
+                <a href="#" class="mobile-nav-toggler navbar-trigger">
+                    <span class="flaticon-menu-1"></span>
+                </a>
             </div>
         </div>
     </div>
@@ -243,4 +141,3 @@
     <!-- Mobile Nav -->
     <div id="nav-mobile"></div>
 </header>
-<!--End Main Header -->

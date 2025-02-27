@@ -25,7 +25,7 @@
         <div class="sidebar-backdrop"></div>
 
         <!-- Employer Sidebar -->
-        @include('employers.sidebar')
+        @include('layouts.sidebar')
 
         <!-- Employer Dashboard Content -->
         <section class="user-dashboard">

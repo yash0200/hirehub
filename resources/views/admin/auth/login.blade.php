@@ -38,13 +38,7 @@
                             <div class="logo"><a href="{{ url('/') }}"><img style="height: 55px;width: 152px;" src="{{ asset('images/hirehub-logo-3.svg') }}" alt="Hirehub Logo"></a></div>
                         </div>
                     </div>
-                    <div class="outer-box">
-                        <!-- Login/Register -->
-                        <div class="btn-box">
-                            <a href="{{ url('/register') }}" class="theme-btn btn-style-three">Register</a>
-                            <a href="{{ url('/post-job') }}" class="theme-btn btn-style-one"><span class="btn-title">Job Post</span></a>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -76,9 +70,9 @@
         <!-- Login Form -->
         <div class="login-form default-form">
           <div class="form-inner">
-            <h3>Login to Hirehub</h3>
+            <h3>Admin-Login</h3>
             <!--Login Form-->
-            <form method="post" action="{{ route('login') }}">
+            <form method="post" action="{{ route('admin.login') }}">
               @csrf
               <div class="form-group">
                 <label>Email</label>
@@ -89,6 +83,7 @@
                 <label>Password</label>
                 <input id="password-field" type="password" name="password" placeholder="Password">
               </div>
+              
 
               <div class="form-group">
                 <div class="field-outer">

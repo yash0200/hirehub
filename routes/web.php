@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Candidate\DashboardController as CandidateDashboard;
 use App\Http\Controllers\Candidate\JobController as CandidateJob;
 use App\Http\Controllers\Candidate\ResumeController;
-use App\Http\Controllers\Candidate\MessageController;
+use App\Http\Controllers\Employer\ResumeController as EmployerResume;
 use App\Http\Controllers\Candidate\ProfileController;
+use App\Http\Controllers\Candidate\MessageController;
 use App\Http\Controllers\Employer\DashboardController as EmployerDashboard;
 use App\Http\Controllers\Employer\JobController as EmployerJob;
 use App\Http\Controllers\Employer\ApplicantController;
@@ -71,12 +72,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employer/post-job', [EmployerJob::class, 'create'])->name('employer.job.create');
         Route::get('/employer/manage-jobs', [EmployerJob::class, 'manage'])->name('employer.job.manage');
         Route::get('/employer/applicants', [ApplicantController::class, 'index'])->name('employer.applicants');
-        Route::get('/employer/resumes', [ResumeController::class, 'shortlisted'])->name('employer.resumes');
+        Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
         Route::get('/employer/packages', [PackageController::class, 'index'])->name('employer.packages');
-        Route::get('/employer/messages', [MessageController::class, 'index'])->name('employer.messages');
-        Route::get('/employer/resume-alerts', [ResumeController::class, 'alerts'])->name('employer.resume.alerts');
-        Route::get('/employer/change-password', [ProfileController::class, 'changePassword'])->name('employer.password.change');
-        Route::get('/employer/delete-profile', [ProfileController::class, 'delete'])->name('employer.profile.delete');
+        Route::get('/employer/messages', [EmployerMessage::class, 'index'])->name('employer.messages');
+        Route::get('/employer/resume-alerts', [EmployerResume::class, 'alerts'])->name('employer.resume.alerts');
+        Route::get('/employer/change-password', [EmployerProfile::class, 'changePassword'])->name('employer.password.change');
+        Route::get('/employer/delete-profile', [EmployerProfile::class, 'delete'])->name('employer.profile.delete');
     });
 });
 

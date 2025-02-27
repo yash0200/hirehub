@@ -16,8 +16,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || !session()->has('admin_logged_in')) {
-            return redirect('/admin/login')->with('error', 'Access Denied!');
+        if (!Auth::check() || !Auth::user()->is_admin) {
+            return redirect('/login')->with('error', 'Access Denied!');
         }
 
         return $next($request);

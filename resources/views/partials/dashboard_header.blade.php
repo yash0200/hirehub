@@ -95,9 +95,10 @@
                             </div>
                         </div>
                     </li>
-
+                    
                     @auth
-                    @if(auth()->user()->user_type === 'admin')
+                    @if(auth()->user()->name === 'admin')
+                    
                     <li><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
                     <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
                     <li><a href="{{ route('admin.settings') }}">Settings</a></li>
@@ -108,6 +109,7 @@
                     <li><a href="{{ route('candidate.applications') }}">My Applications</a></li>
 
                     @elseif(auth()->user()->user_type === 'employer')
+                   
                     <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
                     @endif
                     @endauth
@@ -156,7 +158,7 @@
                     <li><a href="{{ route('admin.jobs') }}"><i class="la la-briefcase"></i> Manage Job Posts</a></li>
                     <li><a href="{{ route('admin.categories') }}"><i class="la la-tags"></i> Job Categories</a></li>
                     <li><a href="{{ route('admin.payments') }}"><i class="la la-credit-card"></i> Payments</a></li>
-                    <li><a href="{{ route('admin.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
+                    <li><a href="{{ route('admin.payments') }}"><i class="la la-comment-o"></i> Messages</a></li>
                     <li><a href="{{ route('admin.settings') }}"><i class="la la-cogs"></i> Site Settings</a></li>
                     <li><a href="{{ route('admin.password.change') }}"><i class="la la-lock"></i> Change Password</a></li>
                     <li><a href="{{ route('admin.profile') }}"><i class="la la-user-alt"></i> View Profile</a></li>

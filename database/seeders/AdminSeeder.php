@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\hash;
 
 class AdminSeeder extends Seeder
@@ -14,11 +14,13 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::updateOrCreate(
-            ['email' => 'admin@gmail.com'],
+        User::updateOrCreate(
+            ['email' => 'admin@gmail.com'], // Check if this email exists
             [
                 'name' => 'Admin',
                 'password' => Hash::make('admin123'),
+                'user_type' => 'admin', // Optional if you're using user_type
+                'is_admin' => true, // Mark as admin
             ]
         );
     }

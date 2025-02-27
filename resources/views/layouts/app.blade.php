@@ -16,12 +16,9 @@
 
     <div class="page-wrapper">
         @include('partials.header')
-       
-
         <main>
             @yield('content')
         </main>
-
         @include('partials.footer')
     </div>
 

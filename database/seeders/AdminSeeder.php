@@ -15,11 +15,12 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@gmail.com'],
+            ['email' => 'admin@gmail.com'], // Check if this email exists
             [
-                'name' => 'Admin User',
+                'name' => 'Admin',
                 'password' => Hash::make('admin123'),
-                'user_type' => 'admin',
+                'user_type' => 'admin', // Optional if you're using user_type
+                'is_admin' => true, // Mark as admin
             ]
         );
     }

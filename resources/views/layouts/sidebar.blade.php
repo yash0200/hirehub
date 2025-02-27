@@ -3,9 +3,9 @@
         <ul class="navigation">
             @if(auth()->user()->user_type === 'candidate')
             <li class="active"><a href="{{ route('candidate.dashboard') }}"> <i class="la la-home"></i> Dashboard</a></li>
-            <li><a href="{{ route('candidate.jobs') }}"><i class="la la-briefcase"></i> View Jobs</a></li>
-            <li><a href="{{ route('candidate.applications') }}"><i class="la la-file-invoice"></i> My Applications</a></li>
-            <li><a href="{{ route('candidate.resumes') }}"><i class="la la-bookmark-o"></i> My Resumes</a></li>
+            <li><a href="{{ route('candidate.appliedjobs') }}"><i class="la la-briefcase"></i> Applied Jobs</a></li>
+            <li><a href="{{ route('candidate.resumes') }}"><i class="la la-file-invoice"></i> My Resume</a></li>
+            <li><a href="{{ route('candidate.shortlist') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
             <li><a href="{{ route('candidate.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
             <li><a href="{{ route('candidate.profile') }}"><i class="la la-user-alt"></i> Profile</a></li>
             <li><a href="{{ route('candidate.password.change') }}"><i class="la la-lock"></i> Change Password</a></li>

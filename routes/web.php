@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Candidate\AppliedJobsController;
+use App\Http\Controllers\Candidate\ShortlistJobsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Candidate\DashboardController as CandidateDashboard;
 use App\Http\Controllers\Candidate\JobController as CandidateJob;
@@ -58,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/profile', [ProfileController::class, 'index'])->name('candidate.profile');
         Route::get('/candidate/change-password', [ProfileController::class, 'changePassword'])->name('candidate.password.change');
         Route::get('/candidate/delete-profile', [ProfileController::class, 'delete'])->name('candidate.profile.delete');
+        Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
+        Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'shortlistJobs'])->name('candidate.shortlist');
+        
     });
 
     /** ================== Employer Routes ================== */

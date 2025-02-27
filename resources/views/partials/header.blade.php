@@ -14,9 +14,87 @@
 
             <nav class="nav main-menu">
                 <ul class="navigation" id="navbar">
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                    <li><a href="{{ route('jobs.list') }}">Jobs</a></li>
-                    <li><a href="{{ route('employers.list') }}">Companies</a></li>
+                <li><a href="{{ url('/') }}">Home</a></li>
+                    <li class="dropdown has-mega-menu" id="has-mega-menu">
+                        <span><a href="{{ url('/jobs') }}">Jobs</a></span>
+                        <div class="mega-menu">
+                            <div class="mega-menu-bar row">
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Popular categories</h3>
+                                    <ul>
+                                        <li><a href="{{ url('job-list-v1.html') }}">It jobs</a></li>
+                                        <li><a href="{{ url('job-list-v2.html') }}">Sales jobs</a></li>
+                                        <li><a href="{{ url('job-list-v3.html') }}">Marketing jobs</a></li>
+                                        <li><a href="{{ url('job-list-v4.html') }}">Data Sciencejobs</a></li>
+                                        <li><a href="{{ url('job-list-v5.html') }}">HR jobs</a></li>
+                                        <li><a href="{{ url('job-list-v5.html') }}">Engineering jobs</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Jobs in demand</h3>
+                                    <ul>
+                                        <li><a href="{{ url('job-list-v6.html') }}">Fresher jobs</a></li>
+                                        <li><a href="{{ url('job-list-v7.html') }}">MNC jobs</a></li>
+                                        <li><a href="{{ url('job-list-v8.html') }}">Work from home jobs</a></li>
+                                        <li><a href="{{ url('job-list-v9.html') }}">Walk-in jobs</a></li>
+                                        <li><a href="{{ url('job-list-v10.html') }}">Part-time jobs</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Jobs by location</h3>
+                                    <ul>
+                                        <li><a href="{{ url('job-list-v11.html') }}">Jobs in Delhi</a></li>
+                                        <li><a href="{{ url('job-list-v12.html') }}">Jobs in Mumbai</a></li>
+                                        <li><a href="{{ url('job-list-v13.html') }}">Jobs in Bangalore</a></li>
+                                        <li><a href="{{ url('job-list-v14.html') }}">Jobs in Hyderabad</a></li>
+                                        <li><a href="{{ url('job-list-v15.html') }}">Jobs in Chennai</a></li>
+                                        <li><a href="{{ url('job-list-v16.html') }}">Jobs in Pune</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="dropdown has-mega-menu" id="has-mega-menu">
+                        <span><a href="{{ url('/companies') }}">Companies</a></span>
+                        <div class="mega-menu">
+                            <div class="mega-menu-bar row">
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Explore categories</h3>
+                                    <ul>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Unicorn</a></li>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">MNC</a></li>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Startup</a></li>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Product Based</a></li>
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Internet</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Explore collections</h3>
+                                    <ul>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Top companies</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">IT companies</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Fintech companies</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Sponsored companies</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Featured companies</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="column col-lg-3 col-md-3 col-sm-12">
+                                    <h3>Research companies</h3>
+                                    <ul>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Interview questions</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Company salaries</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Company reviews</a></li>
+                                        <li><a href="{{ url('compines-single-v1.html') }}">Salary calculator</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
 
                     @auth
                         @if(auth()->user()->user_type === 'admin')

@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class ResumeController extends Controller
 {
-    //
+    public function shortlisted()
+    {
+        return view('candidates.candidates_myresume');
+    }
 }

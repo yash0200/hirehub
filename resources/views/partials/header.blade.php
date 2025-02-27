@@ -49,6 +49,7 @@
             @endguest
 
             @auth
+               
                 <!-- Saved Jobs (Only for Candidates) -->
                 @if(auth()->user()->user_type === 'candidate')
                     <button class="menu-btn">

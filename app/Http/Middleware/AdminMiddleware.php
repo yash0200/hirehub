@@ -16,10 +16,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admin')->check()) {
-            return $next($request);
+        if (!Auth::check() || !session()->has('admin_logged_in')) {
+            return redirect('/admin/login')->with('error', 'Access Denied!');
         }
 
-        return redirect('/admin/login')->with('error', 'Unauthorized access.');
+        return $next($request);
     }
 }

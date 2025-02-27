@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Models\Admin;
 
 class AuthController extends Controller
 {
@@ -21,19 +22,21 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            session(['admin_logged_in' => true]);
-            
+        $admin = Admin::where('email', $request->email)->first();
+
+        if ($admin && password_verify($request->password, $admin->password)) {
+            Auth::login($admin); // Use Auth without guard
+            session(['admin_logged_in' => true]); // Set session
             return redirect()->route('admin.dashboard');
         }
-        dd($request);
+
         return back()->withErrors(['email' => 'Invalid credentials']);
     }
 
     public function logout()
     {
+        Auth::logout();
         session()->forget('admin_logged_in');
-        Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
     }
 }

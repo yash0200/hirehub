@@ -19,8 +19,8 @@ Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('admi
 Route::post('/admin/login', [AuthController::class, 'login']);
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
-// Admin Dashboard (Protected)
-Route::middleware(['auth:admin'])->group(function () {
+// Admin Dashboard & Protected Routes
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/admin/manage-users', [UserController::class, 'index'])->name('admin.users');

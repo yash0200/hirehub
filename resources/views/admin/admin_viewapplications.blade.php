@@ -33,7 +33,7 @@
                     <h4>Applicants</h4>
 
                     <div class="chosen-outer">
-                        <form method="get" class="default-form form-inline" action="https://superio.bookingcore.co/user/applicants">
+                        <form method="get" class="default-form form-inline" action="">
                             <!--Tabs Box-->
 
                             <a href="{{ url("../html/export.html") }}" target="_blank" title="Export to excel" class="theme-btn btn-style-two mr-1">Export</a>
@@ -62,7 +62,7 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                            
                                                                 <tr>
                                     <td colspan="7">No data</td>
                                 </tr>

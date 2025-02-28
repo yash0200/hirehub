@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-md-3 text-right">
-                <a class="theme-btn btn-style-one" href="{{ url("../html/new-job.html") }}">Add new category</a>
+                <a class="theme-btn btn-style-one" href="{{route('admin.categories.create') }}">Add new category</a>
             </div>
         </div>
         <div class="row">
@@ -64,7 +64,7 @@
                                             <td>London</td>
                                             <td>02/10/2025</td>
                                             <td><span class="badge badge-publish">publish</span></td>
-                                            
+
                                             <td>
                                                 <div class="option-box">
                                                     <ul class="option-list">

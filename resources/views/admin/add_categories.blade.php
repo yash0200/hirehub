@@ -6,6 +6,7 @@
 <!-- Sidebar Backdrop -->
 <div class="sidebar-backdrop"></div>
 
+
 <div class="user-dashboard bc-user-dashboard">
     <div class="dashboard-outer">
         <a href="{{ url("../html/javascript:void(0).html") }}" class="mobile-sidebar-btn hidden-lg hidden-md">
@@ -26,8 +27,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="row">
                 <div class="col-xl-9">
                     <!-- Ls widget -->
@@ -62,9 +61,37 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
+                <div class="col-xl-3">
+        <!-- Ls widget -->
+        <div class="ls-widget">
+            <div class="tabs-box">
+                <div class="widget-title">
+                    <h4>Publish</h4>
+                </div>
+                <div class="widget-content pb-4">
+                    <div>
+                        <label><input checked type="radio" name="status" value="publish"> Publish</label>
+                    </div>
+                    <div>
+                        <label><input type="radio" name="status" value="draft"> Draft</label>
+                    </div>
+                    <div class="text-right">
+                        <button class="theme-btn btn-style-one" type="submit"><i class="fa fa-save" style="padding-right: 5px"> </i>Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+            <div class="mb-4 d-none d-md-block">
+                <button class="theme-btn btn-style-one" type="submit"><i class="fa fa-save" style="padding-right: 5px"></i>
+                    Save Changes</button>
             </div>
         </form>
     </div>
+    
 </div>
+
 @endsection

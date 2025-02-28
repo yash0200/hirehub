@@ -12,4 +12,9 @@ class CategoryController extends Controller
         return view('admin.categories');
        
     }
+    public function create()
+    {
+        return view('admin.add_categories');
+       
+    }
 }

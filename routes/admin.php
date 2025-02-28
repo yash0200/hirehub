@@ -27,6 +27,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/manage-employers', [EmployerController::class, 'index'])->name('admin.employers');
     Route::get('/admin/manage-job-posts', [JobController::class, 'index'])->name('admin.jobs');
     Route::get('/admin/manage-categories', [CategoryController::class, 'index'])->name('admin.categories');
+    Route::get('/admin/add-categories', [CategoryController::class, 'create'])->name('admin.categories.create');
     Route::get('/admin/manage-applications', [ApplicationController::class, 'index'])->name('admin.applications');
     Route::get('/admin/manage-payments', [PaymentController::class, 'index'])->name('admin.payments');
     Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications');

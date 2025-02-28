@@ -33,6 +33,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/manage-users/{id}', [UserController::class, 'update'])->name('admin.users.update'); // Update user
     Route::patch('/admin/manage-users/{id}/status', [UserController::class, 'updateStatus'])->name('admin.users.status'); // Update user status
     Route::delete('/admin/manage-users/{id}', [UserController::class, 'destroy'])->name('admin.users.delete'); // Delete user
+    Route::get('/admin/manage-users/candidate/{id}', [UserController::class, 'showCandidate'])->name('admin.users.candidate.view');
+    Route::get('/admin/manage-users/employer/{id}', [UserController::class, 'showEmployer'])->name('admin.users.employer.view');
+
 
     /**========================Mange emoloyers routes ============================= */
 

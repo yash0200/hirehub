@@ -3,6 +3,7 @@
 @section('title', 'Manage User')
 
 @section('content')
+
 <div class="sidebar-backdrop"></div>
 
 <div class="user-dashboard bc-user-dashboard">
@@ -42,7 +43,7 @@
                                             <input type="text" name="s" value="" placeholder="Search by name" class="form-control">
                                         </div>
                                         <div class="col-lg-6">
-                                        <button type="submit" class="theme-btn btn-style-one">Search</button>
+                                            <button type="submit" class="theme-btn btn-style-one">Search</button>
                                         </div>
                                     </div>
                                 </form>
@@ -83,9 +84,15 @@
                                                     <ul class="option-list">
                                                         <!-- View Profile -->
                                                         <li>
-                                                            <a href="{{ route('admin.users.view', $user->id) }}" target="_blank" data-text="View Profile">
+                                                            @if($user->user_type === 'candidate')
+                                                            <a href="{{ route('admin.users.candidate.view', $user->id) }}" target="_blank" data-text="View Candidate Profile">
                                                                 <span class="la la-eye"></span>
                                                             </a>
+                                                            @elseif($user->user_type === 'employer')
+                                                            <a href="{{ route('admin.users.employer.view', $user->id) }}" target="_blank" data-text="View Employer Profile">
+                                                                <span class="la la-eye"></span>
+                                                            </a>
+                                                            @endif
                                                         </li>
 
                                                         <!-- Edit User -->

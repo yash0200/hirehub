@@ -21,6 +21,18 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('admin.admin_viewuser', compact('user'));
     }
+    public function showCandidate($id)
+    {
+        $candidate = User::where('id', $id)->where('user_type', 'candidate')->firstOrFail();
+        return view('admin.candidate_profile', compact('candidate'));
+    }
+
+    public function showEmployer($id)
+    {
+        $employer = User::where('id', $id)->where('user_type', 'employer')->firstOrFail();
+        return view('admin.employer_profile', compact('employer'));
+    }
+
 
     // Edit user
     public function edit($id)
@@ -35,7 +47,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'user_type' => 'required|string',
         ]);
 

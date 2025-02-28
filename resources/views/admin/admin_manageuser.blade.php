@@ -36,7 +36,7 @@
                             <h4>Manage Users</h4>
 
                             <div class="chosen-outer">
-                                <form method="get" class="default-form form-inline" action="">
+                            <form method="get" class="default-form form-inline" action="">
                                     <!--Tabs Box-->
                                     <div class="row">
                                         <div class="form-group mb-0 mr-2 col-lg-6">

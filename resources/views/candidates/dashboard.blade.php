@@ -7,7 +7,7 @@
 <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>Howdy, Jerome!!</h3>
+          <h3>Welcome, {{auth()->user()->name}}!!</h3>
           <div class="text">Ready to jump back in?</div>
         </div>
         <div class="row">

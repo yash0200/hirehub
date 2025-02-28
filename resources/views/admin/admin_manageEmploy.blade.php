@@ -33,15 +33,18 @@
                                 <h4>Manage Employers</h4>
 
                                 <div class="chosen-outer">
-                                    <form method="get" class="default-form form-inline"
-                                        action="https://superio.bookingcore.co/user/manage-jobs">
-                                        <!-- Tabs Box -->
-                                        <div class="form-group mb-0 mr-2">
-                                            <input type="text" name="s" value="" placeholder="Search by name"
-                                                class="form-control">
+                                <form method="get" class="default-form form-inline" action="">
+                                    <!--Tabs Box-->
+                                    <div class="row">
+                                        <div class="form-group mb-0 mr-2 col-lg-6">
+                                            <input type="text" name="s" value="" placeholder="Search by name" class="form-control">
                                         </div>
-                                        <button type="submit" class="theme-btn btn-style-one">Search</button>
-                                    </form>
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="theme-btn btn-style-one">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+
                                 </div>
                             </div>
                             <div class="widget-content">
@@ -49,42 +52,89 @@
                                     <table class="default-table manage-job-table">
                                         <thead>
                                             <tr>
-                                                <th>Title</th>
-                                                <th width="200px">Location</th>
-                                                <th width="150px">Category</th>
+                                                <th>ID</th>
+                                                <th width="200px">Name</th>
+                                                <th width="150px">Email</th>
+                                                <th width="100px">Register Date</th>
                                                 <th width="100px">Status</th>
-                                                <th width="100px">Date</th>
-                                                <th width="160px"></th>
+                                                <th width="160px">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
-                                            <tr class="publish">
-                                                <td class="title">
-                                                    <a href="{{ url("../html/15.html") }}">Test</a>
-                                                </td>
-                                                <td>London</td>
-                                                <td>Development</td>
-                                                <td><span class="badge badge-publish">publish</span></td>
-                                                <td>02/10/2025</td>
-                                                <td>
-                                                    <div class="option-box">
-                                                        <ul class="option-list">
-                                                            <li><a href="{{ url("../html/test-1.html") }}" target="_blank"
-                                                                    data-text="View Job"><span class="la la-eye"></span></a>
-                                                            </li>
-                                                            <li><a href="{{ url("../html/15.html") }}"
-                                                                    data-text="Edit Job"><span
-                                                                        class="la la-pencil"></span></a></li>
-                                                            <li><a href="{{ url("../html/15.html") }}"
-                                                                    data-text="Delete Job" class="bc-delete-item"
-                                                                    data-confirm="Do you want to delete?"><span
-                                                                        class="la la-trash"></span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        @foreach($employers as $employer)
+                                        <tr class="publish">
+                                            <td class="title">
+                                                <a href="{{ route('admin.users.view', $employer->id) }}">{{ $employer->id }}</a>
+                                            </td>
+                                            <td>{{ $employer->name }}</td>
+                                            <td>{{ $employer->email }}</td>
+                                            <td>{{ $employer->created_at }}</td>
+                                            <td>
+                                                <span class=" @if($employer->status === 'active') badge-success 
+                                                    @elseif($employer->status === 'inactive') badge-warning 
+                                                    @else badge-danger 
+                                                    @endif">{{ ucfirst($employer->status) }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="option-box">
+                                                    <ul class="option-list">
+                                                        <!-- View Profile -->
+                                                        <li>
+                                                            @if($employer->user_type === 'candidate')
+                                                            <a href="{{ route('admin.users.candidate.view', $employer->id) }}" target="_blank" data-text="View Candidate Profile">
+                                                                <span class="la la-eye"></span>
+                                                            </a>
+                                                            @elseif($employer->user_type === 'employer')
+                                                            <a href="{{ route('admin.users.employer.view', $employer->id) }}" target="_blank" data-text="View Employer Profile">
+                                                                <span class="la la-eye"></span>
+                                                            </a>
+                                                            @endif
+                                                        </li>
 
+                                                        <!-- Edit User -->
+                                                        <li>
+                                                            <a href="{{ route('admin.users.edit', $employer->id) }}" data-text="Edit User">
+                                                                <span class="la la-pencil"></span>
+                                                            </a>
+                                                        </li>
+
+
+
+                                                        <!-- Delete User -->
+                                                        <li>
+                                                            <form action="{{ route('admin.users.delete', $employer->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employer?');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="bc-delete-item" data-text="Delete User">
+                                                                    <span class="la la-trash"></span>
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        <!-- Change User Status -->
+                                                        <li>
+                                                            <form action="{{ route('admin.users.status', $employer->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+
+                                                                <details>
+                                                                    <summary style="cursor: pointer; display: inline-flex; align-items: center;">
+                                                                        <span class="la la-exchange-alt"></span> <!-- Clickable Icon -->
+                                                                    </summary>
+                                                                    <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                                                                        <option value="active" {{ $employer->status == 'active' ? 'selected' : '' }}>Active</option>
+                                                                        <option value="inactive" {{ $employer->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                                                        <option value="suspended" {{ $employer->status == 'suspended' ? 'selected' : '' }}>Suspended</option>
+                                                                    </select>
+                                                                </details>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>

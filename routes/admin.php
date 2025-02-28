@@ -16,6 +16,9 @@ use App\Http\Controllers\Admin\AuthController;
 
 // Admin Login Routes
 Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('admin.login');
+Route::get('/admin', [AuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin', [AuthController::class, 'login'])->name('admin.login');
+
 Route::post('/admin/login', [AuthController::class, 'login']);
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
@@ -23,7 +26,16 @@ Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.log
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/admin/manage-users', [UserController::class, 'index'])->name('admin.users');
+    /**========================Mange user routes ============================= */
+    Route::get('/admin/manage-users', [UserController::class, 'index'])->name('admin.users'); // View all users
+    Route::get('/admin/manage-users/{id}', [UserController::class, 'show'])->name('admin.users.view'); // View user
+    Route::get('/admin/manage-users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit'); // Edit user
+    Route::put('/admin/manage-users/{id}', [UserController::class, 'update'])->name('admin.users.update'); // Update user
+    Route::patch('/admin/manage-users/{id}/status', [UserController::class, 'updateStatus'])->name('admin.users.status'); // Update user status
+    Route::delete('/admin/manage-users/{id}', [UserController::class, 'destroy'])->name('admin.users.delete'); // Delete user
+
+    /**========================Mange emoloyers routes ============================= */
+
     Route::get('/admin/manage-employers', [EmployerController::class, 'index'])->name('admin.employers');
     Route::get('/admin/manage-job-posts', [JobController::class, 'index'])->name('admin.jobs');
     Route::get('/admin/manage-categories', [CategoryController::class, 'index'])->name('admin.categories');

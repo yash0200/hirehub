@@ -24,7 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'user_type',
-        'is_admin'
+        'is_admin',
+        'status'
     ];
     public function employer(): HasOne
     {

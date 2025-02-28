@@ -41,8 +41,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/manage-employers', [EmployerController::class, 'index'])->name('admin.employers');
     Route::get('/admin/manage-job-posts', [JobController::class, 'index'])->name('admin.jobs');
+
+        /**========================Manange categories routes ============================= */
+
     Route::get('/admin/manage-categories', [CategoryController::class, 'index'])->name('admin.categories');
-    Route::get('/admin/add-categories', [CategoryController::class, 'create'])->name('admin.categories.create');
+    Route::get('/admin/add-categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
+    Route::post('/admin/store-category', [CategoryController::class, 'store'])->name('admin.categories.store');
+    Route::delete('/delete-category/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.delete');
+    Route::post('/change-category-status/{category}', [CategoryController::class, 'changeStatus'])->name('admin.categories.changeStatus');
+
     Route::get('/admin/manage-applications', [ApplicationController::class, 'index'])->name('admin.applications');
     Route::get('/admin/manage-payments', [PaymentController::class, 'index'])->name('admin.payments');
     Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications');

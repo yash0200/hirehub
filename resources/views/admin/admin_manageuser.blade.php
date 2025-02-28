@@ -58,7 +58,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>User_type</th>
+                                            <th>Register Date</th>
                                             <th>Status</th>
                                             <th>Operations</th>
                                         </tr>
@@ -71,7 +71,7 @@
                                             </td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ ucfirst($user->user_type) }}</td>
+                                            <td>{{ $user->created_at }}</td>
                                             <td>
                                                 <span class=" @if($user->status === 'active') badge-success 
                                                     @elseif($user->status === 'inactive') badge-warning 

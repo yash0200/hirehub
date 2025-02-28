@@ -11,7 +11,7 @@ class UserController extends Controller
     // Display all users except admin
     public function index()
     {
-        $users = User::where('is_admin', false)->get();
+        $users = User::where('is_admin', false)->where('user_type','candidate')->get();
         return view('admin.admin_manageuser', compact('users'));
     }
 

@@ -5,7 +5,7 @@ use App\Http\Controllers\Candidate\ShortlistJobsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Candidate\DashboardController as CandidateDashboard;
 use App\Http\Controllers\Candidate\JobController as CandidateJob;
-use App\Http\Controllers\Candidate\ResumeController;
+use App\Http\Controllers\Candidate\CandidateResumeController;
 use App\Http\Controllers\Employer\ResumeController as EmployerResume;
 use App\Http\Controllers\Candidate\ProfileController;
 use App\Http\Controllers\Candidate\MessageController;
@@ -23,6 +23,7 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\JobCategoryController;
 
 use App\Http\Controllers\Common\HomeController;
+use App\Models\Candidate;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/profile', [ProfileController::class, 'index'])->name('candidate.profile');
         Route::get('/candidate/jobs', [CandidateJob::class, 'index'])->name('candidate.jobs');
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
-        Route::get('/candidate/resumes', [ResumeController::class, 'shortlisted'])->name('candidate.resumes');
+        Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
+        Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
+        
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
         Route::get('/candidate/change-password', [ProfileController::class, 'changePassword'])->name('candidate.password.change');
         Route::get('/candidate/delete-profile', [ProfileController::class, 'delete'])->name('candidate.profile.delete');

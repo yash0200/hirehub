@@ -10,8 +10,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Employer extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'user_id', 'company_name', 'industry', 'location', 'website', 'logo', 'description'
+        'user_id',
+        'company_name',
+        'industry',
+        'location',
+        'website',
+        'logo',
+        'cover_image', // Added Cover Image
+        'description',
+        'phone', // Added Phone Number
+        'company_size', // Added Company Size
+        'established_year', // Added Established Year
+        'facebook', // Added Social Media Links
+        'twitter',
+        'linkedin',
+        'country', // Added Address Fields
+        'state',
+        'city',
+        'address'
     ];
 
     public function user()

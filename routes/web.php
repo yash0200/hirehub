@@ -67,7 +67,13 @@ Route::middleware(['auth'])->group(function () {
     /** ================== Employer Routes ================== */
     Route::middleware(['employer'])->group(function () {
         Route::get('/employer-dashboard', [EmployerDashboard::class, 'index'])->name('employer.dashboard');
+
+        /** ================== Profile Routes ================== */
         Route::get('/employer/company-profile', [CompanyProfileController::class, 'index'])->name('employer.company.profile');
+        Route::post('/employer/company-profile/update', [CompanyProfileController::class, 'update'])->name('employer.company.profile.update');
+
+        
+        
         Route::get('/employer/post-job', [EmployerJob::class, 'create'])->name('employer.job.create');
         Route::get('/employer/manage-jobs', [EmployerJob::class, 'manage'])->name('employer.job.manage');
         Route::get('/employer/applicants', [ApplicantController::class, 'index'])->name('employer.applicants');

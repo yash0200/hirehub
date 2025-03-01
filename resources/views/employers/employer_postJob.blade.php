@@ -202,40 +202,7 @@
                                             placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia.">
                                     </div>
 
-                                    <!-- Input -->
-                                    <div class="form-group col-lg-6 col-md-12">
-                                        <label>Find On Map</label>
-                                        <input type="text" name="name"
-                                            placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia.">
-                                    </div>
-
-                                    <!-- Input -->
-                                    <div class="form-group col-lg-3 col-md-12">
-                                        <label>Latitude</label>
-                                        <input type="text" name="name" placeholder="Melbourne">
-                                    </div>
-
-                                    <!-- Input -->
-                                    <div class="form-group col-lg-3 col-md-12">
-                                        <label>Longitude</label>
-                                        <input type="text" name="name" placeholder="Melbourne">
-                                    </div>
-
-                                    <!-- Input -->
-                                    <div class="form-group col-lg-12 col-md-12">
-                                        <button class="theme-btn btn-style-three">Search Location</button>
-                                    </div>
-
-
-                                    <div class="form-group col-lg-12 col-md-12">
-                                        <div class="map-outer">
-                                            <div class="map-canvas map-height" data-zoom="12" data-lat="-37.817085"
-                                                data-lng="144.955631" data-type="roadmap" data-hue="#ffc400"
-                                                data-title="Envato" data-icon-path="images/resource/map-marker.png"
-                                                data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
 
                                     <!-- Input -->
                                     <div class="form-group col-lg-12 col-md-12 text-right">

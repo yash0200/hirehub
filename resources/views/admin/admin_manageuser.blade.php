@@ -19,9 +19,9 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
             </div>
-            <div class="col-md-3 text-right">
+            <!-- <div class="col-md-3 text-right">
                 <a class="theme-btn btn-style-one" href="{{ url("../html/new-job.html") }}">Add new job</a>
-            </div>
+            </div> -->
         </div>
         <div class="row">
             <div class="col-lg-12">

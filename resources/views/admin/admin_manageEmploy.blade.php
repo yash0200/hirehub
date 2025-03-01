@@ -8,9 +8,9 @@
 
     <div class="user-dashboard bc-user-dashboard">
         <div class="dashboard-outer">
-            <a href="{{ url("../html/javascript:void(0).html") }}" class="mobile-sidebar-btn hidden-lg hidden-md">
+            <!-- <a href="{{ url("../html/javascript:void(0).html") }}" class="mobile-sidebar-btn hidden-lg hidden-md">
                 <i class="fa fa-bars"></i> Show Sidebar
-            </a>
+            </a> -->
             <div class="mobile-sidebar-panel-overlay"></div>
 
             <div class="row">
@@ -20,9 +20,9 @@
                         <div class="text">Ready to jump back in?</div>
                     </div>
                 </div>
-                <div class="col-md-3 text-right">
+                <!-- <div class="col-md-3 text-right">
                     <a class="theme-btn btn-style-one" href="{{ url("../html/new-job.html") }}">Add new job</a>
-                </div>
+                </div> -->
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -53,11 +53,11 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th width="200px">Name</th>
-                                                <th width="150px">Email</th>
-                                                <th width="100px">Register Date</th>
-                                                <th width="100px">Status</th>
-                                                <th width="160px">Operations</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Register Date</th>
+                                                <th>Status</th>
+                                                <th>Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -1149,7 +1149,7 @@ input:checked + .slider:before {
 }
 
 .chosen-container-multi .chosen-choices li.search-choice .search-choice-close:before {
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 6 pro';
   font-weight: 900;
   top: 3px;
   color: #1967d2;

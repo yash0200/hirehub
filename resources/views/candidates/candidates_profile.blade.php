@@ -303,12 +303,12 @@
                       </div> -->
 
 
-                      <div class="form-group col-lg-12 col-md-12">
+                      <!-- <div class="form-group col-lg-12 col-md-12">
                         <div class="map-outer">
                           <div class="map-canvas map-height" data-zoom="12" data-lat="-37.817085" data-lng="144.955631" data-type="roadmap" data-hue="#ffc400" data-title="Envato" data-icon-path="images/resource/map-marker.png" data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12">

@@ -24,7 +24,7 @@
                   <div class="uploading-outer">
                     <div class="uploadButton">
                       <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
-                      <label class="uploadButton-button ripple-effect" for="upload">Browse Logo</label>
+                      <label class="uploadButton-button ripple-effect" for="upload">Browse Image</label>
                       <span class="uploadButton-file-name"></span>
                     </div>
                     <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
@@ -47,14 +47,35 @@
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Phone</label>
-                        <input type="text" name="name" placeholder="0 123 456 7890">
+                        <input type="text" name="name" placeholder="+91 9999999999">
                       </div>
 
+
+
                       <!-- Input -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Email address</label>
-                        <input type="text" name="name" placeholder="creativelayers">
-                      </div>
+                      <div class="form-group col-lg-6 col-md-12"> 
+                        <label>Date Of Birth</label>
+                        <input type="text" id="dob" name="dob" placeholder="DD/MM/YYYY" maxlength="10" oninput="validateDate(this)">
+                        <small id="error-message" style="color: red; display: none;">Enter a valid date (DD/MM/YYYY)</small>
+                    </div>
+
+                    <script>
+                    function validateDate(input) {
+                        let value = input.value.replace(/[^0-9/]/g, ''); // Allow only numbers and slashes
+                        input.value = value;
+                        
+                        let datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/; // DD/MM/YYYY format
+                        let errorMessage = document.getElementById("error-message");
+                        
+                        if (value.length === 10 && !datePattern.test(value)) {
+                            errorMessage.style.display = "inline"; // Show error if invalid
+                        } else {
+                            errorMessage.style.display = "none"; // Hide error if valid
+                        }
+                    }
+                    </script>
+
+
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
@@ -64,32 +85,27 @@
 
                       <!-- Input -->
                       <div class="form-group col-lg-3 col-md-12">
-                        <label>Current Salary($)</label>
+                        <label>Gender</label>
                         <select class="chosen-select">
-                          <option>40-70 K</option>
-                          <option>50-80 K</option>
-                          <option>60-90 K</option>
-                          <option>70-100 K</option>
-                          <option>100-150 K</option>
+                          <option>Male</option>
+                          <option>Female</option>
                         </select>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-3 col-md-12">
-                        <label>Expected Salary($)</label>
+                        <label>Marital Status</label>
                         <select class="chosen-select">
-                          <option>120-350 K</option>
-                          <option>40-70 K</option>
-                          <option>50-80 K</option>
-                          <option>60-90 K</option>
-                          <option>70-100 K</option>
-                          <option>100-150 K</option>
+                          <option>Single</option>
+                          <option>Married</option>
+                          <option>Divorced</option>
+                          <option>Widowed</option>
                         </select>
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>Experience</label>
+                        <label>Work Experience</label>
                         <input type="text" name="name" placeholder="5-10 Years">
                       </div>
 
@@ -172,19 +188,19 @@
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Twitter</label>
-                        <input type="text" name="name" placeholder="">
+                        <input type="text" name="name" placeholder="www.x.com">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Linkedin</label>
-                        <input type="text" name="name" placeholder="">
+                        <input type="text" name="name" placeholder="www.linkedin.com">
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>Google Plus</label>
-                        <input type="text" name="name" placeholder="">
+                        <input type="text" name="name" placeholder="www.googleplus.com">
                       </div>
 
                       <!-- Input -->
@@ -209,56 +225,82 @@
                     <div class="row">
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
-                        <label>Country</label>
-                        <select class="chosen-select">
+                        <label>Nationality</label>
+                        <input type="text" name="name" placeholder="Indian...">
+                        <!-- <select class="chosen-select">
                           <option>Australia</option>
                           <option>Pakistan</option>
                           <option>Chaina</option>
                           <option>Japan</option>
                           <option>India</option>
-                        </select>
+                        </select> -->
+                      </div>
+
+                      <div class="form-group col-lg-6 col-md-12">
+                        <label>State</label>
+                        <input type="text" name="name" placeholder="Gujarat...">
+                        <!-- <select class="chosen-select">
+                          <option>Victoria</option>
+                          <option>Queensland</option>
+                          <option>New South Wales</option>
+                          <option>South Australia</option>
+                          <option>Northan Territory</option>
+                        </select> -->
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-6 col-md-12">
                         <label>City</label>
-                        <select class="chosen-select">
+                        <input type="text" name="name" placeholder="Surat...">
+                        <!-- <select class="chosen-select">
                           <option>Melbourne</option>
-                          <option>Pakistan</option>
-                          <option>Chaina</option>
-                          <option>Japan</option>
-                          <option>India</option>
-                        </select>
+                          <option>Sydney</option>
+                          <option>Perth</option>
+                          <option>Adelaide</option>
+                          <option>Hobart</option>
+                        </select> -->
+                      </div>
+
+                      <div class="form-group col-lg-6 col-md-12">
+                        <label>Postal/ZIP Code</label>
+                        <input type="text" name="name" placeholder="395004">
+                        <!-- <select class="chosen-select">
+                          <option>Melbourne</option>
+                          <option>Sydney</option>
+                          <option>Perth</option>
+                          <option>Adelaide</option>
+                          <option>Hobart</option>
+                        </select> -->
                       </div>
 
                       <!-- Input -->
                       <div class="form-group col-lg-12 col-md-12">
-                        <label>Complete Address</label>
-                        <input type="text" name="name" placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia.">
+                        <label>Address</label>
+                        <input type="text" name="name" placeholder="A-12,Madhuvan Society, Singapur, Katargam">
                       </div>
 
                       <!-- Input -->
-                      <div class="form-group col-lg-6 col-md-12">
+                      <!-- <div class="form-group col-lg-6 col-md-12">
                         <label>Find On Map</label>
                         <input type="text" name="name" placeholder="329 Queensberry Street, North Melbourne VIC 3051, Australia.">
-                      </div>
+                      </div> -->
 
                       <!-- Input -->
-                      <div class="form-group col-lg-3 col-md-12">
+                      <!-- <div class="form-group col-lg-3 col-md-12">
                         <label>Latitude</label>
                         <input type="text" name="name" placeholder="Melbourne">
-                      </div>
+                      </div> -->
 
                       <!-- Input -->
-                      <div class="form-group col-lg-3 col-md-12">
+                      <!-- <div class="form-group col-lg-3 col-md-12">
                         <label>Longitude</label>
                         <input type="text" name="name" placeholder="Melbourne">
-                      </div>
+                      </div> -->
 
                       <!-- Input -->
-                      <div class="form-group col-lg-12 col-md-12">
+                      <!-- <div class="form-group col-lg-12 col-md-12">
                         <button class="theme-btn btn-style-three">Search Location</button>
-                      </div>
+                      </div> -->
 
 
                       <div class="form-group col-lg-12 col-md-12">
@@ -286,7 +328,7 @@
     </section>
     <!-- Copyright -->
     <div class="copyright-text">
-      <p>© 2021 Superio. All Right Reserved.</p>
+      <p>© 2025 Hirehub. All Right Reserved.</p>
     </div>
     @endsection
     <!-- End Dashboard -->

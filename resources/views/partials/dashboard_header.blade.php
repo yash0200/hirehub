@@ -95,10 +95,10 @@
                             </div>
                         </div>
                     </li>
-                    
+
                     @auth
                     @if(auth()->user()->name === 'admin')
-                    
+
                     <li><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
                     <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
                     <li><a href="{{ route('admin.settings') }}">Settings</a></li>
@@ -109,7 +109,7 @@
                     <li><a href="{{ route('candidate.applications') }}">My Applications</a></li>
 
                     @elseif(auth()->user()->user_type === 'employer')
-                   
+
                     <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
                     @endif
                     @endauth
@@ -147,7 +147,19 @@
             <!-- Dashboard Option -->
             <div class="dropdown dashboard-option">
                 <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('/images/resource/company-6.png') }}" alt="avatar" class="thumb">
+                    @php
+                    $user = auth()->user();
+                    $profilePhoto = asset('/images/resource/company-6.png'); // Default Image
+
+                    if ($user) {
+                        if ($user->user_type === 'candidate' && $user->candidate && $user->candidate->profile_photo) {
+                            $profilePhoto = asset('storage/profile_photos/' . $user->candidate->profile_photo);
+                    } elseif ($user->user_type === 'employer' && $user->employer && $user->employer->logo) {
+                            $profilePhoto = asset('storage/logos/' . $user->employer->logo);
+                        }
+                    }
+                    @endphp
+                    <img src="{{ $profilePhoto }}" alt="profile" class="thumb">
                     <span class="name">{{ auth()->user()->name ?? 'My Account' }}</span>
                 </a>
 

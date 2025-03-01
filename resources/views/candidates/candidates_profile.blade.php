@@ -28,24 +28,25 @@
             </div>
 
             <div class="widget-content">
-
-              <div class="uploading-outer">
-                <div class="uploadButton">
-                  <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
-                  <label class="uploadButton-button ripple-effect" for="upload">Browse Image</label>
-                  <span class="uploadButton-file-name"></span>
-                </div>
-                <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
-              </div>
-
-              <form class="default-form" action="{{route('candidate.profile.update')}}" method="POST">
+              <form class="default-form" action="{{route('candidate.profile.update')}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="uploading-outer">
+                  <div class="uploadButton">
+                    <input class="uploadButton-input" type="file" name="profile_photo" accept="image/*" id="upload" multiple />
+                    <label class="uploadButton-button ripple-effect" for="upload">Browse Image</label>
+                    <span class="uploadButton-file-name"></span>
+                  </div>
+                  <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
+
+                </div>
+
+
                 <input type="hidden" name="form_type" value="my_profile">
                 <div class="row">
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Full Name</label>
-                    <input type="text" name="full_name" placeholder="Jerome">
+                    <input type="text" name="full_name" placeholder="Enter full name" value="{{ old('full_name', $candidate->full_name ?? '') }}">
                   </div>
 
                   <!-- Input -->
@@ -57,7 +58,7 @@
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Phone</label>
-                    <input type="text" name="phone" placeholder="+91 9999999999">
+                    <input type="text" name="phone" placeholder="Enter phone number" value="{{ old('phone', $candidate->phone ?? '') }}">
                   </div>
 
 
@@ -65,81 +66,59 @@
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Date Of Birth</label>
-                    <input type="text" id="dob" name="dob" placeholder="DD/MM/YYYY" maxlength="10" oninput="validateDate(this)">
-                    <small id="error-message" style="color: red; display: none;">Enter a valid date (DD/MM/YYYY)</small>
+                    <input type="date" name="dob" class="" placeholder="DD/MM/YYYY" value="{{ old('dob', $candidate->dob ?? '') }}" maxlength="10">
                   </div>
-
-                  <script>
-                    function validateDate(input) {
-                      let value = input.value.replace(/[^0-9/]/g, ''); // Allow only numbers and slashes
-                      input.value = value;
-
-                      let datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/; // DD/MM/YYYY format
-                      let errorMessage = document.getElementById("error-message");
-
-                      if (value.length === 10 && !datePattern.test(value)) {
-                        errorMessage.style.display = "inline"; // Show error if invalid
-                      } else {
-                        errorMessage.style.display = "none"; // Hide error if valid
-                      }
-                    }
-                  </script>
-
-
 
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Website</label>
-                    <input type="text" name="website" placeholder="www.jerome.com">
+                    <input type="text" name="website" placeholder="https://www.google.com" value="{{ old('website', $candidate->website ?? '') }}">
                   </div>
 
                   <!-- Input -->
                   <div class="form-group col-lg-3 col-md-12">
                     <label>Gender</label>
                     <select class="chosen-select" name="gender">
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      <option value="male" {{ old('gender', $candidate->gender ?? '') == 'male' ? 'selected' : '' }}>Male</option>
+                      <option value="female" {{ old('gender', $candidate->gender ?? '') == 'female' ? 'selected' : '' }}>Female</option>
                     </select>
                   </div>
-
                   <!-- Input -->
                   <div class="form-group col-lg-3 col-md-12">
                     <label>Marital Status</label>
                     <select class="chosen-select" name="marital_status">
-                      <option value="single">Single</option>
-                      <option value="married">Married</option>
-                      <option value="divorced">Divorced</option>
-                      <option value="widowed">Widowed</option>
+                      <option value="single" {{ old('marital_status', $candidate->marital_status ?? '') == 'single' ? 'selected' : '' }}>Single</option>
+                      <option value="married" {{ old('marital_status', $candidate->marital_status ?? '') == 'married' ? 'selected' : '' }}>Married</option>
+                      <option value="divorced" {{ old('marital_status', $candidate->marital_status ?? '') == 'divorced' ? 'selected' : '' }}>Divorced</option>
+                      <option value="widowed" + {{ old('marital_status', $candidate->marital_status ?? '') == 'widowed' ? 'selected' : '' }}>Widowed</option>
                     </select>
                   </div>
-
                   <!-- Input -->
                   <!-- <div class="form-group col-lg-6 col-md-12">
                         <label>Work Experience</label>
                         <input type="text" name="name" placeholder="5-10 Years">
                       </div> -->
-
-                  <!-- Input -->
+                  <!-- Age Range -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Age</label>
                     <select class="chosen-select" name="age_range">
-                      <option value="23 - 27 years">23 - 27 Years</option>
-                      <option value="24 - 28 years">24 - 28 Years</option>
-                      <option value="25 - 29 years">25 - 29 Years</option>
-                      <option value="26 - 30 years">26 - 30 Years</option>
+                      <option value="23 - 27 years" {{ old('age_range', $candidate->age_range ?? '') == '23 - 27 years' ? 'selected' : '' }}>23 - 27 Years</option>
+                      <option value="24 - 28 years" {{ old('age_range', $candidate->age_range ?? '') == '24 - 28 years' ? 'selected' : '' }}>24 - 28 Years</option>
+                      <option value="25 - 29 years" {{ old('age_range', $candidate->age_range ?? '') == '25 - 29 years' ? 'selected' : '' }}>25 - 29 Years</option>
+                      <option value="26 - 30 years" {{ old('age_range', $candidate->age_range ?? '') == '26 - 30 years' ? 'selected' : '' }}>26 - 30 Years</option>
                     </select>
                   </div>
 
-                  <!-- Input -->
+                  <!-- Education Levels -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Education Levels</label>
-                    <input type="text" name="education_levels" placeholder="Certificate">
+                    <input type="text" name="education_levels" placeholder="Certificate" value="{{ old('education_levels', $candidate->education_levels ?? '') }}">
                   </div>
 
-                  <!-- Input -->
+                  <!-- Languages -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Languages</label>
-                    <input type="text" name="languages" placeholder="English, Turkish">
+                    <input type="text" name="languages" placeholder="English, Turkish" value="{{ old('languages', $candidate->languages ?? '') }}">
                   </div>
 
                   <!-- Search Select -->
@@ -166,7 +145,7 @@
                   <!-- About Company -->
                   <div class="form-group col-lg-12 col-md-12">
                     <label>Description</label>
-                    <textarea name="description" placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo's on Wall Street. Managed a small team buying and selling Pogo sticks for farmers. Spent several years licensing licorice in West Palm Beach, FL. Developed several new methods for working it banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.In this position, the Software Engineer collaborates with Evention's Development team to continuously enhance our current software solutions as well as create new solutions to eliminate the back-office operations and management challenges present"></textarea>
+                    <textarea name="description" placeholder="Enter a brief description about yourself or your experience...">{{ old('description', $candidate->description ?? '') }}</textarea>
                   </div>
 
                   <!-- Input -->
@@ -194,20 +173,21 @@
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Facebook</label>
-                    <input type="text" name="facebook" placeholder="www.facebook.com/Invision">
+                    <input type="text" name="facebook" value="{{ old('facebook', $candidate->facebook ?? '') }}" placeholder="https://www.facebook.com/yourprofile">
                   </div>
 
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Twitter</label>
-                    <input type="text" name="twitter" placeholder="www.x.com">
+                    <input type="text" name="twitter" value="{{ old('twitter', $candidate->twitter ?? '') }}" placeholder="https://www.x.com/yourprofile">
                   </div>
 
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
-                    <label>Linkedin</label>
-                    <input type="text" name="linkedin" placeholder="www.linkedin.com">
+                    <label>LinkedIn</label>
+                    <input type="text" name="linkedin" value="{{ old('linkedin', $candidate->linkedin ?? '') }}" placeholder="https://www.linkedin.com/in/yourprofile">
                   </div>
+
 
                   <!-- Input -->
                   <!-- <div class="form-group col-lg-6 col-md-12">
@@ -240,7 +220,8 @@
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Nationality</label>
-                    <input type="text" name="nationality" placeholder="Indian...">
+                    <input type="text" name="nationality" value="{{ old('nationality', $candidate->nationality ?? '') }}" placeholder="e.g., Indian">
+
                     <!-- <select class="chosen-select">
                           <option>Australia</option>
                           <option>Pakistan</option>
@@ -252,7 +233,7 @@
 
                   <div class="form-group col-lg-6 col-md-12">
                     <label>State</label>
-                    <input type="text" name="state" placeholder="Gujarat...">
+                    <input type="text" name="state" value="{{ old('state', $candidate->state ?? '') }}" placeholder="e.g., Gujarat">
                     <!-- <select class="chosen-select">
                           <option>Victoria</option>
                           <option>Queensland</option>
@@ -265,7 +246,7 @@
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>City</label>
-                    <input type="text" name="city" placeholder="Surat...">
+                    <input type="text" name="city" value="{{ old('city', $candidate->city ?? '') }}" placeholder="e.g., Surat">
                     <!-- <select class="chosen-select">
                           <option>Melbourne</option>
                           <option>Sydney</option>
@@ -277,7 +258,7 @@
 
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Postal/ZIP Code</label>
-                    <input type="text" name="postal_code" placeholder="395004">
+                    <input type="text" name="postal_code" value="{{ old('postal_code', $candidate->postal_code ?? '') }}" placeholder="e.g., 395004">
                     <!-- <select class="chosen-select">
                           <option>Melbourne</option>
                           <option>Sydney</option>
@@ -290,7 +271,7 @@
                   <!-- Input -->
                   <div class="form-group col-lg-12 col-md-12">
                     <label>Address</label>
-                    <input type="text" name="address" placeholder="A-12,Madhuvan Society, Singapur, Katargam">
+                    <input type="text" name="address" value="{{ old('address', $candidate->address ?? '') }}" placeholder="e.g., A-12, Madhuvan Society, Katargam, Surat">
                   </div>
 
                   <!-- Input -->

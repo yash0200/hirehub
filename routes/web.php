@@ -53,16 +53,15 @@ Route::middleware(['auth'])->group(function () {
     /** ================== Candidate Routes ================== */
     Route::middleware(['candidate'])->group(function () {
         Route::get('/candidate-dashboard', [CandidateDashboard::class, 'index'])->name('candidate.dashboard');
+        Route::get('/candidate/profile', [ProfileController::class, 'index'])->name('candidate.profile');
         Route::get('/candidate/jobs', [CandidateJob::class, 'index'])->name('candidate.jobs');
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
         Route::get('/candidate/resumes', [ResumeController::class, 'shortlisted'])->name('candidate.resumes');
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
-        Route::get('/candidate/profile', [ProfileController::class, 'index'])->name('candidate.profile');
         Route::get('/candidate/change-password', [ProfileController::class, 'changePassword'])->name('candidate.password.change');
         Route::get('/candidate/delete-profile', [ProfileController::class, 'delete'])->name('candidate.profile.delete');
         Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'shortlistJobs'])->name('candidate.shortlist');
-        
     });
 
     /** ================== Employer Routes ================== */

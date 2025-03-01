@@ -18,20 +18,21 @@ class UserController extends Controller
     // View user details
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return view('admin.admin_viewuser', compact('user'));
-    }
-    public function showCandidate($id)
-    {
-        $candidate = User::where('id', $id)->where('user_type', 'candidate')->firstOrFail();
+        
+        $candidate = User::where('id', $id)->firstOrFail();
         return view('admin.candidate_profile', compact('candidate'));
     }
+    // public function showCandidate($id)
+    // {
+    //     $candidate = User::where('id', $id)->where('user_type', 'candidate')->firstOrFail();
+    //     return view('admin.candidate_profile', compact('candidate'));
+    // }
 
-    public function showEmployer($id)
-    {
-        $employer = User::where('id', $id)->where('user_type', 'employer')->firstOrFail();
-        return view('admin.employer_profile', compact('employer'));
-    }
+    // public function showEmployer($id)
+    // {
+    //     $employer = User::where('id', $id)->where('user_type', 'employer')->firstOrFail();
+    //     return view('admin.employer_profile', compact('employer'));
+    // }
 
 
     // Edit user

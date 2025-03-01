@@ -8,11 +8,7 @@
 
 <div class="user-dashboard bc-user-dashboard">
     <div class="dashboard-outer">
-        <!-- <a href="{{ url("../html/javascript:void(0).html") }}" class="mobile-sidebar-btn hidden-lg hidden-md">
-            <i class="fa fa-bars"></i> Show Sidebar
-        </a> -->
         <div class="mobile-sidebar-panel-overlay"></div>
-
         <div class="row">
             <div class="col-md-9">
                 <div class="upper-title-box">
@@ -33,10 +29,9 @@
                 <div class="ls-widget">
                     <div class="tabs-box">
                         <div class="widget-title">
-                            <h4>Manage Users</h4>
-
+                            <h4>Users</h4>
                             <div class="chosen-outer">
-                            <form method="get" class="default-form form-inline" action="">
+                                <form method="get" class="default-form form-inline" action="">
                                     <!--Tabs Box-->
                                     <div class="row">
                                         <div class="form-group mb-0 mr-2 col-lg-6">
@@ -54,7 +49,6 @@
                                 <table class="default-table manage-job-table">
                                     <thead>
                                         <tr>
-
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
@@ -84,26 +78,16 @@
                                                     <ul class="option-list">
                                                         <!-- View Profile -->
                                                         <li>
-                                                            @if($user->user_type === 'candidate')
-                                                            <a href="{{ route('admin.users.candidate.view', $user->id) }}" target="_blank" data-text="View Candidate Profile">
+                                                            <a href="{{ route('admin.users.view', $user->id) }}" target="_blank" data-text="View Profile">
                                                                 <span class="la la-eye"></span>
                                                             </a>
-                                                            @elseif($user->user_type === 'employer')
-                                                            <a href="{{ route('admin.users.employer.view', $user->id) }}" target="_blank" data-text="View Employer Profile">
-                                                                <span class="la la-eye"></span>
-                                                            </a>
-                                                            @endif
                                                         </li>
-
                                                         <!-- Edit User -->
                                                         <li>
                                                             <a href="{{ route('admin.users.edit', $user->id) }}" data-text="Edit User">
                                                                 <span class="la la-pencil"></span>
                                                             </a>
                                                         </li>
-
-
-
                                                         <!-- Delete User -->
                                                         <li>
                                                             <form action="{{ route('admin.users.delete', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
@@ -119,7 +103,6 @@
                                                             <form action="{{ route('admin.users.status', $user->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('PATCH')
-
                                                                 <details>
                                                                     <summary style="cursor: pointer; display: inline-flex; align-items: center;">
                                                                         <span class="la la-exchange-alt"></span> <!-- Clickable Icon -->
@@ -140,9 +123,7 @@
                                     </tbody>
                                 </table>
                             </div>
-
                             <div class="ls-pagination">
-
                             </div>
                         </div>
                     </div>

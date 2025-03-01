@@ -12,17 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('employers', function (Blueprint $table) {
-            $table->string('phone')->nullable();
-            $table->string('company_size')->nullable();
-            $table->year('established_year')->nullable();
-            $table->string('cover_image')->nullable();
-            $table->string('facebook')->nullable();
-            $table->string('twitter')->nullable();
-            $table->string('linkedin')->nullable();
-            $table->string('country')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
-            $table->string('address')->nullable();
+            $table->string('phone')->nullable()->after('description');
+            $table->string('company_size')->nullable()->after('description');
+            $table->year('established_year')->nullable()->after('description');
+            $table->string('facebook')->nullable()->after('description');
+            $table->string('twitter')->nullable()->after('description');
+            $table->string('linkedin')->nullable()->after('description');
+            $table->string('country')->nullable()->after('description');
+            $table->string('state')->nullable()->after('description');
+            $table->string('city')->nullable()->after('description');
+            $table->string('address')->nullable()->after('description');
         });
     }
 
@@ -33,7 +32,7 @@ return new class extends Migration
     {
         Schema::table('employers', function (Blueprint $table) {
             $table->dropColumn([
-                'phone', 'company_size', 'established_year', 'cover_image',
+                'phone', 'company_size', 'established_year',
                 'facebook', 'twitter', 'linkedin','country', 'state', 'city', 'address'
             ]);
         });

@@ -18,7 +18,6 @@ class Employer extends Model
         'location',
         'website',
         'logo',
-        'cover_image', // Added Cover Image
         'description',
         'phone', // Added Phone Number
         'company_size', // Added Company Size

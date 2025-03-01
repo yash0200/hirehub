@@ -20,5 +20,9 @@ class Candidate extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function resume()
+    {
+        return $this->hasOne(Resume::class); // Each candidate has one resume
+    }
 
 }

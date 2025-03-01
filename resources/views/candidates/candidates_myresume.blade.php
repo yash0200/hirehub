@@ -21,7 +21,8 @@
             </div>
 
             <div class="widget-content">
-
+            <form action="{{ route('candidate.resume.store') }}" method="POST" enctype="multipart/form-data" class="default-form">
+            @csrf
               <div class="uploading-outer">
                 <div class="uploadButton">
                   <input class="uploadButton-input" type="file" name="resume_file" id="upload" />
@@ -30,8 +31,7 @@
                 </div>
               </div>
               <!-- About your self -->
-              <form action="{{ route('candidate.resume.store') }}" method="POST" enctype="multipart/form-data" class="default-form">
-                @csrf
+              
                 <div class="row">
                   <div class="form-group col-lg-12 col-md-12">
                     <label>Description</label>

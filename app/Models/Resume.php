@@ -27,9 +27,10 @@ class Resume extends Model
         'skills' => 'array',  // Assuming skills are stored as an array
     ];
 
-    public function user()
+
+    public function candidate()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Candidate::class); // Each resume belongs to a candidate
     }
 }
 

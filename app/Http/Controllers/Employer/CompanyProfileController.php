@@ -12,6 +12,7 @@ class CompanyProfileController extends Controller
 {
     public function index()
     {
+
         $employer = Auth::user()->employer;
         return view('employers.employer_profile', compact('employer'));
     }
@@ -28,7 +29,7 @@ class CompanyProfileController extends Controller
             }
 
             if ($request->form_type === 'company_profile') {
-                $validatedData = $request->validate([
+                $request->validate([
                     'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
                     'company_name' => 'required|string|max:255',
                     'phone' => 'required|string|max:10',
@@ -36,11 +37,25 @@ class CompanyProfileController extends Controller
                     'established_year' => 'nullable|integer',
                     'company_size' => 'required|string|max:255',
                 ]);
-                    if ($request->hasFile('logo')) {
-                        dd('File is being received:', $request->file('logo'));
+
+                $validatedData = $request->only(['company_name', 'phone', 'website', 'established_year', 'company_size']);
+
+                // Handle File Upload
+                if ($request->hasFile('logo')) {
+                    // Delete old logo if exists
+                    if ($employer->logo) {
+                        Storage::delete('public/logos/' . $employer->logo);
                     }
-                
-                
+
+                    // Store new logo
+                    $file = $request->file('logo');
+                    $filename = 'company-logo-' . $user->id . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('public/logos', $filename);
+
+                    $validatedData['logo'] = $filename; // Save filename to database
+                }
+
+
             } elseif ($request->form_type === 'social_network') {
                 $validatedData = $request->validate([
                     'facebook' => 'nullable|url',

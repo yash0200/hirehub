@@ -54,7 +54,10 @@ Route::middleware(['auth'])->group(function () {
     /** ================== Candidate Routes ================== */
     Route::middleware(['candidate'])->group(function () {
         Route::get('/candidate-dashboard', [CandidateDashboard::class, 'index'])->name('candidate.dashboard');
+
         Route::get('/candidate/profile', [ProfileController::class, 'index'])->name('candidate.profile');
+        Route::post('/candidate/profile/update', [ProfileController::class, 'update'])->name('candidate.profile.update');
+
         Route::get('/candidate/jobs', [CandidateJob::class, 'index'])->name('candidate.jobs');
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');

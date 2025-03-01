@@ -125,6 +125,6 @@
 
 <!-- Copyright -->
 <div class="copyright-text">
-  <p>© 2021 Superio. All Right Reserved.</p>
+  <p>© 2021 Hirehub. All Right Reserved.</p>
 </div>
 @endsection

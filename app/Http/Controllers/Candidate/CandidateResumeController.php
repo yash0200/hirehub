@@ -21,13 +21,14 @@ class CandidateResumeController extends Controller
     public function store(Request $request)
     {
         $candidate = Auth::user()->candidate;
+        if (!$candidate) {
+            return redirect()->back()->with('error', 'Candidate profile not found.');
+        }
 
-        $resume = $candidate->resume;
-        dd($candidate);
+        // Ensure a resume exists or create a new one
+        $resume = Resume::firstOrNew(['candidate_id' => $candidate->id]);
 
-
-
-        // Validate the incoming request
+        // Validate the request
         $request->validate([
             'description' => 'required|string',
             'degree_name' => 'nullable|string',
@@ -42,7 +43,7 @@ class CandidateResumeController extends Controller
             'resume_file' => 'nullable|file|mimes:pdf,jpeg,jpg,png|max:2048',
         ]);
 
-        // Prepare the data to be saved
+        // Prepare the data for saving
         $data = $request->only([
             'description',
             'degree_name',
@@ -53,32 +54,29 @@ class CandidateResumeController extends Controller
             'job_title',
             'company_name',
             'employment_type',
-            'skills'
+            'skills',
         ]);
 
-        // Handle the file upload if a file is provided
+        // Handle file upload
         if ($request->hasFile('resume_file')) {
             // Delete old resume if it exists
             if ($resume->resume_file) {
-                $oldResumePath = 'public/resumes/' . $resume->resume_file;
-                if (Storage::exists($oldResumePath)) {
-                    Storage::delete($oldResumePath);
-                }
+                Storage::delete('public/resumes/' . $resume->resume_file);
             }
 
-            // Store the new file with a unique filename
+            // Store the new resume file
             $file = $request->file('resume_file');
-            $filename = 'resume-resume-' . $candidate->id . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/resumes', $filename); // Store in the 'public/resumes' folder
+            $filename = 'resume-' . $candidate->id . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/resumes', $filename); // Save in 'storage/app/public/resumes'
 
-            $data['resume_file'] = $filename; // Save the filename to the database
+            $data['resume_file'] = $filename;
         }
 
-        // Update resume with the new data
+        // Save the resume
+        $resume->fill($data);
+        $resume->candidate_id = $candidate->id;
+        $resume->save();
 
-        $resume->update($data);
-
-        // Redirect with a success message
-        return redirect()->route('resume.resumes')->with('success', 'Resume updated successfully!');
+        return redirect()->route('candidate.resumes')->with('success', 'Resume updated successfully!');
     }
 }

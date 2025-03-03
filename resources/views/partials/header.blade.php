@@ -122,7 +122,7 @@
             @guest
             <div class="btn-box">
                 <a href="{{ route('login') }}" class="theme-btn btn-style-five">Login / Register</a>
-                <a href="{{ route('employer.job.create') }}" class="theme-btn btn-style-one">Post a Job</a>
+                <a href="{{ route('employer.jobs.index') }}" class="theme-btn btn-style-one">Post a Job</a>
             </div>
             @endguest
 

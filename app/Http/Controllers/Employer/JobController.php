@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jobs;
+use App\Models\JobCategory;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -19,22 +20,14 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Jobs::all();
-        return view('employers.employer_postJob', compact('jobs'));
+        $categories = JobCategory::where('status', 'active')->get();
+        return view('employers.employer_postJob', compact('jobs', 'categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('employers.employer_postJob');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $messages = [
             'title.required' => 'The job title is required.',
             'description.required' => 'The job description is required.',
@@ -43,7 +36,7 @@ class JobController extends Controller
             'experience.required' => 'Experience field is required.',
             'industry.required' => 'Industry field is required.',
             'salary.required' => 'Salary is required.',
-            'salary.string' => 'Salary must be a valid string.', // Updated message
+            'salary.string' => 'Salary must be a valid string.',
             'job_type.required' => 'Job type is required.',
             'qualification.required' => 'Qualification field is required.',
             'email.required' => 'Email is required.',
@@ -56,64 +49,58 @@ class JobController extends Controller
             'postcode.string' => 'Postcode must be a valid string.',
             'address.string' => 'Address must be a valid string.',
         ];
+        $id=auth()->user()->employer->id;
+       
 
-        try {
-            // Validate request
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required',
-                'category_id' => 'required|string',
-                'experience' => 'required|string',
-                'industry' => 'required|string',
-                'salary' => 'required|string',
-                'job_type' => 'required|string',
-                'qualification' => 'required|string',
-                'email' => 'required|email',
-                'deadline' => 'nullable|date',
-                'skills' => 'nullable|string',
-                'country' => 'nullable|string',
-                'state' => 'nullable|string',
-                'city' => 'nullable|string',
-                'postcode' => 'nullable|string',
-                'address' => 'nullable|string',
-            ], $messages);
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'category_id' => 'required|exists:job_categories,id',
+            'experience' => 'required|string',
+            'salary' => 'required|string',
+            'job_type' => 'required|string',
+            'qualification' => 'required|string',
+            'email' => 'required|email',
+            'deadline' => 'nullable|date',
+            'skills' => 'nullable|string', // Changed to string
+            'country' => 'nullable|string',
+            'state' => 'nullable|string',
+            'city' => 'nullable|string',
+            'postcode' => 'nullable|string',
+            'address' => 'nullable|string',
+        ], $messages);
 
-            // Create Job
-            $job = Jobs::create([
-                'employer_id' => auth()->id(),
-                'title' => $validatedData['title'],
-                'description' => $validatedData['description'],
-                'category_id' => $validatedData['category_id'],
-                'experience' => $validatedData['experience'],
-                'industry' => $validatedData['industry'],
-                'salary' => $validatedData['salary'],
-                'job_type' => $validatedData['job_type'],
-                'qualification' => $validatedData['qualification'],
-                'email' => $validatedData['email'],
-                'deadline' => $validatedData['deadline'],
-                'skills' => $validatedData['skills'] ? json_encode($validatedData['skills']) : null,
+        // Create Job First
+        // dd($validatedData);
+
+        $job = Jobs::create([
+            'employer_id' =>  auth()->user()->employer->id,
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'category_id' => $validatedData['category_id'],
+            'experience' => $validatedData['experience'],
+            'salary' => $validatedData['salary'],
+            'job_type' => $validatedData['job_type'],
+            'qualification' => $validatedData['qualification'],
+            'email' => $validatedData['email'],
+            'deadline' => $validatedData['deadline'],
+            'skills' => $validatedData['skills'],
+        ]);
+
+        // Store Job Address
+        if ($request->filled(['country', 'state', 'city', 'postcode', 'address'])) {
+            $job->jobAddress()->create([
+                'job_id' => $job->id, // Link job_id to this job
+                'country' => $validatedData['country'],
+                'state' => $validatedData['state'],
+                'city' => $validatedData['city'],
+                'postcode' => $validatedData['postcode'],
+                'complete_address' => $validatedData['address'],
             ]);
-
-            // Store Job Address if provided
-            if ($request->filled(['country', 'state', 'city', 'postcode', 'address'])) {
-                $job->jobAddress()->create([
-                    'country' => $validatedData['country'],
-                    'state' => $validatedData['state'],
-                    'city' => $validatedData['city'],
-                    'postcode' => $validatedData['postcode'],
-                    'address' => $validatedData['address'],
-                ]);
-            }
-
-            return redirect()->route('jobs.index')->with('success', 'Job created successfully.');
-
-        } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'An error occurred while creating the job: ' . $e->getMessage());
         }
+
+        return redirect()->route('employer.jobs.index')->with('success', 'Job created successfully.');
     }
-
-
-
 
     /**
      * Display the specified resource.
@@ -163,5 +150,4 @@ class JobController extends Controller
         $job->delete();
         return redirect()->route('jobs.index')->with('success', 'Jobs deleted successfully.');
     }
-
 }

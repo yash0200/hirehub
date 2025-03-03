@@ -12,14 +12,15 @@
                 <p class="text-color">Ready to jump back in?</p>
             </div>
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li><b>{{ $error }}</b> </li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li><b>{{ $error }}</b></li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ls-widget">
@@ -75,19 +76,13 @@
                                             <label>Job Category</label>
                                             <select name="category_id" class="chosen-select">
                                                 <option>Select</option>
-                                                <option value="IT" {{ old('category_id') == 'IT' ? 'selected' : '' }}>IT
-                                                </option>
-                                                <option value="Marketing" {{ old('category_id') == 'Marketing' ? 'selected' : '' }}>Marketing</option>
-                                                <option value="Digital & Creative" {{ old('category_id') == 'Digital & Creative' ? 'selected' : '' }}>Digital & Creative</option>
-                                                <option value="Admin" {{ old('category_id') == 'Admin' ? 'selected' : '' }}>
-                                                    Admin</option>
-                                                <option value="Human Resources" {{ old('category_id') == 'Human Resources' ? 'selected' : '' }}>Human Resources</option>
-                                                <option value="Management" {{ old('category_id') == 'Management' ? 'selected' : '' }}>Management</option>
-                                                <option value="Finance" {{ old('category_id') == 'Finance' ? 'selected' : '' }}>Finance</option>
-                                                <option value="Sales" {{ old('category_id') == 'Sales' ? 'selected' : '' }}>
-                                                    Sales</option>
-                                                <option value="Customer Service" {{ old('category_id') == 'Customer Service' ? 'selected' : '' }}>Customer Service</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                        {{ $category->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
+                                        
                                             @error('category_id')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -117,7 +112,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group col-lg-12 col-md-12">
+                                        <div class="form-group col-lg-6 col-md-12">
                                             <label>Application Deadline Date</label>
                                             <input type="date" name="deadline" class="form-control"
                                                 value="{{ old('deadline') }}">
@@ -125,6 +120,49 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Experience</label>
+                                            <select name="experience" class="chosen-select form-control">
+                                                <option value="">Select</option>
+                                                <option value="Fresher (0-1 years)" {{ old('experience') == 'Fresher (0-1 years)' ? 'selected' : '' }}>Fresher (0-1 years)</option>
+                                                <option value="1-3 years" {{ old('experience') == '1-3 years' ? 'selected' : '' }}>1-3 years</option>
+                                                <option value="3-5 years" {{ old('experience') == '3-5 years' ? 'selected' : '' }}>3-5 years</option>
+                                                <option value="5-7 years" {{ old('experience') == '5-7 years' ? 'selected' : '' }}>5-7 years</option>
+                                                <option value="7-10 years" {{ old('experience') == '7-10 years' ? 'selected' : '' }}>7-10 years</option>
+                                                <option value="10+ years" {{ old('experience') == '10+ years' ? 'selected' : '' }}>10+ years</option>
+                                                <option value="Senior Management (15+ years)" {{ old('experience') == 'Senior Management (15+ years)' ? 'selected' : '' }}>Senior Management (15+ years)</option>
+                                                <option value="Executive Level" {{ old('experience') == 'Executive Level' ? 'selected' : '' }}>Executive Level</option>
+                                            </select>
+                                            @error('experience')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Qualification</label>
+                                            <select name="qualification" class="chosen-select form-control">
+                                                <option value="">Select</option>
+                                                <option value="Graduate" {{ old('qualification') == 'Graduate' ? 'selected' : '' }}>Graduate</option>
+                                                <option value="Bachelor's Degree" {{ old('qualification') == "Bachelor's Degree" ? 'selected' : '' }}>Bachelor's Degree</option>
+                                                <option value="Postgraduate" {{ old('qualification') == 'Postgraduate' ? 'selected' : '' }}>Postgraduate</option>
+                                                <option value="Other Qualifications" {{ old('qualification') == 'Other Qualifications' ? 'selected' : '' }}>Other Qualifications</option>
+                                            </select>
+                                            @error('qualification')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label>Job Type</label>
+                                            <select name="job_type" class="chosen-select form-control">
+                                                <option value="">Select</option>
+                                                <option value="Full-Time" {{ old('job_type') == 'Full-Time' ? 'selected' : '' }}>Full-Time</option>
+                                                <option value="Part-Time" {{ old('job_type') == 'Part-Time' ? 'selected' : '' }}>Part-Time</option>
+                                            </select>
+                                            @error('job_type')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        
+                                        
 
                                         <div class="form-group col-lg-6">
                                             <label>Country</label>

@@ -82,15 +82,9 @@
                                                     <ul class="option-list">
                                                         <!-- View Profile -->
                                                         <li>
-                                                            @if($employer->user_type === 'candidate')
-                                                            <a href="{{ route('admin.users.candidate.view', $employer->id) }}" target="_blank" data-text="View Candidate Profile">
+                                                            <a href="{{ route('admin.users.view', $employer->id) }}" target="_blank" data-text="View Employer Profile">
                                                                 <span class="la la-eye"></span>
                                                             </a>
-                                                            @elseif($employer->user_type === 'employer')
-                                                            <a href="{{ route('admin.users.employer.view', $employer->id) }}" target="_blank" data-text="View Employer Profile">
-                                                                <span class="la la-eye"></span>
-                                                            </a>
-                                                            @endif
                                                         </li>
 
                                                         <!-- Edit User -->

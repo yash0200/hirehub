@@ -8,20 +8,19 @@ use App\Models\Candidate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function changePassword()
+    public function index(Request $request)
     {
+        
+    
         return view('candidates.candidates_changepassword');
     }
 
 
-    public function index()
-    {
-        $candidate = Candidate::where('user_id', auth()->id())->first();
-        return view('candidates.candidates_profile', compact('candidate'));
-    }
+    
 
     public function update(Request $request)
     {
@@ -118,24 +117,28 @@ class ProfileController extends Controller
             return redirect()->route('candidate.profile')->withErrors($e->getMessage());
         }
     }
-    public function changePassword1(Request $request)
-    {
-        $request->validate([
-            'old_password' => 'required|string',
-            'new_password' => 'required|string|min:8|confirmed',
-        ]);
+    public function changePassword(Request $request)
+{
+    // Update validation rule to check for 'confirm_password' manually
+    $request->validate([
+        'old_password' => 'required|string',
+        'new_password' => 'required|string|min:8',
+        'new_password_confirmation' => 'required|string|same:new_password', // Check if 'confirm_password' matches 'new_password'
+    ]);
 
-        $user = auth()->user();
+    $user = auth()->user();
 
-        // Check if old password is correct
-        if (!Hash::check($request->old_password, $user->password)) {
-            return back()->withErrors(['old_password' => 'The old password is incorrect.']);
-        }
-
-        // Update password
-        $user->password = Hash::make($request->new_password);
-        $user->save();
-
-        return back()->with('success', 'Password updated successfully!');
+    // Check if old password is correct
+    if (!Hash::check($request->old_password, $user->password)) {
+        return back()->withErrors(['old_password' => 'The old password is incorrect.']);
     }
+
+    // Update password
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    // Redirect back with a success message
+    return back()->with('success', 'Password updated successfully!');
+}
+
 }

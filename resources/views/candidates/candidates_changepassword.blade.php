@@ -2,9 +2,9 @@
 
 @section('title', 'Candidate Change Password')
 @section('content')
-<!-- Dashboard -->
-<section class="user-dashboard">
-  <div class="dashboard-outer">
+  <!-- Dashboard -->
+  <section class="user-dashboard">
+    <div class="dashboard-outer">
     <div class="upper-title-box">
       <h3>Change Password</h3>
       <div class="text">Ready to jump back in?</div>
@@ -13,70 +13,73 @@
     <!-- Ls widget -->
     <div class="ls-widget">
       <div class="widget-title">
-        <h4>Change Password</h4>
+      <h4>Change Password</h4>
       </div>
 
       <div class="widget-content">
-        <form class="default-form" method="POST" action="{{ route('candidate.password.change') }}">
-          @csrf
-          <div class="row">
-            <!-- Display Laravel Validation Errors -->
-            @if ($errors->any())
-            <div class="alert alert-danger">
-              <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-            </div>
-            @endif
-            <div class="form-group col-lg-7 col-md-12">
-              <label>Old Password</label>
-              <div class="position-relative">
-                <input type="password" name="old_password" id="old_password" class="form-control" placeholder="Enter Old Password">
-                <span class="eye-toggle" onclick="togglePassword('old_password')">
-                  <i class="la la-eye"></i>
-                </span>
-              </div>
-            </div>
+      <form class="default-form" method="POST" action="{{ route('candidate.password.change') }}">
+        @csrf
 
-            <div class="form-group col-lg-7 col-md-12">
-              <label>New Password</label>
-              <div class="position-relative">
-                <input type="password" name="new_password" id="new_password" class="form-control" placeholder="Enter New Password">
-                <span class="eye-toggle" onclick="togglePassword('new_password')">
-                  <i class="la la-eye"></i>
-                </span>
-              </div>
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="form-group col-lg-7 col-md-12">
-              <label>Confirm Password</label>
-              <div class="position-relative">
-                <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm New Password">
-                <span class="eye-toggle" onclick="togglePassword('confirm_password')">
-                  <i class="la la-eye"></i>
-                </span>
-              </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="form-group col-lg-6 col-md-12">
-              <button type="submit" class="theme-btn btn-style-one">Update</button>
-            </div>
+        <div class="row">
+        <!-- Display Laravel Validation Errors -->
+        @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+        @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+    @endforeach
+        </ul>
+      </div>
+    @endif
+        <div class="form-group col-lg-7 col-md-12">
+          <label>Old Password</label>
+          <div class="position-relative">
+          <input type="password" name="old_password" id="old_password" class="form-control"
+            placeholder="Enter Old Password">
+          <span class="eye-toggle" onclick="togglePassword('old_password')">
+            <i class="la la-eye"></i>
+          </span>
           </div>
-        </form>
+        </div>
+
+        <div class="form-group col-lg-7 col-md-12">
+          <label>New Password</label>
+          <div class="position-relative">
+          <input type="password" name="new_password" id="new_password" class="form-control"
+            placeholder="Enter New Password">
+          <span class="eye-toggle" onclick="togglePassword('new_password')">
+            <i class="la la-eye"></i>
+          </span>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group col-lg-7 col-md-12">
+          <label>Confirm Password</label>
+          <div class="position-relative">
+          <input type="password" name="new_password_confirmation" id="new_password_confirmation"
+            class="form-control" placeholder="Confirm New Password">
+          <span class="eye-toggle" onclick="togglePassword('new_password_confirmation')">
+            <i class="la la-eye"></i>
+          </span>
+          </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="form-group col-lg-6 col-md-12">
+          <button type="submit" class="theme-btn btn-style-one">Update</button>
+        </div>
+        </div>
+      </form>
       </div>
     </div>
-  </div>
-</section>
-<!-- End Dashboard -->
+    </div>
+  </section>
+  <!-- End Dashboard -->
 
-<!-- Copyright -->
-<div class="copyright-text">
-  <p>© 2021 Superio. All Right Reserved.</p>
-</div>
+  <!-- Copyright -->
+  <div class="copyright-text">
+    <p>© 2025 Hirehub. All Right Reserved.</p>
+  </div>
 @endsection
 <script>
   function togglePassword(fieldId) {

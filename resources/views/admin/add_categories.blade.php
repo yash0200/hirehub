@@ -9,9 +9,6 @@
 
 <div class="user-dashboard bc-user-dashboard">
     <div class="dashboard-outer">
-        <a href="{{ url("../html/javascript:void(0).html") }}" class="mobile-sidebar-btn hidden-lg hidden-md">
-            <i class="fa fa-bars"></i> Show Sidebar
-        </a>
         <div class="mobile-sidebar-panel-overlay"></div>
         <form method="POST" action="{{ route('admin.categories.store') }}" class="default-form">
             @csrf <!-- CSRF Token -->

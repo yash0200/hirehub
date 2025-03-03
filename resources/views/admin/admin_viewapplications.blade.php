@@ -17,11 +17,7 @@
                 <div class="col-md-9">
                     <div class="upper-title-box">
                         <h3>All Applications</h3>
-                        <div class="text">Ready to jump back in?</div>
                     </div>
-                </div>
-                <div class="col-md-3 text-right">
-                    <a class="theme-btn btn-style-one" href="{{ url("../html/create.html") }}">Add new Application</a>
                 </div>
             </div>
             <div class="row">

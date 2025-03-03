@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Candidate\DashboardController as CandidateDashboard;
 use App\Http\Controllers\Candidate\JobController as CandidateJob;
 use App\Http\Controllers\Candidate\CandidateResumeController;
+use App\Http\Controllers\Candidate\JobAlertController;
 use App\Http\Controllers\Employer\ResumeController as EmployerResume;
 use App\Http\Controllers\Candidate\ProfileController;
 use App\Http\Controllers\Candidate\MessageController;
@@ -62,6 +63,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
         Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
+
+        Route::get('/candidate/jobalerts', [JobAlertController::class, 'index'])->name('candidate.jobalerts');
         
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
         Route::get('/candidate/change-password', [ProfileController::class, 'changePassword'])->name('candidate.password.change');

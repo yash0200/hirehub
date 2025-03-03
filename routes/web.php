@@ -11,7 +11,7 @@ use App\Http\Controllers\Employer\ResumeController as EmployerResume;
 use App\Http\Controllers\Candidate\ProfileController;
 use App\Http\Controllers\Candidate\MessageController;
 use App\Http\Controllers\Employer\DashboardController as EmployerDashboard;
-use App\Http\Controllers\Employer\JobController as EmployerJob;
+use App\Http\Controllers\Employer\JobController as EmployerJobController;
 use App\Http\Controllers\Employer\ApplicantController;
 use App\Http\Controllers\Employer\PackageController;
 use App\Http\Controllers\Employer\MessageController as EmployerMessage;
@@ -82,10 +82,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employer/company-profile', [CompanyProfileController::class, 'index'])->name('employer.company.profile');
         Route::post('/employer/company-profile/update', [CompanyProfileController::class, 'update'])->name('employer.company.profile.update');
 
+        /** ================== Post Job Routes ================== */
         
-        
-        Route::get('/employer/post-job', [EmployerJob::class, 'create'])->name('employer.job.create');
-        Route::get('/employer/manage-jobs', [EmployerJob::class, 'manage'])->name('employer.job.manage');
+        Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index'); // List all jobs
+        Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create'); // Show create form
+        Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store'); // Store job
+        Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show'); // Show a specific job
+        Route::get('/employer/jobs/{id}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit'); // Show edit form
+        Route::put('/employer/jobs/{id}', [EmployerJobController::class, 'update'])->name('jobs.update'); // Update job
+        Route::delete('/employer/jobs/{id}', [EmployerJobController::class, 'destroy'])->name('jobs.destroy'); // Delete job
+
+
+        Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.job.manage');
         Route::get('/employer/applicants', [ApplicantController::class, 'index'])->name('employer.applicants');
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
         Route::get('/employer/packages', [PackageController::class, 'index'])->name('employer.packages');

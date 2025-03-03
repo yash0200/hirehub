@@ -232,6 +232,7 @@
 
 
                     @elseif(auth()->user()->user_type === 'employer')
+<<<<<<< Updated upstream
                     <li class="{{ request()->routeIs('employer.dashboard') ? 'active' : '' }}">
                         <a href="{{ route('employer.dashboard') }}"><i class="la la-home"></i> Employer Dashboard</a>
                     </li>
@@ -262,6 +263,16 @@
                     <li class="{{ request()->routeIs('employer.password.change') ? 'active' : '' }}">
                         <a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a>
                     </li>
+=======
+                    <li class="active"><a href="{{ route('employer.dashboard') }}"><i class="la la-home"></i> Employer Dashboard</a></li>
+                    <li><a href="{{ route('employer.company.profile') }}"><i class="la la-user-tie"></i> Company Profile</a></li>
+                    <li><a href="{{ route('employer.jobs.index') }}"><i class="la la-paper-plane"></i> Post a New Job</a></li>
+                    <li><a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i> View Applicants</a></li>
+                    <li><a href="{{ route('employer.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
+                    <li><a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i> Resume Alerts</a></li>
+                    <li><a href="{{ route('employer.packages') }}"><i class="la la-box"></i> Packages</a></li>
+                    <li><a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a></li>
+>>>>>>> Stashed changes
 
                     @elseif(auth()->user()->user_type === 'candidate')
                     <li class="{{ request()->routeIs('candidate.dashboard') ? 'active' : '' }}">

@@ -6,7 +6,7 @@
 
 <span class="header-span"></span>
 
-    
+
 <!--Page Title-->
 <section class="page-title">
   <div class="auto-container">
@@ -111,7 +111,7 @@
           <!-- ls Switcher -->
           <div class="ls-switcher">
             <div class="showing-result">
-            <div class="text">Showing {{ $employers->firstItem() }}-{{ $employers->lastItem() }} of {{ $employers->total() }} employers</div>
+              <div class="text">Showing {{ $employers->firstItem() }}-{{ $employers->lastItem() }} of {{ $employers->total() }} employers</div>
             </div>
             <div class="sort-by">
               <select class="chosen-select">
@@ -138,22 +138,22 @@
           <div class="row">
             <!-- Company Block Four -->
             @foreach ($employers as $employer)
-              <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                  <div class="inner-box">
-                      <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                      <span class="featured">Featured</span>
-                      <span class="company-logo">
-                          <img src="{{ asset($employer->logo ?? '/images/resource/company-logo/default.png') }}" alt="{{ $employer->company_name }}">
-                      </span>
-                      <h4><a href="{{ route('employers.details', $employer->id) }}">{{ $employer->company_name }}</a></h4>
-                      <ul class="job-info">
-                          <li><span class="icon flaticon-map-locator"></span> {{ $employer->location }}</li>
-                          <li><span class="icon flaticon-briefcase"></span> {{ $employer->industry }}</li>
-                      </ul>
-                      <div class="job-type">Open Jobs – {{ $employer->open_jobs ?? 0 }}</div>
-                  </div>
+            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
+              <div class="inner-box">
+                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                <span class="featured">Featured</span>
+                <span class="company-logo">
+                  <img src="{{ asset($employer->logo ? 'storage/logos/'.$employer->logo : 'images/resource/company-logo/default.png') }}" alt="{{ $employer->company_name }}">
+                </span>
+                <h4><a href="{{ route('employers.details', $employer->id) }}">{{ $employer->company_name }}</a></h4>
+                <ul class="job-info">
+                  <li><span class="icon flaticon-map-locator"></span> {{ $employer->location }}</li>
+                  <li><span class="icon flaticon-briefcase"></span> {{ $employer->industry }}</li>
+                </ul>
+                <div class="job-type">Open Jobs – {{ $employer->open_jobs ?? 0 }}</div>
               </div>
-              @endforeach
+            </div>
+            @endforeach
           </div>
 
           <!-- Pagination -->

@@ -78,6 +78,9 @@
             <li><a href="{{ route('employer.messages') }}"><i class="la la-comment-o"></i> Messages</a></li>
             <li><a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i> Resume Alerts</a></li>
             <li><a href="{{ route('employer.password') }}"><i class="la la-lock"></i> Change Password</a></li>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             <li>
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

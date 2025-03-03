@@ -3,9 +3,7 @@
         <ul class="navigation">
             <!-- Dashboard Link -->
             <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <a href="{{ route('admin.dashboard') }}">
-                    <i class="la la-home"></i> Dashboard
-                </a>
+                <a href="{{ route('admin.dashboard') }}"><i class="la la-home"></i> Dashboard</a>
             </li>
 
             <!-- Manage Users -->

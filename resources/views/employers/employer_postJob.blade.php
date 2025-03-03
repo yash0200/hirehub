@@ -166,7 +166,7 @@
                                         <!-- Input -->
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label>Application Deadline Date</label>
-                                            <input type="text" name="name" placeholder="06.04.2020">
+                                            <input type="date" name="name" placeholder="06.04.2020">
                                         </div>
 
                                         <div class="form-group col-lg-6">

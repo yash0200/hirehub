@@ -80,6 +80,9 @@
             <li><a href="{{ route('employer.password') }}"><i class="la la-lock"></i> Change Password</a></li>
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

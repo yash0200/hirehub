@@ -59,35 +59,50 @@
                                     <tbody>
                                         @foreach ($categories as $category)
                                         <tr>
-                                            <td class="title">{{ $category->title }}</td>
+                                            <td class="title">{{ $category->name }}</td>
                                             <td>{{ $category->slug }}</td>
                                             <td>{{ $category->created_at->format('d/m/Y') }}</td>
                                             <td>
                                                 @if($category->status == 'active')
-                                                <span class="badge badge-publish">active</span>
+                                                <span>active</span>
                                                 @else
-                                                <span class="badge badge-draft">inactive</span>
+                                                <span>inactive</span>
                                                 @endif
                                             </td>
                                             <td>
                                                 <div class="option-box">
                                                     <ul class="option-list">
-                                                        <li><a href="{{ route('admin.categories.edit', $category->id) }}" data-text="Edit Category"><span class="la la-pencil"></span></a></li>
                                                         <li>
-                                                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display:inline;">
+                                                            <a href="{{ route('admin.categories.edit', $category->id) }}" data-text="Edit User">
+                                                                <span class="la la-pencil"></span>
+                                                            </a>
+                                                        </li>
+                                                        <!-- Delete User -->
+                                                        <li>
+                                                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employer?');">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" data-text="Delete Category" class="bc-delete-item" style="background:none; border:none; color:red;">
+                                                                <button type="submit" class="bc-delete-item" data-text="Delete User">
                                                                     <span class="la la-trash"></span>
                                                                 </button>
                                                             </form>
                                                         </li>
+                                                        <!-- Change User Status -->
                                                         <li>
-                                                            <form action="{{ route('admin.categories.changeStatus', $category->id) }}" method="POST" style="display:inline;">
+                                                            <form action="{{ route('admin.categories.changeStatus', $category->id) }}" method="POST">
                                                                 @csrf
-                                                                @method('PUT')
-                                                                <input type="hidden" name="status" value="{{ $category->status == 'publish' ? 'draft' : 'publish' }}">
-                                                                <button type="submit" class="btn btn-warning">{{ $category->status == 'publish' ? 'Change to Draft' : 'Publish' }}</button>
+                                                                @method('PATCH')
+
+                                                                <details>
+                                                                    <summary style="cursor: pointer; display: inline-flex; align-items: center;">
+                                                                        <span class="la la-exchange-alt"></span> <!-- Clickable Icon -->
+                                                                    </summary>
+                                                                    <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                                                                        <option value="active" {{ $category->status == 'active' ? 'selected' : '' }}>Active</option>
+                                                                        <option value="inactive" {{ $category->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                                                        <option value="suspended" {{ $category->status == 'suspended' ? 'selected' : '' }}>Suspended</option>
+                                                                    </select>
+                                                                </details>
                                                             </form>
                                                         </li>
                                                     </ul>

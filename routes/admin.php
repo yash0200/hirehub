@@ -47,7 +47,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/manage-categories', [CategoryController::class, 'index'])->name('admin.categories');
     Route::get('/admin/add-categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
     Route::post('/admin/store-category', [CategoryController::class, 'store'])->name('admin.categories.store');
-    Route::delete('/delete-category/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.delete');
+    Route::get('/admin/store-category', [CategoryController::class, 'store'])->name('admin.categories.edit');
+    Route::delete('/delete-category/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
     Route::post('/change-category-status/{category}', [CategoryController::class, 'changeStatus'])->name('admin.categories.changeStatus');
 
     Route::get('/admin/manage-applications', [ApplicationController::class, 'index'])->name('admin.applications');

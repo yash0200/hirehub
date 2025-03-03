@@ -44,7 +44,7 @@ class Jobs extends Model
     /**
      * Relationship with Job Category
      */
-    public function category(): BelongsTo
+    public function job_categories(): BelongsTo
     {
         return $this->belongsTo(JobCategory::class, 'category_id');
     }

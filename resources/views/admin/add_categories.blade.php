@@ -39,7 +39,7 @@
                             <div class="widget-content">
                                 <div class="form-group">
                                     <label>Name <span class="required">*</span></label>
-                                    <input type="text" value="" placeholder="Category name" name="title" required class="form-control">
+                                    <input type="text" value="" placeholder="Category name" name="name" required class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Slug</label>

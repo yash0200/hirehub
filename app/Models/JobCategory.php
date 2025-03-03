@@ -10,7 +10,7 @@ use App\Models\Jobs;
 class JobCategory extends Model
 {
     use HasFactory;
-
+    protected $table = 'job_categories';
     protected $fillable = ['name', 'slug','status'];
 
     public function jobs(): HasMany

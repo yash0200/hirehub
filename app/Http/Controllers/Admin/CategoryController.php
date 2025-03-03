@@ -8,6 +8,7 @@ use App\Models\JobCategory;
 
 class CategoryController extends Controller
 {
+
     public function index()
     {
         $categories = JobCategory::all();  // Retrieve all categories from the database
@@ -21,13 +22,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:job_categories,slug',
             'status' => 'required|in:active,inactive',
         ]);
 
         JobCategory::create([
-            'title' => $validated['title'],
+            'name' => $validated['name'],
             'slug' => $validated['slug'],
             'status' => $validated['status'],
         ]);

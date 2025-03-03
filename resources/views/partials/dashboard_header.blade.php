@@ -238,8 +238,8 @@
                     <li class="{{ request()->routeIs('employer.company.profile') ? 'active' : '' }}">
                         <a href="{{ route('employer.company.profile') }}"><i class="la la-user-tie"></i> Company Profile</a>
                     </li>
-                    <li class="{{ request()->routeIs('employer.job.create') ? 'active' : '' }}">
-                        <a href="{{ route('employer.job.create') }}"><i class="la la-paper-plane"></i> Post a New Job</a>
+                    <li class="{{ request()->routeIs('employer.jobs.index') ? 'active' : '' }}">
+                        <a href="{{ route('employer.jobs.index') }}"><i class="la la-paper-plane"></i> Post a New Job</a>
                     </li>
                     <li class="{{ request()->routeIs('employer.job.manage') ? 'active' : '' }}">
                         <a href="{{ route('employer.job.manage') }}"><i class="la la-briefcase"></i>Manage Jobs</a>

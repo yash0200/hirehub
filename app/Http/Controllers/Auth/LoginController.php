@@ -28,10 +28,9 @@ class LoginController extends Controller
             } elseif ($user->user_type === 'employer') {
                 return redirect()->route('employer.dashboard');
             } else {
-                return redirect()->route('home'); // Default route
+                return back()->withErrors(['email' => 'Invalid email or password']);
             }
         }
-
         return back()->withErrors(['email' => 'Invalid email or password']);
     }
 

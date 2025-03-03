@@ -110,12 +110,32 @@ class ProfileController extends Controller
             }
 
             // Save updated profile
-        
+
             $profile->save();
 
             return redirect()->route('candidate.profile')->with('success', 'Profile updated successfully.');
         } catch (\Exception $e) {
             return redirect()->route('candidate.profile')->withErrors($e->getMessage());
         }
+    }
+    public function changePassword1(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = auth()->user();
+
+        // Check if old password is correct
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        }
+
+        // Update password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Password updated successfully!');
     }
 }

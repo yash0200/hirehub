@@ -14,8 +14,8 @@
             <li class="{{ request()->routeIs('candidate.appliedjobs') ? 'active' : '' }}">
                 <a href="{{ route('candidate.appliedjobs') }}"><i class="la la-briefcase"></i> Applied Jobs</a>
             </li>
-            <li class="{{ request()->routeIs('candidate.resumes') ? 'active' : '' }}">
-                <a href="{{ route('candidate.resumes') }}"><i class="la la-bell"></i> Job Alerts(karvanu)</a>
+            <li class="{{ request()->routeIs('candidate.jobalerts') ? 'active' : '' }}">
+                <a href="{{ route('candidate.jobalerts') }}"><i class="la la-bell"></i> Job Alerts</a>
             </li>
             <li class="{{ request()->routeIs('candidate.shortlist') ? 'active' : '' }}">
                 <a href="{{ route('candidate.shortlist') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a>

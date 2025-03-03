@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         
     
-        return view('candidates.candidates_changepassword');
+        return view('candidates.candidates_profile');
     }
 
 

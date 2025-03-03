@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Candidate\AppliedJobsController;
 use App\Http\Controllers\Candidate\ShortlistJobsController;
 use Illuminate\Support\Facades\Route;
@@ -67,8 +68,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/jobalerts', [JobAlertController::class, 'index'])->name('candidate.jobalerts');
         
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
-        Route::get('/candidate/change-password', [ProfileController::class, 'index'])->name('candidate.password');
-        Route::post('/candidate/change-password', [ProfileController::class, 'changePassword'])->name('candidate.password.change');
+        Route::get('/candidate/change-password', [ChangePasswordController::class, 'candidateIndex'])->name('candidate.password');
+        Route::post('/candidate/change-password', [ChangePasswordController::class, 'candidateChangePassword'])->name('candidate.password.change');
         Route::get('/candidate/delete-profile', [ProfileController::class, 'delete'])->name('candidate.profile.delete');
         Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'shortlistJobs'])->name('candidate.shortlist');
@@ -99,8 +100,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employer/packages', [PackageController::class, 'index'])->name('employer.packages');
         Route::get('/employer/messages', [EmployerMessage::class, 'index'])->name('employer.messages');
         Route::get('/employer/resume-alerts', [EmployerResume::class, 'alerts'])->name('employer.resume.alerts');
-        Route::get('/employer/change-password', [EmployerProfile::class, 'index'])->name('employer.password');
-        Route::post('/employer/change-password', [EmployerProfile::class, 'changePassword'])->name('employer.password.change');
+        Route::get('/employer/change-password', [ChangePasswordController::class, 'employerIndex'])->name('employer.password');
+        Route::post('/employer/change-password', [ChangePasswordController::class, 'employerChangePassword'])->name('employer.password.change');
         Route::get('/employer/delete-profile', [EmployerProfile::class, 'delete'])->name('employer.profile.delete');
     });
 });

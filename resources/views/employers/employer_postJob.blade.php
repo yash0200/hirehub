@@ -11,7 +11,15 @@
                 <h3 class="dark-color">Post a New Job!</h3>
                 <p class="text-color">Ready to jump back in?</p>
             </div>
-
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li><b>{{ $error }}</b> </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ls-widget">
@@ -33,177 +41,142 @@
                                     </div>
                                 </div>
 
-                                <form class="default-form">
+                                <form class="default-form" method="POST" action="{{ route('jobs.store') }}">
+                                    @csrf
                                     <div class="row">
                                         <div class="form-group col-lg-12">
                                             <label>Job Title</label>
-                                            <input type="text" name="name" class="form-control" placeholder="Title">
+                                            <input type="text" name="title" class="form-control" placeholder="Title"
+                                                value="{{ old('title') }}">
+                                            @error('title')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-12">
                                             <label>Job Description</label>
-                                            <textarea class="form-control" placeholder="Enter job details..."></textarea>
+                                            <textarea class="form-control" name="description"
+                                                placeholder="Enter job details...">{{ old('description') }}</textarea>
+                                            @error('description')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
-
-                                        <!-- Search Select -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Skills </label>
-                                            <select data-placeholder="Categories" class="chosen-select multiple" multiple
-                                                tabindex="4">
-                                                <option value="Software Development">Software Development</option>
-                                                <option value="Data Science & Analytics">Data Science & Analytics</option>
-                                                <option value="Cybersecurity">Cybersecurity</option>
-                                                <option value="Finance & Accounting">Finance & Accounting</option>
-                                                <option value="Marketing & Advertising">Marketing & Advertising</option>
-                                                <option value="Healthcare & Medical">Healthcare & Medical</option>
-                                                <option value="Engineering & Manufacturing">Engineering & Manufacturing
-                                                </option>
-                                                <option value="Sales & Business Development">Sales & Business Development
-                                                </option>
-                                                <option value="Human Resources">Human Resources</option>
-                                                <option value="Project Management">Project Management</option>
-                                                <option value="Legal & Compliance">Legal & Compliance</option>
-                                                <option value="Education & Training">Education & Training</option>
-                                            </select>
+                                            <input type="text" name="skills" class="form-control"
+                                                placeholder="Enter required Skills" value="{{ old('skills') }}">
+                                            @error('skills')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Job Category</label>
-                                            <select class="chosen-select">
+                                            <select name="category_id" class="chosen-select">
                                                 <option>Select</option>
-                                                <option>IT</option>
-                                                <option>Marketing</option>
-                                                <option>Digital & Creative</option>
-                                                <option>Admin</option>
-                                                <option>Human Resources</option>
-                                                <option>Management</option>
-                                                <option>Finance</option>
-                                                <option>Sales</option>
-                                                <option>Customer Service</option>
+                                                <option value="IT" {{ old('category_id') == 'IT' ? 'selected' : '' }}>IT
+                                                </option>
+                                                <option value="Marketing" {{ old('category_id') == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+                                                <option value="Digital & Creative" {{ old('category_id') == 'Digital & Creative' ? 'selected' : '' }}>Digital & Creative</option>
+                                                <option value="Admin" {{ old('category_id') == 'Admin' ? 'selected' : '' }}>
+                                                    Admin</option>
+                                                <option value="Human Resources" {{ old('category_id') == 'Human Resources' ? 'selected' : '' }}>Human Resources</option>
+                                                <option value="Management" {{ old('category_id') == 'Management' ? 'selected' : '' }}>Management</option>
+                                                <option value="Finance" {{ old('category_id') == 'Finance' ? 'selected' : '' }}>Finance</option>
+                                                <option value="Sales" {{ old('category_id') == 'Sales' ? 'selected' : '' }}>
+                                                    Sales</option>
+                                                <option value="Customer Service" {{ old('category_id') == 'Customer Service' ? 'selected' : '' }}>Customer Service</option>
                                             </select>
+                                            @error('category_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
-                                        <!-- Input -->
                                         <div class="form-group col-lg-6">
                                             <label>Offered Salary (INR Per Annum)</label>
-                                            <select class="chosen-select form-control">
+                                            <select name="salary" class="chosen-select form-control">
                                                 <option>Select</option>
-                                                <option>₹3,00,000 - ₹5,00,000</option>
-                                                <option>₹5,00,000 - ₹7,00,000</option>
-                                                <option>₹7,00,000 - ₹10,00,000</option>
-                                                <option>₹10,00,000 - ₹15,00,000</option>
-                                                <option>₹15,00,000 - ₹20,00,000</option>
+                                                <option value="₹3,00,000 - ₹5,00,000" {{ old('salary') == '₹3,00,000 - ₹5,00,000' ? 'selected' : '' }}>₹3,00,000 - ₹5,00,000</option>
+                                                <option value="₹5,00,000 - ₹7,00,000" {{ old('salary') == '₹5,00,000 - ₹7,00,000' ? 'selected' : '' }}>₹5,00,000 - ₹7,00,000</option>
+                                                <option value="₹7,00,000 - ₹10,00,000" {{ old('salary') == '₹7,00,000 - ₹10,00,000' ? 'selected' : '' }}>₹7,00,000 - ₹10,00,000</option>
+                                                <option value="₹10,00,000 - ₹15,00,000" {{ old('salary') == '₹10,00,000 - ₹15,00,000' ? 'selected' : '' }}>₹10,00,000 - ₹15,00,000</option>
+                                                <option value="₹15,00,000 - ₹20,00,000" {{ old('salary') == '₹15,00,000 - ₹20,00,000' ? 'selected' : '' }}>₹15,00,000 - ₹20,00,000</option>
                                             </select>
-                                        </div>
-
-                                         <!-- Input -->
-                                         <div class="form-group col-lg-6">
-                                            <label>Job Type</label>
-                                            <select class="chosen-select form-control">
-                                                <option>Select</option>
-                                                <option>Full-Time </option>
-                                                <option>Part-Time </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group col-lg-6 col-md-12">
-                                            <label>Experience</label>
-                                            <select class="chosen-select">
-                                                <option>Select</option>
-                                                <option>Fresher (0-1 years)</option>
-                                                <option>1-3 years</option>
-                                                <option>3-5 years</option>
-                                                <option>5-7 years</option>
-                                                <option>7-10 years</option>
-                                                <option>10+ years</option>
-                                                <option>Senior Management (15+ years)</option>
-                                                <option>Executive Level</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group col-lg-6 col-md-12">
-                                            <label>Gender</label>
-                                            <select class="chosen-select">
-                                                <option>Select</option>
-                                                <option>Male</option>
-                                                <option>Female</option>
-                                                <option>Other</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group col-lg-6 col-md-12">
-                                            <label>Industry</label>
-                                            <select class="chosen-select">
-                                                <option>Select</option>
-                                                <option>Marketing & Advertising</option>
-                                                <option>Telecommunications</option>
-                                                <option>Real Estate</option>
-                                                <option>Logistics & Transportation</option>
-                                                <option>Hospitality & Tourism</option>
-                                                <option>Legal Services</option>
-                                                <option>Energy & Utilities</option>
-                                                <option>Agriculture</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group col-lg-6 col-md-12">
-                                            <label>Qualification</label>
-                                            <select class="chosen-select">
-                                                <option>Select</option>
-                                                <option>Graduate</option>
-                                                <option>Bachelor's Dergee</option>
-                                                <option>Postgraduate</option>
-                                                <option>Other Qualifications</option>
-                                            </select>
+                                            @error('salary')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>E-Mail</label>
-                                            <input type="email" name="name" placeholder="E-Mail">
+                                            <input type="email" name="email" class="form-control" placeholder="E-Mail"
+                                                value="{{ old('email') }}">
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
-                                        <!-- Input -->
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label>Application Deadline Date</label>
-                                            <input type="date" name="name" placeholder="06.04.2020">
+                                            <input type="date" name="deadline" class="form-control"
+                                                value="{{ old('deadline') }}">
+                                            @error('deadline')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label>Country</label>
-                                            <input type="text" name="country" class="form-control" placeholder="Enter Country">
+                                            <input type="text" name="country" class="form-control"
+                                                placeholder="Enter Country" value="{{ old('country') }}">
+                                            @error('country')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label>State</label>
-                                            <input type="text" name="state" class="form-control" placeholder="Enter state">
+                                            <input type="text" name="state" class="form-control" placeholder="Enter State"
+                                                value="{{ old('state') }}">
+                                            @error('state')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label>City</label>
-                                            <input type="text" name="city" class="form-control" placeholder="Enter city">
+                                            <input type="text" name="city" class="form-control" placeholder="Enter City"
+                                                value="{{ old('city') }}">
+                                            @error('city')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label>Postcode</label>
                                             <input type="text" name="postcode" class="form-control"
-                                                placeholder="Enter postcode">
+                                                placeholder="Enter Postcode" value="{{ old('postcode') }}">
+                                            @error('postcode')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
-
-
 
                                         <div class="form-group col-lg-12">
                                             <label>Complete Address</label>
                                             <input type="text" name="address" class="form-control"
-                                                placeholder="123 Main Street">
+                                                placeholder="123 Main Street" value="{{ old('address') }}">
+                                            @error('address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-12 text-right">
                                             <button class="theme-btn btn-style-one" type="submit">Submit</button>
-
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
                         </div>
                     </div>

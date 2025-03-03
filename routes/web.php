@@ -85,15 +85,15 @@ Route::middleware(['auth'])->group(function () {
 
         /** ================== Post Job Routes ================== */
         
-        Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index'); // List all jobs
-        Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create'); // Show create form
-        Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store'); // Store job
-        Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show'); // Show a specific job
-        Route::get('/employer/jobs/{id}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit'); // Show edit form
-        Route::put('/employer/jobs/{id}', [EmployerJobController::class, 'update'])->name('jobs.update'); // Update job
-        Route::delete('/employer/jobs/{id}', [EmployerJobController::class, 'destroy'])->name('jobs.destroy'); // Delete job
+        Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index');     // List all jobs
+        Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create');     // Show create form
+        Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store');             // Store job
+        Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show');            // Show a specific job
+        Route::get('/employer/jobs/{id}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit');      // Show edit form
+        Route::put('/employer/jobs/{id}', [EmployerJobController::class, 'update'])->name('jobs.update');       // Update job
+        Route::delete('/employer/jobs/{id}', [EmployerJobController::class, 'destroy'])->name('jobs.destroy');  // Delete job
 
-
+        
         Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.job.manage');
         Route::get('/employer/applicants', [ApplicantController::class, 'index'])->name('employer.applicants');
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');

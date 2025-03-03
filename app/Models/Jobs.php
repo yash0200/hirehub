@@ -54,7 +54,7 @@ class Jobs extends Model
      */
     public function jobAddress(): HasOne
     {
-        return $this->hasOne(JobAddress::class);
+        return $this->hasOne(JobAddress::class, 'job_id');
     }
 }
 

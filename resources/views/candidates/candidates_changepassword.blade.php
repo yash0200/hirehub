@@ -51,6 +51,6 @@
 
     <!-- Copyright -->
     <div class="copyright-text">
-      <p>© 2021 Superio. All Right Reserved.</p>
+      <p>© 2025 Hirehub. All Right Reserved.</p>
     </div>
     @endsection

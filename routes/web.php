@@ -86,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/employer/company-profile/update', [CompanyProfileController::class, 'update'])->name('employer.company.profile.update');
 
         /** ================== Post Job Routes ================== */
-        
+                    
         Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index');     // List all jobs
         Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create');     // Show create form
         Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store');             // Store job

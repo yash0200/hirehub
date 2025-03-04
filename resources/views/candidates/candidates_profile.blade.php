@@ -169,36 +169,34 @@
               <form class="default-form" action="{{route('candidate.profile.update')}}" method="POST">
                 @csrf
                 <input type="hidden" name="form_type" value="social_network">
-                <div class="row">
-                  <!-- Input -->
-                  <div class="form-group col-lg-6 col-md-12">
-                    <label>Facebook</label>
-                    <input type="text" name="facebook" value="{{ old('facebook', $candidate->facebook ?? '') }}" placeholder="https://www.facebook.com/yourprofile">
-                  </div>
-
-                  <!-- Input -->
-                  <div class="form-group col-lg-6 col-md-12">
-                    <label>Twitter</label>
-                    <input type="text" name="twitter" value="{{ old('twitter', $candidate->twitter ?? '') }}" placeholder="https://www.x.com/yourprofile">
-                  </div>
-
-                  <!-- Input -->
-                  <div class="form-group col-lg-6 col-md-12">
-                    <label>LinkedIn</label>
-                    <input type="text" name="linkedin" value="{{ old('linkedin', $candidate->linkedin ?? '') }}" placeholder="https://www.linkedin.com/in/yourprofile">
-                  </div>
-
-
-                  <!-- Input -->
-                  <!-- <div class="form-group col-lg-6 col-md-12">
-                        <label>Google Plus</label>
-                        <input type="text" name="name" placeholder="www.googleplus.com">
-                      </div> -->
-
-                  <!-- Input -->
-                  <div class="form-group col-lg-6 col-md-12">
-                    <button class="theme-btn btn-style-one">Save</button>
-                  </div>
+                  <div class="row">
+                    <!-- Input -->
+                    <div class="form-group col-lg-6 col-md-12">
+                        <label>Facebook</label>
+                        <input type="text" name="facebook" 
+                            value="{{ old('facebook', $candidate->user->socialNetwork->facebook ?? '') }}" 
+                            placeholder="https://www.facebook.com/yourprofile">
+                    </div>
+                
+                    <!-- Input -->
+                    <div class="form-group col-lg-6 col-md-12">
+                        <label>Twitter</label>
+                        <input type="text" name="twitter" 
+                            value="{{ old('twitter', $candidate->user->socialNetwork->twitter ?? '') }}" 
+                            placeholder="https://www.x.com/yourprofile">
+                    </div>
+                
+                    <!-- Input -->
+                    <div class="form-group col-lg-6 col-md-12">
+                        <label>LinkedIn</label>
+                        <input type="text" name="linkedin" 
+                            value="{{ old('linkedin', $candidate->user->socialNetwork->linkedin ?? '') }}" 
+                            placeholder="https://www.linkedin.com/in/yourprofile">
+                    </div>
+                
+                    <div class="form-group col-lg-6 col-md-12">
+                        <button class="theme-btn btn-style-one">Save</button>
+                    </div>
                 </div>
               </form>
             </div>
@@ -220,7 +218,8 @@
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Nationality</label>
-                    <input type="text" name="country" value="{{ old('nationality', $candidate->nationality ?? '') }}" placeholder="e.g., Indian">
+                    
+                    <input type="text" name="country" value="{{ old('country', $candidate->address->country ?? '') }}" placeholder="e.g., Indian">
 
                     <!-- <select class="chosen-select">
                           <option>Australia</option>
@@ -233,7 +232,7 @@
 
                   <div class="form-group col-lg-6 col-md-12">
                     <label>State</label>
-                    <input type="text" name="state" value="{{ old('state', $candidate->state ?? '') }}" placeholder="e.g., Gujarat">
+                    <input type="text" name="state" value="{{ old('state', $candidate->address->state ?? '') }}" placeholder="e.g., Gujarat">
                     <!-- <select class="chosen-select">
                           <option>Victoria</option>
                           <option>Queensland</option>
@@ -246,7 +245,7 @@
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>City</label>
-                    <input type="text" name="city" value="{{ old('city', $candidate->city ?? '') }}" placeholder="e.g., Surat">
+                    <input type="text" name="city" value="{{ old('city', $candidate->address->city ?? '') }}" placeholder="e.g., Surat">
                     <!-- <select class="chosen-select">
                           <option>Melbourne</option>
                           <option>Sydney</option>
@@ -258,20 +257,13 @@
 
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Postal/ZIP Code</label>
-                    <input type="text" name="postal_code" value="{{ old('postal_code', $candidate->postal_code ?? '') }}" placeholder="e.g., 395004">
-                    <!-- <select class="chosen-select">
-                          <option>Melbourne</option>
-                          <option>Sydney</option>
-                          <option>Perth</option>
-                          <option>Adelaide</option>
-                          <option>Hobart</option>
-                        </select> -->
+                    <input type="text" name="postal_code" value="{{ old('postal_code', $candidate->address->postal_code ?? '') }}" placeholder="e.g., 395004">
                   </div>
 
                   <!-- Input -->
                   <div class="form-group col-lg-12 col-md-12">
                     <label>Street</label>
-                    <input type="text" name="street" value="{{ old('street', $candidate->street ?? '') }}" placeholder="e.g., A-12, Madhuvan Society, Katargam, Surat">
+                    <input type="text" name="street" value="{{ old('street', $candidate->address->street ?? '') }}" placeholder="e.g., A-12, Madhuvan Society, Katargam, Surat">
                   </div>
 
                   <!-- Input -->

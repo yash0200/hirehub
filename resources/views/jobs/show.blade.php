@@ -25,13 +25,18 @@
                 <div class="job-block-seven style-two">
                   <div class="inner-box">
                     <div class="content">
-                      <h4><a href="{{ url("#") }}">Product Designer / UI Designer</a></h4>
+                      <h4><a href="{{ url('#') }}">{{ $job->title }}</a></h4>
                       <ul class="job-info">
-                        <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                        <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                        <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                        <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                          <li><span class="icon flaticon-briefcase"></span> {{ $job->category->name ?? 'N/A' }}</li>
+                          <li><span class="icon flaticon-map-locator"></span> 
+                              {{ $job->jobAddress->city ?? 'Unknown' }}, {{ $job->jobAddress->country ?? '' }}
+                          </li>
+                          <li><span class="icon flaticon-clock-3"></span> {{ $job->created_at->diffForHumans() }}</li>
+                          <li><span class="icon flaticon-money"></span> 
+                              {{ $job->salary_range ?? 'Not Specified' }}
+                          </li>
                       </ul>
+
                       <ul class="job-other-info">
                         <li class="time">Full Time</li>
                         <li class="privacy">Private</li>

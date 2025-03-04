@@ -19,7 +19,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $table = 'users'; 
+    protected $table = 'users';
 
     protected $fillable = [
         'name',
@@ -38,6 +38,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Candidate::class);
     }
+    public function socialNetwork()
+    {
+        return $this->hasOne(SocialNetwork::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -59,17 +64,16 @@ class User extends Authenticatable
     ];
 
     public function updateProfileStatus()
-{
-    $this->profile_completed = $this->candidate->isProfileCompleted();
-    $this->save();
-}
-
-public function updateResumeStatus()
-{
-    if ($this->candidate && $this->candidate->resume) {
-        $this->resume_updated = $this->candidate->resume->isResumeUpdated();
+    {
+        $this->profile_completed = $this->candidate->isProfileCompleted();
         $this->save();
     }
-}
 
+    public function updateResumeStatus()
+    {
+        if ($this->candidate && $this->candidate->resume) {
+            $this->resume_updated = $this->candidate->resume->isResumeUpdated();
+            $this->save();
+        }
+    }
 }

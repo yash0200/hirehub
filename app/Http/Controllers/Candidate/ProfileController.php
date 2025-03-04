@@ -15,14 +15,9 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-
-
-        return view('candidates.candidates_profile');
+        $candidate = Candidate::where('user_id', auth()->id())->with('address','user.socialNetwork')->firstOrNew();
+        return view('candidates.candidates_profile', compact('candidate'));
     }
-
-
-
-
     public function update(Request $request)
     {
         try {
@@ -85,11 +80,17 @@ class ProfileController extends Controller
                     'linkedin' => 'nullable|url',
                 ]);
 
-                // Update social fields
-                $profile->facebook = $request->facebook;
-                $profile->twitter = $request->twitter;
-                $profile->linkedin = $request->linkedin;
+                // Update or create social links for the logged-in user
+                $user->socialNetwork()->updateOrCreate(
+                    ['user_id' => $user->id], // Search by user_id
+                    [
+                        'facebook' => $request->facebook,
+                        'twitter' => $request->twitter,
+                        'linkedin' => $request->linkedin,
+                    ]
+                );
             }
+
 
             if ($formType === 'contact_information') {
                 $request->validate([
@@ -99,9 +100,6 @@ class ProfileController extends Controller
                     'postal_code' => 'nullable|string|max:10',
                     'street' => 'nullable|string|max:500',
                 ]);
-
-                // Save profile
-                $profile->save();
 
                 // Update or create address
                 $profile->address()->updateOrCreate(
@@ -115,7 +113,9 @@ class ProfileController extends Controller
                     ]
                 );
             }
+
             $profile->save();
+
             return redirect()->route('candidate.profile')->with('success', 'Profile updated successfully.');
         } catch (\Exception $e) {
             return redirect()->route('candidate.profile')->withErrors($e->getMessage());

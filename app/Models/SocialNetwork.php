@@ -5,15 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CandidateAddress extends Model
+class SocialNetwork extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'country', 'state', 'city', 'postal_code', 'street','candidate_id'
+        'user_id',
+        'facebook',
+        'twitter',
+        'linkedin',
     ];
-    public function candidate()
+    
+    public function user()
     {
-        return $this->belongsTo(Candidate::class);
+        return $this->belongsTo(User::class);
     }
 }

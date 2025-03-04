@@ -49,17 +49,16 @@
           <div class="filter-block">
             <h4>Category</h4>
             <div class="form-group">
-              <select class="chosen-select">
-                <option>Choose a category</option>
-                <option>Residential</option>
-                <option>Commercial</option>
-                <option>Industrial</option>
-                <option>Apartments</option>
-              </select>
-              <span class="icon flaticon-briefcase"></span>
+                <select class="chosen-select">
+                    <option value="">Choose a category</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+                <span class="icon flaticon-briefcase"></span>
             </div>
           </div>
-
+        
           <!-- Switchbox Outer -->
           <div class="switchbox-outer">
             <h4>Job type</h4>
@@ -204,8 +203,13 @@
         <!-- ls Switcher -->
         <div class="ls-switcher">
           <div class="showing-result">
-            <div class="text">Showing <strong>41-60</strong> of <strong>944</strong> jobs</div>
-          </div>
+            <div class="text">
+                Showing 
+                <strong>{{ $jobs->firstItem() }}-{{ $jobs->lastItem() }}</strong> 
+                of <strong>{{ $jobs->total() }}</strong> jobs
+            </div>
+        </div>
+        
           <div class="sort-by">
             <select class="chosen-select">
               <option>New Jobs</option>
@@ -235,15 +239,15 @@
               <div class="content">
                 <!-- Display Employer's Logo (Fallback if image doesn't exist) -->
                 <span class="company-logo">
-                  <img src="{{ asset($job->employer->logo ?? '/public/images/resource/company-logo/default-logo.png') }}" alt="logo">
+                  <img src="{{ asset('storage/logos/' . $job->employer->logo ?? '/public/images/resource/company-logo/default-logo.png') }}" alt="logo">
                 </span>
                 <!-- Job Title -->
                 <h4><a href="{{ route('jobs.details', $job->id) }}">{{ $job->title }}</a></h4>
                 <ul class="job-info">
                   <!-- Job Category -->
-                  <li><span class="icon flaticon-briefcase"></span> {{ $job->category }}</li>
+                  <li><span class="icon flaticon-briefcase"></span> {{ $job->jobCategory->name }}</li>
                   <!-- Job Location -->
-                  <li><span class="icon flaticon-map-locator"></span> {{ $job->location }}</li>
+                  <li><span class="icon flaticon-map-locator"></span> {{ $job->jobAddress->city }},{{$job->jobAddress->state}}</li>
                   <!-- Job Posted Time (How long ago it was posted) -->
                   <li><span class="icon flaticon-clock-3"></span> {{ $job->created_at->diffForHumans() }}</li>
                   <!-- Job Salary -->
@@ -266,11 +270,18 @@
 
           <!-- Listing Show More -->
           <div class="ls-show-more">
-            <p>Showing 36 of 497 Jobs</p>
-            <div class="bar"><span class="bar-inner" style="width: 40%"></span></div>
-            <button class="show-more">Show More</button>
-          </div>
+            <p>Showing {{ $jobs->count() }} of {{ $jobs->total() }} Jobs</p>
+            <div class="bar">
+                @php
+                    $percentage = ($jobs->total() > 0) ? ($jobs->count() / $jobs->total()) * 100 : 0;
+                @endphp
+                <span class="bar-inner" style="width: {{ $percentage }}%"></span>
+            </div>
+            @if ($jobs->hasMorePages())
+                <button class="show-more">Show More</button>
+            @endif
         </div>
+        
         <!-- Ls Footer -->
 
       </div>

@@ -18,8 +18,15 @@ class JobsController extends Controller
     }
     public function show($id)
     {
-        $job = Jobs::findOrFail($id);
-        return view('jobs.show', compact('job'));
+        $job = Jobs::with('employer','jobAddress','jobCategory')->findOrFail($id);
+        // Fetch related jobs based on the same category
+        $relatedJobs = Jobs::where('category_id', $job->category_id)
+        ->where('id', '!=', $id) // Exclude the current job
+        ->with(['employer', 'jobAddress'])
+        ->limit(4) // Show only 4 related jobs
+        ->get();
+
+        return view('jobs.show', compact('job', 'relatedJobs'));
     }
 }
 //     // Show a specific job

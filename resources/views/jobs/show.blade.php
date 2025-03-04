@@ -27,13 +27,13 @@
                     <div class="content">
                       <h4><a href="{{ url('#') }}">{{ $job->title }}</a></h4>
                       <ul class="job-info">
-                          <li><span class="icon flaticon-briefcase"></span> {{ $job->category->name ?? 'N/A' }}</li>
+                          <li><span class="icon flaticon-briefcase"></span> {{ $job->jobCategory->name ?? 'N/A' }}</li>
                           <li><span class="icon flaticon-map-locator"></span> 
                               {{ $job->jobAddress->city ?? 'Unknown' }}, {{ $job->jobAddress->country ?? '' }}
                           </li>
                           <li><span class="icon flaticon-clock-3"></span> {{ $job->created_at->diffForHumans() }}</li>
                           <li><span class="icon flaticon-money"></span> 
-                              {{ $job->salary_range ?? 'Not Specified' }}
+                              {{ $job->salary ?? 'Not Specified' }}
                           </li>
                       </ul>
 
@@ -47,71 +47,70 @@
                 </div>
               </div>
 
-              <div class="job-overview-two">
-                <h4>Job Description</h4>
-                <ul>
-                  <li>
-                    <i class="icon icon-calendar"></i>
-                    <h5>Date Posted:</h5>
-                    <span>Posted 1 hours ago</span>
-                  </li>
-                  <li>
-                    <i class="icon icon-expiry"></i>
-                    <h5>Expiration date:</h5>
-                    <span>April 06, 2021</span>
-                  </li>
-                  <li>
-                    <i class="icon icon-location"></i>
-                    <h5>Location:</h5>
-                    <span>London, UK</span>
-                  </li>
-                  <li>
-                    <i class="icon icon-user-2"></i>
-                    <h5>Job Title:</h5>
-                    <span>Designer</span>
-                  </li>
-                  <li>
-                    <i class="icon icon-clock"></i>
-                    <h5>Hours:</h5>
-                    <span>50h / week</span>
-                  </li>
-                  <li>
-                    <i class="icon icon-rate"></i>
-                    <h5>Rate:</h5>
-                    <span>$15 - $25 / hour</span>
-                  </li>
-                  <li>
-                    <i class="icon icon-salary"></i>
-                    <h5>Salary:</h5>
-                    <span>$35k - $45k</span>
-                  </li>
-                </ul>
+                <div class="job-overview-two">
+                  <h4>Job Description</h4>
+                  <ul>
+                      <li>
+                          <i class="icon icon-calendar"></i>
+                          <h5>Date Posted:</h5>
+                          <span>Posted {{ $job->created_at->diffForHumans() }}</span>
+                      </li>
+                      <li>
+                          <i class="icon icon-expiry"></i>
+                          <h5>Expiration Date:</h5>
+                          <span>{{ $job->deadline ? \Carbon\Carbon::parse($job->deadline)->format('F d, Y') : 'Not Specified' }}</span>
+                      </li>
+                      <li>
+                          <i class="icon icon-location"></i>
+                          <h5>Location:</h5>
+                          <span>{{ $job->jobAddress->city ?? 'Unknown' }}, {{ $job->jobAddress->country ?? '' }}</span>
+                      </li>
+                      <li>
+                          <i class="icon icon-user-2"></i>
+                          <h5>Job Title:</h5>
+                          <span>{{ $job->title }}</span>
+                      </li>
+                      {{-- <li>
+                          <i class="icon icon-clock"></i>
+                          <h5>Hours:</h5>
+                          <span>{{ $job->working_hours ?? 'Not Specified' }}</span>
+                      </li>
+                      <li>
+                          <i class="icon icon-rate"></i>
+                          <h5>Rate:</h5>
+                          <span>{{ $job->hourly_rate ? '$' . $job->hourly_rate . ' / hour' : 'Not Specified' }}</span>
+                      </li> --}}
+                      <li>
+                          <i class="icon icon-salary"></i>
+                          <h5>Salary:</h5>
+                          <span>{{ $job->salary ?? 'Not Specified' }}</span>
+                      </li>
+                  </ul>
               </div>
 
               <div class="job-detail">
-
                 <h4>Job Description</h4>
-                <p>As a Product Designer, you will work within a Product Delivery Team fused with UX, engineering, product and data talent. You will help the team design beautiful interfaces that solve business challenges for our clients. We work with a number of Tier 1 banks on building web-based applications for AML, KYC and Sanctions List management workflows. This role is ideal if you are looking to segue your career into the FinTech or Big Data arenas.</p>
-                <h4>Key Responsibilities</h4>
-                <ul class="list-style-three">
-                  <li>Be involved in every step of the product design cycle from discovery to developer handoff and user acceptance testing.</li>
-                  <li>Work with BAs, product managers and tech teams to lead the Product Design</li>
-                  <li>Maintain quality of the design process and ensure that when designs are translated into code they accurately reflect the design specifications.</li>
-                  <li>Accurately estimate design tickets during planning sessions.</li>
-                  <li>Contribute to sketching sessions involving non-designersCreate, iterate and maintain UI deliverables including sketch files, style guides, high fidelity prototypes, micro interaction specifications and pattern libraries.</li>
-                  <li>Ensure design choices are data led by identifying assumptions to test each sprint, and work with the analysts in your team to plan moderated usability test sessions.</li>
-                  <li>Design pixel perfect responsive UI’s and understand that adopting common interface patterns is better for UX than reinventing the wheel</li>
-                  <li>Present your work to the wider business at Show & Tell sessions.</li>
-                </ul>
-                <h4>Skill & Experience</h4>
-                <ul class="list-style-three">
-                  <li>You have at least 3 years’ experience working as a Product Designer.</li>
-                  <li>You have experience using Sketch and InVision or Framer X</li>
-                  <li>You have some previous experience working in an agile environment – Think two-week sprints.</li>
-                  <li>You are familiar using Jira and Confluence in your workflow</li>
-                </ul>
+                <p>{{ $job->description ?? 'No job description available.' }}</p>
+            
+                @if(!empty($job->responsibilities))
+                    <h4>Key Responsibilities</h4>
+                    <ul class="list-style-three">
+                        @foreach(explode("\n", $job->responsibilities) as $responsibility)
+                            <li>{{ $responsibility }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            
+                @if(!empty($job->skills))
+                    <h4>Skill & Experience</h4>
+                    <ul class="list-style-three">
+                        @foreach(explode("\n", $job->skills) as $skill)
+                            <li>{{ $skill }}</li>
+                        @endforeach
+                    </ul>
+                @endif
               </div>
-
+          
               <!-- Other Options -->
               <div class="other-options">
                 <div class="social-share">
@@ -133,23 +132,25 @@
                 <div class="sidebar-widget company-widget">
                   <div class="widget-content">
                     <div class="company-title">
-                      <div class="company-logo"><img src="{{ asset("/images/resource/company-7.png") }}" alt=""></div>
-                      <h5 class="company-name">InVision</h5>
+                      <div class="company-logo">
+                        <img src="{{ asset('storage/logos/'.$job->employer->logo ?? 'images/default-company.png') }}" alt="Company Logo">
+                      </div>
+                      <h5 class="company-name">{{ $job->employer->company_name ?? 'Unknown' }}</h5>
                       <a href="{{ url("#") }}" class="profile-link">View company profile</a>
                     </div>
 
                     <ul class="company-info">
-                      <li>Primary industry: <span>Software</span></li>
-                      <li>Company size: <span>501-1,000</span></li>
-                      <li>Founded in: <span>2011</span></li>
-                      <li>Phone: <span>123 456 7890</span></li>
-                      <li>Email: <span>info@joio.com</span></li>
-                      <li>Location: <span>London, UK</span></li>
+                      <li>Primary industry: <span>{{ $job->employer->industry ?? 'N/A' }}</span></li>
+                      <li>Company size: <span>{{ $job->employer->company_size ?? 'N/A' }}</span></li>
+                      <li>Founded in: <span>{{ $job->employer->established_year ?? 'N/A' }}</span></li>
+                      <li>Phone: <span>{{ $job->employer->phone ?? 'N/A' }}</span></li>
+                      <li>Email: <span>{{ $job->email ?? 'N/A' }}</span></li>
+                      <li>Location: <span>{{ $job->jobAddress->state ?? 'N/A' }},{{ $job->jobAddress->country }}</span></li>
                       <li>Social media:
                         <div class="social-links">
                           <a href="{{ url("#") }}"><i class="fab fa-facebook-f"></i></a>
                           <a href="{{ url("#") }}"><i class="fab fa-twitter"></i></a>
-                          <a href="{{ url("#") }}"><i class="fab fa-instagram"></i></a>
+                          {{-- <a href="{{ url("#") }}"><i class="fab fa-instagram"></i></a> --}}
                           <a href="{{ url("#") }}"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                       </li>
@@ -191,65 +192,30 @@
           <!-- Related Jobs -->
           <div class="related-jobs">
             <div class="title-box">
-              <h3>Related Jobs</h3>
-              <div class="text">2020 jobs live - 293 added today.</div>
+                <h3>Related Jobs</h3>
+                <div class="text">{{ \App\Models\Jobs::count() }} jobs live - {{ \App\Models\Jobs::whereDate('created_at', today())->count() }} added today.</div>
             </div>
             <div class="row">
-              <!-- Job Block -->
-              <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="inner-box">
-                  <ul class="job-other-info">
-                    <li class="time">Full Time</li>
-                    <li class="privacy">Private</li>
-                    <li class="required">Urgent</li>
-                  </ul>
-                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/3-1.png") }}" alt=""></span>
-                  <span class="company-name">Catalyst</span>
-                  <h4><a href="{{ url("#") }}">Software Engineer (Android), Libraries</a></h4>
-                  <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
-                </div>
-              </div>
-
-              <!-- Job Block -->
-              <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="inner-box">
-                  <ul class="job-other-info">
-                    <li class="time">Full Time</li>
-                  </ul>
-                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/3-2.png") }}" alt=""></span>
-                  <span class="company-name">Catalyst</span>
-                  <h4><a href="{{ url("#") }}">Software Engineer (Android), Libraries</a></h4>
-                  <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
-                </div>
-              </div>
-
-              <!-- Job Block -->
-              <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="inner-box">
-                  <ul class="job-other-info">
-                    <li class="time">Full Time</li>
-                  </ul>
-                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/3-3.png") }}" alt=""></span>
-                  <span class="company-name">Upwork</span>
-                  <h4><a href="{{ url("#") }}">Software Engineer (Android), Libraries</a></h4>
-                  <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
-                </div>
-              </div>
-
-              <!-- Job Block -->
-              <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="inner-box">
-                  <ul class="job-other-info">
-                    <li class="time">Full Time</li>
-                  </ul>
-                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/3-4.png") }}" alt=""></span>
-                  <span class="company-name">invision</span>
-                  <h4><a href="{{ url("#") }}">Software Engineer (Android), Libraries</a></h4>
-                  <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
-                </div>
-              </div>
+                @foreach($relatedJobs as $relatedJob)
+                    <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                        <div class="inner-box">
+                            <ul class="job-other-info">
+                                <li class="time">{{ $relatedJob->job_type }}</li>
+                            </ul>
+                            <span class="company-logo">
+                                <img src="{{ asset('storage/logos/'.$relatedJob->employer->logo ?? '/images/default-company.png') }}" alt="">
+                            </span>
+                            <span class="company-name">{{ $relatedJob->employer->company_name ?? 'Unknown' }}</span>
+                            <h4><a href="{{ route('jobs.show', $relatedJob->id) }}">{{ $relatedJob->title }}</a></h4>
+                            <div class="location"><span class="icon flaticon-map-locator"></span> 
+                                {{ $relatedJob->jobAddress->state ?? 'Location Not Specified' }},{{ $relatedJob->jobAddress->country ?? 'Location Not Specified' }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
           </div>
+
         </div>
       </div>
     </section>

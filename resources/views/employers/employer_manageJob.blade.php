@@ -45,95 +45,42 @@
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <h6>Senior Full Stack Engineer, Creator Success</h6>
-                                                    <span class="info"><i class="icon flaticon-map-locator"></i> London,
-                                                        UK</span>
-                                                </td>
-                                                <td class="applied"><a href="{{ url("#") }}">3+ Applied</a></td>
-                                                <td>October 27, 2017 <br>April 25, 2011</td>
-                                                <td class="status">Active</td>
-                                                <td>
-                                                    <div class="option-box">
-                                                        <ul class="option-list">
-                                                            <li><button data-text="View Aplication"><span
-                                                                        class="la la-eye"></span></button></li>
-                                                            <li><button data-text="Reject Aplication"><span
-                                                                        class="la la-pencil"></span></button></li>
-                                                            <li><button data-text="Delete Aplication"><span
-                                                                        class="la la-trash"></span></button></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <h6>Senior Product Designer</h6>
-                                                    <span class="info"><i class="icon flaticon-map-locator"></i> London,
-                                                        UK</span>
-                                                </td>
-                                                <td class="applied"><a href="{{ url("#") }}">3+ Applied</a></td>
-                                                <td>October 27, 2017 <br>April 25, 2011</td>
-                                                <td class="status">Active</td>
-                                                <td>
-                                                    <div class="option-box">
-                                                        <ul class="option-list">
-                                                            <li><button data-text="View Aplication"><span
-                                                                        class="la la-eye"></span></button></li>
-                                                            <li><button data-text="Reject Aplication"><span
-                                                                        class="la la-pencil"></span></button></li>
-                                                            <li><button data-text="Delete Aplication"><span
-                                                                        class="la la-trash"></span></button></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <h6>Sr. Full Stack Engineer</h6>
-                                                    <span class="info"><i class="icon flaticon-map-locator"></i> London,
-                                                        UK</span>
-                                                </td>
-                                                <td class="applied"><a href="{{ url("#") }}">3+ Applied</a></td>
-                                                <td>October 27, 2017 <br>April 25, 2011</td>
-                                                <td class="status">Active</td>
-                                                <td>
-                                                    <div class="option-box">
-                                                        <ul class="option-list">
-                                                            <li><button data-text="View Aplication"><span
-                                                                        class="la la-eye"></span></button></li>
-                                                            <li><button data-text="Reject Aplication"><span
-                                                                        class="la la-pencil"></span></button></li>
-                                                            <li><button data-text="Delete Aplication"><span
-                                                                        class="la la-trash"></span></button></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <h6>Product Manager, Studio</h6>
-                                                    <span class="info"><i class="icon flaticon-map-locator"></i> London,
-                                                        UK</span>
-                                                </td>
-                                                <td class="applied"><a href="{{ url("#") }}">3+ Applied</a></td>
-                                                <td>October 27, 2017 <br>April 25, 2011</td>
-                                                <td class="status">Active</td>
-                                                <td>
-                                                    <div class="option-box">
-                                                        <ul class="option-list">
-                                                            <li><button data-text="View Aplication"><span
-                                                                        class="la la-eye"></span></button></li>
-                                                            <li><button data-text="Reject Aplication"><span
-                                                                        class="la la-pencil"></span></button></li>
-                                                            <li><button data-text="Delete Aplication"><span
-                                                                        class="la la-trash"></span></button></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                            @if($jobs->isEmpty())
+                                                <tr>
+                                                    <td colspan="4">There is no Jobs</td>
+                                                </tr>
+                                            @else
+
+                                                @foreach ($jobs as $job)
+                                                    <tr>
+                                                        <td>
+                                                            <h6>{{ $job->title }}</h6>
+                                                            <span class="info"><i class="icon flaticon-map-locator"></i>
+                                                                @if ($job->jobAddresses->isNotEmpty())
+                                                                    {{ $job->jobAddresses->first()->state }},
+                                                                    {{ $job->jobAddresses->first()->city }}
+                                                                @else
+                                                                    No address available
+                                                                @endif</span>
+                                                        </td>
+                                                        <td class="applied"><a href="{{ url("#") }}">3+ Applied</a></td>
+                                                        <td>{{ $job->created_at }} <br>{{ $job->deadline}}</td>
+                                                        <td class="status">Active</td>
+                                                        <td>
+                                                            <div class="option-box">
+                                                                <ul class="option-list">
+                                                                    <li><button data-text="View Job"><span
+                                                                                class="la la-eye"></span></button></li>
+                                                                    <li><button data-text="Edit Job"><span
+                                                                                class="la la-pencil"></span></button></li>
+                                                                    <li><button data-text="Delete Job"><span
+                                                                                class="la la-trash"></span></button></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif                                      </tbody>
                                     </table>
                                 </div>
                             </div>

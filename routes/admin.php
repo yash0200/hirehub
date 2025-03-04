@@ -37,6 +37,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::get('/admin/manage-users/employer/{id}', [UserController::class, 'showEmployer'])->name('admin.users.employer.view');
 
 
+    /**========================Mange Jobs Post ============================= */
+
+
+
+
     /**========================Mange emoloyers routes ============================= */
 
     Route::get('/admin/manage-employers', [EmployerController::class, 'index'])->name('admin.employers');

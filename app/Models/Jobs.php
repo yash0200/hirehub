@@ -58,4 +58,10 @@ class Jobs extends Model
     {
         return $this->hasOne(JobAddress::class, 'job_id');
     }
+
+// Define the relationship with the JobAddress model
+    public function jobAddresses()
+    {
+        return $this->hasMany(JobAddress::class,'job_id');
+    }
 }

@@ -17,4 +17,5 @@ class JobAddress extends Model
     {
         return $this->belongsTo(Jobs::class);
     }
+    
 }

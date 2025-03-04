@@ -12,7 +12,10 @@ class JobController extends Controller
     // Display Manage Job page 
     public function manage()
     {
-        return view('employers.employer_manageJob');
+        // $jobs=Jobs::all();
+        $jobs = Jobs::with('jobAddresses')->get();
+        return view('employers.employer_manageJob',compact('jobs'));
+        
     }
     /**
      * Display a listing of the resource.

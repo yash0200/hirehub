@@ -63,6 +63,7 @@
                                         </tr>
                                         @else
                                         @foreach ($categories as $category)
+                                        
                                         <tr>
                                             <td class="title">{{ $category->name }}</td>
                                             <td>{{ $category->slug }}</td>

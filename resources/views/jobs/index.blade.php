@@ -245,7 +245,7 @@
                   <!-- Job Location -->
                   <li><span class="icon flaticon-map-locator"></span> {{ $job->location }}</li>
                   <!-- Job Posted Time (How long ago it was posted) -->
-                  <li><span class="icon flaticon-clock-3"></span> {{ $job->job_post_time->diffForHumans() }}</li>
+                  <li><span class="icon flaticon-clock-3"></span> {{ $job->created_at->diffForHumans() }}</li>
                   <!-- Job Salary -->
                   <li><span class="icon flaticon-money"></span> {{ $job->salary }}</li>
                 </ul>
@@ -255,7 +255,7 @@
                   <!-- Job Privacy (Private/Public) -->
                   <li class="privacy">Private</li>
                   <!-- Job Urgency (Urgent or Not) -->
-                  <li class="required">{{ $job->job_post_time->isToday() ? 'Urgent' : 'Not Urgent' }}</li>
+                  <li class="required">{{ $job->created_at->isToday() ? 'Urgent' : 'Not Urgent' }}</li>
                 </ul>
                 <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
               </div>

@@ -57,6 +57,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if($categories->isEmpty())
+                                        <tr>
+                                            <td colspan="4">There is no category</td>
+                                        </tr>
+                                        @else
                                         @foreach ($categories as $category)
                                         <tr>
                                             <td class="title">{{ $category->name }}</td>
@@ -110,6 +115,7 @@
                                             </td>
                                         </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

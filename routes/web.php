@@ -66,7 +66,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
 
         Route::get('/candidate/jobalerts', [JobAlertController::class, 'index'])->name('candidate.jobalerts');
-        
+        Route::get('/candidate/jobalerts/create', [JobAlertController::class, 'create'])->name('candidate.jobalert.create');
+        Route::post('/candidate/jobalerts/store', [JobAlertController::class, 'store'])->name('candidate.jobalert.store');
+
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
         Route::get('/candidate/change-password', [ChangePasswordController::class, 'candidateIndex'])->name('candidate.password');
         Route::post('/candidate/change-password', [ChangePasswordController::class, 'candidateChangePassword'])->name('candidate.password.change');

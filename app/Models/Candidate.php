@@ -24,5 +24,9 @@ class Candidate extends Model
     {
         return $this->hasOne(Resume::class); // Each candidate has one resume
     }
-
+    public function jobAlerts()
+    {
+        return $this->hasMany(JobAlert::class); // One candidate can have many job alerts
+    }
 }
+

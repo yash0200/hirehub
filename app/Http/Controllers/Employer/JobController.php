@@ -99,7 +99,7 @@ class JobController extends Controller
             ]);
         }
 
-        return redirect()->route('employer. jobs.index')->with('success', 'Job created successfully.');
+        return redirect()->route('employer.jobs.index')->with('success', 'Job created successfully.');
     }
 
     /**

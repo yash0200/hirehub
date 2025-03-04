@@ -40,10 +40,13 @@ class Candidate extends Model
         return $this->hasOne(Resume::class); // Each candidate has one resume
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public function jobAlerts()
     {
         return $this->hasMany(JobAlert::class); // One candidate can have many job alerts
 =======
+=======
+>>>>>>> Stashed changes
     public function address()
     {
         return $this->hasOne(CandidateAddress::class);
@@ -64,6 +67,9 @@ class Candidate extends Model
             !empty($this->city) &&
             !empty($this->postal_code) &&
             !empty($this->address);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 }

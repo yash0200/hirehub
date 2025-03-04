@@ -63,11 +63,11 @@ class JobController extends Controller
             'email' => 'required|email',
             'deadline' => 'nullable|date',
             'skills' => 'nullable|string', // Changed to string
-            'country' => 'nullable|string',
-            'state' => 'nullable|string',
-            'city' => 'nullable|string',
-            'postcode' => 'nullable|string',
-            'address' => 'nullable|string',
+            'country' => 'required|string',
+            'state' => 'required|string',
+            'city' => 'required|string',
+            'postcode' => 'required|string',
+            'address' => 'required|string',
         ], $messages);
 
         // Create Job First
@@ -99,7 +99,7 @@ class JobController extends Controller
             ]);
         }
 
-        return redirect()->route('employer.jobs.index')->with('success', 'Job created successfully.');
+        return redirect()->route('employer. jobs.index')->with('success', 'Job created successfully.');
     }
 
     /**

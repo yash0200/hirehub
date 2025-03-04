@@ -220,7 +220,7 @@
                   <!-- Input -->
                   <div class="form-group col-lg-6 col-md-12">
                     <label>Nationality</label>
-                    <input type="text" name="nationality" value="{{ old('nationality', $candidate->nationality ?? '') }}" placeholder="e.g., Indian">
+                    <input type="text" name="country" value="{{ old('nationality', $candidate->nationality ?? '') }}" placeholder="e.g., Indian">
 
                     <!-- <select class="chosen-select">
                           <option>Australia</option>
@@ -270,8 +270,8 @@
 
                   <!-- Input -->
                   <div class="form-group col-lg-12 col-md-12">
-                    <label>Address</label>
-                    <input type="text" name="address" value="{{ old('address', $candidate->address ?? '') }}" placeholder="e.g., A-12, Madhuvan Society, Katargam, Surat">
+                    <label>Street</label>
+                    <input type="text" name="street" value="{{ old('street', $candidate->street ?? '') }}" placeholder="e.g., A-12, Madhuvan Society, Katargam, Surat">
                   </div>
 
                   <!-- Input -->

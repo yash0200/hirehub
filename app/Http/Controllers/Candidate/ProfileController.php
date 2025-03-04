@@ -9,18 +9,19 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        
-    
+
+
         return view('candidates.candidates_profile');
     }
 
 
-    
+
 
     public function update(Request $request)
     {
@@ -91,54 +92,56 @@ class ProfileController extends Controller
             }
 
             if ($formType === 'contact_information') {
-                // Validate input
                 $request->validate([
-                    'nationality' => 'nullable|string|max:255',
+                    'country' => 'nullable|string|max:255',
                     'state' => 'nullable|string|max:255',
                     'city' => 'nullable|string|max:255',
                     'postal_code' => 'nullable|string|max:10',
-                    'address' => 'nullable|string|max:500',
+                    'street' => 'nullable|string|max:500',
                 ]);
 
-                // Update contact information
-                $profile->nationality = $request->nationality;
-                $profile->state = $request->state;
-                $profile->city = $request->city;
-                $profile->postal_code = $request->postal_code;
-                $profile->address = $request->address;
+                // Save profile
+                $profile->save();
+
+                // Update or create address
+                $profile->address()->updateOrCreate(
+                    ['candidate_id' => $profile->id], // Search for an existing address by candidate_id
+                    [
+                        'country' => $request->country,
+                        'state' => $request->state,
+                        'city' => $request->city,
+                        'postal_code' => $request->postal_code,
+                        'street' => $request->street,
+                    ]
+                );
             }
-
-            // Save updated profile
-
             $profile->save();
-
             return redirect()->route('candidate.profile')->with('success', 'Profile updated successfully.');
         } catch (\Exception $e) {
             return redirect()->route('candidate.profile')->withErrors($e->getMessage());
         }
     }
     public function changePassword(Request $request)
-{
-    // Update validation rule to check for 'confirm_password' manually
-    $request->validate([
-        'old_password' => 'required|string',
-        'new_password' => 'required|string|min:8',
-        'new_password_confirmation' => 'required|string|same:new_password', // Check if 'confirm_password' matches 'new_password'
-    ]);
+    {
+        // Update validation rule to check for 'confirm_password' manually
+        $request->validate([
+            'old_password' => 'required|string',
+            'new_password' => 'required|string|min:8',
+            'new_password_confirmation' => 'required|string|same:new_password', // Check if 'confirm_password' matches 'new_password'
+        ]);
 
-    $user = auth()->user();
+        $user = auth()->user();
 
-    // Check if old password is correct
-    if (!Hash::check($request->old_password, $user->password)) {
-        return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        // Check if old password is correct
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        }
+
+        // Update password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        // Redirect back with a success message
+        return back()->with('success', 'Password updated successfully!');
     }
-
-    // Update password
-    $user->password = Hash::make($request->new_password);
-    $user->save();
-
-    // Redirect back with a success message
-    return back()->with('success', 'Password updated successfully!');
-}
-
 }

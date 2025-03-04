@@ -19,6 +19,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users'; 
+
     protected $fillable = [
         'name',
         'email',
@@ -55,4 +57,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function updateProfileStatus()
+{
+    $this->profile_completed = $this->candidate->isProfileCompleted();
+    $this->save();
+}
+
+public function updateResumeStatus()
+{
+    if ($this->candidate && $this->candidate->resume) {
+        $this->resume_updated = $this->candidate->resume->isResumeUpdated();
+        $this->save();
+    }
+}
+
 }

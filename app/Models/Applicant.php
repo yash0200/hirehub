@@ -29,4 +29,10 @@ class Applicant extends Model
     {
         return $this->hasOne(Resume::class, 'candidate_id', 'candidate_id');
     }
+    // In Applicant model
+public function candidate_address()
+{
+    return $this->hasOne(CandidateAddress::class, 'candidate_id');
+}
+
 }

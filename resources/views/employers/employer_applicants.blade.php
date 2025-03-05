@@ -57,224 +57,48 @@
                                         <div class="tab active-tab" id="totals">
                                             <div class="row">
                                                 <!-- Candidate block three -->
-                                                <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="content">
-                                                            <figure class="image"><img
-                                                                    src="{{ asset("/images/resource/candidate-1.png") }}"
-                                                                    alt=""></figure>
-                                                            <h4 class="name"><a href="{{ url("#") }}">Darlene Robertson</a>
-                                                            </h4>
-                                                            <ul class="candidate-info">
-                                                                <li class="designation">UI Designer</li>
-                                                                <li><span class="icon flaticon-map-locator"></span> London,
-                                                                    UK</li>
-                                                                <li><span class="icon flaticon-money"></span> $99 / hour
-                                                                </li>
-                                                            </ul>
-                                                            <ul class="post-tags">
-                                                                <li><a href="{{ url("#") }}">App</a></li>
-                                                                <li><a href="{{ url("#") }}">Design</a></li>
-                                                                <li><a href="{{ url("#") }}">Digital</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="option-box">
-                                                            <ul class="option-list">
-                                                                <li><button data-text="View Aplication"><span
-                                                                            class="la la-eye"></span></button></li>
-                                                                <li><button data-text="Approve Aplication"><span
-                                                                            class="la la-check"></span></button></li>
-                                                                <li><button data-text="Reject Aplication"><span
-                                                                            class="la la-times-circle"></span></button></li>
-                                                                <li><button data-text="Delete Aplication"><span
-                                                                            class="la la-trash"></span></button></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <!-- Candidate block three -->
+                                            
+                                                @foreach ($applicants as $applicant)
                                                 <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
                                                     <div class="inner-box">
                                                         <div class="content">
-                                                            <figure class="image"><img
-                                                                    src="{{ asset("/images/resource/candidate-2.png") }}"
-                                                                    alt=""></figure>
-                                                            <h4 class="name"><a href="{{ url("#") }}">Wade Warren</a></h4>
+                                                            <figure class="image">
+                                                                <!-- Display applicant image (You can add a dynamic image URL) -->
+                                                                <img src="{{ asset('/images/resource/candidate-1.png') }}" alt="">
+                                                            </figure>
+                                                            <h4 class="name"><a href="{{ url('#') }}">{{ $applicant->candidate->full_name }}</a></h4>
                                                             <ul class="candidate-info">
-                                                                <li class="designation">UI Designer</li>
-                                                                <li><span class="icon flaticon-map-locator"></span> London,
-                                                                    UK</li>
-                                                                <li><span class="icon flaticon-money"></span> $99 / hour
+                                                                <li class="designation">{{ $applicant->resume->job_title }}</li>
+                                                                <li><span class="icon flaticon-map-locator"></span> 
+                                                                    {{ optional($applicant->candidate_address)->state ?? 'State not available' }},
+                                                                    {{ optional($applicant->candidate_address)->city ?? 'City not available' }}
                                                                 </li>
+                                                                <!-- <li><span class="icon flaticon-money"></span> ${{ $applicant->hourly_rate }} / hour</li> -->
                                                             </ul>
                                                             <ul class="post-tags">
-                                                                <li><a href="{{ url("#") }}">App</a></li>
-                                                                <li><a href="{{ url("#") }}">Design</a></li>
-                                                                <li><a href="{{ url("#") }}">Digital</a></li>
+                                                                <!-- Assuming you have tags or skills for the applicant -->
+                                                                @foreach ($applicant->resume->skills as $skill)
+                                                                    <li><a href="{{ url('#') }}">{{ $skill }}</a></li>
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                         <div class="option-box">
                                                             <ul class="option-list">
-                                                                <li><button data-text="View Aplication"><span
-                                                                            class="la la-eye"></span></button></li>
-                                                                <li><button data-text="Approve Aplication"><span
-                                                                            class="la la-check"></span></button></li>
-                                                                <li><button data-text="Reject Aplication"><span
-                                                                            class="la la-times-circle"></span></button></li>
-                                                                <li><button data-text="Delete Aplication"><span
-                                                                            class="la la-trash"></span></button></li>
+                                                                <!-- Assuming the options are actions for managing applicants -->
+                                                                <li><button data-text="View Application"><span class="la la-eye"></span></button></li>
+                                                                <li><button data-text="Approve Application"><span class="la la-check"></span></button></li>
+                                                                <li><button data-text="Reject Application"><span class="la la-times-circle"></span></button></li>
+                                                                <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @endforeach
 
-                                                <!-- Candidate block three -->
-                                                <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="content">
-                                                            <figure class="image"><img
-                                                                    src="{{ asset("/images/resource/candidate-3.png") }}"
-                                                                    alt=""></figure>
-                                                            <h4 class="name"><a href="{{ url("#") }}">Leslie Alexander</a>
-                                                            </h4>
-                                                            <ul class="candidate-info">
-                                                                <li class="designation">UI Designer</li>
-                                                                <li><span class="icon flaticon-map-locator"></span> London,
-                                                                    UK</li>
-                                                                <li><span class="icon flaticon-money"></span> $99 / hour
-                                                                </li>
-                                                            </ul>
-                                                            <ul class="post-tags">
-                                                                <li><a href="{{ url("#") }}">App</a></li>
-                                                                <li><a href="{{ url("#") }}">Design</a></li>
-                                                                <li><a href="{{ url("#") }}">Digital</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="option-box">
-                                                            <ul class="option-list">
-                                                                <li><button data-text="View Aplication"><span
-                                                                            class="la la-eye"></span></button></li>
-                                                                <li><button data-text="Approve Aplication"><span
-                                                                            class="la la-check"></span></button></li>
-                                                                <li><button data-text="Reject Aplication"><span
-                                                                            class="la la-times-circle"></span></button></li>
-                                                                <li><button data-text="Delete Aplication"><span
-                                                                            class="la la-trash"></span></button></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <!-- Candidate block three -->
-                                                <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="content">
-                                                            <figure class="image"><img
-                                                                    src="{{ asset("/images/resource/candidate-1.png") }}"
-                                                                    alt=""></figure>
-                                                            <h4 class="name"><a href="{{ url("#") }}">Darlene Robertson</a>
-                                                            </h4>
-                                                            <ul class="candidate-info">
-                                                                <li class="designation">UI Designer</li>
-                                                                <li><span class="icon flaticon-map-locator"></span> London,
-                                                                    UK</li>
-                                                                <li><span class="icon flaticon-money"></span> $99 / hour
-                                                                </li>
-                                                            </ul>
-                                                            <ul class="post-tags">
-                                                                <li><a href="{{ url("#") }}">App</a></li>
-                                                                <li><a href="{{ url("#") }}">Design</a></li>
-                                                                <li><a href="{{ url("#") }}">Digital</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="option-box">
-                                                            <ul class="option-list">
-                                                                <li><button data-text="View Aplication"><span
-                                                                            class="la la-eye"></span></button></li>
-                                                                <li><button data-text="Approve Aplication"><span
-                                                                            class="la la-check"></span></button></li>
-                                                                <li><button data-text="Reject Aplication"><span
-                                                                            class="la la-times-circle"></span></button></li>
-                                                                <li><button data-text="Delete Aplication"><span
-                                                                            class="la la-trash"></span></button></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Candidate block three -->
-                                                <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="content">
-                                                            <figure class="image"><img
-                                                                    src="{{ asset("/images/resource/candidate-2.png") }}"
-                                                                    alt=""></figure>
-                                                            <h4 class="name"><a href="{{ url("#") }}">Wade Warren</a></h4>
-                                                            <ul class="candidate-info">
-                                                                <li class="designation">UI Designer</li>
-                                                                <li><span class="icon flaticon-map-locator"></span> London,
-                                                                    UK</li>
-                                                                <li><span class="icon flaticon-money"></span> $99 / hour
-                                                                </li>
-                                                            </ul>
-                                                            <ul class="post-tags">
-                                                                <li><a href="{{ url("#") }}">App</a></li>
-                                                                <li><a href="{{ url("#") }}">Design</a></li>
-                                                                <li><a href="{{ url("#") }}">Digital</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="option-box">
-                                                            <ul class="option-list">
-                                                                <li><button data-text="View Aplication"><span
-                                                                            class="la la-eye"></span></button></li>
-                                                                <li><button data-text="Approve Aplication"><span
-                                                                            class="la la-check"></span></button></li>
-                                                                <li><button data-text="Reject Aplication"><span
-                                                                            class="la la-times-circle"></span></button></li>
-                                                                <li><button data-text="Delete Aplication"><span
-                                                                            class="la la-trash"></span></button></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Candidate block three -->
-                                                <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="content">
-                                                            <figure class="image"><img
-                                                                    src="{{ asset("/images/resource/candidate-3.png") }}"
-                                                                    alt=""></figure>
-                                                            <h4 class="name"><a href="{{ url("#") }}">Leslie Alexander</a>
-                                                            </h4>
-                                                            <ul class="candidate-info">
-                                                                <li class="designation">UI Designer</li>
-                                                                <li><span class="icon flaticon-map-locator"></span> London,
-                                                                    UK</li>
-                                                                <li><span class="icon flaticon-money"></span> $99 / hour
-                                                                </li>
-                                                            </ul>
-                                                            <ul class="post-tags">
-                                                                <li><a href="{{ url("#") }}">App</a></li>
-                                                                <li><a href="{{ url("#") }}">Design</a></li>
-                                                                <li><a href="{{ url("#") }}">Digital</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="option-box">
-                                                            <ul class="option-list">
-                                                                <li><button data-text="View Aplication"><span
-                                                                            class="la la-eye"></span></button></li>
-                                                                <li><button data-text="Approve Aplication"><span
-                                                                            class="la la-check"></span></button></li>
-                                                                <li><button data-text="Reject Aplication"><span
-                                                                            class="la la-times-circle"></span></button></li>
-                                                                <li><button data-text="Delete Aplication"><span
-                                                                            class="la la-trash"></span></button></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    
+                                                
                                             </div>
                                         </div>
 

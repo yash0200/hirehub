@@ -64,4 +64,9 @@ class Jobs extends Model
     {
         return $this->hasMany(JobAddress::class,'job_id');
     }
+
+    public function applicants()
+{
+    return $this->hasMany(Applicant::class);
+}
 }

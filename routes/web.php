@@ -13,7 +13,9 @@ use App\Http\Controllers\Candidate\ProfileController;
 use App\Http\Controllers\Candidate\MessageController;
 use App\Http\Controllers\Employer\DashboardController as EmployerDashboard;
 use App\Http\Controllers\Employer\JobController as EmployerJobController;
-use App\Http\Controllers\Employer\ApplicantController;
+use App\Http\Controllers\Employer\ApplicantController as EmployerApplicantController;
+use App\Http\Controllers\Candidate\ApplicantController;
+
 use App\Http\Controllers\Employer\PackageController;
 use App\Http\Controllers\Employer\MessageController as EmployerMessage;
 use App\Http\Controllers\Employer\ProfileController as EmployerProfile;
@@ -61,6 +63,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/candidate/profile/update', [ProfileController::class, 'update'])->name('candidate.profile.update');
 
         Route::get('/candidate/jobs', [CandidateJob::class, 'index'])->name('candidate.jobs');
+        Route::post('/jobs/{jobId}/apply', [ApplicantController::class, 'apply'])->name('job.apply');
+
+        
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
         Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
@@ -75,6 +80,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/delete-profile', [ProfileController::class, 'delete'])->name('candidate.profile.delete');
         Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'shortlistJobs'])->name('candidate.shortlist');
+
+        
     });
 
     /** ================== Employer Routes ================== */
@@ -111,6 +118,7 @@ Route::middleware(['auth'])->group(function () {
 // Job List & Details
 Route::get('/jobs', [JobsController::class, 'index'])->name('jobs.list');
 Route::get('/jobs/{id}', [JobsController::class, 'show'])->name('jobs.details');
+
 
 
 

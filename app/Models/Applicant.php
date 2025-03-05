@@ -10,13 +10,23 @@ class Applicant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'job_title',
+        'candidate_id',
+        'job_id',
         'cv',
-        'date_applied',
         'status'
     ];
-    protected $casts = [
-        'date_applied' => 'date', // Ensure date_applied is treated as a date
-    ];
+
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class);
+    }
+
+    public function job()
+    {
+        return $this->belongsTo(Jobs::class);
+    }
+    public function resume()
+    {
+        return $this->hasOne(Resume::class, 'candidate_id', 'candidate_id');
+    }
 }

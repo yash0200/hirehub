@@ -125,8 +125,56 @@
             <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
               <aside class="sidebar">
                 <div class="btn-box">
-                  <a href="{{ url("#") }}" class="theme-btn btn-style-one">Apply For Job</a>
-                  <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
+                  @php
+                      $user = auth()->user();
+                      $candidate = $user ? $user->candidate : null;
+                  @endphp
+
+                @if(!$user) 
+                {{-- User is logged out: Show apply button without checks --}}
+                  <form action="{{ route('job.apply', $job->id) }}" method="POST">
+                      @csrf
+                      <button type="submit" class="theme-btn btn-style-one">Apply For Job</button>
+                  </form>
+                @else
+                {{-- User is logged in: Check profile and resume completion --}}
+                @php
+                    // Check if candidate exists
+                    $hasApplied = $candidate && $candidate->applications()->where('job_id', $job->id)->exists();
+                    $isProfileComplete = $candidate && $candidate->isProfileCompleted();
+                    $isResumeUpdated = optional($candidate->resume)->isResumeUpdated();
+
+                    // Determine action text and route
+                    if (!$isProfileComplete) {
+                        $redirectRoute = route('candidate.profile');
+                        $buttonText = 'Complete Profile to Apply';
+                        $showForm = false;
+                    } elseif (!$isResumeUpdated) {
+                        $redirectRoute = route('candidate.resumes');
+                        $buttonText = 'Update Resume to Apply';
+                        $showForm = false;
+                    } else {
+                        $redirectRoute = route('job.apply', $job->id);
+                        $buttonText = $hasApplied ? 'Applied' : 'Apply for Job';
+                        $showForm = !$hasApplied;
+                    }
+                @endphp  
+
+                    @if($showForm)
+                        <form action="{{ $redirectRoute }}" method="POST">
+                            @csrf
+                            <button type="submit" class="theme-btn btn-style-one">{{ $buttonText }}</button>
+                        </form>
+                    @else
+                        <a href="{{ $hasApplied ? 'javascript:void(0);' : $redirectRoute }}" 
+                          class="theme-btn btn-style-one">
+                            {{ $buttonText }}
+                        </a>
+                    @endif
+                @endif
+
+
+                      <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
                 </div>
 
                 <div class="sidebar-widget company-widget">

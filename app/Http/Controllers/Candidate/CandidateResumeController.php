@@ -20,6 +20,7 @@ class CandidateResumeController extends Controller
 
     public function store(Request $request)
     {
+        $user = auth()->user();
         $candidate = Auth::user()->candidate;
         if (!$candidate) {
             return redirect()->back()->with('error', 'Candidate profile not found.');
@@ -76,6 +77,7 @@ class CandidateResumeController extends Controller
         $resume->fill($data);
         $resume->candidate_id = $candidate->id;
         $resume->save();
+        $user->updateResumeStatus();
 
         return redirect()->route('candidate.resumes')->with('success', 'Resume updated successfully!');
     }

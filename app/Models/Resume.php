@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +9,7 @@ class Resume extends Model
 {
     use HasFactory;
 
-    protected $table = 'resumes'; 
+    protected $table = 'resumes';
 
     protected $fillable = [
         'user_id',
@@ -34,5 +35,17 @@ class Resume extends Model
     {
         return $this->belongsTo(Candidate::class); // Each resume belongs to a candidate
     }
+    public function isResumeUpdated()
+    {
+        return !empty($this->degree_name) &&
+            !empty($this->field_of_study) &&
+            !empty($this->institution_name) &&
+            !empty($this->start_year) &&
+            !empty($this->end_year) &&
+            !empty($this->job_title) &&
+            !empty($this->company_name) &&
+            !empty($this->employment_type) &&
+            !empty($this->skills) &&
+            !empty($this->resume_file);
+    }
 }
-

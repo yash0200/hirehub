@@ -65,15 +65,17 @@ class User extends Authenticatable
 
     public function updateProfileStatus()
     {
-        $this->profile_completed = $this->candidate->isProfileCompleted();
+        $candidate = $this->candidate;
+
+        $this->profile_completed = $candidate->isProfileCompleted() && $candidate->isAddressCompleted();
         $this->save();
     }
 
     public function updateResumeStatus()
     {
-        if ($this->candidate && $this->candidate->resume) {
-            $this->resume_updated = $this->candidate->resume->isResumeUpdated();
-            $this->save();
-        }
+        $resume = $this->candidate->resume;
+
+        $this->resume_updated = $resume ? $resume->isResumeUpdated() : false;
+        $this->save();
     }
 }

@@ -116,6 +116,8 @@ class ProfileController extends Controller
 
             $profile->save();
 
+            $user->updateProfileStatus();
+
             return redirect()->route('candidate.profile')->with('success', 'Profile updated successfully.');
         } catch (\Exception $e) {
             return redirect()->route('candidate.profile')->withErrors($e->getMessage());

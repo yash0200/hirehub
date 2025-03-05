@@ -43,6 +43,10 @@ class Candidate extends Model
     {
         return $this->hasOne(CandidateAddress::class);
     }
+    public function applications()
+{
+    return $this->hasMany(Applicant::class, 'candidate_id');
+}
 
     public function isProfileCompleted()
     {
@@ -53,12 +57,16 @@ class Candidate extends Model
             !empty($this->gender) &&
             !empty($this->education_levels) &&
             !empty($this->languages) &&
-            !empty($this->description) &&
-            !empty($this->nationality) &&
-            !empty($this->state) &&
-            !empty($this->city) &&
-            !empty($this->postal_code) &&
-            !empty($this->address);
+            !empty($this->description);
+    }
+
+    public function isAddressCompleted()
+    {
+        return $this->address &&
+            !empty($this->address->country) &&
+            !empty($this->address->state) &&
+            !empty($this->address->city) &&
+            !empty($this->address->postal_code) &&
+            !empty($this->address->street);
     }
 }
-

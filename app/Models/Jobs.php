@@ -59,9 +59,15 @@ class Jobs extends Model
         return $this->hasOne(JobAddress::class, 'job_id');
     }
 
-// Define the relationship with the JobAddress model
+    // Define the relationship with the JobAddress model
     public function jobAddresses()
     {
-        return $this->hasMany(JobAddress::class,'job_id');
+        return $this->hasMany(JobAddress::class, 'job_id');
     }
+    public function shortlistedByCandidates() {
+        return $this->hasMany(ShortlistedJob::class, 'job_id');
+    }
+
+    
+
 }

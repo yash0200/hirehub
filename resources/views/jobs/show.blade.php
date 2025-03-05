@@ -170,7 +170,13 @@
                 {{-- User is logged in but is NOT a candidate (e.g., an Employer) --}}
                 <p class="text-danger">Employers cannot apply for jobs.</p>
                 @endif
-                      <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
+                      
+                      <form method="POST" action="{{ route('candidate.shortlist.job') }}">
+                           @csrf
+                           <input type="hidden" name="job_id" value="{{ $job->id }}">
+                           <button type="submit" class="bookmark-btn" ><i class="flaticon-bookmark"></i></button>
+                       </form>
+
                 </div>
 
                 <div class="sidebar-widget company-widget">

@@ -79,7 +79,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/candidate/change-password', [ChangePasswordController::class, 'candidateChangePassword'])->name('candidate.password.change');
         Route::get('/candidate/delete-profile', [ProfileController::class, 'delete'])->name('candidate.profile.delete');
         Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
-        Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'shortlistJobs'])->name('candidate.shortlist');
+        Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
+        Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
 
         
     });

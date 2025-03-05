@@ -10,12 +10,33 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Employer extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'user_id', 'company_name', 'industry', 'location', 'website', 'logo', 'description'
+        'user_id',
+        'company_name',
+        'industry',
+        'location',
+        'website',
+        'logo',
+        'description',
+        'phone', // Added Phone Number
+        'company_size', // Added Company Size
+        'established_year', // Added Established Year
+        'facebook', // Added Social Media Links
+        'twitter',
+        'linkedin',
+        'country', // Added Address Fields
+        'state',
+        'city',
+        'street'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function address()
+    {
+        return $this->hasOne(EmployerAddress::class);
     }
 }

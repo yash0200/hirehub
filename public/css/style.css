@@ -1002,6 +1002,7 @@ input:checked + .slider:before {
 .default-form .form-group input[type="number"],
 .default-form .form-group input[type="email"],
 .default-form .form-group input[type="url"],
+.default-form .form-group input[type="date"],
 .default-form .form-group textarea,
 .default-form .form-group select {
   position: relative;
@@ -1149,7 +1150,7 @@ input:checked + .slider:before {
 }
 
 .chosen-container-multi .chosen-choices li.search-choice .search-choice-close:before {
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 6 pro';
   font-weight: 900;
   top: 3px;
   color: #1967d2;
@@ -3496,7 +3497,7 @@ Contact Section
 .dashboard-option .dropdown-toggle::after {
   margin-left: 12px;
   content: "\f107";
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 6 pro';
   font-weight: 900;
   border: 0;
 }
@@ -3506,6 +3507,7 @@ Contact Section
   width: 50px;
   border-radius: 50%;
   overflow: hidden;
+  object-fit: cover;
 }
 
 .dashboard-option .name {

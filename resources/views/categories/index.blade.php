@@ -10,22 +10,17 @@
           class="fal fa-long-arrow-right"></i></a>
     </div>
     <div class="row wow fadeInUp">
-      <div class="category-block at-home18 col-lg-4 col-md-6 col-sm-12">
-      @foreach($categories as $category) <!-- Loop through categories -->
-      <div class="inner-box">
-        <div class="content">
-        <!-- Optionally, you can use category icon here -->
-        <span class="icon flaticon-money-1"></span>
-
-        <!-- Category Name Link -->
-        <h4><a href="{{ url('categories/' . $category->slug) }}">{{ $category->name }}</a></h4>
-
-        <!-- Count of Jobs Available -->
-        <p>({{ $category->jobs_count }} open positions)</p>
+      @foreach($categories as $category)
+      <div class="category-block col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box">
+          <div class="content">
+            <span class="icon flaticon-money-1"></span>
+            <h4><a href="{{ url('categories/' . $category->slug) }}">{{ $category->name }}</a></h4>
+            <p>({{ $category->jobs_count }} open positions)</p>
+          </div>
         </div>
       </div>
       @endforeach
-      </div>
     </div>
   </div>
 </section>

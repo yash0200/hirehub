@@ -1,235 +1,117 @@
 @extends('layouts.dashboard')
 
 @section('title', 'Candidate My Resume')
+
 @section('content')
-  
-  <!-- Dashboard -->
-  <section class="user-dashboard">
-      <div class="dashboard-outer">
-        <div class="upper-title-box">
-          <h3>My Resume</h3>
-          <div class="text">Ready to jump back in?</div>
-        </div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <!-- Ls widget -->
-            <div class="ls-widget">
-              <div class="tabs-box">
-                <div class="widget-title">
-                  <h4>My Profile</h4>
-                </div>
+<!-- Dashboard -->
+<section class="user-dashboard">
+  <div class="dashboard-outer">
+    <div class="upper-title-box">
+      <h3>My Resume</h3>
+    </div>
 
-                <div class="widget-content">
-                  <form class="default-form">
-                    <div class="row">
-                      <!-- Input -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Select Your CV</label>
-                        <select class="chosen-select">
-                          <option>My CV</option>
-                        </select>
-                      </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Ls widget -->
+        <div class="ls-widget">
+          <div class="tabs-box">
+            <div class="widget-title">
+              <h4>Add Resume</h4>
+            </div>
 
-                      <!-- About Company -->
-                      <div class="form-group col-lg-12 col-md-12">
-                        <label>Description</label>
-                        <textarea placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo's on Wall Street. Managed a small team buying and selling Pogo sticks for farmers. Spent several years licensing licorice in West Palm Beach, FL. Developed several new methods for working it banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.In this position, the Software Engineer collaborates with Evention's Development team to continuously enhance our current software solutions as well as create new solutions to eliminate the back-office operations and management challenges present"></textarea>
-                      </div>
-
-                      <div class="form-group col-lg-12 col-md-12">
-                        <!-- Resume / Education -->
-                        <div class="resume-outer">
-                          <div class="upper-title">
-                            <h4>Education</h4>
-                            <button class="add-info-btn"><span class="icon flaticon-plus"></span> Add Aducation</button>
-                          </div>
-                          <!-- Resume BLock -->
-                          <div class="resume-block">
-                            <div class="inner">
-                              <span class="name">M</span>
-                              <div class="title-box">
-                                <div class="info-box">
-                                  <h3>Bachlors in Fine Arts</h3>
-                                  <span>Modern College</span>
-                                </div>
-                                <div class="edit-box">
-                                  <span class="year">2012 - 2014</span>
-                                  <div class="edit-btns">
-                                    <button><span class="la la-pencil"></span></button>
-                                    <button><span class="la la-trash"></span></button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
-                            </div>
-                          </div>
-
-                          <!-- Resume BLock -->
-                          <div class="resume-block">
-                            <div class="inner">
-                              <span class="name">H</span>
-                              <div class="title-box">
-                                <div class="info-box">
-                                  <h3>Computer Science</h3>
-                                  <span>Harvard University</span>
-                                </div>
-                                <div class="edit-box">
-                                  <span class="year">2008 - 2012</span>
-                                  <div class="edit-btns">
-                                    <button><span class="la la-pencil"></span></button>
-                                    <button><span class="la la-trash"></span></button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Resume / Work & Experience -->
-                        <div class="resume-outer theme-blue">
-                          <div class="upper-title">
-                            <h4>Work & Experience</h4>
-                            <button class="add-info-btn"><span class="icon flaticon-plus"></span> Add Work</button>
-                          </div>
-                          <!-- Resume BLock -->
-                          <div class="resume-block">
-                            <div class="inner">
-                              <span class="name">S</span>
-                              <div class="title-box">
-                                <div class="info-box">
-                                  <h3>Product Designer</h3>
-                                  <span>Spotify Inc.</span>
-                                </div>
-                                <div class="edit-box">
-                                  <span class="year">2012 - 2014</span>
-                                  <div class="edit-btns">
-                                    <button><span class="la la-pencil"></span></button>
-                                    <button><span class="la la-trash"></span></button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
-                            </div>
-                          </div>
-
-                          <!-- Resume BLock -->
-                          <div class="resume-block">
-                            <div class="inner">
-                              <span class="name">D</span>
-                              <div class="title-box">
-                                <div class="info-box">
-                                  <h3>Sr UX Engineer</h3>
-                                  <span>Dropbox Inc.</span>
-                                </div>
-                                <div class="edit-box">
-                                  <span class="year">2012 - 2014</span>
-                                  <div class="edit-btns">
-                                    <button><span class="la la-pencil"></span></button>
-                                    <button><span class="la la-trash"></span></button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group col-lg-6 col-md-12">
-                        <div class="uploading-outer">
-                          <div class="uploadButton">
-                            <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
-                            <label class="uploadButton-button ripple-effect" for="upload">Add Portfolio</label>
-                            <span class="uploadButton-file-name"></span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group col-lg-12 col-md-12">
-                        <!-- Resume / Awards -->
-                        <div class="resume-outer theme-yellow">
-                          <div class="upper-title">
-                            <h4>Awards</h4>
-                            <button class="add-info-btn"><span class="icon flaticon-plus"></span> Awards</button>
-                          </div>
-                          <!-- Resume BLock -->
-                          <div class="resume-block">
-                            <div class="inner">
-                              <span class="name"></span>
-                              <div class="title-box">
-                                <div class="info-box">
-                                  <h3>Perfect Attendance Programs</h3>
-                                  <span></span>
-                                </div>
-                                <div class="edit-box">
-                                  <span class="year">2012 - 2014</span>
-                                  <div class="edit-btns">
-                                    <button><span class="la la-pencil"></span></button>
-                                    <button><span class="la la-trash"></span></button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
-                            </div>
-                          </div>
-
-
-                          <!-- Resume BLock -->
-                          <div class="resume-block">
-                            <div class="inner">
-                              <span class="name"></span>
-                              <div class="title-box">
-                                <div class="info-box">
-                                  <h3>Top Performer Recognition</h3>
-                                  <span></span>
-                                </div>
-                                <div class="edit-box">
-                                  <span class="year">2012 - 2014</span>
-                                  <div class="edit-btns">
-                                    <button><span class="la la-pencil"></span></button>
-                                    <button><span class="la la-trash"></span></button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Search Select -->
-                      <div class="form-group col-lg-6 col-md-12">
-                        <label>Skills </label>
-                        <select data-placeholder="Categories" class="chosen-select multiple" multiple tabindex="4">
-                          <option value="Banking">Banking</option>
-                          <option value="Digital&Creative">Digital & Creative</option>
-                          <option value="Retail">Retail</option>
-                          <option value="Human Resources">Human Resources</option>
-                          <option value="Management">Management</option>
-                        </select>
-                      </div>
-
-                      <!-- Input -->
-                      <div class="form-group col-lg-12 col-md-12">
-                        <button class="theme-btn btn-style-one">Save</button>
-                      </div>
-                    </div>
-                  </form>
+            <div class="widget-content">
+            <form action="{{ route('candidate.resume.store') }}" method="POST" enctype="multipart/form-data" class="default-form">
+            @csrf
+              <div class="uploading-outer">
+                <div class="uploadButton">
+                  <input class="uploadButton-input" type="file" name="resume_file" id="upload" />
+                  <label class="uploadButton-button ripple-effect" for="upload">Add Resume</label>
+                  <span class="uploadButton-file-name">{{ isset($resume->resume_file) ? basename($resume->resume_file) : '' }}</span>
                 </div>
               </div>
+              <!-- About your self -->
+              
+                <div class="row">
+                  <div class="form-group col-lg-12 col-md-12">
+                    <label>Description</label>
+                    <textarea name="description" placeholder="Enter your description...">{{ old('description', $resume->description ?? '') }}</textarea>
+                  </div>
+                  <div class="form-group col-lg-12 col-md-12">
+                    <div class="upper-title">
+                      <h4>Education Details</h4>
+                    </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Degree Name</label>
+                    <input type="text" name="degree_name" value="{{ old('degree_name', $resume->degree_name ?? '') }}" placeholder="E.g., Bachelor of Science in Computer Science">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Field of Study</label>
+                    <input type="text" name="field_of_study" value="{{ old('field_of_study', $resume->field_of_study ?? '') }}" placeholder="E.g., Engineering, Biology, Architecture">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Institution Name</label>
+                    <input type="text" name="institution_name" value="{{ old('institution_name', $resume->institution_name ?? '') }}" placeholder="E.g., College name">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Start year</label>
+                    <input type="number" name="start_year" value="{{ old('start_year', $resume->start_year ?? '') }}" placeholder="E.g., 2020">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>End year</label>
+                    <input type="number" name="end_year" value="{{ old('end_year', $resume->end_year ?? '') }}" placeholder="E.g., 2024">
+                  </div>
+                  <div class="form-group col-lg-12 col-md-12">
+                    <div class="upper-title">
+                      <h4>Work Experience</h4>
+                    </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Job title</label>
+                    <input type="text" name="job_title" value="{{ old('job_title', $resume->job_title ?? '') }}" placeholder="E.g., Software Engineer">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Company name</label>
+                    <input type="text" name="company_name" value="{{ old('company_name', $resume->company_name ?? '') }}" placeholder="name of the company">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Employment type</label>
+                    <select name="employment_type" class="chosen-select single">
+                      <option value="full_time" {{ old('employment_type', $resume->employment_type ?? '') == 'full_time' ? 'selected' : '' }}>Full Time</option>
+                      <option value="part_time" {{ old('employment_type', $resume->employment_type ?? '') == 'part_time' ? 'selected' : '' }}>Part Time</option>
+                      <option value="internship" {{ old('employment_type', $resume->employment_type ?? '') == 'internship' ? 'selected' : '' }}>Internship</option>
+                      <option value="contract" {{ old('employment_type', $resume->employment_type ?? '') == 'contract' ? 'selected' : '' }}>Contract</option>
+                      <option value="freelance" {{ old('employment_type', $resume->employment_type ?? '') == 'freelance' ? 'selected' : '' }}>Freelance</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Skills</label>
+                    <select name="skills[]" class="chosen-select multiple" multiple>
+                      <option value="Banking" {{ in_array('Banking', old('skills', $resume->skills ?? [])) ? 'selected' : '' }}>Banking</option>
+                      <option value="Digital & Creative" {{ in_array('Digital & Creative', old('skills', $resume->skills ?? [])) ? 'selected' : '' }}>Digital & Creative</option>
+                      <option value="Retail" {{ in_array('Retail', old('skills', $resume->skills ?? [])) ? 'selected' : '' }}>Retail</option>
+                      <option value="Human Resources" {{ in_array('Human Resources', old('skills', $resume->skills ?? [])) ? 'selected' : '' }}>Human Resources</option>
+                      <option value="Management" {{ in_array('Management', old('skills', $resume->skills ?? [])) ? 'selected' : '' }}>Management</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- Input -->
+                <div class="form-group col-lg-12 col-md-12">
+                  <button class="theme-btn btn-style-one" type="submit">Save</button>
+                </div>
+              </form>
             </div>
           </div>
-
-
         </div>
       </div>
-    </section>
-    <!-- End Dashboard -->
-
-    <!-- Copyright -->
-    <div class="copyright-text">
-      <p>© 2021 Superio. All Right Reserved.</p>
     </div>
-    @endsection
+  </div>
+</section>
+<!-- End Dashboard -->
+
+<!-- Copyright -->
+<div class="copyright-text">
+  <p>© 2021 Hirehub. All Right Reserved.</p>
+</div>
+@endsection

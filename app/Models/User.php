@@ -19,12 +19,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
+
     protected $fillable = [
         'name',
         'email',
         'password',
         'user_type',
-        'is_admin'
+        'is_admin',
+        'status'
     ];
     public function employer(): HasOne
     {
@@ -35,6 +38,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Candidate::class);
     }
+    public function socialNetwork()
+    {
+        return $this->hasOne(SocialNetwork::class);
+    }
+    
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -54,4 +63,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function updateProfileStatus()
+    {
+        $candidate = $this->candidate;
+
+        $this->profile_completed = $candidate->isProfileCompleted() && $candidate->isAddressCompleted();
+        $this->save();
+    }
+
+    public function updateResumeStatus()
+    {
+        $resume = $this->candidate->resume;
+
+        $this->resume_updated = $resume ? $resume->isResumeUpdated() : false;
+        $this->save();
+    }
 }

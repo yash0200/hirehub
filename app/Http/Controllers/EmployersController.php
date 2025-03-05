@@ -27,4 +27,5 @@ class EmployersController extends Controller
         // ]);
         return view('employers.dashboard');
     }
+   
 }

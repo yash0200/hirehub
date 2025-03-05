@@ -11,6 +11,9 @@ class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * how to run seeder
+     * php artisan db:seed --class=AdminSeeder
+
      */
     public function run(): void
     {

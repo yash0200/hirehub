@@ -4,13 +4,146 @@ namespace App\Http\Controllers\Candidate;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Candidate;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
-    public function changePassword(){
-        return view('candidates.candidates_changepassword');
+    public function index(Request $request)
+    {
+        $candidate = Candidate::where('user_id', auth()->id())->with('address','user.socialNetwork')->firstOrNew();
+        return view('candidates.candidates_profile', compact('candidate'));
     }
-    public function index(){
-        return view('candidates.candidates_profile');
+    public function update(Request $request)
+    {
+        try {
+            // Get logged-in user
+            $user = Auth::user();
+
+            // Find or create candidate profile
+            $profile = Candidate::firstOrNew(['user_id' => $user->id]);
+
+            // Identify which form is submitted
+            $formType = $request->input('form_type');
+
+            if ($formType === 'my_profile') {
+                // Validate input
+                $request->validate([
+                    'full_name' => 'required|string|max:255',
+                    'phone' => 'nullable|string|max:20',
+                    'dob' => ['required', 'date', 'before:today'],
+                    'website' => 'nullable|url',
+                    'gender' => 'nullable|in:male,female',
+                    'marital_status' => 'nullable|in:single,married,divorced,widowed',
+                    'age_range' => 'nullable|string|max:20',
+                    'education_levels' => 'nullable|string|max:255',
+                    'languages' => 'nullable|string|max:255',
+                    'description' => 'nullable|string',
+                    'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+                ]);
+
+                // Update profile fields
+                $profile->full_name = $request->full_name;
+                $profile->phone = $request->phone;
+                $profile->dob = $request->dob ? Carbon::createFromFormat('Y-m-d', $request->dob)->format('Y-m-d') : null;
+                $profile->website = $request->website;
+                $profile->gender = $request->gender;
+                $profile->marital_status = $request->marital_status;
+                $profile->age_range = $request->age_range;
+                $profile->education_levels = $request->education_levels;
+                $profile->languages = $request->languages;
+                $profile->description = $request->description;
+                // Handle profile photo upload
+                if ($request->hasFile('profile_photo')) {
+                    // Delete the old photo if it exists
+                    if ($profile->profile_photo) {
+                        Storage::delete('public/profile_photos/' . $profile->profile_photo);
+                    }
+
+                    // Store the new profile photo
+                    $file = $request->file('profile_photo');
+                    $filename = 'profile-' . $profile->id . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('public/profile_photos', $filename);
+                    $profile->profile_photo = $filename;
+                }
+            }
+
+            if ($formType === 'social_network') {
+                // Validate input
+                $request->validate([
+                    'facebook' => 'nullable|url',
+                    'twitter' => 'nullable|url',
+                    'linkedin' => 'nullable|url',
+                ]);
+
+                // Update or create social links for the logged-in user
+                $user->socialNetwork()->updateOrCreate(
+                    ['user_id' => $user->id], // Search by user_id
+                    [
+                        'facebook' => $request->facebook,
+                        'twitter' => $request->twitter,
+                        'linkedin' => $request->linkedin,
+                    ]
+                );
+            }
+
+
+            if ($formType === 'contact_information') {
+                $request->validate([
+                    'country' => 'nullable|string|max:255',
+                    'state' => 'nullable|string|max:255',
+                    'city' => 'nullable|string|max:255',
+                    'postal_code' => 'nullable|string|max:10',
+                    'street' => 'nullable|string|max:500',
+                ]);
+
+                // Update or create address
+                $profile->address()->updateOrCreate(
+                    ['candidate_id' => $profile->id], // Search for an existing address by candidate_id
+                    [
+                        'country' => $request->country,
+                        'state' => $request->state,
+                        'city' => $request->city,
+                        'postal_code' => $request->postal_code,
+                        'street' => $request->street,
+                    ]
+                );
+            }
+
+            $profile->save();
+
+            $user->updateProfileStatus();
+
+            return redirect()->route('candidate.profile')->with('success', 'Profile updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('candidate.profile')->withErrors($e->getMessage());
+        }
+    }
+    public function changePassword(Request $request)
+    {
+        // Update validation rule to check for 'confirm_password' manually
+        $request->validate([
+            'old_password' => 'required|string',
+            'new_password' => 'required|string|min:8',
+            'new_password_confirmation' => 'required|string|same:new_password', // Check if 'confirm_password' matches 'new_password'
+        ]);
+
+        $user = auth()->user();
+
+        // Check if old password is correct
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        }
+
+        // Update password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        // Redirect back with a success message
+        return back()->with('success', 'Password updated successfully!');
     }
 }

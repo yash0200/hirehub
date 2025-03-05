@@ -132,19 +132,17 @@
 
                 @if(!$user) 
                 {{-- User is logged out: Show apply button without checks --}}
-                  <form action="{{ route('job.apply', $job->id) }}" method="POST">
-                      @csrf
-                      <button type="submit" class="theme-btn btn-style-one">Apply For Job</button>
-                  </form>
-                @else
-                {{-- User is logged in: Check profile and resume completion --}}
+                <form action="{{ route('job.apply', $job->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="theme-btn btn-style-one">Apply For Job</button>
+                </form>
+                @elseif(isset($candidate)) 
+                {{-- User is logged in as a Candidate --}}
                 @php
-                    // Check if candidate exists
-                    $hasApplied = $candidate && $candidate->applications()->where('job_id', $job->id)->exists();
-                    $isProfileComplete = $candidate && $candidate->isProfileCompleted();
+                    $hasApplied = $candidate->applications()->where('job_id', $job->id)->exists();
+                    $isProfileComplete = $candidate->isProfileCompleted();
                     $isResumeUpdated = optional($candidate->resume)->isResumeUpdated();
 
-                    // Determine action text and route
                     if (!$isProfileComplete) {
                         $redirectRoute = route('candidate.profile');
                         $buttonText = 'Complete Profile to Apply';
@@ -160,19 +158,18 @@
                     }
                 @endphp  
 
-                    @if($showForm)
-                        <form action="{{ $redirectRoute }}" method="POST">
-                            @csrf
-                            <button type="submit" class="theme-btn btn-style-one">{{ $buttonText }}</button>
-                        </form>
-                    @else
-                        <a href="{{ $hasApplied ? 'javascript:void(0);' : $redirectRoute }}" 
-                          class="theme-btn btn-style-one">
-                            {{ $buttonText }}
-                        </a>
-                    @endif
+                  @if($showForm)
+                      <form action="{{ $redirectRoute }}" method="POST">
+                          @csrf
+                          <button type="submit" class="theme-btn btn-style-one">{{ $buttonText }}</button>
+                      </form>
+                  @else
+                      <a href="javascript:void(0);" class="theme-btn btn-style-one">{{ $buttonText }}</a>
+                  @endif
+                @else
+                {{-- User is logged in but is NOT a candidate (e.g., an Employer) --}}
+                <p class="text-danger">Employers cannot apply for jobs.</p>
                 @endif
-
 
                       <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
                 </div>

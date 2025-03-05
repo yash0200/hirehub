@@ -104,7 +104,7 @@ Route::middleware(['auth'])->group(function () {
 
         
         Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.job.manage');
-        Route::get('/employer/applicants', [ApplicantController::class, 'index'])->name('employer.applicants');
+        Route::get('/employer/applicants', [EmployerApplicantController::class, 'index'])->name('employer.applicants');
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
         Route::get('/employer/packages', [PackageController::class, 'index'])->name('employer.packages');
         Route::get('/employer/messages', [EmployerMessage::class, 'index'])->name('employer.messages');

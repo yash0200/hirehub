@@ -13,7 +13,8 @@ class ShortlistJobsController extends Controller
         $candidateId = auth()->user()->candidate->id;
 
         $shortlistedJobs = ShortlistedJob::where('candidate_id', $candidateId)
-            ->with(['job.jobAddress']) // Load job details and job address
+            ->with(['job.jobAddress'])
+            ->with(['job.jobCategory']) // Load job details and job address
             ->get();  
         return view('candidates.candidates_shortlistJobs', compact('shortlistedJobs'));   
     }

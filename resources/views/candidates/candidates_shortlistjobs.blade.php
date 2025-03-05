@@ -36,123 +36,62 @@
                       <thead>
                         <tr>
                           <th>Job Title</th>
-                          <th>Date Applied</th>
-                          <th>Status</th>
+                          <th>Posted date</th>
+                          <th>Deadline</th>
                           <th>Action</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        <tr>
-                          <td>
-                            <!-- Job Block -->
-                            <div class="job-block">
-                              <div class="inner-box">
-                                <div class="content">
-                                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/1-1.png") }}" alt=""></span>
-                                  <h4><a href="{{ url("#") }}">Senior Full Stack Engineer, Creator Success</a></h4>
-                                  <ul class="job-info">
-                                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Dec 5, 2020</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
+                        @foreach($shortlistedJobs as $savedJob)
+                          <tr>
+                              <td>
+                                  <!-- Job Block -->
+                                  <div class="job-block">
+                                      <div class="inner-box">
+                                          <div class="content">
+                                              <span class="company-logo">
+                                                  <img src="{{ asset('/storage/logos/' . $savedJob->job->employer->logo ?? '/images/resource/company-logo/default.png') }}" alt="">
+                                              </span>
+                                              <h4><a href="{{ url('jobs/'.$savedJob->id) }}">{{ $savedJob->job->title }}</a></h4>
+                                              <ul class="job-info">
+                                                  <li><span class="icon flaticon-briefcase"></span> {{ $savedJob->job->jobCategory->name }}</li>
+                                                  <li><span class="icon flaticon-map-locator"></span> {{ $savedJob->job->jobAddress->state }}</li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>{{ \Carbon\Carbon::parse($savedJob->job->posted_date)->format('M d, Y') }}</td>
+                              <td>{{ \Carbon\Carbon::parse($savedJob->job->deadline)->format('M d, Y') }}</td>
+                              <td>
+                                  <div class="option-box">
+                                      <ul class="option-list">
+                                          <li>
+                                              <button data-text="View Application" onclick="window.location.href='{{ url('jobs/'.$savedJob->id) }}'">
+                                                  <span class="la la-eye"></span>
+                                              </button>
+                                          </li>
+                                          <li>
+                                              <button data-text="Delete Application" onclick="confirm('Are you sure?') ? document.getElementById('delete-form-{{ $savedJob->id }}').submit() : ''">
+                                                  <span class="la la-trash"></span>
+                                              </button>
+                                              <form id="delete-form-{{ $savedJob->id }}" action="{{ route('jobs.destroy', $savedJob->id) }}" method="POST" style="display: none;">
+                                                  @csrf
+                                                  @method('DELETE')
+                                              </form>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </td>
+                          </tr>
+                      @endforeach
 
-                        <tr>
-                          <td>
-                            <!-- Job Block -->
-                            <div class="job-block">
-                              <div class="inner-box">
-                                <div class="content">
-                                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/1-2.png") }}" alt=""></span>
-                                  <h4><a href="{{ url("#") }}">Senior Product Designer</a></h4>
-                                  <ul class="job-info">
-                                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Dec 5, 2020</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <!-- Job Block -->
-                            <div class="job-block">
-                              <div class="inner-box">
-                                <div class="content">
-                                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/1-3.png") }}" alt=""></span>
-                                  <h4><a href="{{ url("#") }}">Sr. Full Stack Engineer</a></h4>
-                                  <ul class="job-info">
-                                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Dec 5, 2020</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <!-- Job Block -->
-                            <div class="job-block">
-                              <div class="inner-box">
-                                <div class="content">
-                                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/1-4.png") }}" alt=""></span>
-                                  <h4><a href="{{ url("#") }}">Product Manager, Studio</a></h4>
-                                  <ul class="job-info">
-                                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Dec 5, 2020</td>
-                          <td class="status">Active</td>
-                          <td>
-                            <div class="option-box">
-                              <ul class="option-list">
-                                <li><button data-text="View Aplication"><span class="la la-eye"></span></button></li>
-                                <li><button data-text="Delete Aplication"><span class="la la-trash"></span></button></li>
-                              </ul>
-                            </div>
-                          </td>
-                        </tr>
+                      @if($shortlistedJobs->isEmpty())
+                          <tr>
+                              <td colspan="4" class="text-center">No shortlisted jobs found.</td>
+                          </tr>
+                      @endif
                       </tbody>
                     </table>
                   </div>
@@ -160,8 +99,6 @@
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </section>
@@ -169,6 +106,6 @@
 
     <!-- Copyright -->
     <div class="copyright-text">
-      <p>© 2021 Superio. All Right Reserved.</p>
+      <p>© 2025 Hirehub. All Right Reserved.</p>
     </div>
     @endsection

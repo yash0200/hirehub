@@ -67,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
 
         
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
+        
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
         Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
 

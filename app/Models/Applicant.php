@@ -23,7 +23,7 @@ class Applicant extends Model
 
     public function job()
     {
-        return $this->belongsTo(Jobs::class);
+        return $this->belongsTo(Jobs::class, 'job_id');
     }
     public function resume()
     {

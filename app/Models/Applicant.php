@@ -23,10 +23,16 @@ class Applicant extends Model
 
     public function job()
     {
-        return $this->belongsTo(Jobs::class);
+        return $this->belongsTo(Jobs::class, 'job_id');
     }
     public function resume()
     {
         return $this->hasOne(Resume::class, 'candidate_id', 'candidate_id');
     }
+    // In Applicant model
+public function candidate_address()
+{
+    return $this->hasOne(CandidateAddress::class, 'candidate_id');
+}
+
 }

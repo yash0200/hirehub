@@ -16,4 +16,10 @@ class CandidateAddress extends Model
     {
         return $this->belongsTo(Candidate::class);
     }
+    // In CandidateAddress model
+public function applicant()
+{
+    return $this->belongsTo(Applicant::class, 'candidate_id');
+}
+
 }

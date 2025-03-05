@@ -7,6 +7,7 @@ use App\Models\JobAlert;
 use Illuminate\Http\Request;
 use App\Models\JobAlertNotification;
 use App\Models\JobCategory;
+use App\Http\Controllers\Candidate\auth;
 
 class JobAlertController extends Controller
 {

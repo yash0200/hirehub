@@ -34,7 +34,7 @@
                   <div class="uploadButton">
                     <input class="uploadButton-input" type="file" name="profile_photo" accept="image/*" id="upload" multiple />
                     <label class="uploadButton-button ripple-effect" for="upload">Browse Image</label>
-                    <span class="uploadButton-file-name"></span>
+                    <span class="uploadButton-file-name">{{ isset($candidate->profile_photo) ? basename($candidate->profile_photo) : '' }}</span>
                   </div>
                   <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
 

@@ -40,7 +40,7 @@
                                         <input class="uploadButton-input" type="file" name="logo"
                                             accept="image/*" id="upload" multiple />
                                         <label class="uploadButton-button ripple-effect" for="upload">Browse Logo</label>
-                                        <span class="uploadButton-file-name"></span>
+                                        <span class="uploadButton-file-name">{{ isset($employer->logo) ? basename($employer->logo) : '' }}</span>
                                     </div>
                                     <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files
                                         are .jpg & .png</div>
@@ -113,21 +113,21 @@
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>Facebook</label>
                                         <input type="text" name="facebook"
-                                            value="{{ old('facebook', $employer->facebook ?? '') }}"
+                                            value="{{ old('facebook', $employer->user->socialNetwork->facebook ?? '') }}"
                                             placeholder="www.facebook.com">
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>Twitter</label>
                                         <input type="text" name="twitter"
-                                            value="{{ old('twitter', $employer->twitter ?? '') }}"
+                                            value="{{ old('twitter', $employer->user->socialNetwork->twitter ?? '') }}"
                                             placeholder="www.twitter.com">
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>LinkedIn</label>
                                         <input type="text" name="linkedin"
-                                            value="{{ old('linkedin', $employer->linkedin ?? '') }}"
+                                            value="{{ old('linkedin', $employer->user->socialNetwork->linkedin ?? '') }}"
                                             placeholder="www.linkedin.com">
                                     </div>
 
@@ -158,28 +158,32 @@
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>Country</label>
                                         <input type="text" name="country"
-                                            value="{{ old('country', $employer->country ?? '') }}"
+                                            value="{{ old('country', $employer->address->country ?? '') }}"
                                             placeholder="Enter Your Country">
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>State</label>
                                         <input type="text" name="state"
-                                            value="{{ old('state', $employer->state ?? '') }}"
+                                            value="{{ old('state', $employer->address->state ?? '') }}"
                                             placeholder="Enter Your State">
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>City</label>
-                                        <input type="text" name="city" value="{{ old('city', $employer->city ?? '') }}"
+                                        <input type="text" name="city" value="{{ old('city', $employer->address->city ?? '') }}"
                                             placeholder="Enter Your City">
                                     </div>
 
-                                    <div class="form-group col-lg-12 col-md-12">
-                                        <label>Complete Address</label>
-                                        <input type="text" name="address"
-                                            value="{{ old('address', $employer->address ?? '') }}"
+                                    <div class="form-group col-lg-6 col-md-12">
+                                        <label>Street</label>
+                                        <input type="text" name="street"
+                                            value="{{ old('street', $employer->address->street ?? '') }}"
                                             placeholder="123 Main Street.">
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-12">
+                                        <label>Postal/ZIP Code</label>
+                                        <input type="text" name="postal_code" value="{{ old('postal_code', $employer->address->postal_code ?? '') }}" placeholder="e.g., 395004">
                                     </div>
 
                                     <div class="form-group col-lg-12 col-md-12">

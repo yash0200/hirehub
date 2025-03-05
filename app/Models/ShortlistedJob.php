@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ShortlistedJob extends Model
 {
     use HasFactory;
+    public function job()
+    {
+        return $this->belongsTo(Jobs::class, 'job_id');
+    }
 }

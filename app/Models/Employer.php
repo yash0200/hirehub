@@ -28,11 +28,15 @@ class Employer extends Model
         'country', // Added Address Fields
         'state',
         'city',
-        'address'
+        'street'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function address()
+    {
+        return $this->hasOne(EmployerAddress::class);
     }
 }

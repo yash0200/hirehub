@@ -19,8 +19,6 @@ class CompanyProfileController extends Controller
     public function update(Request $request)
     {
         try {
-            // dd($request->all(), $request->file('logo'));
-
             $user = Auth::user();
             $employer = $user->employer;
 
@@ -28,7 +26,9 @@ class CompanyProfileController extends Controller
                 return redirect()->route('employer.company.profile.update')->withErrors('Employer profile not found.');
             }
 
-            if ($request->form_type === 'company_profile') {
+            $formType = $request->input('form_type');
+
+            if ($formType === 'company_profile') {
                 $request->validate([
                     'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
                     'company_name' => 'required|string|max:255',
@@ -42,38 +42,51 @@ class CompanyProfileController extends Controller
 
                 // Handle File Upload
                 if ($request->hasFile('logo')) {
-                    // Delete old logo if exists
                     if ($employer->logo) {
                         Storage::delete('public/logos/' . $employer->logo);
                     }
 
-                    // Store new logo
                     $file = $request->file('logo');
                     $filename = 'company-logo-' . $user->id . '.' . $file->getClientOriginalExtension();
                     $file->storeAs('public/logos', $filename);
 
-                    $validatedData['logo'] = $filename; // Save filename to database
+                    $validatedData['logo'] = $filename;
                 }
 
-
-            } elseif ($request->form_type === 'social_network') {
-                $validatedData = $request->validate([
+                $employer->update($validatedData);
+            } elseif ($formType === 'social_network') {
+                $request->validate([
                     'facebook' => 'nullable|url',
                     'twitter' => 'nullable|url',
                     'linkedin' => 'nullable|url',
                 ]);
-            } elseif ($request->form_type === 'contact_info') {
-                $validatedData = $request->validate([
+
+                // Update or create social links
+                $user->socialNetwork()->updateOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'facebook' => $request->facebook,
+                        'twitter' => $request->twitter,
+                        'linkedin' => $request->linkedin,
+                    ]
+                );
+            } elseif ($formType === 'contact_info') {
+                $request->validate([
                     'country' => 'required|string|max:255',
                     'state' => 'required|string|max:255',
                     'city' => 'required|string|max:255',
-                    'address' => 'nullable|string|max:255',
+                    'street' => 'required|string|max:255',
+                    'postal_code' => 'required|string|max:6',
                 ]);
+
+                // Update or create address entry for employer
+                $employer->address()->updateOrCreate(
+                    ['employer_id' => $employer->id],
+                    $request->only(['country', 'state', 'city', 'street', 'postal_code'])
+                );
             } else {
                 return redirect()->route('employer.company.profile')->withErrors('Invalid form type.');
             }
-
-            $employer->update($validatedData);
 
             return redirect()->route('employer.company.profile')->with('success', 'Profile updated successfully!');
         } catch (\Exception $e) {
@@ -81,3 +94,4 @@ class CompanyProfileController extends Controller
         }
     }
 }
+

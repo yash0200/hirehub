@@ -12,8 +12,14 @@ class JobController extends Controller
     // Display Manage Job page 
     public function manage()
     {
-        // $jobs=Jobs::all();
-        $jobs = Jobs::with('jobAddresses')->get();
+        // Get the logged-in employer's ID
+    $employerId = auth()->user()->employer->id;
+
+    // Fetch only the jobs posted by the logged-in employer, along with their job addresses
+    $jobs = Jobs::with('jobAddresses')
+                ->where('employer_id', $employerId) // Filter by the logged-in employer's ID
+                ->get();
+
         return view('employers.employer_manageJob',compact('jobs'));
         
     }

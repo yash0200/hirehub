@@ -164,13 +164,12 @@
                           <button type="submit" class="theme-btn btn-style-one">{{ $buttonText }}</button>
                       </form>
                   @else
-                      <a href="javascript:void(0);" class="theme-btn btn-style-one">{{ $buttonText }}</a>
+                      <a href="{{ $redirectRoute }}" class="theme-btn btn-style-one">{{ $buttonText }}</a>
                   @endif
                 @else
                 {{-- User is logged in but is NOT a candidate (e.g., an Employer) --}}
                 <p class="text-danger">Employers cannot apply for jobs.</p>
                 @endif
-
                       <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
                 </div>
 

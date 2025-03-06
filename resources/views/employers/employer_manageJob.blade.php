@@ -53,7 +53,7 @@
                                         @foreach ($jobs as $job)
                                         <tr>
                                             <td>
-                                                <h6>{{ $job->title }}</h6>
+                                                <h6><a href="{{ url('jobs/'.$job->id) }}">{{ $job->title }}</h6>
                                                 <span class="info"><i class="icon flaticon-map-locator"></i>
                                                     @if ($job->jobAddresses->isNotEmpty())
                                                     {{ $job->jobAddresses->first()->state }},
@@ -72,10 +72,10 @@
                                             <td>
                                                 <div class="option-box">
                                                     <ul class="option-list">
-                                                        <li><button data-text="View Job"><span class="la la-eye"></span></button></li>
-                                                        <li><button data-text="Edit Job"><span class="la la-pencil"></span></button></li>
+                                                        <li><button data-text="View Job" onclick="window.location.href='{{ url('jobs/'.$job->id) }}'"><span class="la la-eye"></span></button></li>
+                                                        <li><button data-text="Edit Job"  onclick="window.location.href='{{ route('jobs.edit', $job->id) }}'"><span class="la la-pencil"></span></button></li>
                                                         <li><button data-text="Delete Job"><span class="la la-trash"></span></button></li>
-                                                        <!-- Change User Status -->
+                                                        <!-- Change User Status --> 
                                                         <li>
                                                             <form action="{{ route('admin.categories.changeStatus', $job->id) }}" method="POST">
                                                                 @csrf

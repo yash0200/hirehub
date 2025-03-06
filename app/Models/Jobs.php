@@ -11,7 +11,7 @@ class Jobs extends Model
 {
     use HasFactory;
     protected $table = 'jobs';
-    
+
 
 
     protected $fillable = [
@@ -39,6 +39,13 @@ class Jobs extends Model
     /**
      * Relationship with Employer (User Model)
      */
+
+    public function edit(Jobs $job)
+    {
+        // Return the view and pass the job data
+        return view('jobs.edit', compact('job'));
+    }
+
     public function employer(): BelongsTo
     {
         return $this->belongsTo(Employer::class, 'employer_id');
@@ -66,7 +73,8 @@ class Jobs extends Model
     {
         return $this->hasMany(JobAddress::class, 'job_id');
     }
-    public function shortlistedByCandidates() {
+    public function shortlistedByCandidates()
+    {
         return $this->hasMany(ShortlistedJob::class, 'job_id');
     }
     public function category()

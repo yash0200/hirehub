@@ -122,41 +122,23 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Jobs $job)
+    public function edit(jobs $job)
     {
-        return view('jobs.edit', compact('jobs'));
+        $categories=JobCategory::all();
+
+        return view('employers.employer_postjob',compact('job','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Jobs $job)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
-            'category' => 'required|string',
-            'experience' => 'required|string',
-            'industry' => 'required|string',
-            'qualification' => 'required|string',
-            'deadline' => 'nullable|date',
-            'state' => 'nullable|string',
-            'city' => 'nullable|string',
-            'postcode' => 'nullable|string',
-            'address' => 'nullable|string',
-        ]);
-
-        $job->update($request->all());
-
-        return redirect()->route('jobs.index')->with('success', 'Jobs updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Jobs $job)
-    {
-        $job->delete();
-        return redirect()->route('jobs.index')->with('success', 'Jobs deleted successfully.');
-    }
-}
+    // public function destroy(Jobs $job)
+    // {
+    //     $job->delete();
+    //     return redirect()->route('jobs.index')->with('success', 'Jobs deleted successfully.');
+    // }

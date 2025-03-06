@@ -39,6 +39,7 @@ use App\Models\Candidate;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', [HomeController::class, 'index']);
 //Route::get('/jobs', [JobController::class, 'index']);
 //Route::get('/jobs/{id}', [JobController::class, 'show']);
@@ -51,7 +52,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 
 // Route::get('/jobs',[JobsController::class, 'index']);
-Route::get('/companies',[EmployersController::class,'index']);
+Route::get('/companies', [EmployersController::class, 'index']);
 // Middleware to check authentication before accessing dashboards
 Route::middleware(['auth'])->group(function () {
 
@@ -65,9 +66,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/jobs', [CandidateJob::class, 'index'])->name('candidate.jobs');
         Route::post('/jobs/{jobId}/apply', [ApplicantController::class, 'apply'])->name('job.apply');
 
-        
+
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
-        
+
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
         Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
 
@@ -82,8 +83,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
         Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
-
-        
     });
 
     /** ================== Employer Routes ================== */
@@ -95,16 +94,18 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/employer/company-profile/update', [CompanyProfileController::class, 'update'])->name('employer.company.profile.update');
 
         /** ================== Post Job Routes ================== */
-                    
+
         Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index');     // List all jobs
         Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create');     // Show create form
         Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store');             // Store job
         Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show');            // Show a specific job
-        Route::get('/employer/jobs/{id}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit');      // Show edit form
-        Route::put('/employer/jobs/{id}', [EmployerJobController::class, 'update'])->name('jobs.update');       // Update job
+
+        Route::get('jobs/{job}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit');
+        Route::patch('jobs/{job}.update', [EmployerJobController::class, 'update'])->name('jobs.update');     // Update job
+
         Route::delete('/employer/jobs/{id}', [EmployerJobController::class, 'destroy'])->name('jobs.destroy');  // Delete job
 
-        
+
         Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.job.manage');
         Route::get('/employer/applicants', [EmployerApplicantController::class, 'index'])->name('employer.applicants');
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
@@ -136,4 +137,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/categories/store', [JobCategoryController::class, 'store'])->name('categories.store');
 });
 
-require __DIR__.'/admin.php';
+require __DIR__ . '/admin.php';

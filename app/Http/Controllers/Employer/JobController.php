@@ -13,15 +13,15 @@ class JobController extends Controller
     public function manage()
     {
         // Get the logged-in employer's ID
-    $employerId = auth()->user()->employer->id;
+        $employerId = auth()->user()->employer->id;
 
-    // Fetch only the jobs posted by the logged-in employer, along with their job addresses
-    $jobs = Jobs::with('jobAddresses')
-                ->where('employer_id', $employerId) // Filter by the logged-in employer's ID
-                ->get();
-
-        return view('employers.employer_manageJob',compact('jobs'));
-        
+        // Fetch only the jobs posted by the logged-in employer, along with their job addresses
+        $jobs = Jobs::with('jobAddresses')
+            ->where('employer_id', $employerId) // Filter by the logged-in employer's ID
+            ->get();
+        return view('employers.employer_manageJob', compact('jobs'));
+        $jobs = Jobs::with('category')->get(); // Eager load the category relationship
+        return view('employers.employer_manageJob', compact('jobs'));
     }
     /**
      * Display a listing of the resource.
@@ -58,8 +58,8 @@ class JobController extends Controller
             'postcode.string' => 'Postcode must be a valid string.',
             'address.string' => 'Address must be a valid string.',
         ];
-        $id=auth()->user()->employer->id;
-       
+        $id = auth()->user()->employer->id;
+
 
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',

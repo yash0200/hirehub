@@ -11,6 +11,7 @@ class Jobs extends Model
 {
     use HasFactory;
     protected $table = 'jobs';
+    
 
 
     protected $fillable = [
@@ -67,7 +68,8 @@ class Jobs extends Model
     public function shortlistedByCandidates() {
         return $this->hasMany(ShortlistedJob::class, 'job_id');
     }
-
-    
-
+    public function category()
+    {
+        return $this->belongsTo(jobCategory::class, 'category_id'); // Assuming 'Category' is the related model
+    }
 }

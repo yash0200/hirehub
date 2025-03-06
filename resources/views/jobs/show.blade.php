@@ -170,11 +170,24 @@
                 {{-- User is logged in but is NOT a candidate (e.g., an Employer) --}}
                 <p class="text-danger">Employers cannot apply for jobs.</p>
                 @endif   
-                      <form method="POST" action="{{ route('candidate.shortlist.job') }}">
-                           @csrf
-                           <input type="hidden" name="job_id" value="{{ $job->id }}">
-                           <button type="submit" class="bookmark-btn" ><i class="flaticon-bookmark"></i></button>
-                      </form>
+                @php
+                    $user = auth()->user();
+                    $candidate = $user ? $user->candidate : null;
+                    $isShortlisted = false;
+                
+                    if ($candidate) {
+                        $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
+                            ->where('job_id', $job->id)
+                            ->exists();
+                    }
+                @endphp
+                  <button type="button" 
+                    class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
+                    data-job-id="{{ $job->id }}" 
+                    onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
+                    <i class="flaticon-bookmark"></i>
+                  </button>
+            
                 </div>
                 <div class="sidebar-widget company-widget">
                   <div class="widget-content">

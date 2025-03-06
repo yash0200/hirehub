@@ -7157,6 +7157,11 @@ Job Section
 .job-block .bookmark-btn:hover {
   background: #ECEDF2;
 }
+/* Active state for bookmarked jobs */
+.job-block .bookmark-btn.active {
+  background: #1967D2; /* Change background color */
+  color: #fff; /* Change icon color */
+}
 
 .job-block .job-other-info {
   position: relative;
@@ -10794,6 +10799,12 @@ b:before {
 .sidebar .btn-box .bookmark-btn:hover {
   background: #1967D2;
   color: #fff;
+}
+.sidebar .btn-box .bookmark-btn.active {
+  background: #1967D2 !important;
+  color: #fff !important;
+  border: 2px solid #1967D2; /* Add border to make it more prominent */
+  transition: all 300ms ease-in-out;
 }
 
 .company-widget {

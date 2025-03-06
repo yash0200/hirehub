@@ -57,6 +57,38 @@
     <script src="{{ asset('js/wow.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
 
+    <script>
+      function toggleBookmark(button, isLoggedIn) {
+          if (!isLoggedIn) {
+              window.location.href = "{{ route('login') }}"; // Redirect to login page if user is not logged in
+              return;
+          }
+  
+          let jobId = button.getAttribute('data-job-id');
+  
+          fetch("{{ route('candidate.shortlist.job') }}", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRF-TOKEN": "{{ csrf_token() }}",
+              },
+              body: JSON.stringify({ job_id: jobId })
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.status === 'added') {
+                  button.classList.add("active"); // Add active class
+              } else if (data.status === 'removed') {
+                  button.classList.remove("active"); // Remove active class
+              }
+          })
+          .catch(error => console.error("Error:", error));
+      }
+  </script>
+  
+  
+  
+
     <!-- <script>
   function togglePassword(fieldId) {
     let inputField = document.getElementById(fieldId);

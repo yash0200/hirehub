@@ -68,15 +68,15 @@
                                   <div class="option-box">
                                       <ul class="option-list">
                                           <li>
-                                              <button data-text="View Application" onclick="window.location.href='{{ url('jobs/'.$savedJob->id) }}'">
+                                              <button data-text="View Job" onclick="window.location.href='{{ url('jobs/'.$savedJob->job->id) }}'">
                                                   <span class="la la-eye"></span>
                                               </button>
                                           </li>
                                           <li>
-                                              <button data-text="Delete Application" onclick="confirm('Are you sure?') ? document.getElementById('delete-form-{{ $savedJob->id }}').submit() : ''">
+                                              <button data-text="Delete Job" onclick="confirm('Are you sure?') ? document.getElementById('delete-form-{{ $savedJob->id }}').submit() : ''">
                                                   <span class="la la-trash"></span>
                                               </button>
-                                              <form id="delete-form-{{ $savedJob->id }}" action="{{ route('jobs.destroy', $savedJob->id) }}" method="POST" style="display: none;">
+                                              <form id="delete-form-{{ $savedJob->job->id }}" action="{{ route('jobs.destroy', $savedJob->id) }}" method="POST" style="display: none;">
                                                   @csrf
                                                   @method('DELETE')
                                               </form>

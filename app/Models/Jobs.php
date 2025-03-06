@@ -28,7 +28,8 @@ class Jobs extends Model
         'experience',
         'industry',
         'gender',
-        'qualification'
+        'qualification',
+        'status'
     ];
 
     protected $casts = [

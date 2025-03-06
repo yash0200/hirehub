@@ -67,11 +67,7 @@
 
                                             <td>{{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y') }} <br>{{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}</td>
                                             <td class="status">
-                                                @if($job->status == 1)
-                                                Active
-                                                @else
-                                                Inactive
-                                                @endif
+                                             {{$job->status}}
                                             </td>
                                             <td>
                                                 <div class="option-box">
@@ -87,12 +83,11 @@
 
                                                                 <details>
                                                                     <summary style="cursor: pointer; display: inline-flex; align-items: center;">
-                                                                        <span class="la la-exchange-alt"></span> <!-- Clickable Icon -->
+                                                                        <span class="la la-exchange-alt" ></span> <!-- Clickable Icon -->
                                                                     </summary>
                                                                     <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
                                                                         <option value="active" {{ $job->status == 'active' ? 'selected' : '' }}>Active</option>
                                                                         <option value="inactive" {{ $job->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                                                                        <option value="suspended" {{ $job->status == 'suspended' ? 'selected' : '' }}>Suspended</option>
                                                                     </select>
                                                                 </details>
                                                             </form>

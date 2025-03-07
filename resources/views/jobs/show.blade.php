@@ -126,52 +126,38 @@
               <aside class="sidebar">
                 <div class="btn-box">
                   @php
+                      $user = auth()->user();
+                      $candidate = $user && $user->user_type === 'candidate' ? $user->candidate : null;
+                      $hasApplied = $candidate ? $candidate->applications()->where('job_id', $job->id)->exists() : false;
+                      $isProfileComplete = $candidate ? $candidate->isProfileCompleted() : false;
+                      $isResumeUpdated = $candidate ? optional($candidate->resume)->isResumeUpdated() : false;
+                  @endphp
                   
-                    $user = auth()->user();
-                    $candidate = $user ? $user->candidate : null;
-                    $hasApplied = $candidate ? $candidate->applications()->where('job_id', $job->id)->exists() : false;
-                    $isProfileComplete = $candidate ? $candidate->isProfileCompleted() : false;
-                    $isResumeUpdated = $candidate ? optional($candidate->resume)->isResumeUpdated() : false;
 
-                    if (!$isProfileComplete) {
-                        $redirectRoute = route('candidate.profile');
-                        $buttonText = 'Complete Profile to Apply';
-                        $buttonDisabled = false;
-                    } elseif (!$isResumeUpdated) {
-                        $redirectRoute = route('candidate.resumes');
-                        $buttonText = 'Update Resume to Apply';
-                        $buttonDisabled = false;
-                    } elseif ($hasApplied) {
-                        $redirectRoute = 'javascript:void(0);'; // Prevent clicking
-                        $buttonText = 'Already Applied';
-                        $buttonDisabled = true;
-                    } else {
-                        $redirectRoute = route('job.apply', $job->id);
-                        $buttonText = 'Apply for Job';
-                        $buttonDisabled = false;
-                    }
-                @endphp
-
-                @if(!$user)
-                    {{-- User is not logged in --}}
-                    <form action="{{ route('job.apply', $job->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="theme-btn btn-style-one">Apply For Job</button>
-                    </form>
-                @elseif(isset($candidate))
-                    {{-- User is a Candidate --}}
-                    @if($buttonDisabled)
-                        <button class="theme-btn btn-style-one disabled" disabled>{{ $buttonText }}</button>
-                    @else
-                        <a href="{{ $redirectRoute }}" class="theme-btn btn-style-one">{{ $buttonText }}</a>
-                    @endif
-                @else
-                    {{-- User is an Employer --}}
-                    <p class="text-danger">Employers cannot apply for jobs.</p>
-                @endif
-
-
-  
+                  @if(!$user)
+                      {{-- Guest User --}}
+                      <a href="{{ route('login') }}" class="theme-btn btn-style-one">Login to Apply</a>
+                  @elseif($user->user_type === 'candidate')
+                      {{-- Candidate User --}}
+                      @if($hasApplied)
+                          <button class="theme-btn btn-style-one disabled" disabled>Already Applied</button>
+                      @elseif(!$isProfileComplete)
+                          <a href="{{ route('candidate.profile') }}" class="theme-btn btn-style-one">Complete Profile to Apply</a>
+                      @elseif(!$isResumeUpdated)
+                          <a href="{{ route('candidate.resumes') }}" class="theme-btn btn-style-one">Update Resume to Apply</a>
+                      @else
+                          <form action="{{ route('job.apply', $job->id) }}" method="POST">
+                              @csrf
+                              <button type="submit" class="theme-btn btn-style-one">Apply for Job</button>
+                          </form>
+                      @endif
+                  @elseif($user->user_type === 'employer')
+                      {{-- Employer User --}}
+                      <button class="theme-btn btn-style-one disabled" disabled>Employers cannot apply for jobs</button>
+                  @elseif($user->user_type === 'admin')
+                      {{-- Admin User --}}
+                      <button class="theme-btn btn-style-one disabled" disabled>Admins cannot apply for jobs</button>
+                  @endif
                   @php
                       $user = auth()->user();
                       $candidate = $user ? $user->candidate : null;

@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/candidate/profile/update', [ProfileController::class, 'update'])->name('candidate.profile.update');
 
         Route::get('/candidate/jobs', [CandidateJob::class, 'index'])->name('candidate.jobs');
-        Route::post('/jobs/{jobId}/apply', [ApplicantController::class, 'apply'])->name('job.apply');
+        Route::post('/candidate/jobs/{jobId}/apply', [ApplicantController::class, 'apply'])->name('job.apply');
 
 
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');

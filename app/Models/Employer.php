@@ -39,4 +39,8 @@ class Employer extends Model
     {
         return $this->hasOne(EmployerAddress::class);
     }
+    public function jobs()
+    {
+        return $this->hasMany(Jobs::class);
+    }
 }

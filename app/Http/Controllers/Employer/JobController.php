@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Jobs;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
+use App\Models\JobAlertNotification;
+use App\Models\JobAlert;
 
 class JobController extends Controller
 {
@@ -82,6 +84,7 @@ class JobController extends Controller
         // Create Job First
         // dd($validatedData);
 
+
         $job = Jobs::create([
             'employer_id' =>  auth()->user()->employer->id,
             'title' => $validatedData['title'],
@@ -98,7 +101,7 @@ class JobController extends Controller
 
         // Store Job Address
         if ($request->filled(['country', 'state', 'city', 'postcode', 'address'])) {
-            $job->jobAddress()->create([
+            $jobAddress=$job->jobAddress()->create([
                 'job_id' => $job->id, // Link job_id to this job
                 'country' => $validatedData['country'],
                 'state' => $validatedData['state'],
@@ -107,6 +110,25 @@ class JobController extends Controller
                 'complete_address' => $validatedData['address'],
             ]);
         }
+        // **Notify Candidates Based on Preferences**
+
+        $candidates = JobAlert::where(function ($query) use ($job) {
+            $keywords = explode(',', $job->title); // Split job title into words
+            foreach ($keywords as $word) {
+                $query->orWhere('criteria', 'LIKE', "%$word%");
+            }
+        })
+        ->where('location', $jobAddress->city)
+        ->where('category_id', $job->category_id)
+        ->get();
+    
+        foreach ($candidates as $candidate) {
+            JobAlertNotification::updateOrCreate([
+                'job_id' => $job->id,
+                'candidate_id' => $candidate->candidate_id,
+            ]);
+        }
+
 
         return redirect()->route('employer.jobs.index')->with('success', 'Job created successfully.');
     }

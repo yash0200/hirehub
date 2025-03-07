@@ -75,6 +75,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/jobalerts', [JobAlertController::class, 'index'])->name('candidate.jobalerts');
         Route::get('/candidate/jobalerts/create', [JobAlertController::class, 'create'])->name('candidate.jobalert.create');
         Route::post('/candidate/jobalerts/store', [JobAlertController::class, 'store'])->name('candidate.jobalert.store');
+        Route::delete('/candidate/job-alerts/{id}', [JobAlertController::class, 'destroy'])->name('candidate.jobalert.destroy');
+
 
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
         Route::get('/candidate/change-password', [ChangePasswordController::class, 'candidateIndex'])->name('candidate.password');

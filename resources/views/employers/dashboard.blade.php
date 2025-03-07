@@ -6,6 +6,13 @@
   <div class="user-dashboard">
     <div class="dashboard-outer">
     <div class="upper-title-box">
+      @if(session('success'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ session('success') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      @endif
+
       <h3>Howdy, Invision!</h3>
       <div class="text">Ready to jump back in?</div>
     </div>

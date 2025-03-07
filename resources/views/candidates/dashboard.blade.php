@@ -7,8 +7,17 @@
 <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>Welcome, {{auth()->user()->name}}!!</h3>
-          <div class="text">Ready to jump back in?</div>
+          
+              <h3>Welcome, {{auth()->user()->name}}!!</h3>
+              <div class="text">Ready to jump back in?</div>
+            
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        
         </div>
         <div class="row">
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">

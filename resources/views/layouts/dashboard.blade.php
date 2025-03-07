@@ -51,6 +51,11 @@
     <script src="{{ asset('js/owl.js') }}"></script>
     <script src="{{ asset('js/wow.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+    <script>
+        setTimeout(function() {
+              document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+          }, 3000);
+    </script>
 
 </body>
 

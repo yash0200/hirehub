@@ -15,13 +15,29 @@
             overflow: hidden;
             height: 100vh;
         }
+      .position-relative {
+        position: relative;
+      }
+    
+      .eye-toggle {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #777;
+      }
+    
+      .eye-toggle:hover {
+        color: #333;
+      }
+    
     </style>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-
   <div class="page-wrapper">
 
     <!-- Preloader -->
@@ -77,6 +93,21 @@
         <div class="login-form default-form">
           <div class="form-inner">
             <h3>Login to Hirehub</h3>
+
+            <!-- Display error message here -->
+            @if (session('error'))
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ session('error') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+             @endif
+             @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <!--Login Form-->
             <form method="post" action="{{ route('login') }}">
               @csrf
@@ -87,7 +118,13 @@
 
               <div class="form-group">
                 <label>Password</label>
-                <input id="password-field" type="password" name="password" placeholder="Password">
+                <div class="position-relative">
+                <input type="password" name="password" id="password" class="form-control"
+                  placeholder="Enter New Password">
+                <span class="eye-toggle" onclick="togglePassword('password')">
+                  <i class="la la-eye"></i>
+                </span>
+                </div>
               </div>
 
               <div class="form-group">
@@ -142,6 +179,25 @@
     <script src="{{ asset('js/owl.js') }}"></script>
     <script src="{{ asset('js/wow.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+    <script>
+      function togglePassword(fieldId) {
+        let inputField = document.getElementById(fieldId);
+        let eyeIcon = inputField.nextElementSibling.querySelector('i');
+
+        if (inputField.type === "password") {
+          inputField.type = "text";
+          eyeIcon.classList.remove("la-eye");
+          eyeIcon.classList.add("la-eye-slash");
+        } else {
+          inputField.type = "password";
+          eyeIcon.classList.remove("la-eye-slash");
+          eyeIcon.classList.add("la-eye");
+        }
+      }
+          setTimeout(function() {
+              document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+          }, 5000);
+    </script>
 </body>
 
 </html>

@@ -24,14 +24,15 @@ class LoginController extends Controller
             $user = Auth::user();
 
             if ($user->user_type === 'candidate') {
-                return redirect()->route('candidate.dashboard');
+                return redirect()->route('candidate.dashboard')
+                ->with('success', 'Welcome, Candidate! You have logged in successfully.');
             } elseif ($user->user_type === 'employer') {
-                return redirect()->route('employer.dashboard');
-            } else {
-                return back()->withErrors(['email' => 'Invalid email or password']);
+                return redirect()->route('employer.dashboard')
+                ->with('success', 'Welcome, Employer! You have logged in successfully.');
             }
         }
-        return back()->withErrors(['email' => 'Invalid email or password']);
+        return back()->withInput()->with('error', 'Invalid email or password.');
+
     }
 
     public function logout(Request $request)

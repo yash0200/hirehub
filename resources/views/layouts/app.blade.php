@@ -11,24 +11,7 @@
     <link rel="shortcut icon"  href="{{ asset('images/hirehub-favicon.svg') }}" sizes="512x512" type="image/x-icon">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <style>
-  .position-relative {
-    position: relative;
-  }
-
-  .eye-toggle {
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #777;
-  }
-
-  .eye-toggle:hover {
-    color: #333;
-  }
-</style> -->
+   
 </head>
 <body data-anm=".anm">
 
@@ -84,6 +67,9 @@
           })
           .catch(error => console.error("Error:", error));
       }
+      setTimeout(function() {
+              document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+          }, 3000);
   </script>
   
   

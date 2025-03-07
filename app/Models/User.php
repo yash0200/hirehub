@@ -29,6 +29,10 @@ class User extends Authenticatable
         'is_admin',
         'status'
     ];
+    public function getIsAdminAttribute()
+    {
+        return $this->attributes['is_admin'] == 1;
+    }
     public function employer(): HasOne
     {
         return $this->hasOne(Employer::class);
@@ -62,6 +66,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
 
     public function updateProfileStatus()

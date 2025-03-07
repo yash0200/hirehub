@@ -22,15 +22,24 @@
 
         <div class="row">
         <!-- Display Laravel Validation Errors -->
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         @if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
-        @foreach ($errors->all() as $error)
-      <li>{{ $error }}</li>
-    @endforeach
-        </ul>
-      </div>
-    @endif
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="form-group col-lg-7 col-md-12">
           <label>Old Password</label>
           <div class="position-relative">

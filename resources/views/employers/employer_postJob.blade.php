@@ -48,7 +48,7 @@
                                         <div class="form-group col-lg-12">
                                             <label>Job Title</label>
                                             <input type="text" name="title" class="form-control" placeholder="Title"
-                                                value="{{ old('title') }}">
+                                            value="{{ old('title', $job->title) }}">
                                             @error('title')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -57,7 +57,7 @@
                                         <div class="form-group col-lg-12">
                                             <label>Job Description</label>
                                             <textarea class="form-control" name="description"
-                                                placeholder="Enter job details...">{{ old('description') }}</textarea>
+                                                placeholder="Enter job details...">{{ old('description', $job->description) }}"</textarea>
                                             @error('description')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -66,7 +66,7 @@
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Skills </label>
                                             <input type="text" name="skills" class="form-control"
-                                                placeholder="Enter required Skills" value="{{ old('skills') }}">
+                                                placeholder="Enter required Skills" value="{{ old('skills', $job->skills) }}">
                                             @error('skills')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -92,11 +92,11 @@
                                             <label>Offered Salary (INR Per Annum)</label>
                                             <select name="salary" class="chosen-select form-control">
                                                 <option>Select</option>
-                                                <option value="₹3,00,000 - ₹5,00,000" {{ old('salary') == '₹3,00,000 - ₹5,00,000' ? 'selected' : '' }}>₹3,00,000 - ₹5,00,000</option>
-                                                <option value="₹5,00,000 - ₹7,00,000" {{ old('salary') == '₹5,00,000 - ₹7,00,000' ? 'selected' : '' }}>₹5,00,000 - ₹7,00,000</option>
-                                                <option value="₹7,00,000 - ₹10,00,000" {{ old('salary') == '₹7,00,000 - ₹10,00,000' ? 'selected' : '' }}>₹7,00,000 - ₹10,00,000</option>
-                                                <option value="₹10,00,000 - ₹15,00,000" {{ old('salary') == '₹10,00,000 - ₹15,00,000' ? 'selected' : '' }}>₹10,00,000 - ₹15,00,000</option>
-                                                <option value="₹15,00,000 - ₹20,00,000" {{ old('salary') == '₹15,00,000 - ₹20,00,000' ? 'selected' : '' }}>₹15,00,000 - ₹20,00,000</option>
+                                                <option value="₹3,00,000 - ₹5,00,000" {{ old('salary' ,$employer->salary ?? '') == '₹3,00,000 - ₹5,00,000' ? 'selected' : '' }}>₹3,00,000 - ₹5,00,000</option>
+                                                <option value="₹5,00,000 - ₹7,00,000" {{ old('salary' ,$employer->salary ?? '') == '₹5,00,000 - ₹7,00,000' ? 'selected' : '' }}>₹5,00,000 - ₹7,00,000</option>
+                                                <option value="₹7,00,000 - ₹10,00,000" {{ old('salary' ,$employer->salary ?? '') == '₹7,00,000 - ₹10,00,000' ? 'selected' : '' }}>₹7,00,000 - ₹10,00,000</option>
+                                                <option value="₹10,00,000 - ₹15,00,000" {{ old('salary' ,$employer->salary ?? '') == '₹10,00,000 - ₹15,00,000' ? 'selected' : '' }}>₹10,00,000 - ₹15,00,000</option>
+                                                <option value="₹15,00,000 - ₹20,00,000" {{ old('salary' ,$employer->salary ?? '') == '₹15,00,000 - ₹20,00,000' ? 'selected' : '' }}>₹15,00,000 - ₹20,00,000</option>
                                             </select>
                                             @error('salary')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -106,7 +106,7 @@
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>E-Mail</label>
                                             <input type="email" name="email" class="form-control" placeholder="E-Mail"
-                                                value="{{ old('email') }}">
+                                                value="{{ old('email', $job->email) }}">
                                             @error('email')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -115,7 +115,7 @@
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Application Deadline Date</label>
                                             <input type="date" name="deadline" class="form-control"
-                                                value="{{ old('deadline') }}">
+                                                value="{{ old('deadline',$job->deadline) }}">
                                             @error('deadline')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -169,7 +169,7 @@
                                         <div class="form-group col-lg-6">
                                             <label>Country</label>
                                             <input type="text" name="country" class="form-control"
-                                                placeholder="Enter Country" value="{{ old('country') }}">
+                                                placeholder="Enter Country" value="{{ old('country', $job->country) }}">
                                             @error('country')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -178,7 +178,7 @@
                                         <div class="form-group col-lg-6">
                                             <label>State</label>
                                             <input type="text" name="state" class="form-control" placeholder="Enter State"
-                                                value="{{ old('state') }}">
+                                                value="{{ old('state', $job->state) }}">
                                             @error('state')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -187,7 +187,7 @@
                                         <div class="form-group col-lg-6">
                                             <label>City</label>
                                             <input type="text" name="city" class="form-control" placeholder="Enter City"
-                                                value="{{ old('city') }}">
+                                                value="{{ old('city', $job->city) }}">
                                             @error('city')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -196,7 +196,7 @@
                                         <div class="form-group col-lg-6">
                                             <label>Postcode</label>
                                             <input type="text" name="postcode" class="form-control"
-                                                placeholder="Enter Postcode" value="{{ old('postcode') }}">
+                                                placeholder="Enter Postcode" value="{{ old('postcode', $job->postcode) }}">
                                             @error('postcode')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -205,7 +205,7 @@
                                         <div class="form-group col-lg-12">
                                             <label>Complete Address</label>
                                             <input type="text" name="address" class="form-control"
-                                                placeholder="123 Main Street" value="{{ old('address') }}">
+                                                placeholder="123 Main Street" value="{{ old('address', $job->address) }}">
                                             @error('address')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror

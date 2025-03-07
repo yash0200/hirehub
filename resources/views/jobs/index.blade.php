@@ -267,7 +267,23 @@
         <!-- Job Urgency (Urgent or Not) -->
         <li class="required">{{ $job->created_at->isToday() ? 'Urgent' : 'Not Urgent' }}</li>
         </ul>
-        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+        @php
+                    $user = auth()->user();
+                    $candidate = $user ? $user->candidate : null;
+                    $isShortlisted = false;
+                
+                    if ($candidate) {
+                        $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
+                            ->where('job_id', $job->id)
+                            ->exists();
+                    }
+                @endphp
+                  <button type="button" 
+                    class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
+                    data-job-id="{{ $job->id }}" 
+                    onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
+                    <i class="flaticon-bookmark"></i>
+                  </button>
         </div>
       </div>
       </div>

@@ -10,28 +10,30 @@
       <div class="text">Ready to jump back in?</div>
     </div>
     <div class="row">
+        <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+          <div class="ui-item">
+              <div class="left">
+                  <i class="icon flaticon-briefcase"></i>
+              </div>
+              <div class="right">
+                  <h4>{{ $jobCount }}</h4>
+                  <p>Posted Jobs</p>
+              </div>
+          </div>
+      </div>
+      
       <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
-      <div class="ui-item">
-        <div class="left">
-        <i class="icon flaticon-briefcase"></i>
-        </div>
-        <div class="right">
-        <h4>22</h4>
-        <p>Posted Jobs</p>
-        </div>
+          <div class="ui-item ui-red">
+              <div class="left">
+                  <i class="icon la la-file-invoice"></i>
+              </div>
+              <div class="right">
+                  <h4>{{ $applications }}</h4>
+                  <p>Applications</p>
+              </div>
+          </div>
       </div>
-      </div>
-      <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
-      <div class="ui-item ui-red">
-        <div class="left">
-        <i class="icon la la-file-invoice"></i>
-        </div>
-        <div class="right">
-        <h4>9382</h4>
-        <p>Application</p>
-        </div>
-      </div>
-      </div>
+      
       <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
       <div class="ui-item ui-yellow">
         <div class="left">

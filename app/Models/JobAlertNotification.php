@@ -16,7 +16,7 @@ class JobAlertNotification extends Model
     // Define the fillable fields (if you need to mass assign them)
     protected $fillable = [
         'candidate_id', // Foreign key to Candidate
-        'job_alert_id', // Foreign key to JobAlert
+        'job_id', // Foreign key to JobAlert
         'notification_message',
         'read_at', // Optional: if you want to mark notifications as read
     ];
@@ -27,7 +27,7 @@ class JobAlertNotification extends Model
     ];
 
     // Define relationships (optional based on your application design)
-    
+
     // Each JobAlertNotification belongs to a Candidate
     public function candidate()
     {
@@ -45,5 +45,8 @@ class JobAlertNotification extends Model
     {
         $this->update(['read_at' => now()]);
     }
-
+    public function job()
+    {
+        return $this->belongsTo(Jobs::class, 'job_id');
+    }
 }

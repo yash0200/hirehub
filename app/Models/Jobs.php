@@ -13,6 +13,7 @@ class Jobs extends Model
     protected $table = 'jobs';
 
 
+
     protected $fillable = [
         'employer_id',
         'image',
@@ -27,7 +28,8 @@ class Jobs extends Model
         'experience',
         'industry',
         'gender',
-        'qualification'
+        'qualification',
+        'status'
     ];
 
     protected $casts = [
@@ -37,6 +39,13 @@ class Jobs extends Model
     /**
      * Relationship with Employer (User Model)
      */
+
+    public function edit(Jobs $job)
+    {
+        // Return the view and pass the job data
+        return view('jobs.edit', compact('job'));
+    }
+
     public function employer(): BelongsTo
     {
         return $this->belongsTo(Employer::class, 'employer_id');
@@ -64,10 +73,12 @@ class Jobs extends Model
     {
         return $this->hasMany(JobAddress::class, 'job_id');
     }
-    public function shortlistedByCandidates() {
+    public function shortlistedByCandidates()
+    {
         return $this->hasMany(ShortlistedJob::class, 'job_id');
     }
-
-    
-
+    public function category()
+    {
+        return $this->belongsTo(jobCategory::class, 'category_id'); // Assuming 'Category' is the related model
+    }
 }

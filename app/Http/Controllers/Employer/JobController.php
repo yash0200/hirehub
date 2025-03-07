@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Jobs;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
+use App\Models\JobAlertNotification;
+use App\Models\JobAlert;
 
 class JobController extends Controller
 {
@@ -13,15 +15,15 @@ class JobController extends Controller
     public function manage()
     {
         // Get the logged-in employer's ID
-    $employerId = auth()->user()->employer->id;
+        $employerId = auth()->user()->employer->id;
 
-    // Fetch only the jobs posted by the logged-in employer, along with their job addresses
-    $jobs = Jobs::with('jobAddresses')
-                ->where('employer_id', $employerId) // Filter by the logged-in employer's ID
-                ->get();
-
-        return view('employers.employer_manageJob',compact('jobs'));
-        
+        // Fetch only the jobs posted by the logged-in employer, along with their job addresses
+        $jobs = Jobs::with('jobAddresses')
+            ->where('employer_id', $employerId) // Filter by the logged-in employer's ID
+            ->get();
+        return view('employers.employer_manageJob', compact('jobs'));
+        $jobs = Jobs::with('category')->get(); // Eager load the category relationship
+        return view('employers.employer_manageJob', compact('jobs'));
     }
     /**
      * Display a listing of the resource.
@@ -58,8 +60,8 @@ class JobController extends Controller
             'postcode.string' => 'Postcode must be a valid string.',
             'address.string' => 'Address must be a valid string.',
         ];
-        $id=auth()->user()->employer->id;
-       
+        $id = auth()->user()->employer->id;
+
 
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
@@ -82,6 +84,7 @@ class JobController extends Controller
         // Create Job First
         // dd($validatedData);
 
+
         $job = Jobs::create([
             'employer_id' =>  auth()->user()->employer->id,
             'title' => $validatedData['title'],
@@ -98,7 +101,7 @@ class JobController extends Controller
 
         // Store Job Address
         if ($request->filled(['country', 'state', 'city', 'postcode', 'address'])) {
-            $job->jobAddress()->create([
+            $jobAddress=$job->jobAddress()->create([
                 'job_id' => $job->id, // Link job_id to this job
                 'country' => $validatedData['country'],
                 'state' => $validatedData['state'],
@@ -107,6 +110,25 @@ class JobController extends Controller
                 'complete_address' => $validatedData['address'],
             ]);
         }
+        // **Notify Candidates Based on Preferences**
+
+        $candidates = JobAlert::where(function ($query) use ($job) {
+            $keywords = explode(',', $job->title); // Split job title into words
+            foreach ($keywords as $word) {
+                $query->orWhere('criteria', 'LIKE', "%$word%");
+            }
+        })
+        ->where('location', $jobAddress->city)
+        ->where('category_id', $job->category_id)
+        ->get();
+    
+        foreach ($candidates as $candidate) {
+            JobAlertNotification::updateOrCreate([
+                'job_id' => $job->id,
+                'candidate_id' => $candidate->candidate_id,
+            ]);
+        }
+
 
         return redirect()->route('employer.jobs.index')->with('success', 'Job created successfully.');
     }
@@ -122,41 +144,23 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Jobs $job)
+    public function edit(jobs $job)
     {
-        return view('jobs.edit', compact('jobs'));
+        $categories=JobCategory::all();
+
+        return view('employers.employer_postjob',compact('job','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Jobs $job)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
-            'category' => 'required|string',
-            'experience' => 'required|string',
-            'industry' => 'required|string',
-            'qualification' => 'required|string',
-            'deadline' => 'nullable|date',
-            'state' => 'nullable|string',
-            'city' => 'nullable|string',
-            'postcode' => 'nullable|string',
-            'address' => 'nullable|string',
-        ]);
-
-        $job->update($request->all());
-
-        return redirect()->route('jobs.index')->with('success', 'Jobs updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Jobs $job)
-    {
-        $job->delete();
-        return redirect()->route('jobs.index')->with('success', 'Jobs deleted successfully.');
-    }
-}
+    // public function destroy(Jobs $job)
+    // {
+    //     $job->delete();
+    //     return redirect()->route('jobs.index')->with('success', 'Jobs deleted successfully.');
+    // }

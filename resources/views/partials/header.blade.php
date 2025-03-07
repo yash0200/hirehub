@@ -7,7 +7,7 @@
             <div class="logo-box">
                 <div class="logo">
                     <a href="{{ url('/') }}">
-                        <img style="height:55px;width:152px;" src="{{ asset('/images/logo.svg') }}" alt="Hirehub">
+                        <img style="height:40px;width:152px;" src="{{ asset('/images/logo.svg') }}" alt="Hirehub">
                     </a>
                 </div>
             </div>

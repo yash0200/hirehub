@@ -126,68 +126,70 @@
               <aside class="sidebar">
                 <div class="btn-box">
                   @php
-                      $user = auth()->user();
-                      $candidate = $user ? $user->candidate : null;
-                  @endphp
-
-                @if(!$user) 
-                {{-- User is logged out: Show apply button without checks --}}
-                <form action="{{ route('job.apply', $job->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="theme-btn btn-style-one">Apply For Job</button>
-                </form>
-                @elseif(isset($candidate)) 
-                {{-- User is logged in as a Candidate --}}
-                @php
-                    $hasApplied = $candidate->applications()->where('job_id', $job->id)->exists();
-                    $isProfileComplete = $candidate->isProfileCompleted();
-                    $isResumeUpdated = optional($candidate->resume)->isResumeUpdated();
+                  
+                    $user = auth()->user();
+                    $candidate = $user ? $user->candidate : null;
+                    $hasApplied = $candidate ? $candidate->applications()->where('job_id', $job->id)->exists() : false;
+                    $isProfileComplete = $candidate ? $candidate->isProfileCompleted() : false;
+                    $isResumeUpdated = $candidate ? optional($candidate->resume)->isResumeUpdated() : false;
 
                     if (!$isProfileComplete) {
                         $redirectRoute = route('candidate.profile');
                         $buttonText = 'Complete Profile to Apply';
-                        $showForm = false;
+                        $buttonDisabled = false;
                     } elseif (!$isResumeUpdated) {
                         $redirectRoute = route('candidate.resumes');
                         $buttonText = 'Update Resume to Apply';
-                        $showForm = false;
+                        $buttonDisabled = false;
+                    } elseif ($hasApplied) {
+                        $redirectRoute = 'javascript:void(0);'; // Prevent clicking
+                        $buttonText = 'Already Applied';
+                        $buttonDisabled = true;
                     } else {
                         $redirectRoute = route('job.apply', $job->id);
-                        $buttonText = $hasApplied ? 'Applied' : 'Apply for Job';
-                        $showForm = !$hasApplied;
-                    }
-                @endphp  
-
-                  @if($showForm)
-                      <form action="{{ $redirectRoute }}" method="POST">
-                          @csrf
-                          <button type="submit" class="theme-btn btn-style-one">{{ $buttonText }}</button>
-                      </form>
-                  @else
-                      <a href="{{ $redirectRoute }}" class="theme-btn btn-style-one">{{ $buttonText }}</a>
-                  @endif
-                @else
-                {{-- User is logged in but is NOT a candidate (e.g., an Employer) --}}
-                <p class="text-danger">Employers cannot apply for jobs.</p>
-                @endif   
-                @php
-                    $user = auth()->user();
-                    $candidate = $user ? $user->candidate : null;
-                    $isShortlisted = false;
-                
-                    if ($candidate) {
-                        $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
-                            ->where('job_id', $job->id)
-                            ->exists();
+                        $buttonText = 'Apply for Job';
+                        $buttonDisabled = false;
                     }
                 @endphp
-                  <button type="button" 
-                    class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
-                    data-job-id="{{ $job->id }}" 
-                    onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
-                    <i class="flaticon-bookmark"></i>
-                  </button>
-            
+
+                @if(!$user)
+                    {{-- User is not logged in --}}
+                    <form action="{{ route('job.apply', $job->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="theme-btn btn-style-one">Apply For Job</button>
+                    </form>
+                @elseif(isset($candidate))
+                    {{-- User is a Candidate --}}
+                    @if($buttonDisabled)
+                        <button class="theme-btn btn-style-one disabled" disabled>{{ $buttonText }}</button>
+                    @else
+                        <a href="{{ $redirectRoute }}" class="theme-btn btn-style-one">{{ $buttonText }}</a>
+                    @endif
+                @else
+                    {{-- User is an Employer --}}
+                    <p class="text-danger">Employers cannot apply for jobs.</p>
+                @endif
+
+
+  
+                  @php
+                      $user = auth()->user();
+                      $candidate = $user ? $user->candidate : null;
+                      $isShortlisted = false;
+                  
+                      if ($candidate) {
+                          $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
+                              ->where('job_id', $job->id)
+                              ->exists();
+                      }
+                  @endphp
+                    <button type="button" 
+                      class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
+                      data-job-id="{{ $job->id }}" 
+                      onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
+                      <i class="flaticon-bookmark"></i>
+                    </button>
+              
                 </div>
                 <div class="sidebar-widget company-widget">
                   <div class="widget-content">

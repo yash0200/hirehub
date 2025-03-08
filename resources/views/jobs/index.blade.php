@@ -1,313 +1,208 @@
-@extends('layouts.app')
+  @extends('layouts.app')
 
-@section('title', 'Job Listings')
+  @section('title', 'Job Listings')
 
-@section('content')
-  <!-- Preloader
-    <div class="preloader"></div> -->
+  @section('content')
+    <!-- Preloader
+      <div class="preloader"></div> -->
 
-  <!-- Header Span -->
-  <span class="header-span"></span>
+    <!-- Header Span -->
+    <span class="header-span"></span>
 
-  <!-- Listing Section -->
-  <section class="ls-section style-two">
-    <div class="filters-backdrop"></div>
+    <!-- Listing Section -->
+    <section class="ls-section style-two">
+      <div class="filters-backdrop"></div>
 
-    <div class="row no-gutters">
-    <!-- Filters Column -->
-    <div class="filters-column col-xl-3 col-lg-4 col-md-12 col-sm-12">
-      <div class="inner-column">
-      <div class="filters-outer">
-        <button type="button" class="theme-btn close-filters">X</button>
+      <div class="row no-gutters">
+      <!-- Filters Column -->
+      <div class="filters-column col-xl-3 col-lg-4 col-md-12 col-sm-12">
+        <div class="inner-column">
+        <div class="filters-outer">
+          <button type="button" class="theme-btn close-filters">X</button>
 
-        <!-- Filter Block -->
-        <div class="filter-block">
-        <h4>Search by Keywords</h4>
-        <div class="form-group">
-          <input type="text" name="listing-search" placeholder="Job title, keywords, or company">
-          <span class="icon flaticon-search-3"></span>
-        </div>
-        </div>
+          <!-- Filter Block - Search -->
+          <form action="{{ route('jobs.list') }}" method="GET">
 
-        <!-- Filter Block -->
-        <div class="filter-block">
-        <h4>Location</h4>
-        <div class="form-group">
-          <input type="text" name="listing-search" placeholder="City or postcode">
-          <span class="icon flaticon-map-locator"></span>
-        </div>
-        <p>Radius around selected destination</p>
-        <div class="range-slider-one">
-          <div class="area-range-slider"></div>
-          <div class="input-outer">
-          <div class="amount-outer"><span class="area-amount"></span>km</div>
-          </div>
-        </div>
-        </div>
+            <div class="filter-block">
+              <h4>Search by Keywords</h4>
+              <div class="form-group">
+                <input type="text" name="keyword" placeholder="Job title, keywords, or company" value="{{ request('keyword') }}">
+                <span class="icon flaticon-search-3"></span>
+              </div>
+            </div>
 
-        <!-- Filter Block -->
-        <div class="filter-block">
-        <h4>Category</h4>
-        <div class="form-group">
-          <select class="chosen-select">
-          <option value="">Choose a category</option>
-          @foreach($categories as $category)
-        <option value="{{ $category->id }}">{{ $category->name }}</option>
-      @endforeach
-          </select>
-          <span class="icon flaticon-briefcase"></span>
-        </div>
-        </div>
+            <!-- Filter Block - Location -->
+            <div class="filter-block">
+              <h4>Location(City)</h4>
+              <div class="form-group">
+                <input type="text" name="location" placeholder="City or postcode" value="{{ request('location') }}">
+                <span class="icon flaticon-map-locator"></span>
+              </div>
+            </div>
+            {{-- <p>Radius around selected destination</p>
+            <div class="range-slider-one">
+              <div class="area-range-slider"></div>
+              <div class="input-outer">
+              <div class="amount-outer"><span class="area-amount"></span>km</div>
+              </div>
+            </div>
+            </div> --}}
 
-        <!-- Switchbox Outer -->
-        <div class="switchbox-outer">
-        <h4>Job type</h4>
-        <ul class="switchbox">
-          <li>
-          <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider round"></span>
-            <span class="title">Freelance</span>
-          </label>
-          </li>
-          <li>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-            <span class="title">Full Time</span>
-          </label>
-          </li>
-          <li>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-            <span class="title">Internship</span>
-          </label>
-          </li>
-          <li>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-            <span class="title">Part Time</span>
-          </label>
-          </li>
-          <li>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-            <span class="title">Temporary</span>
-          </label>
-          </li>
-        </ul>
-        </div>
+            <!-- Filter Block - Category -->
+            <div class="filter-block">
+              <h4>Category</h4>
+              <div class="form-group">
+                <select class="chosen-select" name="category_id">
+                  <option value="">Choose a category</option>
+                  @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                      {{ $category->name }}
+                    </option>
+                  @endforeach
+                </select>
+                <span class="icon flaticon-briefcase"></span>
+              </div>
+            </div>
 
-        <!-- Checkboxes Ouer -->
-        <div class="checkbox-outer">
-        <h4>Date Posted</h4>
-        <ul class="checkboxes">
-          <li>
-          <input id="check-f" type="checkbox" name="check">
-          <label for="check-f">All</label>
-          </li>
-          <li>
-          <input id="check-a" type="checkbox" name="check">
-          <label for="check-a">Last Hour</label>
-          </li>
-          <li>
-          <input id="check-b" type="checkbox" name="check">
-          <label for="check-b">Last 24 Hours</label>
-          </li>
-          <li>
-          <input id="check-c" type="checkbox" name="check">
-          <label for="check-c">Last 7 Days</label>
-          </li>
-          <li>
-          <input id="check-d" type="checkbox" name="check">
-          <label for="check-d">Last 14 Days</label>
-          </li>
-          <li>
-          <input id="check-e" type="checkbox" name="check">
-          <label for="check-e">Last 30 Days</label>
-          </li>
-        </ul>
-        </div>
-
-        <!-- Checkboxes Ouer -->
-        <div class="checkbox-outer">
-        <h4>Experience Level</h4>
-        <ul class="checkboxes square">
-          <li>
-          <input id="check-ba" type="checkbox" name="check">
-          <label for="check-ba">All</label>
-          </li>
-          <li>
-          <input id="check-bb" type="checkbox" name="check">
-          <label for="check-bb">Internship</label>
-          </li>
-          <li>
-          <input id="check-bc" type="checkbox" name="check">
-          <label for="check-bc">Entry level</label>
-          </li>
-          <li>
-          <input id="check-bd" type="checkbox" name="check">
-          <label for="check-bd">Associate</label>
-          </li>
-          <li>
-          <input id="check-be" type="checkbox" name="check">
-          <label for="check-be">Mid-Senior level4</label>
-          </li>
-          <li>
-          <button class="view-more"><span class="icon flaticon-plus"></span> View More</button>
-          </li>
-        </ul>
-        </div>
-
-        <!-- Filter Block -->
-        <div class="filter-block">
-        <h4>Salary</h4>
-
-        <div class="range-slider-one salary-range">
-          <div class="salary-range-slider"></div>
-          <div class="input-outer">
-          <div class="amount-outer">
-            <span class="amount salary-amount">
-            $<span class="min">0</span>
-            $<span class="max">0</span>
-            </span>
-          </div>
-          </div>
-        </div>
-        </div>
-
-        <!-- Filter Block -->
-        <div class="filter-block">
-        <h4>Tags</h4>
-        <ul class="tags-style-one">
-          <li><a href="{{ url("#") }}">app</a></li>
-          <li><a href="{{ url("#") }}">administrative</a></li>
-          <li><a href="{{ url("#") }}">android</a></li>
-          <li><a href="{{ url("#") }}">wordpress</a></li>
-          <li><a href="{{ url("#") }}">design</a></li>
-          <li><a href="{{ url("#") }}">react</a></li>
-        </ul>
-        </div>
-      </div>
-      </div>
-    </div>
-
-    <!-- Content Column -->
-    <div class="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
-      <div class="ls-outer">
-      <button type="button" class="theme-btn btn-style-two toggle-filters">Show Filters</button>
-
-      <!-- ls Switcher -->
-      <div class="ls-switcher">
-        <div class="showing-result">
-        <div class="text">
-          Showing
-          <strong>{{ $jobs->firstItem() }}-{{ $jobs->lastItem() }}</strong>
-          of <strong>{{ $jobs->total() }}</strong> jobs
-        </div>
-        </div>
-
-        <div class="sort-by">
-        <select class="chosen-select">
-          <option>New Jobs</option>
-          <option>Freelance</option>
-          <option>Full Time</option>
-          <option>Internship</option>
-          <option>Part Time</option>
-          <option>Temporary</option>
-        </select>
-
-        <select class="chosen-select">
-          <option>Show 10</option>
-          <option>Show 20</option>
-          <option>Show 30</option>
-          <option>Show 40</option>
-          <option>Show 50</option>
-          <option>Show 60</option>
-        </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <!-- Job Block -->
-        @foreach ($jobs as $job)
-      <div class="job-block col-lg-6 col-md-12 col-sm-12">
-      <div class="inner-box">
-        <div class="content">
-        <!-- Display Employer's Logo (Fallback if image doesn't exist) -->
-        <span class="company-logo">
-        <img
-        src="{{ asset('storage/logos/' . $job->employer->logo ?? '/public/images/resource/company-logo/default-logo.png') }}"
-        alt="logo">
-        </span>
-        <!-- Job Title -->
-        <h4><a href="{{ route('jobs.details', $job->id) }}">{{ $job->title }}</a></h4>
-        <ul class="job-info">
-        <!-- Job Category -->
-        <li><span class="icon flaticon-briefcase"></span> {{ $job->jobCategory->name }}</li>
-        <!-- Job Location -->
-        <li>
-        <span class="icon flaticon-map-locator"></span>
-        {{ optional($job->jobAddress)->city ?? 'City not available' }},
-        {{ optional($job->jobAddress)->state ?? 'State not available' }}
-        </li>
-        <!-- Job Posted Time (How long ago it was posted) -->
-        <li><span class="icon flaticon-clock-3"></span> {{ $job->created_at->diffForHumans() }}</li>
-        <!-- Job Salary -->
-        <li><span class="icon flaticon-money"></span> {{ $job->salary }}</li>
-        </ul>
-        <ul class="job-other-info">
-        <!-- Job Type (Full-time/Part-time) -->
-        <li class="time">{{ $job->job_type }}</li>
-        <!-- Job Privacy (Private/Public) -->
-        <li class="privacy">Private</li>
-        <!-- Job Urgency (Urgent or Not) -->
-        <li class="required">{{ $job->created_at->isToday() ? 'Urgent' : 'Not Urgent' }}</li>
-        </ul>
-        @php
-                    $user = auth()->user();
-                    $candidate = $user ? $user->candidate : null;
-                    $isShortlisted = false;
-                
-                    if ($candidate) {
-                        $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
-                            ->where('job_id', $job->id)
-                            ->exists();
-                    }
+            <!-- Switchbox - Job Type -->
+            <div class="switchbox-outer">
+              <h4>Job type</h4>
+              <ul class="switchbox">
+                @php 
+                  $selectedJobTypes = (array) request('job_type', []);
                 @endphp
-                  <button type="button" 
-                    class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
-                    data-job-id="{{ $job->id }}" 
-                    onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
-                    <i class="flaticon-bookmark"></i>
-                  </button>
+                @foreach(['Freelance', 'Full-Time', 'Internship', 'Part-Time', 'Temporary'] as $type)
+                  <li>
+                    <label class="switch">
+                      <input type="checkbox" name="job_type[]" value="{{ $type }}" {{ in_array($type, $selectedJobTypes) ? 'checked' : '' }}>
+                      <span class="slider round"></span>
+                      <span class="title">{{ $type }}</span>
+                    </label>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+
+          <!-- Checkboxes - Date Posted -->
+            <div class="checkbox-outer">
+              <h4>Date Posted</h4>
+              <ul class="checkboxes">
+                @foreach(['All' => '', 'Last Hour' => '1', 'Last 24 Hours' => '24', 'Last 7 Days' => '7', 'Last 14 Days' => '14', 'Last 30 Days' => '30'] as $label => $value)
+                  <li>
+                    <input id="date-{{ $value }}" type="radio" name="date_posted" value="{{ $value }}" {{ request('date_posted') == $value ? 'checked' : '' }}>
+                    <label for="date-{{ $value }}">{{ $label }}</label>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+
+            <!-- Filter Block - Experience Level -->
+            <div class="checkbox-outer">
+              <h4>Experience Level</h4>
+              <ul class="checkboxes square">
+                @foreach(['All', 'Internship', 'Entry level', 'Associate', 'Mid-Senior level'] as $level)
+                  <li>
+                    <input id="exp-{{ $level }}" type="checkbox" name="experience[]" value="{{ $level }}" {{ in_array($level, (array) request('experience', [])) ? 'checked' : '' }}>
+                    <label for="exp-{{ $level }}">{{ $level }}</label>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+
+            <!-- Filter Block - Salary -->
+            <div class="filter-block">
+              <h4>Salary</h4>
+              <div class="range-slider-one salary-range">
+                <div class="salary-range-slider"></div>
+                <div class="input-outer">
+                  <div class="amount-outer">
+                    <span class="amount salary-amount">
+                      $<span class="min">{{ request('min_salary', 0) }}</span> - 
+                      $<span class="max">{{ request('max_salary', 2000000) }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filter Block - Tags -->
+            <div class="filter-block">
+              <h4>Tags</h4>
+              <ul class="tags-style-one">
+                @foreach(['app', 'administrative', 'android', 'wordpress', 'design', 'react'] as $tag)
+                  <li>
+                    <a href="{{ route('jobs.list', array_merge(request()->query(), ['tag' => $tag])) }}">{{ $tag }}</a>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+            <div class="filter-block">
+              <button type="submit" class="theme-btn btn-style-one">Apply Filters</button>
+              <a href="{{ route('jobs.list') }}" class="theme-btn btn-style-one">Reset Filters</a>
+            </div>
+          </form>
+        </div>
         </div>
       </div>
-      </div>
-    @endforeach
 
+      <!-- Content Column -->
+      <div class="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
+        <div class="ls-outer">
+        <button type="button" class="theme-btn btn-style-two toggle-filters">Show Filters</button>
 
-        <!-- Listing Show More -->
+        <!-- ls Switcher -->
+        <div class="ls-switcher">
+          <div class="showing-result">
+          <div class="text">
+            Showing
+            <strong>{{ $jobs->firstItem() }}-{{ $jobs->lastItem() }}</strong>
+            of <strong>{{ $jobs->total() }}</strong> jobs
+          </div>
+          </div>
+
+          <div class="sort-by">
+          {{-- <select class="chosen-select">
+            <option>New Jobs</option>
+            <option>Freelance</option>
+            <option>Full Time</option>
+            <option>Internship</option>
+            <option>Part Time</option>
+            <option>Temporary</option>
+          </select> --}}
+
+          <select class="chosen-select">
+            <option>Show 10</option>
+            <option>Show 20</option>
+            <option>Show 30</option>
+            <option>Show 40</option>
+            <option>Show 50</option>
+            <option>Show 60</option>
+          </select>
+          </div>
+        </div>
+
+        <div class="row" id="job-list">
+          @include('partials.job-card',['jobs'=>$jobs])
+          <!-- Job Block -->
+        </div>
+          
+          <!-- Job Listing Show More -->
         <div class="ls-show-more">
-        <p>Showing {{ $jobs->count() }} of {{ $jobs->total() }} Jobs</p>
-        <div class="bar">
-          @php
-        $percentage = ($jobs->total() > 0) ? ($jobs->count() / $jobs->total()) * 100 : 0;
-      @endphp
-          <span class="bar-inner" style="width: {{ $percentage }}%"></span>
+          <p>Showing <span id="job-count">{{ $jobs->count() }}</span> of <span id="total-jobs">{{ $jobs->total() }}</span> Jobs</p>
+          <div class="bar">
+              @php
+                  $percentage = ($jobs->total() > 0) ? ($jobs->count() / $jobs->total()) * 100 : 0;
+              @endphp
+              <span class="bar-inner" style="width: {{ $percentage }}%"></span>
+          </div>
+          @if ($jobs->hasMorePages())
+          {{-- <p>Next Page URL: {{ $jobs->nextPageUrl() }}</p> <!-- Debugging --> --}}
+              <button id="show-more-btn" class="show-more" data-next-page="{{ $jobs->nextPageUrl() }}">Show More</button>
+          @endif
         </div>
-        @if ($jobs->hasMorePages())
-      <button class="show-more">Show More</button>
-    @endif
-        </div>
-
-        <!-- Ls Footer -->
-
+        
       </div>
-      </div>
-  </section>
-  <!--End Listing Page Section -->
-@endsection
+    </section>
+    <!--End Listing Page Section -->
+
+  @endsection

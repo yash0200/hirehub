@@ -5,26 +5,82 @@ namespace App\Http\Controllers;
 use App\Models\Jobs;
 use Illuminate\Http\Request;
 use App\Models\JobCategory;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class JobsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = Jobs::with('employer','jobCategory','jobAddress')->latest()->paginate(10);
-        $categories = JobCategory::where('status', 'active')->get();
+        try{
 
-        // dd($jobs);
-        return view('jobs.index', compact('jobs','categories'));
+        
+            $query = Jobs::with('employer', 'jobCategory', 'jobAddress')->latest();
+            $categories = JobCategory::where('status', 'active')->get();
+            
+            if ($request->has('keyword')) {  
+                
+                $query->where('title', 'LIKE', '%' . $request->keyword . '%');
+            }
+            
+            
+            if ($request->filled('location')) {
+                $query->whereHas('jobAddress', function ($q) use ($request) {
+                    $q->where('city', 'LIKE', '%' . $request->location . '%');
+                });
+            }
+            
+            if ($request->filled('category_id')) {
+                $query->where('category_id', $request->category_id);
+            }
+            
+            if ($request->has('job_type') && !empty($request->job_type)) {
+                $query->whereIn('job_type', $request->job_type);
+            }
+            
+            if ($request->filled('date_posted')) {
+                $datePosted = (int) $request->date_posted;
+                
+                if ($datePosted == 1) { // Last Hour
+                    $query->where('created_at', '>=', Carbon::now()->subHour());
+                } elseif ($datePosted == 24) { // Last 24 Hours
+                    $query->where('created_at', '>=', Carbon::now()->subHours(24));
+                } elseif ($datePosted > 0) { // Last X Days
+                    $query->where('created_at', '>=', Carbon::now()->subDays($datePosted)->startOfDay()); //Use `startOfDay()` to avoid time issues
+                }
+            }
+            
+            
+            // Apply pagination AFTER filters
+            $jobs = $query->paginate(10);
+            
+
+            // Handle AJAX requests separately
+            if ($request->ajax()) {
+                return response()->json([
+                    'jobs' => View::make('partials.job-card', compact('jobs'))->render(),
+                    'next_page_url' => $jobs->nextPageUrl(),
+                    'current_count' => $jobs->count(),
+                    'total' => $jobs->total(),
+                ]);
+            }
+
+            return view('jobs.index', compact('jobs', 'categories'));
+        } catch (\Exception $e) {
+            Log::error('Error fetching jobs: ' . $e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
     public function show($id)
     {
-        $job = Jobs::with('employer','jobAddress','jobCategory')->findOrFail($id);
+        $job = Jobs::with('employer', 'jobAddress', 'jobCategory')->findOrFail($id);
         // Fetch related jobs based on the same category
         $relatedJobs = Jobs::where('category_id', $job->category_id)
-        ->where('id', '!=', $id) // Exclude the current job
-        ->with(['employer', 'jobAddress'])
-        ->limit(4) // Show only 4 related jobs
-        ->get();
+            ->where('id', '!=', $id) // Exclude the current job
+            ->with(['employer', 'jobAddress'])
+            ->limit(4) // Show only 4 related jobs
+            ->get();
 
         return view('jobs.show', compact('job', 'relatedJobs'));
     }
@@ -86,4 +142,3 @@ class JobsController extends Controller
 //         return redirect()->route('jobs.index');
 //     }
 // }
-

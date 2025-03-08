@@ -22,6 +22,7 @@ use App\Http\Controllers\Employer\ProfileController as EmployerProfile;
 use App\Http\Controllers\Employer\CompanyProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Candidate\NotificationsController;
 use App\Http\Controllers\EmployersController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\JobCategoryController;
@@ -72,10 +73,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
         Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
 
+            /** ================== Prederences and their alert Routes ================== */
+
         Route::get('/candidate/jobalerts', [JobAlertController::class, 'index'])->name('candidate.jobalerts');
         Route::get('/candidate/jobalerts/create', [JobAlertController::class, 'create'])->name('candidate.jobalert.create');
         Route::post('/candidate/jobalerts/store', [JobAlertController::class, 'store'])->name('candidate.jobalert.store');
         Route::delete('/candidate/job-alerts/{id}', [JobAlertController::class, 'destroy'])->name('candidate.jobalert.destroy');
+
+            /** ================== notifications Routes ================== */
+
+        Route::get('/candidate/notifications', [NotificationsController::class, 'index'])->name('candidate.notifications');
 
 
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');

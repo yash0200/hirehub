@@ -17,8 +17,8 @@
             <li class="{{ request()->routeIs('candidate.jobalerts') ? 'active' : '' }}">
                 <a href="{{ route('candidate.jobalerts') }}"><i class="la la-tools"></i> Preferences & Job alerts</a>
             </li>
-            <li class="{{ request()->routeIs('candidate.jobalerts') ? 'active' : '' }}">
-                <a href="{{ route('candidate.jobalerts') }}"><i class="la la-bell"></i> Notifications </a>
+            <li class="{{ request()->routeIs('candidate.notifications') ? 'active' : '' }}">
+                <a href="{{ route('candidate.notifications') }}"><i class="la la-bell"></i> Notifications </a>
             </li>
             <li class="{{ request()->routeIs('candidate.shortlist') ? 'active' : '' }}">
                 <a href="{{ route('candidate.shortlist') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a>

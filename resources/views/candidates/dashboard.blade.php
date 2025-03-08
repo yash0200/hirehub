@@ -99,6 +99,7 @@
             <div class="notification-widget ls-widget">
               <div class="widget-title">
                 <h4>Notifications</h4>
+                <a href="{{url('/candidate/notifications')}}">View all</a>
               </div>
               <div class="widget-content">
                 <ul class="notification-list">

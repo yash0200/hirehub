@@ -67,17 +67,15 @@
                             <h4>Platform Usage</h4>
                             <div class="chosen-outer">
                                 <!-- Tabs Box -->
-                                <select class="chosen-select">
-                                    <option>Last 6 Months</option>
-                                    <option>Last 12 Months</option>
-                                    <option>Last 16 Months</option>
-                                    <option>Last 24 Months</option>
-                                    <option>Last 5 years</option>
+                                <select id="chartFilter" class="chosen-select">
+                                    <option value="4">Last 4 Weeks</option>
+                                    <option value="8">Last 8 Weeks</option>
+                                    <option value="12">Last 12 Weeks</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="widget-content">
-                            <canvas id="chart" width="100" height="45"></canvas>
+                        <div class="widget-content" style="height: 350px;">
+                            <canvas id="chart"></canvas>
                         </div>
                     </div>
                 </div>

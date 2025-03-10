@@ -53,10 +53,23 @@
           <!--Candidate Section-->
           <div class="bottom-box d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="1500ms">
             <div class="count-compines d-flex align-items-center">
-              <span class="title mr20 fz16 fw500">10k+ Candidates</span>
-              <img src="{{ asset('/images/resource/multi-peoples.png') }}" alt="">
+              <!-- Display the dynamic candidate count with number formatting -->
+              <span class="title mr20 fz16 fw500">{{ number_format($candidatesCount) }}+ Candidates</span>
+              <!-- Static Image -->
+              <img src="{{ asset('/images/resource/multi-peoples.png') }}" alt="Candidates">
             </div>
-            <a href="{{ url('#') }}" class="upload-cv dark-color fz16 fw500"><span class="icon flaticon-file"></span> Upload your CV</a>
+
+            @if(auth()->check() && auth()->user()->candidate)
+            <!-- If the user is logged in and is a candidate, link to the resume page -->
+            <a href="{{ route('candidate.resumes') }}" class="upload-cv dark-color fz16 fw500">
+              <span class="icon flaticon-file"></span> Upload your CV
+            </a>
+            @else
+            <!-- If not logged in or not a candidate, link to the login page -->
+            <a href="{{ route('login') }}" class="upload-cv dark-color fz16 fw500">
+              <span class="icon flaticon-file"></span> Upload your CV
+            </a>
+            @endif
           </div>
           <!-- End Candidate Section-->
         </div>

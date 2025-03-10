@@ -25,7 +25,6 @@ class Candidate extends Model
         'twitter',
         'linkedin',
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class);

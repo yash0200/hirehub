@@ -8,6 +8,7 @@ use App\Models\Jobs;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\Applicant;
 
 class DashboardController extends Controller
 {
@@ -16,10 +17,10 @@ class DashboardController extends Controller
         return view('admin.dashboard', [
             'total_users' => User::count(),
             'total_jobs' => Jobs::count(),
+            'total_employers' => User::where('user_type', 'employer')->count(), // Count employers
+            'total_applications' => Applicant::count() // Count total applications
         ]);
     }
-
-
     public function getWeeklyChartData(Request $request)
     {
         $weeks = $request->input('weeks', 4); // Default to last 4 weeks

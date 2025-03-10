@@ -26,10 +26,19 @@ class JobsController extends Controller
             
             
             if ($request->filled('location')) {
-                $query->whereHas('jobAddress', function ($q) use ($request) {
-                    $q->where('city', 'LIKE', '%' . $request->location . '%');
+                $location = $request->location;
+            
+                $query->whereHas('jobAddress', function ($q) use ($location) {
+                    if (preg_match('/^\d{6}$/', $location)) {
+                        // If input is a 6-digit number, filter by pincode
+                        $q->where('postcode', $location);
+                    } else {
+                        // Otherwise, assume it's a city name
+                        $q->where('city', 'LIKE', '%' . $location . '%');
+                    }
                 });
             }
+            
             
             if ($request->filled('category_id')) {
                 $query->where('category_id', $request->category_id);

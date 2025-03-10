@@ -41,6 +41,16 @@
     <script src="{{ asset('js/script.js') }}"></script>
 
     <script>
+        // function validateLocation(input) {
+        //     let value = input.value.trim();
+        //     let error = document.getElementById("locationError");
+
+        //     if (/^\d{6}$/.test(value) || /^[a-zA-Z\s]+$/.test(value)) {
+        //         error.style.display = "none"; // Hide error if valid
+        //     } else {
+        //         error.style.display = "block"; // Show error if invalid
+        //     }
+        // }
         function toggleBookmark(button, isLoggedIn) {
             if (!isLoggedIn) {
                 window.location.href = "{{ route('login') }}"; // Redirect to login page if user is not logged in

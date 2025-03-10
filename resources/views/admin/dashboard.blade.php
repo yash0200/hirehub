@@ -16,7 +16,7 @@
                         <i class="icon flaticon-briefcase"></i>
                     </div>
                     <div class="right">
-                        <h4>150</h4>
+                        <h4>{{ $total_employers }}</h4>
                         <p>Total Employers</p>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                         <i class="icon la la-file-invoice"></i>
                     </div>
                     <div class="right">
-                        <h4>9382</h4>
+                        <h4>{{ $total_applications }}</h4>
                         <p>Total Applications</p>
                     </div>
                 </div>

@@ -27,6 +27,15 @@ class JobController extends Controller
      */
     public function index()
     {
+        $employer = auth()->user(); // Get logged-in employer
+
+        // Check if employer profile is completed
+        if ($employer->profile_completed != 1) {
+            return redirect()->route('employer.company.profile')
+                ->with('error', 'Please complete your company profile before posting a job.');
+        }
+
+
         $jobs = Jobs::all();
         $categories = JobCategory::where('status', 'active')->get();
         return view('employers.employer_postJob', compact('jobs', 'categories'));

@@ -40,13 +40,15 @@ class Candidate extends Model
     }
     public function address()
     {
-        return $this->hasOne(CandidateAddress::class);
+        return $this->hasOne(CandidateAddress::class, 'candidate_id');
     }
+
     public function applications()
     {
         return $this->hasMany(Applicant::class, 'candidate_id');
     }
-    public function shortlistedJobs() {
+    public function shortlistedJobs()
+    {
         return $this->hasMany(ShortlistedJob::class, 'candidate_id');
     }
 

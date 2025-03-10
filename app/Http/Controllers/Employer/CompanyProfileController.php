@@ -87,11 +87,44 @@ class CompanyProfileController extends Controller
             } else {
                 return redirect()->route('employer.company.profile')->withErrors('Invalid form type.');
             }
+             $this->checkProfileCompletion();
 
             return redirect()->route('employer.company.profile')->with('success', 'Profile updated successfully!');
         } catch (\Exception $e) {
             return redirect()->route('employer.company.profile')->withErrors($e->getMessage());
         }
     }
-}
+    private function checkProfileCompletion()
+    {
+        $user = Auth::user();
+        $employer = $user->employer;
+        
 
+        if (!$employer) {
+            return;
+        }
+
+        // Check if all required company profile fields are filled
+        $isProfileComplete = !empty($employer->company_name) &&
+            !empty($employer->phone) &&
+            !empty($employer->website) &&
+            !empty($employer->established_year) &&
+            !empty($employer->company_size) &&
+            !empty($employer->logo);
+        
+
+        // Check if all required address fields are filled
+        $address = $employer->address;
+        $hasCompleteAddress = $address &&
+            !empty($address->country) &&
+            !empty($address->state) &&
+            !empty($address->city) &&
+            !empty($address->street) &&
+            !empty($address->postal_code);
+        
+
+        // Update profile completion status for the logged-in employer
+        $user->update(['profile_completed' => ($isProfileComplete && $hasCompleteAddress) ? 1 : 0]);
+        
+    }
+}

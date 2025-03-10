@@ -20,7 +20,8 @@ class DashboardController extends Controller
         ->join('jobs', 'applicants.job_id', '=', 'jobs.id')
         ->where('jobs.employer_id', $user->employer->id)
         ->count();
-
-        return view('employers.dashboard', compact('user', 'jobCount','applications'));
+        $applicants = Applicant::with('candidate','job','resume','candidate_address')->latest()->take(6)->get();
+        
+        return view('employers.dashboard', compact('user', 'jobCount','applications','applicants'));
     }
 }

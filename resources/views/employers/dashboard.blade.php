@@ -139,7 +139,7 @@
         <h4 class="name"><a href="#">{{ $applicant->candidate->full_name }}</a></h4>
         <ul class="candidate-info">
           <li class="designation">{{ $applicant->resume->job_title }}</li>
-          <li><span class="icon flaticon-map-locator"></span> {{ $applicant->candidate_address->city}} ,{{ $applicant->candidate_address->state }}</li>
+          <li><span class="icon flaticon-map-locator"></span> {{ $applicant->candidate_address->city??''}} ,{{ $applicant->candidate_address->state??''}}</li>
           <li><span class="icon flaticon-money"></span> ${{ $applicant->job->salary }}</li>
         </ul>
         <ul class="post-tags">

@@ -73,14 +73,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
         Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
 
-            /** ================== Prederences and their alert Routes ================== */
+        /** ================== Prederences and their alert Routes ================== */
 
         Route::get('/candidate/jobalerts', [JobAlertController::class, 'index'])->name('candidate.jobalerts');
         Route::get('/candidate/jobalerts/create', [JobAlertController::class, 'create'])->name('candidate.jobalert.create');
         Route::post('/candidate/jobalerts/store', [JobAlertController::class, 'store'])->name('candidate.jobalert.store');
         Route::delete('/candidate/job-alerts/{id}', [JobAlertController::class, 'destroy'])->name('candidate.jobalert.destroy');
 
-            /** ================== notifications Routes ================== */
+        /** ================== notifications Routes ================== */
 
         Route::get('/candidate/notifications', [NotificationsController::class, 'index'])->name('candidate.notifications');
 
@@ -102,20 +102,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employer/company-profile', [CompanyProfileController::class, 'index'])->name('employer.company.profile');
         Route::post('/employer/company-profile/update', [CompanyProfileController::class, 'update'])->name('employer.company.profile.update');
 
-        /** ================== Post Job Routes ================== */
+        /** ================== Post/Manage Job and Routes ================== */
 
-        Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index');     // List all jobs
-        Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create');     // Show create form
-        Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store');             // Store job
-        Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show');            // Show a specific job
-
-        Route::get('jobs/{job}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit');
-        Route::patch('jobs/{job}.update', [EmployerJobController::class, 'update'])->name('jobs.update');     // Update job
-
-        Route::delete('/employer/jobs/{id}', [EmployerJobController::class, 'destroy'])->name('jobs.destroy');  // Delete job
+        Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index'); // List all jobs
+        Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create'); // Show create form
+        Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store'); // Store job
+        Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show'); // Show a specific job
+        Route::get('/jobs/{job}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit'); // Edit job
+        Route::patch('/jobs/{job}', [EmployerJobController::class, 'update'])->name('jobs.update'); // Update job
+        Route::delete('/employer/jobs/{id}', [EmployerJobController::class, 'destroy'])->name('jobs.destroy'); // Delete job
 
 
-        Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.job.manage');
+
+        Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.jobs.manage');
         Route::get('/employer/applicants', [EmployerApplicantController::class, 'index'])->name('employer.applicants');
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
         Route::get('/employer/packages', [PackageController::class, 'index'])->name('employer.packages');

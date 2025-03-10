@@ -241,8 +241,8 @@
                     <li class="{{ request()->routeIs('employer.jobs.index') ? 'active' : '' }}">
                         <a href="{{ route('employer.jobs.index') }}"><i class="la la-paper-plane"></i> Post a New Job</a>
                     </li>
-                    <li class="{{ request()->routeIs('employer.job.manage') ? 'active' : '' }}">
-                        <a href="{{ route('employer.job.manage') }}"><i class="la la-briefcase"></i>Manage Jobs</a>
+                    <li class="{{ request()->routeIs('employer.jobs.manage') ? 'active' : '' }}">
+                        <a href="{{ route('employer.jobs.manage') }}"><i class="la la-briefcase"></i>Manage Jobs</a>
                     </li>
                     <li class="{{ request()->routeIs('employer.applicants') ? 'active' : '' }}">
                         <a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i>All Applicant</a>

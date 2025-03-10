@@ -17,12 +17,9 @@ class JobController extends Controller
         // Get the logged-in employer's ID
         $employerId = auth()->user()->employer->id;
 
-        // Fetch only the jobs posted by the logged-in employer, along with their job addresses
-        $jobs = Jobs::with('jobAddresses')
-            ->where('employer_id', $employerId) // Filter by the logged-in employer's ID
+        $jobs = Jobs::with(['jobAddresses', 'category'])
+            ->where('employer_id', $employerId)
             ->get();
-        return view('employers.employer_manageJob', compact('jobs'));
-        $jobs = Jobs::with('category')->get(); // Eager load the category relationship
         return view('employers.employer_manageJob', compact('jobs'));
     }
     /**
@@ -101,7 +98,7 @@ class JobController extends Controller
 
         // Store Job Address
         if ($request->filled(['country', 'state', 'city', 'postcode', 'address'])) {
-            $jobAddress=$job->jobAddress()->create([
+            $jobAddress = $job->jobAddress()->create([
                 'job_id' => $job->id, // Link job_id to this job
                 'country' => $validatedData['country'],
                 'state' => $validatedData['state'],
@@ -118,10 +115,10 @@ class JobController extends Controller
                 $query->orWhere('criteria', 'LIKE', "%$word%");
             }
         })
-        ->where('location', $jobAddress->city)
-        ->where('category_id', $job->category_id)
-        ->get();
-    
+            ->where('location', $jobAddress->city)
+            ->where('category_id', $job->category_id)
+            ->get();
+
         foreach ($candidates as $candidate) {
             JobAlertNotification::updateOrCreate([
                 'job_id' => $job->id,
@@ -130,7 +127,7 @@ class JobController extends Controller
         }
 
 
-        return redirect()->route('employer.jobs.index')->with('success', 'Job created successfully.');
+        return redirect()->route('employer.jobs.manage')->with('success', 'Job created successfully.');
     }
 
     /**
@@ -146,21 +143,81 @@ class JobController extends Controller
      */
     public function edit(jobs $job)
     {
-        $categories=JobCategory::all();
+        $categories = JobCategory::all();
+        $job->load('jobAddresses');
 
-        return view('employers.employer_postjob',compact('job','categories'));
+        return view('employers.employer_postjob', compact('job', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    }
+    public function update(Request $request, Jobs $job)
+    {
+        $messages = [
+            'title.required' => 'The job title is required.',
+            'description.required' => 'The job description is required.',
+            'category_id.required' => 'Please select a valid job category.',
+            'category_id.exists' => 'The selected category is invalid.',
+            'experience.required' => 'Experience field is required.',
+            'salary.required' => 'Salary is required.',
+            'job_type.required' => 'Job type is required.',
+            'qualification.required' => 'Qualification field is required.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'deadline.date' => 'Deadline must be a valid date.',
+            'skills.string' => 'Skills must be a valid string.',
+            'country.string' => 'Country must be a valid string.',
+            'state.string' => 'State must be a valid string.',
+            'city.string' => 'City must be a valid string.',
+            'postcode.string' => 'Postcode must be a valid string.',
+            'address.string' => 'Address must be a valid string.',
+        ];
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function destroy(Jobs $job)
-    // {
-    //     $job->delete();
-    //     return redirect()->route('jobs.index')->with('success', 'Jobs deleted successfully.');
-    // }
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'category_id' => 'required|exists:job_categories,id',
+            'experience' => 'required|string',
+            'salary' => 'required|string',
+            'job_type' => 'required|string',
+            'qualification' => 'required|string',
+            'email' => 'required|email',
+            'deadline' => 'nullable|date',
+            'skills' => 'nullable|string',
+            'country' => 'required|string',
+            'state' => 'required|string',
+            'city' => 'required|string',
+            'postcode' => 'required|string',
+            'address' => 'required|string',
+        ], $messages);
+
+        // Update job details
+        $job->update([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'category_id' => $validatedData['category_id'],
+            'experience' => $validatedData['experience'],
+            'salary' => $validatedData['salary'],
+            'job_type' => $validatedData['job_type'],
+            'qualification' => $validatedData['qualification'],
+            'email' => $validatedData['email'],
+            'deadline' => $validatedData['deadline'],
+            'skills' => $validatedData['skills'],
+        ]);
+
+        // Update or create job address
+        $job->jobAddresses()->updateOrCreate(
+            ['job_id' => $job->id], // Condition for matching record
+            [
+                'country' => $validatedData['country'],
+                'state' => $validatedData['state'],
+                'city' => $validatedData['city'],
+                'postcode' => $validatedData['postcode'],
+                'complete_address' => $validatedData['address'],
+            ]
+        );
+
+        return redirect()->route('employer.jobs.manage')->with('success', 'Job updated successfully.');
+    }
+}

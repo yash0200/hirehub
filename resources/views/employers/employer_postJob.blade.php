@@ -175,9 +175,7 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                        
-                                        
-
+                
                                         @php
                                             $jobAddress = isset($job) ? optional($job->jobAddresses->first()) : null;
                                         @endphp
@@ -226,16 +224,11 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-
-
-                                        
-
                                         <div class="form-group col-lg-12 text-right">
                                             <button class="theme-btn btn-style-one" type="submit"> {{ isset($job) ? 'Update Job' : 'Submit' }}</button>
                                         </div>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -243,7 +236,6 @@
             </div>
         </div>
     </section>
-
     <!-- Copyright -->
     <div class="copyright-text text-center">
         <p>&copy; 2025 HireHub. All Rights Reserved.</p>

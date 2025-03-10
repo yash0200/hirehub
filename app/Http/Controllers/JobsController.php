@@ -16,7 +16,10 @@ class JobsController extends Controller
         try{
 
         
-            $query = Jobs::with('employer', 'jobCategory', 'jobAddress')->latest();
+            $query = Jobs::with('employer', 'jobCategory', 'jobAddress')
+                    ->where('status', 'active')
+                    ->latest();
+
             $categories = JobCategory::where('status', 'active')->get();
             
             if ($request->has('keyword')) {  

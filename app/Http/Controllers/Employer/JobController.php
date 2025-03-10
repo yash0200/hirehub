@@ -220,4 +220,33 @@ class JobController extends Controller
 
         return redirect()->route('employer.jobs.manage')->with('success', 'Job updated successfully.');
     }
+    public function destroy(Jobs $job)
+    {
+        if (in_array($job->status, ['closed', 'expired'])) {
+            return redirect()->route('employer.jobs.manage')->with('error', 'You cannot delete a closed or expired job.');
+        }
+        // Mark job as 'deleted' and soft delete
+        $job->update(['status' => 'deleted']);
+        $job->delete(); // Soft delete (sets deleted_at)
+
+        return redirect()->route('employer.jobs.manage')->with('success', 'Job has been deleted successfully.');
+    }
+
+    public function updateStatus(Request $request, Jobs $job)
+    {
+        $request->validate([
+            'status' => 'required|in:active,inactive,closed',
+        ]);
+        if ($request->status === 'closed') {
+            // Example: Ensure only active jobs can be closed
+            if ($job->status !== 'active') {
+                return redirect()->route('employer.jobs.manage')
+                    ->with('error', 'Only active jobs can be closed.');
+            }
+        }
+
+        $job->update(['status' => $request->status]);
+
+        return redirect()->route('employer.jobs.manage')->with('success', 'Job status updated successfully!');
+    }
 }

@@ -110,7 +110,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show'); // Show a specific job
         Route::get('/jobs/{job}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit'); // Edit job
         Route::patch('/jobs/{job}', [EmployerJobController::class, 'update'])->name('jobs.update'); // Update job
-        Route::delete('/employer/jobs/{id}', [EmployerJobController::class, 'destroy'])->name('jobs.destroy'); // Delete job
+        Route::delete('/employer/jobs/{job}', [EmployerJobController::class, 'destroy'])->name('employer.jobs.delete');
+        Route::patch('/employer/jobs/{job}/status', [EmployerJobController::class, 'updateStatus'])->name('employer.jobs.status');
 
 
 

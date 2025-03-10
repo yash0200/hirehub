@@ -10,6 +10,28 @@
             <h3>Manage Jobs</h3>
             <div class="text">Ready to jump back in?</div>
         </div>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
 
         <div class="row">
             <div class="col-lg-12">
@@ -74,20 +96,31 @@
                                                     <ul class="option-list">
                                                         <li><button data-text="View Job" onclick="window.location.href='{{ url('jobs/'.$job->id) }}'"><span class="la la-eye"></span></button></li>
                                                         <li><button data-text="Edit Job"  onclick="window.location.href='{{ route('jobs.edit', $job->id) }}'"><span class="la la-pencil"></span></button></li>
-                                                        <li><button data-text="Delete Job"><span class="la la-trash"></span></button></li>
-                                                        <!-- Change User Status --> 
+                                                        <!-- Delete Job -->
                                                         <li>
-                                                            <form action="{{ route('admin.categories.changeStatus', $job->id) }}" method="POST">
+                                                            <form action="{{ route('employer.jobs.delete', $job->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this job?');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="bc-delete-item" data-text="Delete Job">
+                                                                    <span class="la la-trash"></span>
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        
+                                                        <!-- Change Job Status -->
+                                                        <li>
+                                                            <form action="{{ route('employer.jobs.status', $job->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('PATCH')
 
                                                                 <details>
                                                                     <summary style="cursor: pointer; display: inline-flex; align-items: center;">
-                                                                        <span class="la la-exchange-alt" ></span> <!-- Clickable Icon -->
+                                                                        <span class="la la-exchange-alt"></span> <!-- Clickable Icon -->
                                                                     </summary>
-                                                                    <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
-                                                                        <option value="active" {{ $job->status == 'active' ? 'selected' : '' }}>Active</option>
-                                                                        <option value="inactive" {{ $job->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                                                    <select name="status" class="form-control form-control-sm" onchange="if(this.value !== '{{ $job->status }}') this.form.submit();">
+                                                                        <option value="active" {{ $job->status === 'active' ? 'selected' : '' }}>Active</option>
+                                                                        <option value="inactive" {{ $job->status === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                                                        <option value="closed" {{ $job->status === 'closed' ? 'selected' : '' }}>Closed</option>
                                                                     </select>
                                                                 </details>
                                                             </form>

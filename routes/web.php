@@ -92,6 +92,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
         Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
+        Route::delete('/candidate/shortlist-job/{id}', [ShortlistJobsController::class, 'destroy'])->name('candidate.job.destroy');
+
     });
 
     /** ================== Employer Routes ================== */

@@ -93,7 +93,30 @@
                 });
                 @endif
             }
+
+            document.querySelectorAll('.approve-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                let applicantId = this.getAttribute('data-id');
+
+                fetch(`/employer/applicants/${applicantId}/approve`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    location.reload();
+                })
+                .catch(error => console.error('Error:', error));
+            });
         });
+
+        });
+
+
     </script>
 
 </body>

@@ -5,28 +5,46 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Jobs;
-use App\Models\Applicant; 
+use App\Models\Applicant;
+use App\Models\Notification;
 
 class ApplicantController extends Controller
 {
     public function index()
     {
-         // Get the logged-in employer's ID
-         $employerId = auth()->user()->employer->id;
+        // Get the logged-in employer's ID
+        $employerId = auth()->user()->employer->id;
 
-         // Fetch the jobs posted by the logged-in employer
-         $jobs = Jobs::where('employer_id', $employerId)->get();
- 
-         // Fetch the applicants for these jobs
-         // Assuming you have a 'job_id' field in the applicants table to link applicants to jobs
-         $applicants = Applicant::whereIn('job_id', $jobs->pluck('id'))->get();
-         
- 
-         // Pass the applicants and jobs to the view
-         return view('employers.employer_applicants', compact('applicants', 'jobs'));
+        // Fetch the jobs posted by the logged-in employer
+        $jobs = Jobs::where('employer_id', $employerId)->get();
+
+        // Fetch the applicants for these jobs
+        // Assuming you have a 'job_id' field in the applicants table to link applicants to jobs
+        $applicants = Applicant::whereIn('job_id', $jobs->pluck('id'))->get();
+
+
+        // Pass the applicants and jobs to the view
+        return view('employers.employer_applicants', compact('applicants', 'jobs'));
     }
     public function job()
-{
-    return $this->belongsTo(Jobs::class);
-}
+    {
+        return $this->belongsTo(Jobs::class);
+    }
+
+    public function approveApplicant($id)
+    {
+        $applicant = Applicant::findOrFail($id);
+
+        // Update status
+        $applicant->status = 'approved';
+        $applicant->save();
+
+        // Create a notification
+        Notification::create([
+            'user_id' => $applicant->candidate_id, // Assuming candidate_id links to users
+            'message' => "Your application has been approved successfully.",
+        ]);
+
+        return response()->json(['message' => 'Application approved successfully.']);
+    }
 }

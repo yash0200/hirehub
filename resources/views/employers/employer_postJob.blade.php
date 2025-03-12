@@ -238,6 +238,6 @@
     </section>
     <!-- Copyright -->
     <div class="copyright-text text-center">
-        <p>&copy; 2025 HireHub. All Rights Reserved.</p>
+        <p>© 2025 <a href="{{ url("/") }}">Hirehub</a>. All Right Reserved.</p>
     </div>
 @endsection

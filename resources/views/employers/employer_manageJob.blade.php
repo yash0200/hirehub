@@ -145,6 +145,6 @@
 
 <!-- Copyright -->
 <div class="copyright-text">
-    <p>© 2025 HireHub. All Rights Reserved.</p>
+    <p>© 2025 <a href="{{ url("/") }}">Hirehub</a>. All Right Reserved.</p>
 </div>
 @endsection

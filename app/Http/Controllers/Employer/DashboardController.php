@@ -46,6 +46,6 @@ class DashboardController extends Controller
                 ];
             }
 
-        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants','chartData'))->with('userType', Auth::user()->user_type);
+        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants','chartData'));
     }
 }

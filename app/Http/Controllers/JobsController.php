@@ -37,7 +37,10 @@ class JobsController extends Controller
                         $q->where('postcode', $location);
                     } else {
                         // Otherwise, assume it's a city name
-                        $q->where('city', 'LIKE', '%' . $location . '%');
+                        $q->where(function ($query) use ($location) {
+                            $query->where('city', 'LIKE', '%' . $location . '%')
+                                  ->orWhere('state', 'LIKE', '%' . $location . '%');
+                        });
                     }
                 });
             }

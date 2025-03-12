@@ -25,7 +25,7 @@
                         <div class="widget-title">
                             <h4>My Preferences</h4>
 
-                            <div class="chosen-outer">
+                            {{-- <div class="chosen-outer">
                                 <!--Tabs Box-->
                                 <select class="chosen-select">
                                     <option>Last 6 Months</option>
@@ -34,7 +34,7 @@
                                     <option>Last 24 Months</option>
                                     <option>Last 5 years</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="widget-content">
@@ -103,8 +103,7 @@
                     <div class="tabs-box">
                         <div class="widget-title">
                             <h4>My Job Alerts</h4>
-        
-                            <div class="chosen-outer">
+                            {{-- <div class="chosen-outer">
                                 <!--Tabs Box-->
                                 <select class="chosen-select">
                                     <option>Last 6 Months</option>
@@ -113,9 +112,9 @@
                                     <option>Last 24 Months</option>
                                     <option>Last 5 years</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
-        
+    
                         <div class="widget-content">
                             <div class="table-outer">
                                 <table class="default-table manage-job-table">
@@ -178,6 +177,6 @@
 
 <!-- Copyright -->
 <div class="copyright-text">
-    <p>© 2025 Hirehub. All Right Reserved.</p>
+    <p>© 2025 <a href="{{ url("/") }}">Hirehub</a>. All Right Reserved.</p>
 </div>
 @endsection

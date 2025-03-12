@@ -76,7 +76,7 @@
                                               <button data-text="Delete Job" onclick="confirm('Are you sure?') ? document.getElementById('delete-form-{{ $savedJob->id }}').submit() : ''">
                                                   <span class="la la-trash"></span>
                                               </button>
-                                              <form id="delete-form-{{ $savedJob->job->id }}" action="{{ route('jobs.destroy', $savedJob->id) }}" method="POST" style="display: none;">
+                                              <form id="delete-form-{{ $savedJob->id }}" action="{{ route('candidate.job.destroy', $savedJob->id) }}" method="POST" style="display: none;">
                                                   @csrf
                                                   @method('DELETE')
                                               </form>
@@ -106,6 +106,6 @@
 
     <!-- Copyright -->
     <div class="copyright-text">
-      <p>© 2025 Hirehub. All Right Reserved.</p>
+      <p>© 2025 <a href="{{ url("/") }}">Hirehub</a>. All Right Reserved.</p>
     </div>
     @endsection

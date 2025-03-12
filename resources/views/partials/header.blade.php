@@ -22,12 +22,13 @@
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
                                     <h3>Popular categories</h3>
                                     <ul>
-                                        <li><a href="{{ url('job-list-v1.html') }}">It jobs</a></li>
-                                        <li><a href="{{ url('job-list-v2.html') }}">Sales jobs</a></li>
-                                        <li><a href="{{ url('job-list-v3.html') }}">Marketing jobs</a></li>
-                                        <li><a href="{{ url('job-list-v4.html') }}">Data Sciencejobs</a></li>
-                                        <li><a href="{{ url('job-list-v5.html') }}">HR jobs</a></li>
-                                        <li><a href="{{ url('job-list-v5.html') }}">Engineering jobs</a></li>
+                                        @foreach($categories as $category)
+                                            <li>
+                                                <a href="{{ route('jobs.list', ['category_id' => $category->id]) }}">
+                                                    {{ $category->name }} jobs
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
 
@@ -45,12 +46,11 @@
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
                                     <h3>Jobs by location</h3>
                                     <ul>
-                                        <li><a href="{{ url('job-list-v11.html') }}">Jobs in Delhi</a></li>
-                                        <li><a href="{{ url('job-list-v12.html') }}">Jobs in Mumbai</a></li>
-                                        <li><a href="{{ url('job-list-v13.html') }}">Jobs in Bangalore</a></li>
-                                        <li><a href="{{ url('job-list-v14.html') }}">Jobs in Hyderabad</a></li>
-                                        <li><a href="{{ url('job-list-v15.html') }}">Jobs in Chennai</a></li>
-                                        <li><a href="{{ url('job-list-v16.html') }}">Jobs in Pune</a></li>
+                                        @foreach($locations as $city)
+                                            <li>
+                                                <a href="{{ route('jobs.list', ['location' => $city]) }}">Jobs in {{ $city }}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>

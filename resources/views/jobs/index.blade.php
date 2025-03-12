@@ -33,9 +33,9 @@
 
             <!-- Filter Block - Location -->
             <div class="filter-block">
-              <h4>Location(City)</h4>
+              <h4>Location</h4>
               <div class="form-group">
-                <input type="text" name="location" placeholder="City or postcode" value="{{ request('location') }}">
+                <input type="text" name="location" placeholder="City,State or postcode" value="{{ request('location') }}">
                 <span class="icon flaticon-map-locator"></span>
               </div>
             </div>

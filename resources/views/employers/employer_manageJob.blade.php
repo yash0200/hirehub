@@ -112,12 +112,13 @@
                                                             <form action="{{ route('employer.jobs.status', $job->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('PATCH')
-
+                                                        
                                                                 <details>
                                                                     <summary style="cursor: pointer; display: inline-flex; align-items: center;">
                                                                         <span class="la la-exchange-alt"></span> <!-- Clickable Icon -->
                                                                     </summary>
-                                                                    <select name="status" class="form-control form-control-sm" onchange="if(this.value !== '{{ $job->status }}') this.form.submit();">
+                                                                    <select name="status" class="form-control form-control-sm"
+                                                                            onchange="if(this.value !== '{{ $job->status }}') this.form.submit();">
                                                                         <option value="active" {{ $job->status === 'active' ? 'selected' : '' }}>Active</option>
                                                                         <option value="inactive" {{ $job->status === 'inactive' ? 'selected' : '' }}>Inactive</option>
                                                                         <option value="closed" {{ $job->status === 'closed' ? 'selected' : '' }}>Closed</option>
@@ -125,6 +126,7 @@
                                                                 </details>
                                                             </form>
                                                         </li>
+                                                        
                                                     </ul>
                                                 </div>
                                             </td>
@@ -145,6 +147,6 @@
 
 <!-- Copyright -->
 <div class="copyright-text">
-    <p>© 2025 HireHub. All Rights Reserved.</p>
+    <p>© 2025 <a href="{{ url("/") }}">Hirehub</a>. All Right Reserved.</p>
 </div>
 @endsection

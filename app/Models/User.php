@@ -27,7 +27,8 @@ class User extends Authenticatable
         'password',
         'user_type',
         'is_admin',
-        'status'
+        'status',
+        'profile_completed'
     ];
     public function getIsAdminAttribute()
     {

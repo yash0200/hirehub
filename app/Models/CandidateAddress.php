@@ -10,16 +10,21 @@ class CandidateAddress extends Model
     use HasFactory;
 
     protected $fillable = [
-        'country', 'state', 'city', 'postal_code', 'street','candidate_id'
+        'country',
+        'state',
+        'city',
+        'postal_code',
+        'street',
+        'candidate_id'
     ];
-    public function candidate()
+    public function address()
     {
-        return $this->belongsTo(Candidate::class);
+        return $this->hasOne(CandidateAddress::class, 'candidate_id');
     }
-    // In CandidateAddress model
-public function applicant()
-{
-    return $this->belongsTo(Applicant::class, 'candidate_id');
-}
 
+    // In CandidateAddress model
+    public function applicant()
+    {
+        return $this->belongsTo(Applicant::class, 'candidate_id');
+    }
 }

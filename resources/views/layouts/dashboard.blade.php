@@ -51,10 +51,49 @@
     <script src="{{ asset('js/owl.js') }}"></script>
     <script src="{{ asset('js/wow.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{asset('js/chart.min.js')}}"></script>
+
     <script>
         setTimeout(function() {
-              document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
-          }, 3000);
+            document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+        }, 3000);
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            var userType = "{{ $userType }}"; // Get user type from Blade variable
+
+            // Only run the chart script for employers
+            if (userType === 'employer') {
+                @if(!empty($chartData))
+                var ctx = document.getElementById('jobPerformanceChart').getContext('2d');
+
+                var jobPerformanceChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: {!! json_encode($chartData['labels'] ?? []) !!}, 
+                        datasets: [{
+                            label: 'Applications',
+                            data: {!! json_encode($chartData['applications'] ?? []) !!}, 
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)', 
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }
+                        }
+                    }
+                });
+                @endif
+            }
+        });
     </script>
 
 </body>

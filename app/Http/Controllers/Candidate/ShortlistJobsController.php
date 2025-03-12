@@ -62,4 +62,19 @@ class ShortlistJobsController extends Controller
         // }
         // return redirect()->route('candidate.shortlist')->with('success', 'Job shortlisted successfully!');
     }
+    public function destroy($id)
+{
+    // Find the saved job by ID
+    $savedJob = ShortlistedJob::find($id);
+    // Check if the job exists
+    if (!$savedJob) {
+        return redirect()->back()->with('error', 'Job not found.');
+    }
+
+    // Delete the saved job
+    $savedJob->delete();
+
+    return redirect()->back()->with('success', 'Job deleted successfully.');
+}
+
 }

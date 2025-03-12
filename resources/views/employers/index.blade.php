@@ -153,9 +153,16 @@
         </div>
 
         <!-- Pagination -->
-        <div class="pagination">
-        {{ $employers->links() }}
-        </div>
+        <!-- Pagination -->
+        <nav class="ls-pagination mb-5">
+                                <ul>
+                                    <li class="prev"><a href="{{ url("#") }}"><i class="fa fa-arrow-left"></i></a></li>
+                                    <li><a href="{{ url("#") }}">1</a></li>
+                                    <li><a href="{{ url("#") }}" class="current-page">2</a></li>
+                                    <li><a href="{{ url("#") }}">3</a></li>
+                                    <li class="next"><a href="{{ url("#") }}"><i class="fa fa-arrow-right"></i></a></li>
+                                </ul>
+                            </nav>
       </div>
       </div>
     </div>

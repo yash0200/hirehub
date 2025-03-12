@@ -47,4 +47,29 @@ class ApplicantController extends Controller
 
         return response()->json(['message' => 'Application approved successfully.']);
     }
+
+    public function rejectApplicant($id)
+{
+    try {
+        $applicant = Applicant::find($id);
+        if (!$applicant) {
+            return response()->json(['error' => 'Applicant not found'], 404);
+        }
+
+        $applicant->status = 'rejected';
+        $applicant->save();
+
+
+        Notification::create([
+            'user_id' => $applicant->candidate_id, // Ensure this field exists
+            'message' => "Your application has been rejected.",
+        ]);
+
+
+        return response()->json(['message' => 'Application rejected successfully.']);
+
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Something went wrong.'], 500);
+    }
+}
 }

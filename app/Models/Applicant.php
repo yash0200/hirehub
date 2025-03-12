@@ -18,9 +18,8 @@ class Applicant extends Model
 
     public function candidate()
     {
-        return $this->belongsTo(User::class, 'candidate_id');
+        return $this->belongsTo(Candidate::class);
     }
-
 
     public function job()
     {

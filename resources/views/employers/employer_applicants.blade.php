@@ -97,8 +97,8 @@
                                                                             <span class="la la-check"></span>
                                                                         </button>
                                                                     </li>
-                                                                    <li><button data-text="Reject Application"><span
-                                                                                class="la la-times-circle"></span></button></li>
+                                                                    <li><button class="reject-btn" data-id="{{ $applicant->id }}" data-text="Reject Application"><span class="la la-times-circle"></span></button></li>
+
                                                                     <!-- <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li> -->
                                                                 </ul>
                                                             </div>

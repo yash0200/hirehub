@@ -149,7 +149,7 @@
           <div class="content">
             <h3 class="title">We Are Hiring</h3>
             <p class="text">Let’s Work Together & Explore Opportunities</p>
-            <a href="{{ url('#') }}" class="theme-btn btn-style-one bdrs12">Apply Now <i class="fal fa-long-arrow-right ms-3"></i></a>
+            <a href="{{ route('jobs.list') }}" class="theme-btn btn-style-one bdrs12">Apply Now <i class="fal fa-long-arrow-right ms-3"></i></a>
           </div>
           <figure class="image d-none d-md-block"><img src="{{ asset('/images/banner-1.png') }}" alt=""></figure>
         </div>
@@ -167,7 +167,7 @@
         <h2>Latest jobs</h2>
         <div class="text">2020 jobs live - 293 added today.</div>
       </div>
-      <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18 mb-4 dark-style">View All Jobs <i class="fal fa-long-arrow-right"></i></a>
+      <a href="{{ route('jobs.list') }}" class="ud-btn-border-theme at-home18 mb-4 dark-style">View All Jobs <i class="fal fa-long-arrow-right"></i></a>
     </div>
     <div class="row wow fadeInUp">
       <!-- Job Block -->
@@ -308,7 +308,7 @@
               </ul>
               <div class="d-md-flex align-items-center justify-content-md-between mt30">
                 <div class="d-flex align-items-center mb-3 mb-md-0">
-                  <span class="company-logo position-relative mr15"><img class="wa w60 rounded-circle" src="{{ asset('/images/companieslogo/company-logo-4.png') }}" alt=""></span>
+                  <span class="company-log  o position-relative mr15"><img class="wa w60 rounded-circle" src="{{ asset('/images/companieslogo/company-logo-4.png') }}" alt=""></span>
                   <div class="text-start">
                     <h5 class="fz18 fw500">Dennis</h5>
                     <p class="text">11 hours ago</p>

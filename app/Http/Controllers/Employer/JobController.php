@@ -246,14 +246,25 @@ class JobController extends Controller
         $request->validate([
             'status' => 'required|in:active,inactive,closed',
         ]);
-        if ($request->status === 'closed') {
-            // Example: Ensure only active jobs can be closed
-            if ($job->status !== 'active') {
-                return redirect()->route('employer.jobs.manage')
-                    ->with('error', 'Only active jobs can be closed.');
-            }
+        // Prevent closing non-active jobs
+        if ($request->status === 'closed' && $job->status !== 'active') {
+            return redirect()->route('employer.jobs.manage')
+                ->with('error', 'Only active jobs can be closed.');
         }
 
+        // Prevent activating expired or closed jobs
+        if ($request->status === 'active' && in_array($job->status, ['expired', 'closed'])) {
+            return redirect()->route('employer.jobs.manage')
+                ->with('error', 'This job is expired or closed. Please create a new job.');
+        }
+
+        // Prevent deactivating expired or closed jobs
+        if ($request->status === 'inactive' && in_array($job->status, ['expired', 'closed'])) {
+            return redirect()->route('employer.jobs.manage')
+                ->with('error', 'This job is expired or closed. Please create a new job.');
+        }
+
+        // Update the job status
         $job->update(['status' => $request->status]);
 
         return redirect()->route('employer.jobs.manage')->with('success', 'Job status updated successfully!');

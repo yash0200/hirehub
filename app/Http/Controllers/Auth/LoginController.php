@@ -25,10 +25,10 @@ class LoginController extends Controller
 
             if ($user->user_type === 'candidate') {
                 return redirect()->route('candidate.dashboard')
-                ->with('success', 'Welcome, Candidate! You have logged in successfully.');
+                ->with('success', "Welcome, {$user->name}! You have logged in successfully.");
             } elseif ($user->user_type === 'employer') {
                 return redirect()->route('employer.dashboard')
-                ->with('success', 'Welcome, Employer! You have logged in successfully.');
+                ->with('success', "Welcome, {$user->name}! You have logged in successfully.");
             }
         }
         return back()->withInput()->with('error', 'Invalid email or password.');

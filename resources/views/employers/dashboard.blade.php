@@ -13,7 +13,7 @@
       </div>
     @endif
 
-      <h3>Howdy, Invision!</h3>
+      <h3>Welcome, {{$user->name}}!</h3>
       <div class="text">Ready to jump back in?</div>
     </div>
     <div class="row">

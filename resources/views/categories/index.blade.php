@@ -6,8 +6,8 @@
         <h2>Popular Job Categories</h2>
         <div class="text">2020 jobs live - 293 added today.</div>
       </div>
-      <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18 mb-4">View All Categories <i
-          class="fal fa-long-arrow-right"></i></a>
+      {{-- <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18 mb-4">View All Categories <i
+          class="fal fa-long-arrow-right"></i></a> --}}
     </div>
     <div class="row wow fadeInUp">
       @foreach($categories as $category)

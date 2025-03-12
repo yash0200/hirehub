@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard')</title>
 
     <!-- Stylesheets -->
@@ -116,24 +117,25 @@
 
 
         document.querySelectorAll('.reject-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            let applicantId = this.getAttribute('data-id');
+    button.addEventListener('click', function () {
+        let applicantId = this.getAttribute('data-id');
 
-            fetch(`/employer/applicants/${applicantId}/reject`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                location.reload();
-            })
-            .catch(error => console.error('Error:', error));
-        });
+        fetch(`/employer/applicants/${applicantId}/reject`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            location.reload();
+        })
+        .catch(error => console.error('Error:', error));
     });
+});
+
 
         });
 

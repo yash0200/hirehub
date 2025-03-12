@@ -23,9 +23,9 @@
             <li class="{{ request()->routeIs('candidate.shortlist') ? 'active' : '' }}">
                 <a href="{{ route('candidate.shortlist') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a>
             </li>
-            <li class="{{ request()->routeIs('candidate.messages') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('candidate.messages') ? 'active' : '' }}">
                 <a href="{{ route('candidate.messages') }}"><i class="la la-comment-o"></i> Messages</a>
-            </li>
+            </li> -->
             <li class="{{ request()->routeIs('candidate.password') ? 'active' : '' }}">
                 <a href="{{ route('candidate.password') }}"><i class="la la-lock"></i> Change Password</a>
             </li>
@@ -60,9 +60,9 @@
             <li class="{{ request()->routeIs('employer.packages') ? 'active' : '' }}">
                 <a href="{{ route('employer.packages') }}"><i class="la la-box"></i> Packages</a>
             </li>
-            <li class="{{ request()->routeIs('employer.messages') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('employer.messages') ? 'active' : '' }}">
                 <a href="{{ route('employer.messages') }}"><i class="la la-comment-o"></i> Messages</a>
-            </li>
+            </li> -->
             <li class="{{ request()->routeIs('employer.resume.alerts') ? 'active' : '' }}">
                 <a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i> Resume Alerts</a>
             </li>

@@ -43,6 +43,7 @@ class Candidate extends Model
         return $this->hasOne(CandidateAddress::class, 'candidate_id');
     }
 
+
     public function applications()
     {
         return $this->hasMany(Applicant::class, 'candidate_id');

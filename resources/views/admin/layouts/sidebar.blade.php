@@ -32,9 +32,9 @@
             </li>
 
             <!-- Payments -->
-            <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
                 <a href="{{ route('admin.payments') }}"><i class="la la-credit-card"></i> Payments</a>
-            </li>
+            </li> -->
 
             <!-- Notifications -->
             <li class="{{ request()->routeIs('admin.notifications') ? 'active' : '' }}">
@@ -42,14 +42,14 @@
             </li>
 
             <!-- Reports -->
-            <li class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
                 <a href="{{ route('admin.reports') }}"><i class="la la-chart-line"></i> Reports</a>
-            </li>
+            </li> -->
 
             <!-- Site Settings -->
-            <li class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
                 <a href="{{ route('admin.settings') }}"><i class="la la-cogs"></i> Site Settings</a>
-            </li>
+            </li> -->
 
             <!-- Change Password -->
             <li class="{{ request()->routeIs('admin.password.change') ? 'active' : '' }}">

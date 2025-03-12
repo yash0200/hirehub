@@ -13,7 +13,7 @@
           <li><a href="{{ url('candidate-dashboard-shortlisted-resume.html') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
           <li><a href="{{ url('candidate-dashboard-cv-manager.html') }}"><i class="la la-file-invoice"></i> CV manager</a></li>
           <li><a href="{{ url('dashboard-packages.html') }}"><i class="la la-box"></i>Packages</a></li>
-          <li><a href="{{ url('dashboard-messages.html') }}"><i class="la la-comment-o"></i>Messages</a></li>
+          <!-- <li><a href="{{ url('dashboard-messages.html') }}"><i class="la la-comment-o"></i>Messages</a></li> -->
           <li><a href="{{ url('dashboard-change-password.html') }}"><i class="la la-lock"></i>Change Password</a></li>
           <li><a href="{{ url('dashboard-profile.html') }}"><i class="la la-user-alt"></i>View Profile</a></li>
           <li><a href="{{ url('index.html') }}"><i class="la la-sign-out"></i>Logout</a></li>

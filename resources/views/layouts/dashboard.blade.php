@@ -55,37 +55,44 @@
 
     <script>
         setTimeout(function() {
-              document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
-          }, 3000);
+            document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+        }, 3000);
         
         document.addEventListener("DOMContentLoaded", function() {
-            var ctx = document.getElementById('jobPerformanceChart').getContext('2d');
+            var userType = "{{ $userType }}"; // Get user type from Blade variable
 
-            var jobPerformanceChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: {!! json_encode($chartData['labels']) !!}, // Job Titles
-                    datasets: [{
-                        label: 'Applications',
-                        data: {!! json_encode($chartData['applications']) !!}, // Applications per job
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 1
+            // Only run the chart script for employers
+            if (userType === 'employer') {
+                @if(!empty($chartData))
+                var ctx = document.getElementById('jobPerformanceChart').getContext('2d');
+
+                var jobPerformanceChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: {!! json_encode($chartData['labels'] ?? []) !!}, 
+                        datasets: [{
+                            label: 'Applications',
+                            data: {!! json_encode($chartData['applications'] ?? []) !!}, 
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)', 
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+                @endif
+            }
         });
     </script>
 

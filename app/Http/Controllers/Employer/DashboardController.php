@@ -28,22 +28,24 @@ class DashboardController extends Controller
             ->take(6)
             ->get();
 
-            $jobPerformance = DB::table('jobs')
-            ->leftJoin('applicants', 'jobs.id', '=', 'applicants.job_id')
-            ->where('jobs.employer_id', $user->employer->id)
-            ->select('jobs.title', DB::raw('CAST(COUNT(applicants.id) AS SIGNED) as application_count'))
-            ->groupBy('jobs.id', 'jobs.title')
-            ->orderByDesc('application_count')
-            ->take(6)
-            ->get();
-        
-        $chartData = [
-            'labels' => $jobPerformance->pluck('title')->toArray(), // Job titles
-            'applications' => $jobPerformance->pluck('application_count')->toArray() // Applications per job
-        ];
-        // dd($chartData);
+            $chartData = [];
 
+            if (Auth::user()->user_type === 'employer') {
+                $jobPerformance = DB::table('jobs')
+                    ->leftJoin('applicants', 'jobs.id', '=', 'applicants.job_id')
+                    ->where('jobs.employer_id', $user->employer->id)
+                    ->select('jobs.title', DB::raw('COUNT(applicants.id) as application_count'))
+                    ->groupBy('jobs.id', 'jobs.title')
+                    ->orderByDesc('application_count')
+                    ->take(6)
+                    ->get();
+            
+                $chartData = [
+                    'labels' => $jobPerformance->pluck('title')->toArray(),
+                    'applications' => $jobPerformance->pluck('application_count')->toArray(),
+                ];
+            }
 
-        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants','chartData'));
+        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants','chartData'))->with('userType', Auth::user()->user_type);
     }
 }

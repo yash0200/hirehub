@@ -364,64 +364,23 @@
         <h2>Popular Cities</h2>
         <div class="text">Know your worth and find the job that qualify your life</div>
       </div>
-      <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18 mb-4">View All Cities <i class="fal fa-long-arrow-right"></i></a>
     </div>
     <div class="row wow fadeInUp">
+      @foreach($cities as $city)
       <div class="col-sm-6 col-md-4">
         <div class="border-1 p20 bdrs12 d-flex align-items-center mb30">
-          <div class="thumb mr20"><img class="rounded-circle" src="{{ asset('/images/city/home22-city-1.png') }}" alt=""></div>
+          <div class="thumb mr20">
+            <img class="rounded-circle" src="{{ asset('/images/city/' . $city['image']) }}" alt="">
+          </div>
           <div class="details">
-            <h5 class="mb-0 fz18 fw500">Delhi</h5>
-            <p class="text">96 Jobs</p>
+            <h5 class="mb-0 fz18 fw500">{{ $city['name'] }}</h5>
+            <p class="text">Jobs</p>
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-4">
-        <div class="border-1 p20 bdrs12 d-flex align-items-center mb30">
-          <div class="thumb mr20"><img class="rounded-circle" src="{{ asset('/images/city/home22-city-2.png') }}" alt=""></div>
-          <div class="details">
-            <h5 class="mb-0 fz18 fw500">Mumbai</h5>
-            <p class="text">96 Jobs</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <div class="border-1 p20 bdrs12 d-flex align-items-center mb30">
-          <div class="thumb mr20"><img class="rounded-circle" src="{{ asset('/images/city/home22-city-4.png') }}" alt=""></div>
-          <div class="details">
-            <h5 class="mb-0 fz18 fw500">Bangalore</h5>
-            <p class="text">96 Jobs</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <div class="border-1 p20 bdrs12 d-flex align-items-center mb30">
-          <div class="thumb mr20"><img class="rounded-circle" src="{{ asset('/images/city/home22-city-5.png') }}" alt=""></div>
-          <div class="details">
-            <h5 class="mb-0 fz18 fw500">Hyderabad</h5>
-            <p class="text">96 Jobs</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <div class="border-1 p20 bdrs12 d-flex align-items-center mb30">
-          <div class="thumb mr20"><img class="rounded-circle" src="{{ asset('/images/city/home22-city-6.png') }}" alt=""></div>
-          <div class="details">
-            <h5 class="mb-0 fz18 fw500">Chennai</h5>
-            <p class="text">96 Jobs</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <div class="border-1 p20 bdrs12 d-flex align-items-center mb30">
-          <div class="thumb mr20"><img class="rounded-circle" src="{{ asset('/images/city/home22-city-7.png') }}" alt=""></div>
-          <div class="details">
-            <h5 class="mb-0 fz18 fw500">Pune</h5>
-            <p class="text">96 Jobs</p>
-          </div>
-        </div>
-      </div>
+      @endforeach
     </div>
+  </div>
   </div>
 </section>
 <!-- End Popular City -->

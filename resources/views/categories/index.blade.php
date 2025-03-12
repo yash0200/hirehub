@@ -15,7 +15,7 @@
         <div class="inner-box">
           <div class="content">
             <span class="icon flaticon-money-1"></span>
-            <h4><a href="{{ url('categories/' . $category->slug) }}">{{ $category->name }}</a></h4>
+            <h4><a href="{{ route('jobs.list', ['category_id' => $category->id]) }}">{{ $category->name }}</a></h4>
             <p>({{ $category->jobs_count }} open positions)</p>
           </div>
         </div>

@@ -77,7 +77,8 @@
       <div class="image-column col-lg-4 offset-lg-1">
         <!-- Job Block -->
         @foreach ($jobs as $index => $job)
-        <div class="job-block @if ($index == 0) mr-30 ml-30 mb30 mt30 @elseif ($index == 1) mb30 @else mr-30 ml-30 @endif">
+        <div class="job-block {{ $loop->first ? 'mr-30 ml-30 mb30 mt30' : ($loop->last ? 'mr-30 ml-30' : 'mb30') }}">
+
           <div class="inner-box">
             <div class="content">
               <!-- Display Employer's Logo (Fallback if image doesn't exist) -->

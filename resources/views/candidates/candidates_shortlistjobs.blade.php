@@ -38,6 +38,7 @@
                           <th>Job Title</th>
                           <th>Posted date</th>
                           <th>Deadline</th>
+                          <th>Status</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -64,6 +65,7 @@
                               </td>
                               <td>{{ \Carbon\Carbon::parse($savedJob->job->posted_date)->format('M d, Y') }}</td>
                               <td>{{ \Carbon\Carbon::parse($savedJob->job->deadline)->format('M d, Y') }}</td>
+                              <td class="status">{{ ucfirst($savedJob->job->status) }}</td>
                               <td>
                                   <div class="option-box">
                                       <ul class="option-list">

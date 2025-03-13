@@ -21,11 +21,14 @@ class ForgotPasswordController extends Controller
     public function sendOtp(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:users,email',
+            'email' => 'required|email',
         ]);
-
+    
         $user = User::where('email', $request->email)->first();
-
+    
+        if (!$user) {
+            return back()->with('error', 'User not found.');
+        }
         // Generate OTP
         $otp = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
 

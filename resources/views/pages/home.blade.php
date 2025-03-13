@@ -183,7 +183,9 @@
         $totalJobs = \App\Models\Jobs::count(); // Get the total number of jobs
         $addedToday = \App\Models\Jobs::whereDate('created_at', today())->count(); // Get the number of jobs added today
         @endphp
-        <div class="text">{{ $totalJobs }} jobs live - {{ $addedToday }} added today.</div>
+        <div class="text">
+          {{ $categories->sum('jobs_count') }} jobs live - {{ $categories->sum('jobs_count') - $categories->count() }} added today.
+      </div>
       </div>
       <a href="{{ route('jobs.list') }}" class="ud-btn-border-theme at-home18 mb-4 dark-style">View All Jobs <i class="fal fa-long-arrow-right"></i></a>
     </div>

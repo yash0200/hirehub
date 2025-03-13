@@ -44,9 +44,8 @@ class Candidate extends Model
     }
     public function socialNetworks()
     {
-        return $this->hasMany(SocialNetwork::class, 'user_id', 'user_id');
+        return $this->hasOne(SocialNetwork::class, 'user_id', 'user_id');
     }
-
 
     public function applications()
     {

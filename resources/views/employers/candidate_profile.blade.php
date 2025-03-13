@@ -11,17 +11,38 @@
             <div class="candidate-block-five">
                 <div class="inner-box">
                     <div class="content">
-                        <figure class="image"><img src="{{ asset("/images/resource/candidate-4.png") }}" alt=""></figure>
+                        <figure class="image">
+                            @if(!empty($candidate->profile_photo))
+                                <img src="{{ asset('storage/profile_photos/' . $candidate->profile_photo) }}" alt="{{ $candidate->user->name }}">
+                            @else
+                                <img src="{{ asset('/images/resource/default-profile.png') }}" alt="Default Profile">
+                            @endif
+                        </figure>
                         <h4 class="name"><a href="{{ url('#') }}">{{ $candidate->full_name }}</a></h4>
                         <ul class="candidate-info">
-                            <li class="designation">UI Designer at Invision</li>
-                            <li><span class="icon flaticon-map-locator"></span>{{ $candidate->address->state }},{{ $candidate->address->city }}</li>
+                            <li class="designation">
+                                {{ $candidate->resume->job_title ?? 'N/A' }} 
+                                at {{ $candidate->resume->company_name ?? 'N/A' }}
+                            </li>
+                            <li>
+                                <span class="icon flaticon-map-locator"></span>
+                                {{ $candidate->address->state ?? 'N/A' }}, 
+                                {{ $candidate->address->city ?? 'N/A' }}
+                            </li>
                             <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                            <li><span class="icon flaticon-clock"></span> Member Since,Aug 19, 2020</li>
+                            <li>
+                                <span class="icon flaticon-clock"></span>
+                                Member Since, {{ $candidate->created_at->format('M d, Y') ?? 'N/A' }}
+                            </li>
                         </ul>
                     </div>
                     <div class="btn-box">
-                        <a href="{{ url('#') }}" class="theme-btn btn-style-one">Download CV</a>
+                        <a href="{{ $candidate->resume->resume_file ? asset('storage/resumes/' . $candidate->resume->resume_file) : '#' }}" 
+                            class="theme-btn btn-style-one" 
+                            {{ $candidate->resume->resume_file ? 'download' : 'onclick=alert("CV not available")' }}>
+                             Download CV
+                         </a>
+                         
                         <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
                     </div>
                 </div>
@@ -34,8 +55,9 @@
                 <div class="content-column col-lg-8 col-md-12 col-sm-12">
                     <div class="job-detail">
                         <h4>Candidates About</h4>
-                        <p>Hello my name is Nicole Wells and web developer from Portland. In pharetra orci dignissim, blandit mi semper, ultricies diam. Suspendisse malesuada suscipit nunc non volutpat. Sed porta nulla id orci laoreet tempor non consequat enim. Sed vitae aliquam velit. Aliquam ante erat, blandit at pretium et, accumsan ac est. Integer vehicula rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam.</p>
-                        <p>Mauris nec erat ut libero vulputate pulvinar. Aliquam ante erat, blandit at pretium et, accumsan ac est. Integer vehicula rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam. Mauris nec erat ut libero vulputate pulvinar.</p>
+                        <p>
+                            {{ $candidate->description ?? 'No information available.' }}
+                        </p>
 
                         <!-- Resume / Education -->
                         <div class="resume-outer">
@@ -45,17 +67,17 @@
                             <!-- Resume BLock -->
                             <div class="resume-block">
                                 <div class="inner">
-                                    <span class="name">M</span>
+                                    <span class="name">{{ strtoupper(substr($candidate->resume->degree_name, 0, 1)) }}</span>
                                     <div class="title-box">
                                         <div class="info-box">
-                                            <h3>{{ $candidate->resume->degree_name }}</h3>
-                                            <span>{{ $candidate->resume->institution_name }}</span>
+                                            <h3>{{ $candidate->resume->degree_name ?? 'N/A' }}</h3>
+                                            <span>{{ $candidate->resume->institution_name ?? 'Institution Not Available' }}</span>
                                         </div>
                                         <div class="edit-box">
-                                            <span class="year">2012 - 2014</span>
+                                            <span class="year">{{ $candidate->resume->start_year ?? 'N/A' }} - {{ $candidate->resume->end_year ?? 'N/A' }}</span>
                                         </div>
                                     </div>
-                                    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
+                                    <div class="text">{{ $candidate->resume->description ?? 'No description provided.' }}</div>
                                 </div>
                             </div>
 
@@ -85,17 +107,22 @@
                             <!-- Resume BLock -->
                             <div class="resume-block">
                                 <div class="inner">
-                                    <span class="name">S</span>
+                                    <span class="name">{{ strtoupper(substr($candidate->job_title ?? 'N/A', 0, 1)) }}</span>
                                     <div class="title-box">
                                         <div class="info-box">
-                                            <h3>Product Designer</h3>
-                                            <span>Spotify Inc.</span>
+                                            <h3>{{ $candidate->resume->job_title ?? 'Position Not Available' }}</h3>
+                                            <span>{{ $candidate->resume->company_name ?? 'Company Not Available' }}</span>
                                         </div>
                                         <div class="edit-box">
-                                            <span class="year">2008 - 2012</span>
+                                            <span class="year">
+                                                {{ $candidate->resume->start_year ?? 'N/A' }} - 
+                                                {{ $candidate->resume->end_year ?? 'Present' }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
+                                    <div class="text">
+                                        {{ $candidate->description ?? 'No description provided.' }}
+                                    </div>
                                 </div>
                             </div>
 
@@ -131,7 +158,7 @@
                                             <li>
                                                 <i class="icon icon-expiry"></i>
                                                 <h5>Age:</h5>
-                                                <span>28-33 Years</span>
+                                                <span>{{$candidate->age_range}}</span>
                                             </li>
 
                                             <li>
@@ -149,20 +176,19 @@
                                             <li>
                                                 <i class="icon icon-user-2"></i>
                                                 <h5>Gender:</h5>
-                                                <span>Female</span>
+                                                <span>{{$candidate->gender}}</span>
                                             </li>
 
                                             <li>
                                                 <i class="icon icon-language"></i>
                                                 <h5>Language:</h5>
-                                                <span>English, German, Spanish</span>
+                                                <span>{{$candidate->languages}}</span>
                                             </li>
 
                                             <li>
                                                 <i class="icon icon-degree"></i>
                                                 <h5>Education Level:</h5>
-                                                <!-- <span>{{ $candidate->address->degree_name }}</span> -->
-                                                <span>Master Degree</span>
+                                                <span>{{$candidate->education_levels}}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -172,10 +198,28 @@
                                     <h4 class="widget-title">Social media</h4>
                                     <div class="widget-content">
                                         <div class="social-links">
-                                            <a href="{{ url('#') }}"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="{{ url('#') }}"><i class="fab fa-twitter"></i></a>
-                                            <a href="{{ url('#') }}"><i class="fab fa-instagram"></i></a>
-                                            <a href="{{ url('#') }}"><i class="fab fa-linkedin-in"></i></a>
+                                            @if($candidate->socialNetworks)
+                                                @if($candidate->socialNetworks->facebook)
+                                                    <a href="{{ $candidate->socialNetworks->facebook }}" target="_blank">
+                                                        <i class="fab fa-facebook-f"></i>
+                                                    </a>
+                                                @endif
+
+                                                @if($candidate->socialNetworks->twitter)
+                                                    <a href="{{ $candidate->socialNetworks->twitter }}" target="_blank">
+                                                        <i class="fab fa-twitter"></i>
+                                                    </a>
+                                                @endif
+
+                                                @if($candidate->socialNetworks->linkedin)
+                                                    <a href="{{ $candidate->socialNetworks->linkedin }}" target="_blank">
+                                                        <i class="fab fa-linkedin-in"></i>
+                                                    </a>
+                                                @endif
+                                            @else
+                                                <p>No social media links available.</p>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
@@ -184,12 +228,13 @@
                                     <h4 class="widget-title">Professional Skills</h4>
                                     <div class="widget-content">
                                         <ul class="job-skills">
-                                            <li><a href="{{ url('#') }}">app</a></li>
-                                            <li><a href="{{ url('#') }}">administrative</a></li>
-                                            <li><a href="{{ url('#') }}">android</a></li>
-                                            <li><a href="{{ url('#') }}">wordpress</a></li>
-                                            <li><a href="{{ url('#') }}">design</a></li>
-                                            <li><a href="{{ url('#') }}">react</a></li>
+                                            @if(!empty($candidate->resume->skills))
+                                                @foreach($candidate->resume->skills as $skill)
+                                                    <li><a href="{{ url('#') }}">{{ $skill }}</a></li>
+                                                @endforeach
+                                            @else
+                                                <li>No skills available</li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>

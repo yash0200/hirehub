@@ -333,7 +333,10 @@
             <div class="testimonial-block-three">
               <div class="inner-box">
                 <h4 class="title">Great quality!</h4>
-                <div class="text">Without JobHunt i’d be homeless, they found me a job and got me sorted out quickly with everything! Can’t quite… The Mitech team works really hard to ensure high level of quality</div>
+                <div class="text">
+                  Without Hirehub, I’d be homeless! They found me a job and got me sorted out quickly with everything! 
+                  The Mitech team works really hard to ensure a high level of quality.
+                </div>
                 <div class="info-box">
                   <h4 class="name">Gabriel Nolan</h4>
                   <span class="designation">Consultant</span>
@@ -342,39 +345,45 @@
             </div>
           </div>
         </div>
-        <!-- Slide Item -->
         <div class="slide-item">
           <div class="image-column">
-            <figure class="image"><img src="{{ asset('/images/testimonials-1.png') }}" alt=""></figure>
+            <figure class="image"><img src="{{ asset('/images/testimonials-2.png') }}" alt=""></figure>
           </div>
           <div class="content-column">
             <!--Testimonial Block -->
             <div class="testimonial-block-three">
               <div class="inner-box">
-                <h4 class="title">Great quality!</h4>
-                <div class="text">Without JobHunt i’d be homeless, they found me a job and got me sorted out quickly with everything! Can’t quite… The Mitech team works really hard to ensure high level of quality</div>
+                <h4 class="title">Excellent Support!</h4>
+                <div class="text">
+                  I was amazed by the dedication of the Hirehub team. They helped me land my dream job with ease. 
+                  The support they provide throughout the process is simply outstanding!
+                </div>
                 <div class="info-box">
-                  <h4 class="name">Gabriel Nolan</h4>
-                  <span class="designation">Consultant</span>
+                  <h4 class="name">Jessica Morgan</h4>
+                  <span class="designation">Software Engineer</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Slide Item -->
+
+        <!-- Slide Item 3 (Modified Testimonial) -->
         <div class="slide-item">
           <div class="image-column">
-            <figure class="image"><img src="{{ asset('/images/testimonials-1.png') }}" alt=""></figure>
+            <figure class="image"><img src="{{ asset('/images/testimonials-3.png') }}" alt=""></figure>
           </div>
           <div class="content-column">
             <!--Testimonial Block -->
             <div class="testimonial-block-three">
               <div class="inner-box">
-                <h4 class="title">Great quality!</h4>
-                <div class="text">Without JobHunt i’d be homeless, they found me a job and got me sorted out quickly with everything! Can’t quite… The Mitech team works really hard to ensure high level of quality</div>
+                <h4 class="title">Top-notch Experience!</h4>
+                <div class="text">
+                  Hirehub simplified my job search experience. The platform's UI is clean, and the job alerts helped me secure multiple offers. 
+                  Highly recommend this platform for job seekers!
+                </div>
                 <div class="info-box">
-                  <h4 class="name">Gabriel Nolan</h4>
-                  <span class="designation">Consultant</span>
+                  <h4 class="name">Rajesh Patel</h4>
+                  <span class="designation">Marketing Specialist</span>
                 </div>
               </div>
             </div>

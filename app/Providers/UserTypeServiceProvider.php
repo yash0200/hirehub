@@ -17,10 +17,22 @@ class UserTypeServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $userType = Auth::check() ? Auth::user()->user_type : null;
             $categories = JobCategory::where('status', 'active')
-                ->withCount(['jobs' => function ($query) {
+        ->withCount(['jobs' => function ($query) {
                     $query->where('status', 'active');
                 }])
-                ->get();
+                ->get()
+                ->map(function ($category) {
+                    $iconMap = [
+                        'Sales' => 'flaticon-money-1',
+                        'IT' => 'flaticon-laptop',
+                        'Marketing' => 'flaticon-megaphone',
+                        'Data Science' => 'flaticon-rocket-ship',
+                        'HR' => 'flaticon-headhunting',
+                        'Engineering' => 'flaticon-vector'
+                    ];
+                    $category->icon = $iconMap[$category->name] ?? 'flaticon-briefcase';
+                    return $category;
+                });
 
             $locations = ['Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune'];
             $cities = [

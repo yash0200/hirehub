@@ -42,6 +42,10 @@ class Candidate extends Model
     {
         return $this->hasOne(CandidateAddress::class, 'candidate_id');
     }
+    public function socialNetworks()
+    {
+        return $this->hasMany(SocialNetwork::class, 'user_id', 'user_id');
+    }
 
 
     public function applications()

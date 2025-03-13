@@ -269,4 +269,10 @@ class JobController extends Controller
 
         return redirect()->route('employer.jobs.manage')->with('success', 'Job status updated successfully!');
     }
+    public function viewApplicant($id)
+    {
+        $candidate = Candidate::where('user_id', $id)->firstOrFail();
+    
+        return view('employer.candidate-profile', compact('candidate'));
+    }
 }

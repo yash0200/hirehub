@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Jobs;
 use App\Models\Applicant;
 use App\Models\Notification;
+use App\Models\Candidate;
 
 class ApplicantController extends Controller
 {
@@ -48,7 +49,14 @@ class ApplicantController extends Controller
 
         return response()->json(['message' => 'Application approved successfully.']);
     }
-
+    public function viewApplicant($id)
+    {
+        $candidate = Candidate::with(['resume', 'socialNetworks', 'address'])
+        ->where('id', $id)
+        ->firstOrFail();
+    
+        return view('employers.candidate_profile', compact('candidate'));
+    }
     public function rejectApplicant($id)
 {
     try {

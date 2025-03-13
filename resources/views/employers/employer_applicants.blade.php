@@ -90,14 +90,23 @@
                                                             <div class="option-box">
                                                                 <ul class="option-list">
                                                                     <!-- Assuming the options are actions for managing applicants -->
-                                                                    <li><button data-text="View Application"><span class="la la-eye"></span></button></li>
+                                                                    <li>
+                                                                        <a href="{{ route('employer.applicant.view', ['id' => $applicant->candidate_id]) }}"
+                                                                            data-text="View Application">
+                                                                            <span class="la la-eye"></span>
+                                                                        </a>
+                                                                    </li>
                                                                     <li>
                                                                         <button data-text="Approve Application"
-                                                                            class="approve-btn" data-id="{{ $applicant->user_id }}">
+                                                                            class="approve-btn"
+                                                                            data-id="{{ $applicant->user_id }}">
                                                                             <span class="la la-check"></span>
                                                                         </button>
                                                                     </li>
-                                                                    <li><button class="reject-btn" data-id="{{ $applicant->user_id }}" data-text="Reject Application"><span class="la la-times-circle"></span></button></li>
+                                                                    <li><button class="reject-btn"
+                                                                            data-id="{{ $applicant->user_id }}"
+                                                                            data-text="Reject Application"><span
+                                                                                class="la la-times-circle"></span></button></li>
 
                                                                     <!-- <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li> -->
                                                                 </ul>

@@ -11,6 +11,29 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('images/hirehub-favicon.svg') }}" type="image/x-icon">
+    <style>
+        body {
+            overflow: hidden;
+            height: 100vh;
+        }
+      .position-relative {
+        position: relative;
+      }
+    
+      .eye-toggle {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #777;
+      }
+    
+      .eye-toggle:hover {
+        color: #333;
+      }
+    
+    </style>
 </head>
 <body>
   <div class="page-wrapper">
@@ -55,26 +78,46 @@
                     <form method="POST" action="{{ route('password.reset') }}">
                         @csrf
                         <input type="hidden" name="email" value="{{ $email }}">
-
+                    
                         <div class="form-group">
                             <label for="otp">OTP</label>
-                            <input type="text" name="otp" id="otp" class="form-control" required placeholder="Enter OTP">
+                            <input type="text" name="otp" id="otp" class="form-control @error('otp') is-invalid @enderror" required placeholder="Enter OTP">
+                            @error('otp')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-
+                    
                         <div class="form-group">
                             <label for="password">New Password</label>
-                            <input type="password" name="password" id="password" class="form-control" required placeholder="Enter New Password">
+                            <div class="position-relative">
+                                <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required placeholder="Enter New Password">
+                                <span class="eye-toggle" onclick="togglePassword('password')">
+                                    <i class="la la-eye"></i>
+                                </span>
+                            </div>
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-
+                    
                         <div class="form-group">
                             <label for="password_confirmation">Confirm New Password</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required placeholder="Confirm Password">
+                            <div class="position-relative">
+                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" required placeholder="Confirm Password">
+                                <span class="eye-toggle" onclick="togglePassword('password_confirmation')">
+                                    <i class="la la-eye"></i>
+                                </span>
+                            </div>
+                            @error('password_confirmation')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-
+                    
                         <div class="form-group">
                             <button class="theme-btn btn-style-one" type="submit">Reset Password</button>
                         </div>
                     </form>
+                    
 
                     <div class="bottom-box">
                         <div class="text">Go back to <a href="{{ route('password.request') }}">Forgot Password?</a></div>
@@ -96,6 +139,20 @@
       setTimeout(function() {
           document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
       }, 5000);
+      function togglePassword(fieldId) {
+        let inputField = document.getElementById(fieldId);
+        let eyeIcon = inputField.nextElementSibling.querySelector('i');
+
+        if (inputField.type === "password") {
+          inputField.type = "text";
+          eyeIcon.classList.remove("la-eye");
+          eyeIcon.classList.add("la-eye-slash");
+        } else {
+          inputField.type = "password";
+          eyeIcon.classList.remove("la-eye-slash");
+          eyeIcon.classList.add("la-eye");
+        }
+      }
   </script>
 </body>
 </html>

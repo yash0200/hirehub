@@ -111,36 +111,45 @@
             <!--Login Form-->
             <form method="post" action="{{ route('login') }}">
               @csrf
+          
               <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="Email" required>
+                  <label>Email</label>
+                  <input type="email" name="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" required>
+                  @error('email')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
               </div>
-
+          
               <div class="form-group">
-                <label>Password</label>
-                <div class="position-relative">
-                <input type="password" name="password" id="password" class="form-control"
-                  placeholder="Enter New Password">
-                <span class="eye-toggle" onclick="togglePassword('password')">
-                  <i class="la la-eye"></i>
-                </span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="field-outer">
-                  <div class="input-group checkboxes square">
-                    <input type="checkbox" name="remember-me" id="remember">
-                    <label for="remember" class="remember"><span class="custom-checkbox"></span> Remember me</label>
+                  <label>Password</label>
+                  <div class="position-relative">
+                      <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter New Password">
+                      <span class="eye-toggle" onclick="togglePassword('password')">
+                          <i class="la la-eye"></i>
+                      </span>
                   </div>
-                  <a href="{{ url('/forgot-password') }}" class="pwd">Forgot password?</a>
-                </div>
+                  @error('password')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
               </div>
-
+          
               <div class="form-group">
-                <button class="theme-btn btn-style-one" type="submit">Log In</button>
+                  <div class="field-outer">
+                      <div class="input-group checkboxes square">
+                          <input type="checkbox" name="remember-me" id="remember">
+                          <label for="remember" class="remember">
+                              <span class="custom-checkbox"></span> Remember me
+                          </label>
+                      </div>
+                      <a href="{{ url('/forgot-password') }}" class="pwd">Forgot password?</a>
+                  </div>
               </div>
-            </form>
+          
+              <div class="form-group">
+                  <button class="theme-btn btn-style-one" type="submit">Log In</button>
+              </div>
+          </form>
+          
 
             <div class="bottom-box">
               <div class="text">Don't have an account? <a href="{{ url('/register') }}">Signup</a></div>

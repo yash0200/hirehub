@@ -82,4 +82,8 @@ class Jobs extends Model
     {
         return $this->belongsTo(jobCategory::class, 'category_id'); // Assuming 'Category' is the related model
     }
+    public function applicants()
+    {
+        return $this->hasMany(Applicant::class, 'job_id');
+    }
 }

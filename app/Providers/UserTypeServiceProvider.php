@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobCategory;
+use App\Models\Jobs;
 
 class UserTypeServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,11 @@ class UserTypeServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $userType = Auth::check() ? Auth::user()->user_type : null;
+            $totalJobs = Jobs::where('status', 'active')->count();
+            $addedToday = Jobs::where('status', 'active')
+                                ->whereDate('created_at', today())
+                                ->count();
+
             $categories = JobCategory::where('status', 'active')
         ->withCount(['jobs' => function ($query) {
                     $query->where('status', 'active');
@@ -43,7 +49,7 @@ class UserTypeServiceProvider extends ServiceProvider
                 ['name' => 'Chennai', 'jobs' => 96, 'image' => 'home22-city-6.png'],
                 ['name' => 'Pune', 'jobs' => 96, 'image' => 'home22-city-7.png'],
             ];
-            $view->with(compact('userType', 'categories', 'locations', 'cities'));
+            $view->with(compact('userType', 'categories', 'locations', 'cities','addedToday','totalJobs'));
         });
     }
 

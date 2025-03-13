@@ -17,15 +17,15 @@
             <li class="{{ request()->routeIs('candidate.jobalerts') ? 'active' : '' }}">
                 <a href="{{ route('candidate.jobalerts') }}"><i class="la la-tools"></i> Preferences & Job alerts</a>
             </li>
-            <li class="{{ request()->routeIs('candidate.jobalerts') ? 'active' : '' }}">
-                <a href="{{ route('candidate.jobalerts') }}"><i class="la la-bell"></i> Notifications </a>
+            <li class="{{ request()->routeIs('candidate.notifications') ? 'active' : '' }}">
+                <a href="{{ route('candidate.notifications') }}"><i class="la la-bell"></i> Notifications </a>
             </li>
             <li class="{{ request()->routeIs('candidate.shortlist') ? 'active' : '' }}">
                 <a href="{{ route('candidate.shortlist') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a>
             </li>
-            <li class="{{ request()->routeIs('candidate.messages') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('candidate.messages') ? 'active' : '' }}">
                 <a href="{{ route('candidate.messages') }}"><i class="la la-comment-o"></i> Messages</a>
-            </li>
+            </li> -->
             <li class="{{ request()->routeIs('candidate.password') ? 'active' : '' }}">
                 <a href="{{ route('candidate.password') }}"><i class="la la-lock"></i> Change Password</a>
             </li>
@@ -48,8 +48,8 @@
             <li class="{{ request()->routeIs('employer.jobs.index') ? 'active' : '' }}">
                 <a href="{{ route('employer.jobs.index') }}"><i class="la la-paper-plane"></i> Post a New Job</a>
             </li>
-            <li class="{{ request()->routeIs('employer.job.manage') ? 'active' : '' }}">
-                <a href="{{ route('employer.job.manage') }}"><i class="la la-briefcase"></i> Manage Jobs</a>
+            <li class="{{ request()->routeIs('employer.jobs.manage') ? 'active' : '' }}">
+                <a href="{{ route('employer.jobs.manage') }}"><i class="la la-briefcase"></i> Manage Jobs</a>
             </li>
             <li class="{{ request()->routeIs('employer.applicants') ? 'active' : '' }}">
                 <a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i> All Applicants</a>
@@ -60,9 +60,9 @@
             <li class="{{ request()->routeIs('employer.packages') ? 'active' : '' }}">
                 <a href="{{ route('employer.packages') }}"><i class="la la-box"></i> Packages</a>
             </li>
-            <li class="{{ request()->routeIs('employer.messages') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('employer.messages') ? 'active' : '' }}">
                 <a href="{{ route('employer.messages') }}"><i class="la la-comment-o"></i> Messages</a>
-            </li>
+            </li> -->
             <li class="{{ request()->routeIs('employer.resume.alerts') ? 'active' : '' }}">
                 <a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i> Resume Alerts</a>
             </li>

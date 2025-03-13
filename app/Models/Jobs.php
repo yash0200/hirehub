@@ -31,6 +31,7 @@ class Jobs extends Model
         'qualification',
         'status'
     ];
+    protected $dates = ['deleted_at'];
 
     protected $casts = [
         'deadline' => 'datetime', // Automatically cast to Carbon instance

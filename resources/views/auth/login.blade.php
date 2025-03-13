@@ -15,13 +15,29 @@
             overflow: hidden;
             height: 100vh;
         }
+      .position-relative {
+        position: relative;
+      }
+    
+      .eye-toggle {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #777;
+      }
+    
+      .eye-toggle:hover {
+        color: #333;
+      }
+    
     </style>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-
   <div class="page-wrapper">
 
     <!-- Preloader -->
@@ -77,33 +93,63 @@
         <div class="login-form default-form">
           <div class="form-inner">
             <h3>Login to Hirehub</h3>
+
+            <!-- Display error message here -->
+            @if (session('error'))
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ session('error') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+             @endif
+             @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <!--Login Form-->
             <form method="post" action="{{ route('login') }}">
               @csrf
+          
               <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="Email" required>
+                  <label>Email</label>
+                  <input type="email" name="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" required>
+                  @error('email')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
               </div>
-
+          
               <div class="form-group">
-                <label>Password</label>
-                <input id="password-field" type="password" name="password" placeholder="Password">
-              </div>
-
-              <div class="form-group">
-                <div class="field-outer">
-                  <div class="input-group checkboxes square">
-                    <input type="checkbox" name="remember-me" id="remember">
-                    <label for="remember" class="remember"><span class="custom-checkbox"></span> Remember me</label>
+                  <label>Password</label>
+                  <div class="position-relative">
+                      <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter New Password">
+                      <span class="eye-toggle" onclick="togglePassword('password')">
+                          <i class="la la-eye"></i>
+                      </span>
                   </div>
-                  <a href="{{ url('/forgot-password') }}" class="pwd">Forgot password?</a>
-                </div>
+                  @error('password')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
               </div>
-
+          
               <div class="form-group">
-                <button class="theme-btn btn-style-one" type="submit">Log In</button>
+                  <div class="field-outer">
+                      <div class="input-group checkboxes square">
+                          <input type="checkbox" name="remember-me" id="remember">
+                          <label for="remember" class="remember">
+                              <span class="custom-checkbox"></span> Remember me
+                          </label>
+                      </div>
+                      <a href="{{ url('/forgot-password') }}" class="pwd">Forgot password?</a>
+                  </div>
               </div>
-            </form>
+          
+              <div class="form-group">
+                  <button class="theme-btn btn-style-one" type="submit">Log In</button>
+              </div>
+          </form>
+          
 
             <div class="bottom-box">
               <div class="text">Don't have an account? <a href="{{ url('/register') }}">Signup</a></div>
@@ -142,6 +188,25 @@
     <script src="{{ asset('js/owl.js') }}"></script>
     <script src="{{ asset('js/wow.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+    <script>
+      function togglePassword(fieldId) {
+        let inputField = document.getElementById(fieldId);
+        let eyeIcon = inputField.nextElementSibling.querySelector('i');
+
+        if (inputField.type === "password") {
+          inputField.type = "text";
+          eyeIcon.classList.remove("la-eye");
+          eyeIcon.classList.add("la-eye-slash");
+        } else {
+          inputField.type = "password";
+          eyeIcon.classList.remove("la-eye-slash");
+          eyeIcon.classList.add("la-eye");
+        }
+      }
+          setTimeout(function() {
+              document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+          }, 5000);
+    </script>
 </body>
 
 </html>

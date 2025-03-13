@@ -20,7 +20,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
@@ -31,17 +31,17 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             } else {
                 Auth::logout(); // Logout if not admin
-                return back()->withErrors(['email' => 'Access Denied!']);
+                return back()->withInput()->with('error', 'Access Denied! Only Admins can log in.');
             }
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials']);
+        return back()->withInput()->withErrors(['email' => 'Invalid email or password.']);
     }
 
     public function logout()
     {
         Auth::logout();
         session()->forget('admin_logged_in');
-        return redirect()->route('admin.login');
+        return redirect('/admin/login')->with('success', 'Logged out successfully!');
     }
 }

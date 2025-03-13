@@ -216,6 +216,6 @@
 
     <!-- Copyright -->
     <div class="copyright-text">
-      <p>© 2021 Superio. All Right Reserved.</p>
+      <p>© 2025 <a href="{{ url("/") }}">Hirehub</a>. All Right Reserved.</p>
     </div>
     @endsection

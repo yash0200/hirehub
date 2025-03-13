@@ -25,6 +25,8 @@ Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.log
 // Admin Dashboard & Protected Routes
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/chart-data', [DashboardController::class, 'getWeeklyChartData']);
+
 
     /**========================Mange user routes ============================= */
     Route::get('/admin/manage-users', [UserController::class, 'index'])->name('admin.users'); // View all users
@@ -35,6 +37,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/manage-users/{id}', [UserController::class, 'destroy'])->name('admin.users.delete'); // Delete user
     // Route::get('/admin/manage-users/candidate/{id}', [UserController::class, 'showCandidate'])->name('admin.users.candidate.view');
     // Route::get('/admin/manage-users/employer/{id}', [UserController::class, 'showEmployer'])->name('admin.users.employer.view');
+
 
 
     /**========================Mange Jobs Post ============================= */

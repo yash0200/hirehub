@@ -21,7 +21,9 @@ use App\Http\Controllers\Employer\MessageController as EmployerMessage;
 use App\Http\Controllers\Employer\ProfileController as EmployerProfile;
 use App\Http\Controllers\Employer\CompanyProfileController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Candidate\NotificationsController;
 use App\Http\Controllers\EmployersController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\JobCategoryController;
@@ -47,6 +49,20 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Forgot Password Routes
+
+// Route to show the forgot password form (user enters email)
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
+
+// Route to send OTP to email
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendOtp'])->name('send.otp'); // Define the 'send.otp' route
+
+// Route to show the OTP input form
+Route::get('/forgot-password/otp/{email}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.otp.form');
+
+// Route to handle OTP verification and password reset
+Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset');
+
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
@@ -64,7 +80,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/candidate/profile/update', [ProfileController::class, 'update'])->name('candidate.profile.update');
 
         Route::get('/candidate/jobs', [CandidateJob::class, 'index'])->name('candidate.jobs');
-        Route::post('/jobs/{jobId}/apply', [ApplicantController::class, 'apply'])->name('job.apply');
+        Route::post('/candidate/jobs/{jobId}/apply', [ApplicantController::class, 'apply'])->name('job.apply');
 
 
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
@@ -72,10 +88,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
         Route::post('/candidate/resumes', [CandidateResumeController::class, 'store'])->name('candidate.resume.store');
 
+        /** ================== Prederences and their alert Routes ================== */
+
         Route::get('/candidate/jobalerts', [JobAlertController::class, 'index'])->name('candidate.jobalerts');
         Route::get('/candidate/jobalerts/create', [JobAlertController::class, 'create'])->name('candidate.jobalert.create');
         Route::post('/candidate/jobalerts/store', [JobAlertController::class, 'store'])->name('candidate.jobalert.store');
         Route::delete('/candidate/job-alerts/{id}', [JobAlertController::class, 'destroy'])->name('candidate.jobalert.destroy');
+
+        /** ================== notifications Routes ================== */
+
+        Route::get('/candidate/notifications', [NotificationsController::class, 'index'])->name('candidate.notifications');
 
 
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
@@ -85,6 +107,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
         Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
+        Route::delete('/candidate/shortlist-job/{id}', [ShortlistJobsController::class, 'destroy'])->name('candidate.job.destroy');
+
     });
 
     /** ================== Employer Routes ================== */
@@ -95,21 +119,29 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employer/company-profile', [CompanyProfileController::class, 'index'])->name('employer.company.profile');
         Route::post('/employer/company-profile/update', [CompanyProfileController::class, 'update'])->name('employer.company.profile.update');
 
-        /** ================== Post Job Routes ================== */
+        /** ================== Post/Manage Job and Routes ================== */
 
-        Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index');     // List all jobs
-        Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create');     // Show create form
-        Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store');             // Store job
-        Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show');            // Show a specific job
+        Route::get('/employer/jobs', [EmployerJobController::class, 'index'])->name('employer.jobs.index'); // List all jobs
+        Route::get('/employer/jobs/create', [EmployerJobController::class, 'create'])->name('jobs.create'); // Show create form
+        Route::post('/employer/jobs', [EmployerJobController::class, 'store'])->name('jobs.store'); // Store job
+        Route::get('/employer/jobs/{id}', [EmployerJobController::class, 'show'])->name('jobs.show'); // Show a specific job
+        Route::get('/jobs/{job}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit'); // Edit job
+        Route::patch('/jobs/{job}', [EmployerJobController::class, 'update'])->name('jobs.update'); // Update job
+        Route::delete('/employer/jobs/{job}', [EmployerJobController::class, 'destroy'])->name('employer.jobs.delete');
+        Route::patch('/employer/jobs/{job}/status', [EmployerJobController::class, 'updateStatus'])->name('employer.jobs.status');
 
-        Route::get('jobs/{job}/edit', [EmployerJobController::class, 'edit'])->name('jobs.edit');
-        Route::patch('jobs/{job}.update', [EmployerJobController::class, 'update'])->name('jobs.update');     // Update job
-
-        Route::delete('/employer/jobs/{id}', [EmployerJobController::class, 'destroy'])->name('jobs.destroy');  // Delete job
 
 
-        Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.job.manage');
+        Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.jobs.manage');
         Route::get('/employer/applicants', [EmployerApplicantController::class, 'index'])->name('employer.applicants');
+        Route::post('/employer/applicants/{id}/approve', [EmployerApplicantController::class, 'approveApplicant'])->name('employer.applicant.approve');
+        Route::post('/employer/applicants/{id}/reject', [EmployerApplicantController::class, 'rejectApplicant'])->name('employer.applicant.reject');
+
+
+
+
+        Route::get('/employer/applicants/{id}/view', [EmployerApplicantController::class, 'viewApplicant'])->name('employer.applicant.view');
+
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
         Route::get('/employer/packages', [PackageController::class, 'index'])->name('employer.packages');
         Route::get('/employer/messages', [EmployerMessage::class, 'index'])->name('employer.messages');
@@ -117,6 +149,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employer/change-password', [ChangePasswordController::class, 'employerIndex'])->name('employer.password');
         Route::post('/employer/change-password', [ChangePasswordController::class, 'employerChangePassword'])->name('employer.password.change');
         Route::get('/employer/delete-profile', [ProfileController::class, 'delete'])->name('employer.profile.delete');
+        
     });
 });
 

@@ -127,67 +127,55 @@
                 <div class="btn-box">
                   @php
                       $user = auth()->user();
-                      $candidate = $user ? $user->candidate : null;
+                      $candidate = $user && $user->user_type === 'candidate' ? $user->candidate : null;
+                      $hasApplied = $candidate ? $candidate->applications()->where('job_id', $job->id)->exists() : false;
+                      $isProfileComplete = $candidate ? $candidate->isProfileCompleted() : false;
+                      $isResumeUpdated = $candidate ? optional($candidate->resume)->isResumeUpdated() : false;
                   @endphp
+                  
 
-                @if(!$user) 
-                {{-- User is logged out: Show apply button without checks --}}
-                <form action="{{ route('job.apply', $job->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="theme-btn btn-style-one">Apply For Job</button>
-                </form>
-                @elseif(isset($candidate)) 
-                {{-- User is logged in as a Candidate --}}
-                @php
-                    $hasApplied = $candidate->applications()->where('job_id', $job->id)->exists();
-                    $isProfileComplete = $candidate->isProfileCompleted();
-                    $isResumeUpdated = optional($candidate->resume)->isResumeUpdated();
-
-                    if (!$isProfileComplete) {
-                        $redirectRoute = route('candidate.profile');
-                        $buttonText = 'Complete Profile to Apply';
-                        $showForm = false;
-                    } elseif (!$isResumeUpdated) {
-                        $redirectRoute = route('candidate.resumes');
-                        $buttonText = 'Update Resume to Apply';
-                        $showForm = false;
-                    } else {
-                        $redirectRoute = route('job.apply', $job->id);
-                        $buttonText = $hasApplied ? 'Applied' : 'Apply for Job';
-                        $showForm = !$hasApplied;
-                    }
-                @endphp  
-
-                  @if($showForm)
-                      <form action="{{ $redirectRoute }}" method="POST">
-                          @csrf
-                          <button type="submit" class="theme-btn btn-style-one">{{ $buttonText }}</button>
-                      </form>
-                  @else
-                      <a href="{{ $redirectRoute }}" class="theme-btn btn-style-one">{{ $buttonText }}</a>
+                  @if(!$user)
+                      {{-- Guest User --}}
+                      <a href="{{ route('login') }}" class="theme-btn btn-style-one">Login to Apply</a>
+                  @elseif($user->user_type === 'candidate')
+                      {{-- Candidate User --}}
+                      @if($hasApplied)
+                          <button class="theme-btn btn-style-one disabled" disabled>Already Applied</button>
+                      @elseif(!$isProfileComplete)
+                          <a href="{{ route('candidate.profile') }}" class="theme-btn btn-style-one">Complete Profile to Apply</a>
+                      @elseif(!$isResumeUpdated)
+                          <a href="{{ route('candidate.resumes') }}" class="theme-btn btn-style-one">Update Resume to Apply</a>
+                      @else
+                          <form action="{{ route('job.apply', $job->id) }}" method="POST">
+                              @csrf
+                              <button type="submit" class="theme-btn btn-style-one">Apply for Job</button>
+                          </form>
+                      @endif
+                  @elseif($user->user_type === 'employer')
+                      {{-- Employer User --}}
+                      <button class="theme-btn btn-style-one disabled" disabled>Employers cannot apply for jobs</button>
+                  @elseif($user->user_type === 'admin')
+                      {{-- Admin User --}}
+                      <button class="theme-btn btn-style-one disabled" disabled>Admins cannot apply for jobs</button>
                   @endif
-                @else
-                {{-- User is logged in but is NOT a candidate (e.g., an Employer) --}}
-                <p class="text-danger">Employers cannot apply for jobs.</p>
-                @endif   
-                @php
-                    $user = auth()->user();
-                    $candidate = $user ? $user->candidate : null;
-                    $isShortlisted = false;
-                
-                    if ($candidate) {
-                        $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
-                            ->where('job_id', $job->id)
-                            ->exists();
-                    }
-                @endphp
-                  <button type="button" 
-                    class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
-                    data-job-id="{{ $job->id }}" 
-                    onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
-                    <i class="flaticon-bookmark"></i>
-                  </button>
-            
+                  @php
+                      $user = auth()->user();
+                      $candidate = $user ? $user->candidate : null;
+                      $isShortlisted = false;
+                  
+                      if ($candidate) {
+                          $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
+                              ->where('job_id', $job->id)
+                              ->exists();
+                      }
+                  @endphp
+                    <button type="button" 
+                      class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
+                      data-job-id="{{ $job->id }}" 
+                      onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
+                      <i class="flaticon-bookmark"></i>
+                    </button>
+              
                 </div>
                 <div class="sidebar-widget company-widget">
                   <div class="widget-content">

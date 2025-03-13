@@ -25,7 +25,6 @@ class Candidate extends Model
         'twitter',
         'linkedin',
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -41,13 +40,19 @@ class Candidate extends Model
     }
     public function address()
     {
-        return $this->hasOne(CandidateAddress::class);
+        return $this->hasOne(CandidateAddress::class, 'candidate_id');
     }
+    public function socialNetworks()
+    {
+        return $this->hasOne(SocialNetwork::class, 'user_id', 'user_id');
+    }
+
     public function applications()
     {
         return $this->hasMany(Applicant::class, 'candidate_id');
     }
-    public function shortlistedJobs() {
+    public function shortlistedJobs()
+    {
         return $this->hasMany(ShortlistedJob::class, 'candidate_id');
     }
 

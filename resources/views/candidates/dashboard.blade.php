@@ -7,8 +7,17 @@
 <section class="user-dashboard">
       <div class="dashboard-outer">
         <div class="upper-title-box">
-          <h3>Welcome, {{auth()->user()->name}}!!</h3>
-          <div class="text">Ready to jump back in?</div>
+          
+              <h3>Welcome, {{auth()->user()->name}}!!</h3>
+              <div class="text">Ready to jump back in?</div>
+            
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        
         </div>
         <div class="row">
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
@@ -90,6 +99,7 @@
             <div class="notification-widget ls-widget">
               <div class="widget-title">
                 <h4>Notifications</h4>
+                <a href="{{url('/candidate/notifications')}}">View all</a>
               </div>
               <div class="widget-content">
                 <ul class="notification-list">
@@ -254,6 +264,6 @@
 
     <!-- Copyright -->
     <div class="copyright-text">
-      <p>© 2025 Hirehub. All Right Reserved.</p>
+      <p>© 2025 <a href="{{ url("/") }}">Hirehub</a>. All Right Reserved.</p>
     </div>
     @endsection

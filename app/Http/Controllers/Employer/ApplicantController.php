@@ -34,6 +34,7 @@ class ApplicantController extends Controller
     public function approveApplicant($id)
     {
         $applicant = Applicant::findOrFail($id);
+      
 
         // Update status
         $applicant->status = 'approved';

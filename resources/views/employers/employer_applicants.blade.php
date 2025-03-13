@@ -93,11 +93,11 @@
                                                                     <li><button data-text="View Application"><span class="la la-eye"></span></button></li>
                                                                     <li>
                                                                         <button data-text="Approve Application"
-                                                                            class="approve-btn" data-id="{{ $applicant->id }}">
+                                                                            class="approve-btn" data-id="{{ $applicant->user_id }}">
                                                                             <span class="la la-check"></span>
                                                                         </button>
                                                                     </li>
-                                                                    <li><button class="reject-btn" data-id="{{ $applicant->id }}" data-text="Reject Application"><span class="la la-times-circle"></span></button></li>
+                                                                    <li><button class="reject-btn" data-id="{{ $applicant->user_id }}" data-text="Reject Application"><span class="la la-times-circle"></span></button></li>
 
                                                                     <!-- <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li> -->
                                                                 </ul>

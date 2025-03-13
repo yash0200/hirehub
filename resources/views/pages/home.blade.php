@@ -166,191 +166,99 @@
     <div class="d-sm-flex align-items-center justify-content-sm-between wow fadeInUp mb-4 mb-sm-0">
       <div class="sec-title">
         <h2>Latest jobs</h2>
-        <div class="text">2020 jobs live - 293 added today.</div>
+        @php
+        $totalJobs = \App\Models\Jobs::count(); // Get the total number of jobs
+        $addedToday = \App\Models\Jobs::whereDate('created_at', today())->count(); // Get the number of jobs added today
+        @endphp
+        <div class="text">{{ $totalJobs }} jobs live - {{ $addedToday }} added today.</div>
       </div>
       <a href="{{ route('jobs.list') }}" class="ud-btn-border-theme at-home18 mb-4 dark-style">View All Jobs <i class="fal fa-long-arrow-right"></i></a>
     </div>
     <div class="row wow fadeInUp">
-      <!-- Job Block -->
+      @foreach($jobs as $job)
       <div class="col-xl-4 col-sm-6">
         <div class="job-block at-jlv17 at-home20 at-home18">
           <div class="inner-box">
             <div class="tags">
-              <a class="flaticon-bookmark" href="{{ url('#') }}"></a>
+              @php
+              $user = auth()->user();
+              $candidate = $user ? $user->candidate : null;
+              $isShortlisted = false;
+
+              if ($candidate) {
+              $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
+              ->where('job_id', $job->id)
+              ->exists();
+              }
+              @endphp
+
+              <!-- Bookmark Button -->
+              <button type="button"
+                class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}"
+                data-job-id="{{ $job->id }}"
+                onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
+                <i class="flaticon-bookmark"></i>
+              </button>
             </div>
             <div class="content ps-0">
-              <h4 class="fz22 mb-2"><a href="{{ url('#') }}">Software Engineer (Android) Libraries</a></h4>
+              <h4 class="fz22 mb-2"><a href="{{ route('jobs.details', $job->id) }}">{{ $job->title }}</a></h4>
               <ul class="job-other-info at-jsv6 at-jsv17 mt15 ms-0">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-map-locator pe-2"></i>London, UK</li>
-                <li class="time2 fz15 border-0 ps-0 mb-0"><i class="flaticon-clock pe-2"></i>Full Time</li>
+                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-map-locator pe-2"></i>{{ optional($job->jobAddress)->city ?? 'City not available' }},
+                  {{ optional($job->jobAddress)->state ?? 'State not available' }}
+                </li>
+                <li class="time2 fz15 border-0 ps-0 mb-0"><i class="flaticon-clock pe-2"></i>{{ $job->job_type }}</li>
               </ul>
               <ul class="job-other-info at-jsv6 at-jsv17 mt-0 ms-0 mb-5">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-money-2 pe-2"></i>450 - $900/month</li>
+                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-money-2 pe-2"></i>{{ $job->salary }}</li>
               </ul>
               <div class="d-md-flex align-items-center justify-content-md-between mt30">
                 <div class="d-flex align-items-center mb-3 mb-md-0">
-                  <span class="company-logo position-relative mr15"><img class="wa w60 rounded-circle" src="{{ asset('/images/companieslogo/company-logo-2.png') }}" alt=""></span>
+                  <span class="company-logo position-relative mr15">
+                    <img class="wa w60 rounded-circle" src="{{ asset($job->employer->logo ? 'storage/logos/' . $job->employer->logo : 'images/resource/company-logo/default-logo.png') }}" alt="">
+                  </span>
                   <div class="text-start">
-                    <h5 class="fz18 fw500">Dennis</h5>
-                    <p class="text">11 hours ago</p>
+                    <h5 class="fz18 fw500">{{ $job->company_name }}</h5>
+                    <p class="text">{{ $job->created_at->diffForHumans()}}</p>
                   </div>
                 </div>
-                <a href="{{ url('#') }}" class="ud-btn-transparent at-home18">Apply Now</a>
+                @php
+                $user = auth()->user();
+                $candidate = $user && $user->user_type === 'candidate' ? $user->candidate : null;
+                $hasApplied = $candidate ? $candidate->applications()->where('job_id', $job->id)->exists() : false;
+                $isProfileComplete = $candidate ? $candidate->isProfileCompleted() : false;
+                $isResumeUpdated = $candidate ? optional($candidate->resume)->isResumeUpdated() : false;
+                @endphp
+                @if(!$user)
+                {{-- Guest User --}}
+                <a href="{{ route('login') }}" class="ud-btn-transparent at-home18">Login to Apply</a>
+                @elseif($user->user_type === 'candidate')
+                {{-- Candidate User --}}
+                @if($hasApplied)
+                <button class="ud-btn-transparent at-home18" disabled>Already Applied</button>
+                @elseif(!$isProfileComplete)
+                <a href="{{ route('candidate.profile') }}" class="ud-btn-transparent at-home18">Complete Profile</a>
+                @elseif(!$isResumeUpdated)
+                <a href="{{ route('candidate.resumes') }}" class="ud-btn-transparent at-home18">Update Resume</a>
+                @else
+                <form action="{{  route('jobs.details', $job->id) }}" method="Get">
+                  @csrf
+                  <button type="submit" class="ud-btn-transparent at-home18">Apply for Job</button>
+                </form>
+                @endif
+                @elseif($user->user_type === 'employer')
+                {{-- Employer User --}}
+                <button class="ud-btn-transparent at-home18" disabled>Employers cannot apply for jobs</button>
+                @elseif($user->user_type === 'admin')
+                {{-- Admin User --}}
+                <button class="ud-btn-transparent at-home18" disabled>Admins cannot apply for jobs</button>
+                @endif
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Job Block -->
-      <div class="col-xl-4 col-sm-6">
-        <div class="job-block at-jlv17 at-home20 at-home18">
-          <div class="inner-box">
-            <div class="tags">
-              <a class="flaticon-bookmark" href="{{ url('#') }}"></a>
-            </div>
-            <div class="content ps-0">
-              <h4 class="fz22 mb-2"><a href="{{ url('#') }}">Senior Product Marketing <br> Manager</a></h4>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt15 ms-0">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-map-locator pe-2"></i>London, UK</li>
-                <li class="time2 fz15 border-0 ps-0 mb-0"><i class="flaticon-clock pe-2"></i>Full Time</li>
-              </ul>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt-0 ms-0 mb-5">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-money-2 pe-2"></i>450 - $900/month</li>
-              </ul>
-              <div class="d-md-flex align-items-center justify-content-md-between mt30">
-                <div class="d-flex align-items-center mb-3 mb-md-0">
-                  <span class="company-logo position-relative mr15"><img class="wa w60 rounded-circle" src="{{ asset('/images/companieslogo/company-logo-1.png') }}" alt=""></span>
-                  <div class="text-start">
-                    <h5 class="fz18 fw500">Dennis</h5>
-                    <p class="text">11 hours ago</p>
-                  </div>
-                </div>
-                <a href="{{ url('#') }}" class="ud-btn-transparent at-home18">Apply Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Job Block -->
-      <div class="col-xl-4 col-sm-6">
-        <div class="job-block at-jlv17 at-home20 at-home18">
-          <div class="inner-box">
-            <div class="tags">
-              <a class="flaticon-bookmark" href="{{ url('#') }}"></a>
-            </div>
-            <div class="content ps-0">
-              <h4 class="fz22 mb-2"><a href="{{ url('#') }}">Senior Full Stack Engineer, <br> Creator Success</a></h4>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt15 ms-0">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-map-locator pe-2"></i>London, UK</li>
-                <li class="time2 fz15 border-0 ps-0 mb-0"><i class="flaticon-clock pe-2"></i>Full Time</li>
-              </ul>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt-0 ms-0 mb-5">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-money-2 pe-2"></i>450 - $900/month</li>
-              </ul>
-              <div class="d-md-flex align-items-center justify-content-md-between mt30">
-                <div class="d-flex align-items-center mb-3 mb-md-0">
-                  <span class="company-logo position-relative mr15"><img class="wa w60 rounded-circle" src="{{ asset('/images/companieslogo/company-logo-5.png') }}" alt=""></span>
-                  <div class="text-start">
-                    <h5 class="fz18 fw500">Dennis</h5>
-                    <p class="text">11 hours ago</p>
-                  </div>
-                </div>
-                <a href="{{ url('#') }}" class="ud-btn-transparent at-home18">Apply Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Job Block -->
-      <div class="col-xl-4 col-sm-6">
-        <div class="job-block at-jlv17 at-home20 at-home18">
-          <div class="inner-box">
-            <div class="tags d-flex align-items-center">
-              <a class="flaticon-bookmark" href="{{ url('#') }}"></a>
-            </div>
-            <div class="content ps-0">
-              <h4 class="fz22 mb-2"><a href="{{ url('#') }}">Senior Product <br> Designer</a></h4>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt15 ms-0">
-                <li class="time2 border-0 ps-0 me-0"><i class="flaticon-map-locator pe-2"></i>Full Time</li>
-                <li class="time2 border-0 ps-0"><i class="flaticon-clock pe-2"></i>London, UK</li>
-              </ul>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt-0 ms-0 mb-5">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-money-2 pe-2"></i>450 - $900/month</li>
-              </ul>
-              <div class="d-md-flex align-items-center justify-content-md-between mt30">
-                <div class="d-flex align-items-center mb-3 mb-md-0">
-                  <span class="company-logo position-relative mr15"><img class="wa w60 rounded-circle" src="{{ asset('/images/companieslogo/company-logo-3.png') }}" alt=""></span>
-                  <div class="text-start">
-                    <h5 class="fz18 fw500">Dennis</h5>
-                    <p class="text">11 hours ago</p>
-                  </div>
-                </div>
-                <a href="{{ url('#') }}" class="ud-btn-transparent at-home18">Apply Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Job Block -->
-      <div class="col-xl-4 col-sm-6">
-        <div class="job-block at-jlv17 at-home20 at-home18">
-          <div class="inner-box">
-            <div class="tags d-flex align-items-center">
-              <a class="flaticon-bookmark" href="{{ url('#') }}"></a>
-            </div>
-            <div class="content ps-0">
-              <h4 class="fz22 mb-2"><a href="{{ url('#') }}">Product Manager, <br> Studio</a></h4>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt15 ms-0">
-                <li class="time2 border-0 ps-0 me-0"><i class="flaticon-map-locator pe-2"></i>Full Time</li>
-                <li class="time2 border-0 ps-0"><i class="flaticon-clock pe-2"></i>London, UK</li>
-              </ul>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt-0 ms-0 mb-5">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-money-2 pe-2"></i>450 - $900/month</li>
-              </ul>
-              <div class="d-md-flex align-items-center justify-content-md-between mt30">
-                <div class="d-flex align-items-center mb-3 mb-md-0">
-                  <span class="company-log  o position-relative mr15"><img class="wa w60 rounded-circle" src="{{ asset('/images/companieslogo/company-logo-4.png') }}" alt=""></span>
-                  <div class="text-start">
-                    <h5 class="fz18 fw500">Dennis</h5>
-                    <p class="text">11 hours ago</p>
-                  </div>
-                </div>
-                <a href="{{ url('#') }}" class="ud-btn-transparent at-home18">Apply Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Job Block -->
-      <div class="col-xl-4 col-sm-6">
-        <div class="job-block at-jlv17 at-home20 at-home18">
-          <div class="inner-box">
-            <div class="tags d-flex align-items-center">
-              <a class="flaticon-bookmark" href="{{ url('#') }}"></a>
-            </div>
-            <div class="content ps-0">
-              <h4 class="fz22 mb-2"><a href="{{ url('#') }}">UX/UI <br> Designer</a></h4>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt15 ms-0">
-                <li class="time2 border-0 ps-0 me-0"><i class="flaticon-map-locator pe-2"></i>Full Time</li>
-                <li class="time2 border-0 ps-0"><i class="flaticon-clock pe-2"></i>London, UK</li>
-              </ul>
-              <ul class="job-other-info at-jsv6 at-jsv17 mt-0 ms-0 mb-5">
-                <li class="time2 fz15 border-0 ps-0 me-0 mb-0"><i class="flaticon-money-2 pe-2"></i>450 - $900/month</li>
-              </ul>
-              <div class="d-md-flex align-items-center justify-content-md-between mt30">
-                <div class="d-flex align-items-center mb-3 mb-md-0">
-                  <span class="company-logo position-relative mr15"><img class="wa w60 rounded-circle" src="{{ asset('/images/companieslogo/company-logo-7.png') }}" alt=""></span>
-                  <div class="text-start">
-                    <h5 class="fz18 fw500">Dennis</h5>
-                    <p class="text">11 hours ago</p>
-                  </div>
-                </div>
-                <a href="{{ url('#') }}" class="ud-btn-transparent at-home18">Apply Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      @endforeach
+
     </div>
   </div>
 </section>

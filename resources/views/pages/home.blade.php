@@ -59,16 +59,29 @@
               <img src="{{ asset('/images/resource/multi-peoples.png') }}" alt="Candidates">
             </div>
 
-            @if(auth()->check() && auth()->user()->candidate)
-            <!-- If the user is logged in and is a candidate, link to the resume page -->
-            <a href="{{ route('candidate.resumes') }}" class="upload-cv dark-color fz16 fw500">
-              <span class="icon flaticon-file"></span> Upload your CV
-            </a>
+            
+            @if(auth()->check())
+              @if(auth()->user()->candidate)
+                <!-- Candidate: Upload CV Link -->
+                <a href="{{ route('candidate.resumes') }}" class="upload-cv dark-color fz16 fw500">
+                  <span class="icon flaticon-file"></span> Upload your CV
+                </a>
+              @elseif(auth()->user()->employer)
+                <!-- Employer: Post Job Link -->
+                <a href="{{ route('employer.jobs.index') }}" class="upload-cv dark-color fz16 fw500">
+                  <span class="icon la la-paper-plane pe-2"></span> Post a New Job
+                </a>
+              @else
+                <!-- Other users or logged out -->
+                <a href="{{ route('login') }}" class="upload-cv dark-color fz16 fw500">
+                  <span class="icon far fa-file-arrow-up pe-2"></span> Upload your CV
+                </a>
+              @endif
             @else
-            <!-- If not logged in or not a candidate, link to the login page -->
-            <a href="{{ route('login') }}" class="upload-cv dark-color fz16 fw500">
-              <span class="icon flaticon-file"></span> Upload your CV
-            </a>
+              <!-- Not logged in -->
+              <a href="{{ route('login') }}" class="upload-cv dark-color fz16 fw500">
+                <span class="icon far fa-file-arrow-up pe-2"></span> Upload your CV
+              </a>
             @endif
           </div>
           <!-- End Candidate Section-->
@@ -552,14 +565,38 @@
     <div class="row">
       <div class="col-lg-10 offset-lg-1 col-xl-6 offset-xl-1">
         <div class="sec-title mb-0 pb-20 text-center text-lg-start">
-          <h2>Get Matched The Most Valuable Jobs, Just Drop Your Cv at Hirehub</h2>
-          <div class="text fz16 mt-4">The template is really nice and offers quite a large set of options. It’s beautiful and the coding is done quickly and seamlessly. Thank you!</div>
-
+          @if(auth()->check() && auth()->user()->employer)
+            <h2>Find The Best Talent, Post Your Jobs at Hirehub</h2>
+            <div class="text fz16 mt-4">Connect with top candidates easily and efficiently. Get your job posts seen by the right people today!</div>
+          @else
+            <h2>Get Matched The Most Valuable Jobs, Just Drop Your Cv at Hirehub</h2>
+            <div class="text fz16 mt-4">The template is really nice and offers quite a large set of options. It’s beautiful and the coding is done quickly and seamlessly. Thank you!</div>
+          @endif
           <div class="mt30">
-            <a href="{{ url('#') }}" class="theme-btn btn-style-one">
-              <span class="icon far fa-file-arrow-up pe-2"></span>
-              Upload Your CV
-            </a>
+            
+            @if(auth()->check())
+              @if(auth()->user()->candidate)
+                <!-- Candidate: Upload CV Link -->
+                <a href="{{ route('candidate.resumes') }}" class="theme-btn btn-style-one">
+                  <span class="icon far fa-file-arrow-up pe-2"></span> Upload your CV
+                </a>
+              @elseif(auth()->user()->employer)
+                <!-- Employer: Post Job Link -->
+                <a href="{{ route('employer.jobs.index') }}" class="theme-btn btn-style-one">
+                  <span class="icon la la-paper-plane pe-2"></span> Post a New Job
+                </a>
+              @else
+                <!-- Other users or logged out -->
+                <a href="{{ route('login') }}" class="theme-btn btn-style-one">
+                  <span class="icon far fa-file-arrow-up pe-2"></span> Upload your CV
+                </a>
+              @endif
+            @else
+              <!-- Not logged in -->
+              <a href="{{ route('login') }}" class="theme-btn btn-style-one">
+                <span class="icon far fa-file-arrow-up pe-2"></span> Upload your CV
+              </a>
+            @endif
           </div>
         </div>
       </div>
@@ -569,7 +606,7 @@
 </section>
 <!-- End Subscribe Section -->
 
-<!-- Blog Post -->
+{{-- <!-- Blog Post -->
 <section class="layout-pt-120 layout-pb-120 border-bottom-1">
   <div class="auto-container">
     <div class="d-sm-flex align-items-center justify-content-sm-between wow fadeInUp mb-4 mb-sm-0">
@@ -627,6 +664,6 @@
       </div>
     </div>
   </div>
-</section>
+</section> --}}
 <!-- End Blog Post -->
 @endsection

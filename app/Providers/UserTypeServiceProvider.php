@@ -16,7 +16,12 @@ class UserTypeServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $userType = Auth::check() ? Auth::user()->user_type : null;
-            $categories = JobCategory::where('status', 'active')->withCount('jobs')->get();
+            $categories = JobCategory::where('status', 'active')
+                ->withCount(['jobs' => function ($query) {
+                    $query->where('status', 'active');
+                }])
+                ->get();
+
             $locations = ['Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune'];
             $cities = [
                 ['name' => 'Delhi', 'jobs' => 96, 'image' => 'home22-city-1.png'],
@@ -26,8 +31,7 @@ class UserTypeServiceProvider extends ServiceProvider
                 ['name' => 'Chennai', 'jobs' => 96, 'image' => 'home22-city-6.png'],
                 ['name' => 'Pune', 'jobs' => 96, 'image' => 'home22-city-7.png'],
             ];
-            $view->with(compact('userType', 'categories','locations','cities'));
-           
+            $view->with(compact('userType', 'categories', 'locations', 'cities'));
         });
     }
 

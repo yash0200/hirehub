@@ -22,9 +22,6 @@ class Employer extends Model
         'phone', // Added Phone Number
         'company_size', // Added Company Size
         'established_year', // Added Established Year
-        'facebook', // Added Social Media Links
-        'twitter',
-        'linkedin',
         'country', // Added Address Fields
         'state',
         'city',
@@ -43,4 +40,9 @@ class Employer extends Model
     {
         return $this->hasMany(Jobs::class);
     }
+    public function socialNetworks()
+    {
+        return $this->hasOne(SocialNetwork::class, 'user_id', 'user_id');
+    }
+
 }

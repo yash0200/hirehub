@@ -151,6 +151,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Job List & Details
 Route::get('/jobs', [JobsController::class, 'index'])->name('jobs.list');
+Route::get('/jobs/employer/{employer_id}', [JobsController::class, 'index'])->name('employers.jobs.list');
 Route::get('/jobs/{id}', [JobsController::class, 'show'])->name('jobs.details');
 
 

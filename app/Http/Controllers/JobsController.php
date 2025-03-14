@@ -14,16 +14,18 @@ class JobsController extends Controller
     public function index(Request $request)
     {
         try{
-
-        
             $query = Jobs::with('employer', 'jobCategory', 'jobAddress')
                     ->where('status', 'active')
                     ->latest();
 
             $categories = JobCategory::where('status', 'active')->get();
+
+            if ($request->filled('employer_id')) {
+                $query->where('employer_id', $request->employer_id);
+            }
+    
             
             if ($request->has('keyword')) {  
-                
                 $query->where('title', 'LIKE', '%' . $request->keyword . '%');
             }
             
@@ -93,6 +95,7 @@ class JobsController extends Controller
         // Fetch related jobs based on the same category
         $relatedJobs = Jobs::where('category_id', $job->category_id)
             ->where('id', '!=', $id) // Exclude the current job
+            ->where('status','active')
             ->with(['employer', 'jobAddress'])
             ->limit(4) // Show only 4 related jobs
             ->get();

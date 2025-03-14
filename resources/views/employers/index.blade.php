@@ -35,62 +35,62 @@
         <button type="button" class="theme-btn close-filters">X</button>
 
         <form action="{{ route('employers.list') }}" method="GET">
-    <!-- Filter Block -->
-    <div class="filter-block">
-        <h4>Search by Keywords</h4>
-        <div class="form-group">
-            <input type="text" name="keyword" placeholder="Job title, keywords, or company" value="{{ request('keyword') }}">
-            <span class="icon flaticon-search-3"></span>
-        </div>
-    </div>
+          <!-- Filter Block -->
+          <div class="filter-block">
+              <h4>Search by Keywords</h4>
+              <div class="form-group">
+                  <input type="text" name="keyword" placeholder="Job title, keywords, or company" value="{{ request('keyword') }}">
+                  <span class="icon flaticon-search-3"></span>
+              </div>
+          </div>
 
-    <!-- Filter Block -->
-    <div class="filter-block">
-        <h4>Location (City)</h4>
-        <div class="form-group">
-            <input type="text" name="location" placeholder="City or postcode" value="{{ request('location') }}">
-            <span class="icon flaticon-map-locator"></span>
-        </div>
-    </div>
+          <!-- Filter Block -->
+          <div class="filter-block">
+              <h4>Location (City)</h4>
+              <div class="form-group">
+                  <input type="text" name="location" placeholder="City or postcode" value="{{ request('location') }}">
+                  <span class="icon flaticon-map-locator"></span>
+              </div>
+          </div>
 
-    <!-- Filter Block -->
-    <div class="filter-block">
-        <h4>Category</h4>
-        <div class="form-group">
-            <select class="chosen-select" name="category_id">
-                <option value="">Choose a category</option>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                        {{ $category->name }}
-                    </option>
-                @endforeach
-            </select>
-            <span class="icon flaticon-briefcase"></span>
-        </div>
-    </div>
+          <!-- Filter Block -->
+          <div class="filter-block">
+              <h4>Category</h4>
+              <div class="form-group">
+                  <select class="chosen-select" name="category_id">
+                      <option value="">Choose a category</option>
+                      @foreach($categories as $category)
+                          <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                              {{ $category->name }}
+                          </option>
+                      @endforeach
+                  </select>
+                  <span class="icon flaticon-briefcase"></span>
+              </div>
+          </div>
 
-    <!-- Filter Block -->
-    <div class="filter-block">
-        <h4>Company Size</h4>
-        <div class="form-group">
-            <select class="chosen-select" name="company_size">
-                <option value="">Select Company Size</option>
-                <option value="1-100" {{ request('company_size') == '1-100' ? 'selected' : '' }}>1-100 Members</option>
-                <option value="100-200" {{ request('company_size') == '100-200' ? 'selected' : '' }}>100-200 Members</option>
-                <option value="200-500" {{ request('company_size') == '200-500' ? 'selected' : '' }}>200-500 Members</option>
-                <option value="500-1000" {{ request('company_size') == '500-1000' ? 'selected' : '' }}>500-1000 Members</option>
-                <option value="1000-10000" {{ request('company_size') == '1000-10000' ? 'selected' : '' }}>1000-10000 Members</option>
-            </select>
-            <span class="icon flaticon-briefcase"></span>
-        </div>
-    </div>
+          <!-- Filter Block -->
+          <div class="filter-block">
+              <h4>Company Size</h4>
+              <div class="form-group">
+                  <select class="chosen-select" name="company_size">
+                      <option value="">Select Company Size</option>
+                      <option value="1-100" {{ request('company_size') == '1-100' ? 'selected' : '' }}>1-100 Members</option>
+                      <option value="100-200" {{ request('company_size') == '100-200' ? 'selected' : '' }}>100-200 Members</option>
+                      <option value="200-500" {{ request('company_size') == '200-500' ? 'selected' : '' }}>200-500 Members</option>
+                      <option value="500-1000" {{ request('company_size') == '500-1000' ? 'selected' : '' }}>500-1000 Members</option>
+                      <option value="1000-10000" {{ request('company_size') == '1000-10000' ? 'selected' : '' }}>1000-10000 Members</option>
+                  </select>
+                  <span class="icon flaticon-briefcase"></span>
+              </div>
+          </div>
 
-    <!-- Buttons -->
-    <div class="filter-buttons">
-        <button type="submit" class="btn btn-primary">Apply</button>
-        <button type="button" class="btn btn-secondary" onclick="resetFilters()">Reset</button>
-    </div>
-</form>
+          <!-- Buttons -->
+          <div class="filter-buttons">
+              <button type="submit" class="btn btn-primary">Apply</button>
+              <button type="button" class="btn btn-secondary" onclick="resetFilters()">Reset</button>
+          </div>
+      </form>
         </div>
       </div>
       </div>
@@ -102,57 +102,54 @@
 
         <!-- ls Switcher -->
         <div class="ls-switcher">
-        <div class="showing-result">
-          <div class="text">Showing {{ $employers->firstItem() }}-{{ $employers->lastItem() }} of
-          {{ $employers->total() }} employers
+          <div class="showing-result">
+            <div class="text">Showing {{ $employers->firstItem() }}-{{ $employers->lastItem() }} of
+            {{ $employers->total() }} employers
+            </div>
+          </div>
+          <div class="sort-by">
+            <select class="chosen-select">
+            <option>New Jobs</option>
+            <option>Freelance</option>
+            <option>Full Time</option>
+            <option>Internship</option>
+            <option>Part Time</option>
+            <option>Temporary</option>
+            </select>
+
+            <select class="chosen-select">
+            <option>Show 10</option>
+            <option>Show 20</option>
+            <option>Show 30</option>
+            <option>Show 40</option>
+            <option>Show 50</option>
+            <option>Show 60</option>
+            </select>
           </div>
         </div>
-        <div class="sort-by">
-          <select class="chosen-select">
-          <option>New Jobs</option>
-          <option>Freelance</option>
-          <option>Full Time</option>
-          <option>Internship</option>
-          <option>Part Time</option>
-          <option>Temporary</option>
-          </select>
-
-          <select class="chosen-select">
-          <option>Show 10</option>
-          <option>Show 20</option>
-          <option>Show 30</option>
-          <option>Show 40</option>
-          <option>Show 50</option>
-          <option>Show 60</option>
-          </select>
-        </div>
-        </div>
-
-
         <div class="row">
-        <!-- Company Block Four -->
-        @foreach ($employers as $employer)
-      <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
-        <div class="inner-box">
-        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-        <span class="featured">Featured</span>
-        <span class="company-logo">
-        <img
-        src="{{ asset($employer->logo ? 'storage/logos/' . $employer->logo : 'images/resource/company-logo/default.png') }}"
-        alt="{{ $employer->company_name }}">
-        </span>
-        <h4><a href="{{ route('employers.details', $employer->id) }}">{{ $employer->company_name }}</a></h4>
-        <ul class="job-info">
-        <li><span class="icon flaticon-map-locator"></span> {{ $employer->location }}</li>
-        <li><span class="icon flaticon-briefcase"></span> {{ $employer->industry }}</li>
-        </ul>
-        <div class="job-type">Open Jobs – {{ $employer->open_jobs ?? 0 }}</div>
-        </div>
-      </div>
-    @endforeach
+          <!-- Company Block Four -->
+          @foreach ($employers as $employer)
+            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
+              <div class="inner-box">
+              <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+              <span class="featured">Featured</span>
+              <span class="company-logo">
+              <img
+              src="{{ asset($employer->logo ? 'storage/logos/' . $employer->logo : 'images/resource/company-logo/default.png') }}"
+              alt="{{ $employer->company_name }}">
+              </span>
+              <h4><a href="{{ route('employers.details', $employer->id) }}">{{ $employer->company_name }}</a></h4>
+              <ul class="job-info">
+              <li><span class="icon flaticon-map-locator"></span> {{ $employer->address->city }},{{$employer->address->state}}</li>
+              <li><span class="icon flaticon-briefcase"></span> {{ $employer->industry }}</li>
+              </ul>
+              <div class="job-type">Open Jobs - {{ $employer->jobs_count ?? 0 }}</div>
+              </div>
+            </div>
+          @endforeach
         </div>
 
-        <!-- Pagination -->
         <!-- Pagination -->
         <nav class="ls-pagination mb-5">
                                 <ul>

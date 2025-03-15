@@ -7,6 +7,8 @@ use App\Models\Jobs;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
 use App\Models\JobAlertNotification;
+use App\Models\AdminNotification;
+use App\Models\Employer;
 use App\Models\JobAlert;
 
 class JobController extends Controller
@@ -134,6 +136,16 @@ class JobController extends Controller
                 'candidate_id' => $candidate->candidate_id,
             ]);
         }
+
+        $employer=auth()->user()->employer;
+        
+        AdminNotification::create([
+            'user_id' => auth()->user()->id,
+            'title'   => 'New Job Posted',
+            'message' => "A new job titled '{$job->title}' has been posted by {$employer->company_name}.",
+            'type'    => 'job_post',
+            'is_read' => false,
+        ]);
 
 
         return redirect()->route('employer.jobs.manage')->with('success', 'Job created successfully.');

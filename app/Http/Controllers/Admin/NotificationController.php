@@ -13,7 +13,7 @@ class NotificationController extends Controller
      {
          $notifications = AdminNotification::latest()->get();
  
-         return view('admin.notifications.index', compact('notifications'));
+         return view('admin.notification', compact('notifications'));
      }
  
      // Mark notification as read

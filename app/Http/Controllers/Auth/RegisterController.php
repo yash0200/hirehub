@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Candidate;
 use App\Models\Employer;
+use App\Models\AdminNotification;
 use App\Models\User;
 use Illuminate\Support\Facades\hash;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,14 @@ class RegisterController extends Controller
                 'location' => $request->location ?? 'Unknown',
                 'website' => $request->website ?? null,
             ]);
+            AdminNotification::create([
+                'user_id' => $user->id,
+                'title'   => 'New Employer Registered',
+                'message' => "{$request->company_name} has registered as an employer.",
+                'type'    => 'employer_registration',
+                'is_read' => false,
+            ]);
+            
         } else {
             Candidate::create([
                 'user_id' => $user->id,

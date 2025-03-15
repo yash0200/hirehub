@@ -44,5 +44,8 @@ class Employer extends Model
     {
         return $this->hasOne(SocialNetwork::class, 'user_id', 'user_id');
     }
-
+    public function notifications()
+    {
+        return $this->hasMany(EmployerNotification::class, 'employer_id');
+    }
 }

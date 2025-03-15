@@ -55,6 +55,11 @@ class Candidate extends Model
     {
         return $this->hasMany(ShortlistedJob::class, 'candidate_id');
     }
+    public function notifications()
+    {
+        return $this->hasMany(CandidateNotification::class, 'candidate_id');
+    }
+
 
 
 

@@ -15,7 +15,6 @@ use App\Http\Controllers\Employer\DashboardController as EmployerDashboard;
 use App\Http\Controllers\Employer\JobController as EmployerJobController;
 use App\Http\Controllers\Employer\ApplicantController as EmployerApplicantController;
 use App\Http\Controllers\Candidate\ApplicantController;
-
 use App\Http\Controllers\Employer\PackageController;
 use App\Http\Controllers\Employer\MessageController as EmployerMessage;
 use App\Http\Controllers\Employer\ProfileController as EmployerProfile;
@@ -23,13 +22,12 @@ use App\Http\Controllers\Employer\CompanyProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Candidate\NotificationsController;
+use App\Http\Controllers\Candidate\NotificationsController as CandidateNotificationController;
 use App\Http\Controllers\EmployersController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\JobCategoryController;
-
 use App\Http\Controllers\Common\HomeController;
-use App\Models\Candidate;
+use App\Http\Controllers\Employer\NotificationController as EmployerNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +95,11 @@ Route::middleware(['auth'])->group(function () {
 
         /** ================== notifications Routes ================== */
 
-        Route::get('/candidate/notifications', [NotificationsController::class, 'index'])->name('candidate.notifications');
+        // Route::get('/candidate/notifications', [NotificationsController::class, 'index'])->name('candidate.notifications');
+        Route::get('/candidate/notifications', [CandidateNotificationController::class, 'index'])->name('candidate.notifications');
+        Route::post('/candidate/notifications/{id}/read', [CandidateNotificationController::class, 'markAsRead'])->name('candidate.notifications.read');
+        Route::delete('/candidate/notifications/{id}', [CandidateNotificationController::class, 'destroy'])->name('candidate.notifications.destroy');
+
 
 
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
@@ -108,7 +110,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
         Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
         Route::delete('/candidate/shortlist-job/{id}', [ShortlistJobsController::class, 'destroy'])->name('candidate.job.destroy');
-
     });
 
     /** ================== Employer Routes ================== */
@@ -130,6 +131,12 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/employer/jobs/{job}', [EmployerJobController::class, 'destroy'])->name('employer.jobs.delete');
         Route::patch('/employer/jobs/{job}/status', [EmployerJobController::class, 'updateStatus'])->name('employer.jobs.status');
 
+        /** ================== notifications Routes ================== */
+        Route::get('/employer/notifications', [EmployerNotificationController::class, 'index'])->name('employer.notifications');
+        Route::post('/employer/notifications/{id}/read', [EmployerNotificationController::class, 'markAsRead'])->name('employer.notifications.read');
+        Route::delete('/employer/notifications/{id}', [EmployerNotificationController::class, 'destroy'])->name('employer.notifications.destroy');
+
+
 
 
         Route::get('/employer/manage-jobs', [EmployerJobController::class, 'manage'])->name('employer.jobs.manage');
@@ -145,7 +152,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employer/change-password', [ChangePasswordController::class, 'employerIndex'])->name('employer.password');
         Route::post('/employer/change-password', [ChangePasswordController::class, 'employerChangePassword'])->name('employer.password.change');
         Route::get('/employer/delete-profile', [ProfileController::class, 'delete'])->name('employer.profile.delete');
-        
     });
 });
 
@@ -153,8 +159,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/jobs', [JobsController::class, 'index'])->name('jobs.list');
 Route::get('/jobs/employer/{employer_id}', [JobsController::class, 'index'])->name('employers.jobs.list');
 Route::get('/jobs/{id}', [JobsController::class, 'show'])->name('jobs.details');
-
-
 
 
 Route::get('/employers/{id}', [EmployersController::class, 'show'])->name('employers.details');

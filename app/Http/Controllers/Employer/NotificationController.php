@@ -1,25 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Candidate;
+namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
-use App\Models\CandidateNotification;
 use Illuminate\Http\Request;
+use App\Models\EmployerNotification;
 use Illuminate\Support\Facades\Auth;
 
-class NotificationsController extends Controller
+class NotificationController extends Controller
 {
+    // Show all notifications for the logged-in employer
     public function index()
     {
-        $notifications = CandidateNotification::where('candidate_id', Auth::user()->candidate->id)
+        $notifications = EmployerNotification::where('employer_id', Auth::user()->employer->id)
             ->latest()
             ->get();
-        return view('candidates.notification', compact('notifications'));
+
+        return view('employer.notifications.index', compact('notifications'));
     }
+
     // Mark notification as read
     public function markAsRead($id)
     {
-        $notification = CandidateNotification::findOrFail($id);
+        $notification = EmployerNotification::findOrFail($id);
         $notification->update(['is_read' => true]);
 
         return redirect()->back()->with('success', 'Notification marked as read.');
@@ -28,7 +31,8 @@ class NotificationsController extends Controller
     // Delete notification
     public function destroy($id)
     {
-        CandidateNotification::destroy($id);
+        EmployerNotification::destroy($id);
+
         return redirect()->back()->with('success', 'Notification deleted successfully.');
     }
 }

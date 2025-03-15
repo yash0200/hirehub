@@ -50,8 +50,8 @@
                             <ul class="notification-list">
                                 @foreach($notifications as $notification)
                                     @php
-                                        // Fetch the corresponding applicant's status
-                                        $applicant = \App\Models\Applicant::where('id', $notification->applicant_id)->first();
+                                        // Fetch the corresponding applicant's status for green and danger
+                                        $applicant = \App\Models\Applicant::where('id', $notification->candidate_id)->first();
                                         $statusClass = $applicant && $applicant->status == 'approved' ? 'success' : 
                                                     ($applicant && $applicant->status == 'rejected' ? 'danger' : '');
                                     @endphp
@@ -59,9 +59,7 @@
                                     <li class="{{ $statusClass }}">
                                         <span class="icon flaticon-briefcase"></span> 
                                         {{ $notification->message }} 
-                                        @if($applicant)
-                                            <strong>{{ ucfirst($applicant->status) }}</strong>.
-                                        @endif
+                                
                                     </li>
                                 @endforeach
                             </ul>

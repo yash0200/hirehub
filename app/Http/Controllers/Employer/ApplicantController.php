@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Jobs;
 use App\Models\Applicant;
-use App\Models\Notification;
+use App\Models\CandidateNotification;
 use App\Models\Candidate;
 
 class ApplicantController extends Controller
@@ -35,11 +35,6 @@ class ApplicantController extends Controller
 
         return view('employers.employer_applicants', compact('applicants', 'jobs', 'totals', 'approved', 'rejected'));
     }
-    public function job()
-    {
-        return $this->belongsTo(Jobs::class);
-    }
-
     public function approveApplicant($id)
     {
         $applicant = Applicant::findOrFail($id);
@@ -49,11 +44,14 @@ class ApplicantController extends Controller
         $applicant->status = 'approved';
         $applicant->save();
 
-        // Create a notification
-        Notification::create([
-            'user_id' => $applicant->candidate_id, // Assuming candidate_id links to users
-            'message' => "Your application has been approved successfully.",
+        CandidateNotification::create([
+            'candidate_id' => $applicant->candidate_id,
+            'title'        => 'Application Approved',
+            'message'      => "Your application for the position '{$applicant->job->title}' has been approved successfully.",
+            'type'         => 'application_status',  // Add this field
+            'is_read'      => false,
         ]);
+
 
         return response()->json(['message' => 'Application approved successfully.']);
     }
@@ -76,12 +74,14 @@ class ApplicantController extends Controller
             $applicant->status = 'rejected';
             $applicant->save();
 
-
-            Notification::create([
-                'user_id' => $applicant->candidate_id, // Ensure this field exists
-                'message' => "Your application has been rejected.",
+            // Create rejection notification
+            CandidateNotification::create([
+                'candidate_id' => $applicant->candidate_id,
+                'title'        => 'Application Rejected',
+                'message'      => "Unfortunately, your application for the position '{$applicant->job->title}' has been rejected.",
+                'type'         => 'application_status',
+                'is_read'      => false,
             ]);
-
 
             return response()->json(['message' => 'Application rejected successfully.']);
         } catch (\Exception $e) {

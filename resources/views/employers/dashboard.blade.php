@@ -17,7 +17,7 @@
       <div class="text">Ready to jump back in?</div>
     </div>
     <div class="row">
-      <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+      <div class="ui-block col-xl-4 col-lg-6 col-md-6 col-sm-12">
       <div class="ui-item">
         <div class="left">
         <i class="icon flaticon-briefcase"></i>
@@ -63,7 +63,7 @@
           </div>
         </div>
       </div> --}}
-      <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+      <div class="ui-block col-xl-4 col-lg-6 col-md-6 col-sm-12">
         <div class="ui-item ui-green">
             <div class="left">
                 <i class="icon la la-check-circle"></i>
@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+    <div class="ui-block col-xl-4 col-lg-6 col-md-6 col-sm-12">
         <div class="ui-item ui-yellow">
             <div class="left">
                 <i class="icon la la-times-circle"></i>
@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+    <div class="ui-block col-xl-4 col-lg-6 col-md-6 col-sm-12">
         <div class="ui-item ui-blue">
             <div class="left">
                 <i class="icon la la-calendar-times-o"></i>

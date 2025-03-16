@@ -21,9 +21,6 @@ class Candidate extends Model
         'education_levels',
         'languages',
         'description',
-        'facebook',
-        'twitter',
-        'linkedin',
     ];
     public function user()
     {

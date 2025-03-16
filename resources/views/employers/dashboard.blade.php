@@ -141,19 +141,47 @@
               <li><span class="icon flaticon-map-locator"></span> {{ $applicant->candidate->address->city??''}} ,{{ $applicant->candidate->address->state??''}}</li>
               <li><span class="icon flaticon-money"></span> ${{ $applicant->job->salary }}</li>
             </ul>
-            {{-- {{dd($applicant)}} --}}
             <ul class="post-tags">
-              <li><a href="#">App</a></li>
-              <li><a href="#">Design</a></li>
-              <li><a href="#">Digital</a></li>
-            </ul>
+              @foreach ($applicant->resume->skills as $skill)
+                  <li><a href="#">{{ $skill }}</a></li>
+              @endforeach
+          </ul>
             </div>
             <div class="option-box">
-            <ul class="option-list">
-              <li><button data-text="View Application"><span class="la la-eye"></span></button></li>
-              <li><button data-text="Approve Application"><span class="la la-check"></span></button></li>
-              <li><button data-text="Reject Application"><span class="la la-times-circle"></span></button></li>
-              <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li>
+              <ul class="option-list">
+                <!-- Assuming the options are actions for managing applicants -->
+                <li>
+                    <a href="{{ route('employer.applicant.view', ['id' => $applicant->candidate_id]) }}"
+                        data-text="View Applicant Profile">
+                        <span class="la la-eye"></span>
+                    </a>
+                </li>
+                @if ($applicant->status === 'Pending')
+                    <li>
+                        <button data-text="Approve Application"
+                            class="approve-btn"
+                            data-id="{{ $applicant->id }}">
+                            <span class="la la-check"></span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="reject-btn"
+                            data-id="{{ $applicant->id }}"
+                            data-text="Reject Application"><span
+                                class="la la-times-circle"></span>
+                        </button>
+                    </li>
+                @elseif ($applicant->status === 'approved')
+                    <li>
+                        <span class="status text-success">Approved</span>
+                    </li>
+                @elseif ($applicant->status === 'rejected')
+                    <li>
+                        <span class="status text-danger">Rejected</span>
+                    </li>
+                @endif
+
+                <!-- <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li> -->
             </ul>
             </div>
             </div>

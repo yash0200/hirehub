@@ -9,6 +9,20 @@
       <h3>Applied Jobs</h3>
       <div class="text">Ready to jump back in?</div>
     </div>
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
 
     <div class="row">
       <div class="col-lg-12">
@@ -67,12 +81,43 @@
                       <td class="status">{{ ucfirst($job->status) }}</td>
                       <td>
                         <div class="option-box">
-                          <ul class="option-list">
-                            <li><button data-text="View Application"><span class="la la-eye"></span></button></li>
-                            <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li>
-                          </ul>
+                            <ul class="option-list">
+                                <li>
+                                  <a href="{{ route('candidate.application.view', ['id' => $job->id]) }}"
+                                    data-text="View Application">
+                                    <span class="la la-eye"></span>
+                                  </a>
+                                </li>
+                    
+                                @if($job->status === 'Pending')
+                                    <li>
+                                        <button data-text="Delete Application"
+                                                class="delete-btn"
+                                                data-id="{{ $job->id }}">
+                                            <span class="la la-trash"></span>
+                                        </button>
+                                    </li>
+                                @elseif($job->status === 'approved')
+                                    <li>
+                                        <button data-text="Accept Offer"
+                                                class="accept-offer-btn"
+                                                data-id="{{ $job->id }}">
+                                            <span class="la la-handshake"></span>
+                                        </button>
+                                    </li>
+                                @elseif($job->status === 'rejected')
+                                    <li>
+                                        <button data-text="Delete Application"
+                                                class="delete-btn"
+                                                data-id="{{ $job->id }}">
+                                            <span class="la la-trash"></span>
+                                        </button>
+                                    </li>
+                                @endif
+                            </ul>
                         </div>
-                      </td>
+                    </td>
+                    
                     </tr>
                     @endforeach
                   </tbody>

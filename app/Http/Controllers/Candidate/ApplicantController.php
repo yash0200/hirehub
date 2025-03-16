@@ -41,6 +41,6 @@ class ApplicantController extends Controller
 
         $application->save();
 
-        return redirect()->route('jobs.list')->with('success', 'Your application has been submitted successfully.');
+        return redirect()->route('candidate.appliedjobs')->with('success', 'Your application has been submitted successfully.');
     }
 }

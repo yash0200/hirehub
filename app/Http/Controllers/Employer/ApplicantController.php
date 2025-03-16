@@ -47,7 +47,7 @@ class ApplicantController extends Controller
         CandidateNotification::create([
             'candidate_id' => $applicant->candidate_id,
             'title'        => 'Application Approved',
-            'message'      => "Your application for the position '{$applicant->job->title}' has been approved successfully.",
+            'message'      => "Congratulations! Your application for the position '{$applicant->job->title}' has been approved successfully.",
             'type'         => 'application_status',  // Add this field
             'is_read'      => false,
         ]);
@@ -55,7 +55,7 @@ class ApplicantController extends Controller
 
         return response()->json(['message' => 'Application approved successfully.']);
     }
-    public function viewApplicant($id)
+    public function viewProfile($id)
     {
         $candidate = Candidate::with(['resume', 'socialNetworks', 'address'])
             ->where('id', $id)
@@ -63,6 +63,20 @@ class ApplicantController extends Controller
 
         return view('employers.candidate_profile', compact('candidate'));
     }
+
+    public function viewApplicant($id)
+    {
+        $application = Applicant::with(['job', 'candidate', 'resume'])->findOrFail($id);
+        // $application = Applicant::with([
+        //     'job.employer',
+        //     'candidate.user',
+        //     'resume'
+        // ])->findOrFail($id);
+        
+
+        return view('applications.view_application', compact('application'));
+    }
+
     public function rejectApplicant($id)
     {
         try {

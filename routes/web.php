@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/candidate/jobs/{jobId}/apply', [ApplicantController::class, 'apply'])->name('job.apply');
 
 
+
         Route::get('/candidate/applications', [ApplicantController::class, 'index'])->name('candidate.applications');
 
         Route::get('/candidate/resumes', [CandidateResumeController::class, 'show'])->name('candidate.resumes');
@@ -106,7 +107,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/change-password', [ChangePasswordController::class, 'candidateIndex'])->name('candidate.password');
         Route::post('/candidate/change-password', [ChangePasswordController::class, 'candidateChangePassword'])->name('candidate.password.change');
         Route::get('/candidate/delete-profile', [ProfileController::class, 'delete'])->name('candidate.profile.delete');
+
+        // Candidate Applied Jobs and  Actions
         Route::get('/candidate/appliedjobs', [AppliedJobsController::class, 'index'])->name('candidate.appliedjobs');
+        Route::post('/candidate/applications/{id}/delete', [AppliedJobsController::class, 'deleteApplication'])->name('candidate.application.delete');
+        Route::post('/candidate/applications/{id}/accept-offer', [AppliedJobsController::class, 'acceptOffer'])->name('candidate.application.acceptOffer');
+        Route::get('/candidate/application/{id}', [AppliedJobsController::class, 'viewApplication'])->name('candidate.application.view');
+
+
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
         Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
         Route::delete('/candidate/shortlist-job/{id}', [ShortlistJobsController::class, 'destroy'])->name('candidate.job.destroy');
@@ -144,6 +152,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/employer/applicants/{id}/approve', [EmployerApplicantController::class, 'approveApplicant'])->name('employer.applicant.approve');
         Route::post('/employer/applicants/{id}/reject', [EmployerApplicantController::class, 'rejectApplicant'])->name('employer.applicant.reject');
         Route::get('/employer/applicants/{id}/view', [EmployerApplicantController::class, 'viewApplicant'])->name('employer.applicant.view');
+        Route::get('/employer/application/{id}', [EmployerApplicantController::class, 'viewProfile'])->name('employer.applicant.profile');
+
 
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
         Route::get('/employer/packages', [PackageController::class, 'index'])->name('employer.packages');

@@ -73,7 +73,7 @@
                                                                             alt="">
                                                                     </figure>
                                                                     <h4 class="name">
-                                                                        <a href="{{ route('employer.applicant.view', ['id' => $applicant->candidate_id]) }}">
+                                                                        <a href="{{ route('employer.applicant.profile', ['id' => $applicant->candidate_id]) }}">
                                                                             {{ $applicant->candidate->full_name }}
                                                                         </a>
                                                                     </h4>
@@ -96,22 +96,35 @@
                                                                     <ul class="option-list">
                                                                         <!-- Assuming the options are actions for managing applicants -->
                                                                         <li>
-                                                                            <a href="{{ route('employer.applicant.view', ['id' => $applicant->candidate_id]) }}"
-                                                                                data-text="View Applicant Profile">
+                                                                            <a href="{{ route('employer.applicant.view', ['id' => $applicant->id]) }}"
+                                                                                data-text="View Application">
                                                                                 <span class="la la-eye"></span>
                                                                             </a>
                                                                         </li>
-                                                                        <li>
-                                                                            <button data-text="Approve Application"
-                                                                                class="approve-btn"
-                                                                                data-id="{{ $applicant->id }}">
-                                                                                <span class="la la-check"></span>
-                                                                            </button>
-                                                                        </li>
-                                                                        <li><button class="reject-btn"
-                                                                                data-id="{{ $applicant->id }}"
-                                                                                data-text="Reject Application"><span
-                                                                                    class="la la-times-circle"></span></button></li>
+                                                                        @if ($applicant->status === 'Pending')
+                                                                            <li>
+                                                                                <button data-text="Approve Application"
+                                                                                    class="approve-btn"
+                                                                                    data-id="{{ $applicant->id }}">
+                                                                                    <span class="la la-check"></span>
+                                                                                </button>
+                                                                            </li>
+                                                                            <li>
+                                                                                <button class="reject-btn"
+                                                                                    data-id="{{ $applicant->id }}"
+                                                                                    data-text="Reject Application"><span
+                                                                                        class="la la-times-circle"></span>
+                                                                                </button>
+                                                                            </li>
+                                                                        @elseif ($applicant->status === 'approved')
+                                                                            <li>
+                                                                                <span class="status text-success">Approved</span>
+                                                                            </li>
+                                                                        @elseif ($applicant->status === 'rejected')
+                                                                            <li>
+                                                                                <span class="status text-danger">Rejected</span>
+                                                                            </li>
+                                                                        @endif
 
                                                                         <!-- <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li> -->
                                                                     </ul>
@@ -179,10 +192,10 @@
                                                                             </button>
                                                                         </li>
                                                                         <li>
-                                                                            <button data-text="Reject Application"
-                                                                                    class="reject-btn"
-                                                                                    data-id="{{ $applicant->id }}">
-                                                                                <span class="la la-times-circle"></span>
+                                                                            <button data-text="Already Rejected"
+                                                                                    class="disabled-btn"
+                                                                                    disabled>
+                                                                                <span class="la la-times-circle text-danger"></span>
                                                                             </button>
                                                                         </li>
                                                                     </ul>

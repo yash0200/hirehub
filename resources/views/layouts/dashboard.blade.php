@@ -53,12 +53,16 @@
     <script src="{{ asset('js/wow.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{asset('js/chart.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script>
         setTimeout(function() {
             document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
         }, 3000);
-        
+
+
+        //for chart in employer dashbaord
         document.addEventListener("DOMContentLoaded", function() {
             var userType = "{{ $userType }}"; // Get user type from Blade variable
 
@@ -94,7 +98,7 @@
                 });
                 @endif
             }
-
+            //for action in employer all pplicant tab
             document.querySelectorAll('.approve-btn').forEach(button => {
                 button.addEventListener('click', function () {
                     let applicantId = this.getAttribute('data-id');
@@ -138,6 +142,61 @@
             });
 
 
+        });
+
+        // for candidate actions
+        $(document).ready(function () {
+            // Delete Application
+            $('.delete-btn').on('click', function () {
+                let applicationId = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to undo this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/candidate/applications/${applicationId}/delete`,
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (response) {
+                                Swal.fire('Deleted!', response.success, 'success');
+                                location.reload(); // Refresh page to reflect changes
+                            },
+                            error: function (response) {
+                                Swal.fire('Error!', response.responseJSON.error, 'error');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Accept Offer
+            $('.accept-offer-btn').on('click', function () {
+                let applicationId = $(this).data('id');
+
+                $.ajax({
+                    url: `/candidate/applications/${applicationId}/accept-offer`,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        Swal.fire('Success!', response.success, 'success');
+                        location.reload(); // Refresh page to reflect changes
+                    },
+                    error: function (response) {
+                        Swal.fire('Error!', response.responseJSON.error, 'error');
+                    }
+                });
+            });
         });
 
 

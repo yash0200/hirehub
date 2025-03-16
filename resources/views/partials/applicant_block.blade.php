@@ -35,10 +35,10 @@
                     </a>
                 </li>
                 <li>
-                    <button data-text="Approve Application"
-                            class="approve-btn"
-                            data-id="{{ $applicant->id }}">
-                        <span class="la la-check"></span>
+                    <button data-text="Already Approved"
+                            class="disabled-btn"
+                            disabled>
+                        <span class="la la-check text-success"></span>
                     </button>
                 </li>
                 <li>

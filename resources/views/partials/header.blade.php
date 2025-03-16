@@ -128,20 +128,38 @@
 
             @auth
 
-            <!-- Saved Jobs (Only for Candidates) -->
-            @if(auth()->user()->user_type === 'candidate')
+           <!-- Saved Jobs (Candidate Only) -->
+            @if($userType === 'candidate')
             <button class="menu-btn">
-                <span class="count"></span>
+                <span class="count">{{ $savedJobsCount > 0 ? $savedJobsCount : '' }}</span>
                 <span class="icon la la-heart-o"></span>
             </button>
             @endif
 
-            <!-- Notifications -->
+            <!-- Candidate Notifications -->
+            @if($userType === 'candidate')
             <button class="menu-btn">
                 <span class="icon la la-bell"></span>
-                <span class="count"></span>
+                <span class="count">{{ $candidateUnreadNotificationsCount > 0 ? $candidateUnreadNotificationsCount : '' }}</span>
             </button>
-            
+            @endif
+
+            <!-- Employer Notifications -->
+            @if($userType === 'employer')
+            <button class="menu-btn">
+                <span class="icon la la-bell"></span>
+                <span class="count">{{ $employerUnreadNotificationsCount > 0 ? $employerUnreadNotificationsCount : '' }}</span>
+            </button>
+            @endif
+
+            <!-- Admin Notifications -->
+            @if($userType === 'admin')
+            <button class="menu-btn">
+                <span class="icon la la-bell"></span>
+                <span class="count">{{ $adminUnreadNotificationsCount > 0 ? $adminUnreadNotificationsCount : '' }}</span>
+            </button>
+            @endif
+
 
             <!-- Dashboard Option -->
             <div class="dropdown dashboard-option">

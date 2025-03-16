@@ -135,7 +135,7 @@
             <figure class="image">
               <img src="{{ asset('/storage/profile_photos/' . $applicant->candidate->profile_photo) }}" alt="{{ $applicant->name }}">
             </figure>
-            <h4 class="name"><a href="#">{{ $applicant->candidate->full_name }}</a></h4>
+            <h4 class="name"><a href="{{ route('employer.applicant.profile', ['id' => $applicant->candidate_id]) }}">{{ $applicant->candidate->full_name }}</a></h4>
             <ul class="candidate-info">
               <li class="designation">{{ $applicant->resume->job_title }}</li>
               <li><span class="icon flaticon-map-locator"></span> {{ $applicant->candidate->address->city??''}} ,{{ $applicant->candidate->address->state??''}}</li>
@@ -151,8 +151,8 @@
               <ul class="option-list">
                 <!-- Assuming the options are actions for managing applicants -->
                 <li>
-                    <a href="{{ route('employer.applicant.view', ['id' => $applicant->candidate_id]) }}"
-                        data-text="View Applicant Profile">
+                    <a href="{{ route('employer.applicant.view', ['id' => $applicant->id]) }}"
+                        data-text="View Application">
                         <span class="la la-eye"></span>
                     </a>
                 </li>

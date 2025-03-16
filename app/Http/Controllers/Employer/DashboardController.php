@@ -23,29 +23,46 @@ class DashboardController extends Controller
             ->where('jobs.employer_id', $user->employer->id)
             ->count();
 
+        // New Job Status Counts
+        $activeJobs = Jobs::where('employer_id', $user->employer->id)
+            ->where('status', 'active')
+            ->count();
+
+        $closedJobs = Jobs::where('employer_id', $user->employer->id)
+            ->where('status', 'closed')
+            ->count();
+
+        $inactiveJobs = Jobs::where('employer_id', $user->employer->id)
+            ->where('status', 'inactive')
+            ->count();
+
+        $expiredJobs = Jobs::where('employer_id', $user->employer->id)
+            ->where('status', 'expired')
+            ->count();
+
         $applicants = Applicant::with(['candidate.address', 'job', 'resume'])
             ->latest()
             ->take(6)
             ->get();
 
-            $chartData = [];
+        $chartData = [];
 
-            if (Auth::user()->user_type === 'employer') {
-                $jobPerformance = DB::table('jobs')
-                    ->leftJoin('applicants', 'jobs.id', '=', 'applicants.job_id')
-                    ->where('jobs.employer_id', $user->employer->id)
-                    ->select('jobs.title', DB::raw('COUNT(applicants.id) as application_count'))
-                    ->groupBy('jobs.id', 'jobs.title')
-                    ->orderByDesc('application_count')
-                    ->take(6)
-                    ->get();
-            
-                $chartData = [
-                    'labels' => $jobPerformance->pluck('title')->toArray(),
-                    'applications' => $jobPerformance->pluck('application_count')->toArray(),
-                ];
-            }
+        if (Auth::user()->user_type === 'employer') {
+            $jobPerformance = DB::table('jobs')
+                ->leftJoin('applicants', 'jobs.id', '=', 'applicants.job_id')
+                ->where('jobs.employer_id', $user->employer->id)
+                ->select('jobs.title', DB::raw('COUNT(applicants.id) as application_count'))
+                ->groupBy('jobs.id', 'jobs.title')
+                ->orderByDesc('application_count')
+                ->take(6)
+                ->get();
 
-        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants','chartData'));
+            $chartData = [
+                'labels' => $jobPerformance->pluck('title')->toArray(),
+                'applications' => $jobPerformance->pluck('application_count')->toArray(),
+            ];
+        }
+
+        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants', 'chartData','activeJobs', 'closedJobs', 'inactiveJobs', 'expiredJobs'));
     }
 }

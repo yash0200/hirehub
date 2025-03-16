@@ -41,28 +41,75 @@
       </div>
       </div>
 
+      {{-- <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-yellow">
+          <div class="left">
+          <i class="icon la la-comment-o"></i>
+          </div>
+          <div class="right">
+          <h4>74</h4>
+          <p>Messages</p>
+          </div>
+        </div>
+      </div>
       <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
-      <div class="ui-item ui-yellow">
-        <div class="left">
-        <i class="icon la la-comment-o"></i>
+        <div class="ui-item ui-green">
+          <div class="left">
+          <i class="icon la la-bookmark-o"></i>
+          </div>
+          <div class="right">
+          <h4>32</h4>
+          <p>Shortlist</p>
+          </div>
         </div>
-        <div class="right">
-        <h4>74</h4>
-        <p>Messages</p>
-        </div>
-      </div>
-      </div>
+      </div> --}}
       <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
-      <div class="ui-item ui-green">
-        <div class="left">
-        <i class="icon la la-bookmark-o"></i>
+        <div class="ui-item ui-green">
+            <div class="left">
+                <i class="icon la la-check-circle"></i>
+            </div>
+            <div class="right">
+                <h4>{{ $activeJobs }}</h4>
+                <p>Active Jobs</p>
+            </div>
         </div>
-        <div class="right">
-        <h4>32</h4>
-        <p>Shortlist</p>
+    </div>
+
+    <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-yellow">
+            <div class="left">
+                <i class="icon la la-times-circle"></i>
+            </div>
+            <div class="right">
+                <h4>{{ $closedJobs }}</h4>
+                <p>Closed Jobs</p>
+            </div>
         </div>
-      </div>
-      </div>
+    </div>
+
+    <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-purple">
+            <div class="left">
+                <i class="icon la la-ban"></i>
+            </div>
+            <div class="right">
+                <h4>{{ $inactiveJobs }}</h4>
+                <p>Inactive Jobs</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-blue">
+            <div class="left">
+                <i class="icon la la-calendar-times-o"></i>
+            </div>
+            <div class="right">
+                <h4>{{ $expiredJobs }}</h4>
+                <p>Expired Jobs</p>
+            </div>
+        </div>
+    </div>
     </div>
 
     <div class="row">

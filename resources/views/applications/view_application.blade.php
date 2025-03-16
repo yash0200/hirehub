@@ -36,7 +36,7 @@
                             <h4>Job Title: {{ $application->job->title }}</h4>
                             <p><strong>Employer: </strong> {{ $application->job->employer->company_name }}</p>
                             <p><strong>Industry: </strong> {{ $application->job->employer->industry ?? 'Not specified' }}</p>
-                            <p><strong>Location: </strong> {{ $application->job->location ?? 'Location not specified' }}</p>
+                            <p><strong>Location: </strong> {{ $application->job->jobAddress->city ?? 'Location not specified' }}</p>
                             <p><strong>Experience Required: </strong> {{ $application->job->experience ?? 'Not specified' }}</p>
                             <p><strong>Salary: </strong> {{ $application->job->salary ?? 'Not specified' }}</p>
                             <p><strong>Application Date: </strong> {{ \Carbon\Carbon::parse($application->created_at)->format('M d, Y') }}</p>

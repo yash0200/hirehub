@@ -246,7 +246,7 @@
                     <li class="{{ request()->routeIs('employer.applicants') ? 'active' : '' }}">
                         <a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i>All Applicant</a>
                     </li>
-                    <li class="{{ request()->routeIs('employer.resumes') ? 'active' : '' }}">
+                    {{-- <li class="{{ request()->routeIs('employer.resumes') ? 'active' : '' }}">
                         <a href="{{ route('employer.resumes') }}"><i class="la la-bookmark-o"></i>Shortlisted Resume</a>
                     </li>
                     <li class="{{ request()->routeIs('employer.packages') ? 'active' : '' }}">
@@ -257,7 +257,7 @@
                     </li>
                     <li class="{{ request()->routeIs('employer.resume.alerts') ? 'active' : '' }}">
                         <a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i>Resume Alert</a>
-                    </li>
+                    </li> --}}
                     <li class="{{ request()->routeIs('employer.password.change') ? 'active' : '' }}">
                         <a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a>
                     </li>

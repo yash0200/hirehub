@@ -97,21 +97,21 @@
                     </li>
 
                     @auth
-                    @if(auth()->user()->name === 'admin')
+                        @if(auth()->user()->name === 'admin')
 
-                    <li><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
-                    <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
-                    <li><a href="{{ route('admin.settings') }}">Settings</a></li>
+                        <li><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
+                        <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
+                        <li><a href="{{ route('admin.settings') }}">Settings</a></li>
 
-                    @elseif(auth()->user()->user_type === 'candidate')
-                    <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
-                    <li><a href="{{ route('candidate.profile') }}">My Profile</a></li>
-                    <li><a href="{{ route('candidate.applications') }}">My Applications</a></li>
+                        @elseif(auth()->user()->user_type === 'candidate')
+                        <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
+                        <li><a href="{{ route('candidate.profile') }}">My Profile</a></li>
+                        <li><a href="{{ route('candidate.applications') }}">My Applications</a></li>
 
-                    @elseif(auth()->user()->user_type === 'employer')
+                        @elseif(auth()->user()->user_type === 'employer')
 
-                    <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
-                    @endif
+                        <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
+                        @endif
                     @endauth
                 </ul>
             </nav>
@@ -247,7 +247,7 @@
                     <li class="{{ request()->routeIs('employer.applicants') ? 'active' : '' }}">
                         <a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i>All Applicant</a>
                     </li>
-                    <li class="{{ request()->routeIs('employer.resumes') ? 'active' : '' }}">
+                    {{-- <li class="{{ request()->routeIs('employer.resumes') ? 'active' : '' }}">
                         <a href="{{ route('employer.resumes') }}"><i class="la la-bookmark-o"></i>Shortlisted Resume</a>
                     </li>
                     <li class="{{ request()->routeIs('employer.packages') ? 'active' : '' }}">
@@ -258,7 +258,7 @@
                     </li>
                     <li class="{{ request()->routeIs('employer.resume.alerts') ? 'active' : '' }}">
                         <a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i>Resume Alert</a>
-                    </li>
+                    </li> --}}
                     <li class="{{ request()->routeIs('employer.password.change') ? 'active' : '' }}">
                         <a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a>
                     </li>

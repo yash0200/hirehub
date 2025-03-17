@@ -256,10 +256,10 @@
                 @endif
                 @elseif($user->user_type === 'employer')
                 {{-- Employer User --}}
-                <button class="ud-btn-transparent at-home18" disabled>Employers cannot apply for jobs</button>
+                <!-- <button class="ud-btn-transparent at-home18" disabled>Employers cannot apply for jobs</button> -->
                 @elseif($user->user_type === 'admin')
                 {{-- Admin User --}}
-                <button class="ud-btn-transparent at-home18" disabled>Admins cannot apply for jobs</button>
+                <!-- <button class="ud-btn-transparent at-home18" disabled>Admins cannot apply for jobs</button> -->
                 @endif
               </div>
             </div>

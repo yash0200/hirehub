@@ -17,9 +17,9 @@
             </li>
 
             <!-- Manage Job Posts -->
-            <li class="{{ request()->routeIs('admin.jobs') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('admin.jobs') ? 'active' : '' }}">
                 <a href="{{ route('admin.jobs') }}"><i class="la la-briefcase"></i> Manage Job Posts</a>
-            </li>
+            </li> -->
 
             <!-- Job Categories -->
             <li class="{{ request()->routeIs('admin.categories') ? 'active' : '' }}">
@@ -27,9 +27,9 @@
             </li>
 
             <!-- Application Management -->
-            <li class="{{ request()->routeIs('admin.applications') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('admin.applications') ? 'active' : '' }}">
                 <a href="{{ route('admin.applications') }}"><i class="la la-file-invoice"></i> View Applications</a>
-            </li>
+            </li> -->
 
             <!-- Payments -->
             <!-- <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
@@ -72,9 +72,9 @@
             </li>
 
             <!-- Delete Admin Account -->
-            <li class="{{ request()->routeIs('admin.profile.delete') ? 'active' : '' }}">
+            <!-- <li class="{{ request()->routeIs('admin.profile.delete') ? 'active' : '' }}">
                 <a href="{{ route('admin.profile.delete') }}"><i class="la la-trash"></i> Delete Account</a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </div>

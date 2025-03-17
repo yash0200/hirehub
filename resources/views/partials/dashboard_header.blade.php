@@ -106,7 +106,7 @@
                         @elseif(auth()->user()->user_type === 'candidate')
                         <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
                         <li><a href="{{ route('candidate.profile') }}">My Profile</a></li>
-                        <li><a href="{{ route('candidate.applications') }}">My Applications</a></li>
+                        <li><a href="{{ route('candidate.appliedjobs') }}">My Applications</a></li>
 
                         @elseif(auth()->user()->user_type === 'employer')
 
@@ -201,9 +201,9 @@
                     </li>
 
                     <!-- Manage Job Posts -->
-                    <li class="{{ request()->routeIs('admin.jobs') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.jobs') ? 'active' : '' }}">
                         <a href="{{ route('admin.jobs') }}"><i class="la la-briefcase"></i> Manage Job Posts</a>
-                    </li>
+                    </li> -->
 
                     <!-- Job Categories -->
                     <li class="{{ request()->routeIs('admin.categories') ? 'active' : '' }}">
@@ -211,14 +211,14 @@
                     </li>
 
                     <!-- Application Management -->
-                    <li class="{{ request()->routeIs('admin.applications') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.applications') ? 'active' : '' }}">
                         <a href="{{ route('admin.applications') }}"><i class="la la-file-invoice"></i> View Applications</a>
-                    </li>
+                    </li> -->
 
                     <!-- Payments -->
-                    <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
                         <a href="{{ route('admin.payments') }}"><i class="la la-credit-card"></i> Payments</a>
-                    </li>
+                    </li> -->
 
                     <!-- Notifications -->
                     <li class="{{ request()->routeIs('admin.notifications') ? 'active' : '' }}">
@@ -226,14 +226,14 @@
                     </li>
 
                     <!-- Reports -->
-                    <li class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
                         <a href="{{ route('admin.reports') }}"><i class="la la-chart-line"></i> Reports</a>
-                    </li>
+                    </li> -->
 
                     <!-- Site Settings -->
-                    <li class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
                         <a href="{{ route('admin.settings') }}"><i class="la la-cogs"></i> Site Settings</a>
-                    </li>
+                    </li> -->
 
                     <!-- Change Password -->
                     <li class="{{ request()->routeIs('admin.password.change') ? 'active' : '' }}">
@@ -246,9 +246,9 @@
                     </li>
 
                     <!-- Delete Admin Account -->
-                    <li class="{{ request()->routeIs('admin.profile.delete') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.profile.delete') ? 'active' : '' }}">
                         <a href="{{ route('admin.profile.delete') }}"><i class="la la-trash"></i> Delete Account</a>
-                    </li>
+                    </li> -->
 
 
                     @elseif(auth()->user()->user_type === 'employer')

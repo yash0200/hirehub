@@ -15,6 +15,10 @@
                 <div class="notification-widget ls-widget">
                     <div class="widget-title">
                         <h4>Notifications</h4>
+                        <form action="{{ route('admin.notifications.readAll') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-sm">Mark All as Read</button>
+                        </form>
                     </div>
                     <div class="widget-content">
                         <ul class="notification-list">

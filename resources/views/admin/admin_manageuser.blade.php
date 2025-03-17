@@ -31,17 +31,32 @@
                         <div class="widget-title">
                             <h4>Users</h4>
                             <div class="chosen-outer">
-                                <form method="get" class="default-form form-inline" action="">
-                                    <!--Tabs Box-->
+                                <form method="GET" class="default-form form-inline">
                                     <div class="row">
-                                        <div class="form-group mb-0 mr-2 col-lg-6">
-                                            <input type="text" name="s" value="" placeholder="Search by name" class="form-control">
+                                        <!-- Combined Search by Name or Email -->
+                                        <div class="form-group col-md-6">
+                                            <input type="text" name="keyword" value="{{ request('keyword') }}" 
+                                                   placeholder="Search by name or email" 
+                                                   class="form-control">
                                         </div>
-                                        <div class="col-lg-6">
+                                
+                                        <!-- Filter by Status -->
+                                        <div class="form-group col-md-3">
+                                            <select name="status" class="form-control">
+                                                <option value="">All Status</option>
+                                                <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                                                <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                                <option value="suspended" {{ request('status') == 'suspended' ? 'selected' : '' }}>Suspended</option>
+                                            </select>
+                                        </div>
+                                
+                                        <div class="col-md-3">
                                             <button type="submit" class="theme-btn btn-style-one">Search</button>
                                         </div>
                                     </div>
                                 </form>
+                                
+                                
                             </div>
                         </div>
                         <div class="widget-content">
@@ -58,16 +73,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($users as $user)
+                                        @foreach($users as $index => $user)
                                         <tr class="publish">
+                                            <!-- Serial Number -->
                                             <td class="title">
-                                                <a href="{{ route('admin.users.view', $user->id) }}">{{ $user->id }}</a>
+                                                {{ ($users->currentPage() - 1) * $users->perPage() + $index + 1 }}
                                             </td>
+                                            
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->created_at }}</td>
+                                            <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                             <td>
-                                                <span class=" @if($user->status === 'active') badge-success 
+                                                <span class="
+                                                    @if($user->status === 'active') badge-success 
                                                     @elseif($user->status === 'inactive') badge-warning 
                                                     @else badge-danger 
                                                     @endif">{{ ucfirst($user->status) }}
@@ -76,29 +94,27 @@
                                             <td>
                                                 <div class="option-box">
                                                     <ul class="option-list">
-                                                        <!-- View Profile -->
                                                         <li>
                                                             <a href="{{ route('admin.users.view', $user->id) }}" target="_blank" data-text="View Profile">
                                                                 <span class="la la-eye"></span>
                                                             </a>
                                                         </li>
-                                                        <!-- Edit User -->
-                                                        <li>
+                                                        {{-- <li>
                                                             <a href="{{ route('admin.users.edit', $user->id) }}" data-text="Edit User">
                                                                 <span class="la la-pencil"></span>
                                                             </a>
-                                                        </li>
-                                                        <!-- Delete User -->
+                                                        </li> --}}
                                                         <li>
-                                                            <form action="{{ route('admin.users.delete', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="bc-delete-item" data-text="Delete User">
-                                                                    <span class="la la-trash"></span>
-                                                                </button>
-                                                            </form>
+                                                            @if($user->status === 'inactive' || $user->status === 'suspended')
+                                                                <form action="{{ route('admin.users.delete', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="bc-delete-item" data-text="Delete User">
+                                                                        <span class="la la-trash"></span>
+                                                                    </button>
+                                                                </form>
+                                                            @endif
                                                         </li>
-                                                        <!-- Change User Status -->
                                                         <li>
                                                             <form action="{{ route('admin.users.status', $user->id) }}" method="POST">
                                                                 @csrf
@@ -121,10 +137,42 @@
                                         </tr>
                                         @endforeach
                                     </tbody>
+                                    
                                 </table>
                             </div>
-                            <div class="ls-pagination">
-                            </div>
+                            @if ($users->hasPages())
+                                <nav class="ls-pagination mb-5">
+                                    <ul>
+                                        {{-- Previous Page Link --}}
+                                        @if ($users->onFirstPage())
+                                            <li class="prev disabled"><span><i class="fa fa-arrow-left"></i></span></li>
+                                        @else
+                                            <li class="prev">
+                                                <a href="{{ $users->previousPageUrl() }}"><i class="fa fa-arrow-left"></i></a>
+                                            </li>
+                                        @endif
+
+                                        {{-- Pagination Elements --}}
+                                        @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                                            @if ($page == $users->currentPage())
+                                                <li><a class="current-page">{{ $page }}</a></li>
+                                            @else
+                                                <li><a href="{{ $url }}">{{ $page }}</a></li>
+                                            @endif
+                                        @endforeach
+
+                                        {{-- Next Page Link --}}
+                                        @if ($users->hasMorePages())
+                                            <li class="next">
+                                                <a href="{{ $users->nextPageUrl() }}"><i class="fa fa-arrow-right"></i></a>
+                                            </li>
+                                        @else
+                                            <li class="next disabled"><span><i class="fa fa-arrow-right"></i></span></li>
+                                        @endif
+                                    </ul>
+                                </nav>
+                            @endif
+                        
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ use App\Models\JobAlertNotification;
 use App\Models\AdminNotification;
 use App\Models\Employer;
 use App\Models\JobAlert;
+use App\Models\Candidate;
 
 class JobController extends Controller
 {
@@ -94,7 +95,7 @@ class JobController extends Controller
 
 
         $job = Jobs::create([
-            'employer_id' =>  auth()->user()->employer->id,
+            'employer_id' => auth()->user()->employer->id,
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
             'category_id' => $validatedData['category_id'],
@@ -137,13 +138,13 @@ class JobController extends Controller
             ]);
         }
 
-        $employer=auth()->user()->employer;
-        
+        $employer = auth()->user()->employer;
+
         AdminNotification::create([
             'user_id' => auth()->user()->id,
-            'title'   => 'New Job Posted',
+            'title' => 'New Job Posted',
             'message' => "A new job titled '{$job->title}' has been posted by {$employer->company_name}.",
-            'type'    => 'job_post',
+            'type' => 'job_post',
             'is_read' => false,
         ]);
 
@@ -164,6 +165,12 @@ class JobController extends Controller
      */
     public function edit(jobs $job)
     {
+
+        // Prevent any modifications if the job is expired or closed
+        if (in_array($job->status, ['inactive', 'closed'])) {
+            return redirect()->route('employer.jobs.manage')
+                ->with('error', 'This job is expired or closed and cannot be edited.');
+        }
         $categories = JobCategory::all();
         $job->load('jobAddresses');
 
@@ -253,27 +260,51 @@ class JobController extends Controller
         return redirect()->route('employer.jobs.manage')->with('success', 'Job has been deleted successfully.');
     }
 
+    // public function updateStatus(Request $request, Jobs $job)
+    // {
+    //     $request->validate([
+    //         'status' => 'required|in:active,inactive,closed',
+    //     ]);
+    //     // Prevent closing non-active jobs
+    //     if ($request->status === 'closed' && $job->status !== 'active') {
+    //         return redirect()->route('employer.jobs.manage')
+    //             ->with('error', 'Only active jobs can be closed.');
+    //     }
+
+    //     // Prevent activating expired or closed jobs
+    //     if ($request->status === 'active' && in_array($job->status, ['expired', 'closed'])) {
+    //         return redirect()->route('employer.jobs.manage')
+    //             ->with('error', 'This job is expired or closed. Please create a new job.');
+    //     }
+
+    //     // Prevent deactivating expired or closed jobs
+    //     if ($request->status === 'inactive' && in_array($job->status, ['expired', 'closed'])) {
+    //         return redirect()->route('employer.jobs.manage')
+    //             ->with('error', 'This job is expired or closed. Please create a new job.');
+    //     }
+
+    //     // Update the job status
+    //     $job->update(['status' => $request->status]);
+
+    //     return redirect()->route('employer.jobs.manage')->with('success', 'Job status updated successfully!');
+    // }
     public function updateStatus(Request $request, Jobs $job)
     {
+        // Debugging: Check if the job status is actually being read
+        if (!$job) {
+            return redirect()->route('employer.jobs.manage')
+                ->with('error', 'Job not found.');
+        }
+
+
         $request->validate([
             'status' => 'required|in:active,inactive,closed',
         ]);
+
         // Prevent closing non-active jobs
         if ($request->status === 'closed' && $job->status !== 'active') {
             return redirect()->route('employer.jobs.manage')
                 ->with('error', 'Only active jobs can be closed.');
-        }
-
-        // Prevent activating expired or closed jobs
-        if ($request->status === 'active' && in_array($job->status, ['expired', 'closed'])) {
-            return redirect()->route('employer.jobs.manage')
-                ->with('error', 'This job is expired or closed. Please create a new job.');
-        }
-
-        // Prevent deactivating expired or closed jobs
-        if ($request->status === 'inactive' && in_array($job->status, ['expired', 'closed'])) {
-            return redirect()->route('employer.jobs.manage')
-                ->with('error', 'This job is expired or closed. Please create a new job.');
         }
 
         // Update the job status
@@ -281,10 +312,13 @@ class JobController extends Controller
 
         return redirect()->route('employer.jobs.manage')->with('success', 'Job status updated successfully!');
     }
+
+
+
     public function viewApplicant($id)
     {
         $candidate = Candidate::where('user_id', $id)->firstOrFail();
-    
+
         return view('employer.candidate-profile', compact('candidate'));
     }
 }

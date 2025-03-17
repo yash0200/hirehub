@@ -17,11 +17,16 @@
                     <h4 class="widget-title">For Candidates</h4>
                     <div class="widget-content">
                       <ul class="list">
-                        <li><a href="{{ url('#') }}">Browse Jobs</a></li>
-                        <li><a href="{{ url('#') }}">Browse Categories</a></li>
-                        <li><a href="{{ url('#') }}">Candidate Dashboard</a></li>
-                        <li><a href="{{ url('#') }}">Job Alerts</a></li>
-                        <li><a href="{{ url('#') }}">My Bookmarks</a></li>
+                        <ul>
+                          @if(Auth::check() && $userType === 'candidate')
+                              <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
+                              <li><a href="{{ route('candidate.jobalerts') }}">Job Alerts</a></li>
+                              <li><a href="{{ route('candidate.shortlist') }}">My Bookmarks</a></li>
+                          @else
+                              <li><a href="{{ route('jobs.list') }}">Browse Jobs</a></li>
+                              <li><a href="#job-categories-section">Browse Categories</a></li>
+                          @endif
+                      </ul>                      
                       </ul>
                     </div>
                   </div>

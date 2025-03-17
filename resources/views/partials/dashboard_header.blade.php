@@ -156,11 +156,12 @@
 
             <!-- Admin Notifications -->
             @if($userType === 'admin')
-            <button class="menu-btn">
-                <span class="icon la la-bell"></span>
-                <span class="count">{{ $adminUnreadNotificationsCount > 0 ? $adminUnreadNotificationsCount : '' }}</span>
-            </button>
+                <a href="{{ route('admin.notifications') }}" class="menu-btn">
+                    <span class="icon la la-bell"></span>
+                    <span class="count">{{ $adminUnreadNotificationsCount > 0 ? $adminUnreadNotificationsCount : '' }}</span>
+                </a>
             @endif
+
 
 
 

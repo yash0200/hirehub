@@ -35,6 +35,29 @@
             <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
                 <div class="ui-item ui-yellow">
                     <div class="left">
+                        <i class="icon la la-user"></i>
+                    </div>
+                    <div class="right">
+                        <h4>{{ $total_candidates }}</h4>
+                        <p>Total Candidates</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <div class="ui-item ui-green">
+                    <div class="left">
+                        <i class="icon la la-briefcase"></i>
+                    </div>
+                    <div class="right">
+                        <h4>{{ $total_active_jobs }}</h4>
+                        <p>Total Active Jobs</p>
+                    </div>
+                </div>
+            </div>
+        
+            {{-- <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <div class="ui-item ui-yellow">
+                    <div class="left">
                         <i class="icon la la-comment-o"></i>
                     </div>
                     <div class="right">
@@ -53,7 +76,7 @@
                         <p>Total Resumes Shortlisted</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         
 
@@ -65,18 +88,19 @@
                     <div class="tabs-box">
                         <div class="widget-title">
                             <h4>Platform Usage</h4>
-                            <div class="chosen-outer">
+                            {{-- <div class="chosen-outer">
                                 <!-- Tabs Box -->
                                 <select id="chartFilter" class="chosen-select">
                                     <option value="4">Last 4 Weeks</option>
                                     <option value="8">Last 8 Weeks</option>
                                     <option value="12">Last 12 Weeks</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
-                        <div class="widget-content" style="height: 350px;">
+                        <div class="widget-content" style="height: 370px;">
                             <canvas id="chart"></canvas>
                         </div>
+                        <p style="margin-left: 40%">Last 4 weeks usage</p>
                     </div>
                 </div>
             </div>
@@ -87,7 +111,7 @@
                     <div class="widget-title">
                         <h4>Recent Notifications</h4>
                     </div>
-                    <div class="widget-content">
+                    {{-- <div class="widget-content">
                         <ul class="notification-list">
                             <li><span class="icon flaticon-briefcase"></span> <strong>John Doe</strong> registered as a new employer</li>
                             <li><span class="icon flaticon-briefcase"></span> <strong>Jane Smith</strong> posted a new job listing <span class="colored">Software Engineer</span></li>
@@ -96,11 +120,26 @@
                             <li class="success"><span class="icon flaticon-briefcase"></span> <strong>Raul Costa</strong> made a payment for job posting</li>
                             <li><span class="icon flaticon-briefcase"></span> <strong>Ali Tufan</strong> sent a message to admin</li>
                         </ul>
+                    </div> --}}
+                    <div class="widget-content">
+                        <ul class="notification-list">
+                            @forelse($latestNotifications as $notification)
+                                <li class="{{ $notification->is_read ? 'read' : 'unread' }}">
+                                    <span class="icon flaticon-briefcase"></span>
+                                    <strong>{{ $notification->title }}</strong>
+                                    {{ $notification->message }}
+                                    <span class="colored">{{ $notification->created_at->diffForHumans() }}</span>
+                                </li>
+                            @empty
+                                <li>No recent notifications available.</li>
+                            @endforelse
+                        </ul>
                     </div>
+                    
                 </div>
             </div>
 
-            <div class="col-lg-12">
+            {{-- <div class="col-lg-12">
                 <!-- Recent Applications Widget -->
                 <div class="applicants-widget ls-widget">
                     <div class="widget-title">
@@ -169,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

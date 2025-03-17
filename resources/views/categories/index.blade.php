@@ -1,5 +1,5 @@
 <!-- Job Categories -->
-<section class="job-categories border-bottom-0">
+<section class="job-categories border-bottom-0" id="job-categories-section">
   <div class="auto-container">
     <div class="d-sm-flex align-items-center justify-content-sm-between wow fadeInUp">
       <div class="sec-title">

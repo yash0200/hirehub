@@ -6203,10 +6203,10 @@ Main Header
 
 .main-header .menu-btn .count {
   position: absolute;
-  right: -8px;
-  top: -4px;
-  height: 16px;
-  width: 16px;
+  right: 5px;
+  top: 2px;
+  height: 15px;
+  width: 15px;
   background: #1967D2;
   border-radius: 50%;
   color: #ffffff;

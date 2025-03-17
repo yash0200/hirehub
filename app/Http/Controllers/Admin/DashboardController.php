@@ -9,16 +9,28 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Applicant;
+use App\Models\AdminNotification;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+
+        $latestNotifications = AdminNotification::latest()->take(6)->get();
+
         return view('admin.dashboard', [
-            'total_users' => User::count(),
-            'total_jobs' => Jobs::count(),
-            'total_employers' => User::where('user_type', 'employer')->count(), // Count employers
-            'total_applications' => Applicant::count() // Count total applications
+            'total_employers' => User::where('user_type', 'employer')
+                ->where('status', 'active')
+                ->count(),
+
+            'total_applications' => Applicant::count(),
+
+            'total_candidates' => User::where('user_type', 'candidate')
+                ->where('status', 'active')
+                ->count(),
+
+            'total_active_jobs' => Jobs::where('status', 'active')->count(),
+            'latestNotifications'=> $latestNotifications
         ]);
     }
     public function getWeeklyChartData(Request $request)

@@ -83,7 +83,7 @@
               </ul>
             </div>
 
-          <!-- Checkboxes - Date Posted -->
+          {{-- <!-- Checkboxes - Date Posted -->
             <div class="checkbox-outer">
               <h4>Date Posted</h4>
               <ul class="checkboxes">
@@ -135,11 +135,12 @@
                   </li>
                 @endforeach
               </ul>
-            </div>
-            <div class="filter-block">
-              <button type="submit" class="theme-btn btn-style-one">Apply Filters</button>
-              <a href="{{ route('jobs.list') }}" class="theme-btn btn-style-one">Reset Filters</a>
-            </div>
+            </div> --}}
+            <div class="filter-buttons">
+              <button type="submit" class="btn btn-primary">Apply</button>
+              <a href="{{ route('jobs.list') }}" class="btn btn-secondary">Reset</a>
+          </div>
+          
           </form>
         </div>
         </div>

@@ -157,6 +157,8 @@
             <button class="menu-btn">
                 <span class="icon la la-bell"></span>
                 <span class="count">{{ $adminUnreadNotificationsCount > 0 ? $adminUnreadNotificationsCount : '' }}</span>
+                <p>ok</p>
+
             </button>
             @endif
 

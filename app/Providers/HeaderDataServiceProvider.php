@@ -36,7 +36,7 @@ class HeaderDataServiceProvider extends ServiceProvider
                 $adminUnreadNotificationsCount = 0;
         
                 // Candidate Data
-                if ($user->user_type === 'candidate') {
+                if ($user->user_type == 'candidate') {
                     $candidate = $user->candidate;
         
                     $savedJobsCount = ShortlistedJob::where('candidate_id', $candidate->id)->count();
@@ -46,7 +46,7 @@ class HeaderDataServiceProvider extends ServiceProvider
                 }
         
                 // Employer Data
-                if ($user->user_type === 'employer') {
+                if ($user->user_type == 'employer') {
                     $employer = $user->employer;
         
                     $employerUnreadNotificationsCount = EmployerNotification::where('employer_id', $employer->id)
@@ -55,12 +55,9 @@ class HeaderDataServiceProvider extends ServiceProvider
                 }
         
                 // Admin Data
-                if ($user->user_type === 'admin') {
-                    $adminUnreadNotificationsCount = AdminNotification::where('user_id', $user->id)
-                        ->where('is_read', false)
-                        ->count();
+                if ($user->user_type == 'admin') {
+                    $adminUnreadNotificationsCount = AdminNotification::where('is_read', false)->count();
                 }
-        
                 // Share data with all views
                 $view->with([
                     'savedJobsCount' => $savedJobsCount,

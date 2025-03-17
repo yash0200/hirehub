@@ -85,11 +85,10 @@
               </div>
           </div>
 
-          <!-- Buttons -->
           <div class="filter-buttons">
-              <button type="submit" class="btn btn-primary">Apply</button>
-              <button type="button" class="btn btn-secondary" onclick="resetFilters()">Reset</button>
-          </div>
+            <button type="submit" class="btn btn-primary">Apply</button>
+            <a href="{{ route('jobs.list') }}" class="btn btn-secondary">Reset</a>
+        </div>
       </form>
         </div>
       </div>
@@ -129,7 +128,7 @@
         </div>
         <div class="row">
           <!-- Company Block Four -->
-          @foreach ($employers as $employer)
+          {{-- @foreach ($employers as $employer)
             <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
               <div class="inner-box">
               <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
@@ -147,19 +146,51 @@
               <div class="job-type">Open Jobs - {{ $employer->jobs_count ?? 0 }}</div>
               </div>
             </div>
+          @endforeach --}}
+          @foreach ($employers as $employer)
+            <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                <div class="inner-box">
+                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                    @if($employer->is_featured)
+                        <span class="featured">Featured</span>
+                    @endif
+                    <span class="company-logo">
+                        <img
+                        src="{{ asset($employer->logo ? 'storage/logos/' . $employer->logo : 'images/resource/company-logo/1-1.png') }}"
+                        alt="{{ $employer->company_name ?? 'N/A' }}">
+                    </span>
+                    <h4>
+                        <a href="{{ route('employers.details', $employer->id) }}">
+                            {{ $employer->company_name ?? 'Company Name Not Available' }}
+                        </a>
+                    </h4>
+                    <ul class="job-info">
+                        <li>
+                            <span class="icon flaticon-map-locator"></span> 
+                            {{ optional($employer->address)->city ?? 'City Not Available' }},
+                            {{ optional($employer->address)->state ?? 'State Not Available' }}
+                        </li>
+                        <li>
+                            <span class="icon flaticon-briefcase"></span> 
+                            {{ $employer->industry ?? 'Industry Not Specified' }}
+                        </li>
+                    </ul>
+                    <div class="job-type">Open Jobs - {{ $employer->jobs_count ?? 0 }}</div>
+                </div>
+            </div>
           @endforeach
         </div>
 
         <!-- Pagination -->
         <nav class="ls-pagination mb-5">
-                                <ul>
-                                    <li class="prev"><a href="{{ url("#") }}"><i class="fa fa-arrow-left"></i></a></li>
-                                    <li><a href="{{ url("#") }}">1</a></li>
-                                    <li><a href="{{ url("#") }}" class="current-page">2</a></li>
-                                    <li><a href="{{ url("#") }}">3</a></li>
-                                    <li class="next"><a href="{{ url("#") }}"><i class="fa fa-arrow-right"></i></a></li>
-                                </ul>
-                            </nav>
+          <ul>
+            <li class="prev"><a href="{{ url("#") }}"><i class="fa fa-arrow-left"></i></a></li>
+            <li><a href="{{ url("#") }}">1</a></li>
+            <li><a href="{{ url("#") }}" class="current-page">2</a></li>
+            <li><a href="{{ url("#") }}">3</a></li>
+            <li class="next"><a href="{{ url("#") }}"><i class="fa fa-arrow-right"></i></a></li>
+          </ul>
+        </nav>
       </div>
       </div>
     </div>

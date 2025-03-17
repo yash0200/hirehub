@@ -32,14 +32,14 @@
             </div>
           </div>
     
-          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+          <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
             <div class="ui-item ui-red">
                 <div class="left">
                     <i class="icon la la-file-invoice"></i>
                 </div>
                 <div class="right">
                     <h4>{{ $jobAlertsCount }}</h4>
-                    <p>Job Alerts</p>
+                    <p>Preferences Job Alerts</p>
                 </div>
             </div>
           </div>

@@ -11,6 +11,8 @@ class NotificationsController extends Controller
 {
     public function index()
     {
+
+
         $notifications = CandidateNotification::where('candidate_id', Auth::user()->candidate->id)
             ->latest()
             ->get();
@@ -25,6 +27,14 @@ class NotificationsController extends Controller
         return redirect()->back()->with('success', 'Notification marked as read.');
     }
 
+    public function markAllAsRead()
+    {
+        // Mark all notifications as read
+        CandidateNotification::where('is_read', false)
+            ->where('candidate_id', Auth::user()->candidate->id)
+            ->update(['is_read' => true]);
+        return redirect()->back()->with('success', 'All notifications marked as read successfully.');
+    }
     // Delete notification
     public function destroy($id)
     {

@@ -104,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/candidate/notifications', [NotificationsController::class, 'index'])->name('candidate.notifications');
         Route::get('/candidate/notifications', [CandidateNotificationController::class, 'index'])->name('candidate.notifications');
         Route::post('/candidate/notifications/{id}/read', [CandidateNotificationController::class, 'markAsRead'])->name('candidate.notifications.read');
+        Route::post('/candidate/notifications/mark-all-read', [CandidateNotificationController::class, 'markAllAsRead'])->name('candidate.notifications.markAllAsRead');
         Route::delete('/candidate/notifications/{id}', [CandidateNotificationController::class, 'destroy'])->name('candidate.notifications.destroy');
 
 

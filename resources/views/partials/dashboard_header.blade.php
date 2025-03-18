@@ -143,10 +143,10 @@
 
             <!-- Candidate Notifications -->
             @if($userType === 'candidate')
-            <button class="menu-btn">
-                <span class="icon la la-bell"></span>
-                <span class="count">{{ $candidateUnreadNotificationsCount > 0 ? $candidateUnreadNotificationsCount : '' }}</span>
-            </button>
+                <a href="{{ route('candidate.notifications') }}" class="menu-btn">
+                    <span class="icon la la-bell"></span>
+                    <span class="count">{{ $candidateUnreadNotificationsCount > 0 ? $candidateUnreadNotificationsCount : '' }}</span>
+                </a>
             @endif
 
             <!-- Employer Notifications -->

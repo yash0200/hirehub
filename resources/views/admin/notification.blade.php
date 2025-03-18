@@ -29,16 +29,18 @@
                             <li class="success"><span class="icon flaticon-briefcase"></span> <strong>Raul Costa</strong> made a payment for job posting</li>
                             <li><span class="icon flaticon-briefcase"></span> <strong>Ali Tufan</strong> sent a message to admin</li> --}}
                             @forelse($notifications as $notification)
-                                <li class="{{ $notification->is_read ? 'success' : '' }}">
-                                    <span class="icon flaticon-briefcase"></span>
-                                    <strong>{{ $notification->title }}</strong>
-                                    {{ $notification->message }}
-                                    <span class="colored">{{ $notification->created_at->diffForHumans() }}</span>
+                                <li class="d-flex justify-content-between align-items-center {{ $notification->is_read ? 'success' : '' }}">
+                                    <div>
+                                        <span class="icon flaticon-briefcase"></span>
+                                        <strong>{{ $notification->title }}</strong>
+                                        {{ $notification->message }}
+                                        <span class="colored">{{ $notification->created_at->diffForHumans() }}</span>
+                                    </div>
 
                                     <!-- Actions -->
-                                    <div class="actions">
+                                    <div class="d-flex">
                                         @if(!$notification->is_read)
-                                            <form action="{{ route('admin.notifications.read', $notification->id) }}" method="POST" class="d-inline">
+                                            <form action="{{ route('admin.notifications.read', $notification->id) }}" method="POST" class="d-inline" style="margin-right: 10px">
                                                 @csrf
                                                 <button type="submit" class="btn btn-success btn-sm">Mark as Read</button>
                                             </form>
@@ -54,6 +56,7 @@
                             @empty
                                 <li>No notifications found.</li>
                             @endforelse
+
                         </ul>
                     </div>
                 </div>

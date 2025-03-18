@@ -38,7 +38,8 @@ class EmployersController extends Controller
                     $q->where('postal_code', $location);
                 } else {
                     // Otherwise, assume it's a city name
-                    $q->where('city', 'LIKE', '%' . $location . '%');
+                    $q->where('city', 'LIKE', '%' . $location . '%')
+                        ->orWhere('state', 'LIKE', '%' . $location . '%');
                 }
             });
         }
@@ -49,13 +50,18 @@ class EmployersController extends Controller
                 $q->where('industry', 'like', '%' . $request->industry . '%');
             });
         }
+        if ($request->filled('company_size')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('company_size', $request->company_size);
+            });
+        }
 
         $employers = $query->paginate(9); // Paginate results
 
         // Fetch job categories
         $categories = JobCategory::where('status', 'active')->get();
 
-        return view('employers.index', compact('employers', 'categories','jobs'));
+        return view('employers.index', compact('employers', 'categories', 'jobs'));
     }
     public function dashboard()
     {

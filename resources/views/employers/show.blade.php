@@ -18,7 +18,7 @@
         <div class="inner-box">
           <div class="content">
             <span class="company-logo">
-              <img src="{{ asset($employer->logo ? 'storage/logos/'.$employer->logo : '/images/resource/company-logo/default.png') }}" 
+              <img src="{{ asset($employer->logo ? 'storage/logos/'.$employer->logo : '/images/resource/company-logo/1-1.png') }}" 
                    alt="{{ $employer->company_name }}">
             </span>
             <h4>
@@ -129,7 +129,7 @@
                   <div class="inner-box">
                       <div class="content">
                           <span class="company-logo">
-                              <img src="{{ asset('storage/logos/'.$employer->logo ?? '/images/resource/company-logo/default.png') }}" alt="">
+                              <img src="{{ asset('storage/logos/'.$employer->logo ?? '/images/resource/company-logo/1-1.png') }}" alt="">
                           </span>
                           <h4>
                               <a href="{{ route('jobs.details', $job->id) }}">{{ $job->title }}</a>

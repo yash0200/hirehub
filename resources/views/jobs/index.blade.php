@@ -63,25 +63,31 @@
                 <span class="icon flaticon-briefcase"></span>
               </div>
             </div>
-
-            <!-- Switchbox - Job Type -->
             <div class="switchbox-outer">
               <h4>Job type</h4>
               <ul class="switchbox">
                 @php 
-                  $selectedJobTypes = (array) request('job_type', []);
+                    $selectedJobTypes = is_array(request('job_type')) 
+                                        ? request('job_type') 
+                                        : explode(',', request('job_type', ''));
                 @endphp
-                @foreach(['Freelance', 'Full-Time', 'Internship', 'Part-Time', 'Temporary'] as $type)
-                  <li>
-                    <label class="switch">
-                      <input type="checkbox" name="job_type[]" value="{{ $type }}" {{ in_array($type, $selectedJobTypes) ? 'checked' : '' }}>
-                      <span class="slider round"></span>
-                      <span class="title">{{ $type }}</span>
-                    </label>
-                  </li>
+            
+                @foreach($customJobTypes as $jobType)
+                    <li>
+                        <label class="switch">
+                            <input type="checkbox" 
+                                  name="job_type[]" 
+                                  value="{{ $jobType['name'] }}" 
+                                  {{ in_array($jobType['name'], $selectedJobTypes) ? 'checked' : '' }}>
+                            <span class="slider round"></span>
+                            <span class="title">{{ $jobType['name'] }}</span>
+                        </label>
+                    </li>
                 @endforeach
+            
               </ul>
             </div>
+          
 
           {{-- <!-- Checkboxes - Date Posted -->
             <div class="checkbox-outer">

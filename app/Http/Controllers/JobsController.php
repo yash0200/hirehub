@@ -52,9 +52,14 @@ class JobsController extends Controller
                 $query->where('category_id', $request->category_id);
             }
             
-            if ($request->has('job_type') && !empty($request->job_type)) {
-                $query->whereIn('job_type', $request->job_type);
+            if ($request->has('job_type')) {
+                $jobTypes = is_array($request->job_type) ? $request->job_type : explode(',', $request->job_type);
+                
+                if (!empty($jobTypes)) {
+                    $query->whereIn('job_type', $jobTypes);
+                }
             }
+            
             
             if ($request->filled('date_posted')) {
                 $datePosted = (int) $request->date_posted;

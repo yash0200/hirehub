@@ -35,11 +35,14 @@
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
                                     <h3>Jobs in demand</h3>
                                     <ul>
-                                        <li><a href="{{ url('job-list-v6.html') }}">Fresher jobs</a></li>
-                                        <li><a href="{{ url('job-list-v7.html') }}">MNC jobs</a></li>
-                                        <li><a href="{{ url('job-list-v8.html') }}">Work from home jobs</a></li>
-                                        <li><a href="{{ url('job-list-v9.html') }}">Walk-in jobs</a></li>
-                                        <li><a href="{{ url('job-list-v10.html') }}">Part-time jobs</a></li>
+                                        @foreach($customJobTypes as $jobType)
+                                            <li>
+                                                <a href="{{ route($jobType['route'], $jobType['param']) }}">
+                                                    {{ $jobType['name'] }} jobs
+                                                </a>
+                                            </li>
+                                        @endforeach
+
                                     </ul>
                                 </div>
 

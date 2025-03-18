@@ -40,9 +40,13 @@ class DashboardController extends Controller
             ->where('status', 'expired')
             ->count();
 
+        $employerId = $user->employer->id;
         $applicants = Applicant::with(['candidate.address', 'job', 'resume'])
+            ->whereHas('job', function ($query) use ($employerId) {
+                $query->where('employer_id', $employerId); // Filter by employer's jobs
+            })
             ->latest()
-            ->take(6)
+            ->take(6) // Limit to 6 applicants
             ->get();
 
         $chartData = [];
@@ -63,6 +67,6 @@ class DashboardController extends Controller
             ];
         }
 
-        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants', 'chartData','activeJobs', 'closedJobs', 'inactiveJobs', 'expiredJobs'));
+        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants', 'chartData', 'activeJobs', 'closedJobs', 'inactiveJobs', 'expiredJobs'));
     }
 }

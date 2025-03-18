@@ -321,4 +321,10 @@ class JobController extends Controller
 
         return view('employer.candidate-profile', compact('candidate'));
     }
+    
+    //new changes
+    public function alternative()
+    {
+        return view('employer.jobs.alternative');
+    }
 }

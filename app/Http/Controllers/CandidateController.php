@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CandidateController extends Controller
 {
-    public function dashboard()
+    //changes
+    public function index()
     {
-        return view('candidates.dashboard');
+        return view('pages.candidate-list');
     }
 }

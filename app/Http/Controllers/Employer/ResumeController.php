@@ -15,4 +15,11 @@ class ResumeController extends Controller
     {
         return view('employers.employer_resumeAlert');
     }
+
+    //changes
+    // public function index()
+    // {
+    //     return view('candidate.resume');
+    // }
+    //changes
 }

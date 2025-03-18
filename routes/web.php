@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Candidate\DashboardController as CandidateDashboard;
 use App\Http\Controllers\Candidate\JobController as CandidateJob;
 use App\Http\Controllers\Candidate\CandidateResumeController;
+//changes
+use App\Http\Controllers\CandidateController;
+
+
 use App\Http\Controllers\Candidate\JobAlertController;
 use App\Http\Controllers\Employer\ResumeController as EmployerResume;
 use App\Http\Controllers\Candidate\ProfileController;
@@ -69,6 +73,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/companies', [EmployersController::class, 'index']);
 // Middleware to check authentication before accessing dashboards
 Route::middleware(['auth'])->group(function () {
+
 
     /** ================== Candidate Routes ================== */
     Route::middleware(['candidate'])->group(function () {
@@ -174,6 +179,9 @@ Route::get('/jobs/{id}', [JobsController::class, 'show'])->name('jobs.details');
 Route::get('/employers/{id}', [EmployersController::class, 'show'])->name('employers.details');
 Route::get('/employers', [EmployersController::class, 'index'])->name('employers.list');
 
+Route::get('/candidates', [CandidateController::class, 'index'])->name('candidates.list');
+
+
 Route::get('/categories', [JobCategoryController::class, 'index'])->name('categories.list');
 Route::get('/categories/{slug}', [JobCategoryController::class, 'show'])->name('categories.details');
 
@@ -182,5 +190,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/categories/create', [JobCategoryController::class, 'create'])->name('categories.create');
     Route::post('/admin/categories/store', [JobCategoryController::class, 'store'])->name('categories.store');
 });
+
 
 require __DIR__ . '/admin.php';

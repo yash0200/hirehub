@@ -51,13 +51,13 @@
                 </div>
                 <div class="footer-column col-lg-2 col-md-6 col-sm-12">
                   <div class="footer-widget links-widget">
-                    <h4 class="widget-title">About Us</h4>
+                  <h4 class="widget-title"><a href="{{ route('about') }}">About Us</a></h4>
                     <div class="widget-content">
                       <ul class="list">
                       @if(Auth::check()) 
     <!-- Display when any user (candidate or employer) is logged in -->
     <ul>
-        <li><a href="">Job Page</a></li>
+        <li><a href="">Contact us</a></li>
         <li><a href="">Job Page Alternative</a></li>
         
 

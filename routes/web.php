@@ -8,6 +8,7 @@ use App\Http\Controllers\Candidate\DashboardController as CandidateDashboard;
 use App\Http\Controllers\Candidate\JobController as CandidateJob;
 use App\Http\Controllers\Candidate\CandidateResumeController;
 //changes
+use App\Http\Controllers\Common\AboutusController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\Candidate\JobAlertController;
 use App\Http\Controllers\Employer\ResumeController as EmployerResume;
@@ -66,6 +67,9 @@ Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPa
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+
+
+Route::get('/about', [AboutusController::class, 'index'])->name('about');
 
 // Route::get('/jobs',[JobsController::class, 'index']);    
 Route::get('/companies', [EmployersController::class, 'index']);

@@ -47,9 +47,10 @@ class HomeController extends Controller
             ->withCount(['jobs' => function ($query) {
                 $query->where('status', 'active'); // Count only active jobs
             }])
-            ->latest()
-            ->take(6) // Limit to 6 employers only
+            ->orderBy('jobs_count', 'desc') // Sort by highest job count
+            ->take(6) // Limit to 6 employers
             ->get();
+        
 
 
         return view('pages.home', compact('jobs', 'categories', 'candidatesCount', 'cities','employers'));

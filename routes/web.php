@@ -9,8 +9,6 @@ use App\Http\Controllers\Candidate\JobController as CandidateJob;
 use App\Http\Controllers\Candidate\CandidateResumeController;
 //changes
 use App\Http\Controllers\CandidateController;
-
-
 use App\Http\Controllers\Candidate\JobAlertController;
 use App\Http\Controllers\Employer\ResumeController as EmployerResume;
 use App\Http\Controllers\Candidate\ProfileController;
@@ -106,7 +104,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/candidate/notifications/{id}/read', [CandidateNotificationController::class, 'markAsRead'])->name('candidate.notifications.read');
         Route::post('/candidate/notifications/mark-all-read', [CandidateNotificationController::class, 'markAllAsRead'])->name('candidate.notifications.markAllAsRead');
         Route::delete('/candidate/notifications/{id}', [CandidateNotificationController::class, 'destroy'])->name('candidate.notifications.destroy');
-
 
 
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');

@@ -50,7 +50,7 @@ class EmployersController extends Controller
             });
         }
 
-        $employers = $query->paginate(10); // Paginate results
+        $employers = $query->paginate(9); // Paginate results
 
         // Fetch job categories
         $categories = JobCategory::where('status', 'active')->get();

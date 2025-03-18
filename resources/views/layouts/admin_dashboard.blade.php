@@ -11,6 +11,18 @@
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('images/hirehub-favicon.svg') }}" sizes="512x512" type="image/x-icon">
 
+    {{-- <style>
+        .notification-list li.unread {
+            background-color: #f8d7da; /* Highlight unread */
+            font-weight: bold;
+        }
+
+        .notification-list li.read {
+            background-color: #d4edda; /* Faded style for read */
+        }
+
+    </style> --}}
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 

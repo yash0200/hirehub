@@ -14,16 +14,18 @@ class JobsController extends Controller
     public function index(Request $request)
     {
         try{
-
-        
             $query = Jobs::with('employer', 'jobCategory', 'jobAddress')
                     ->where('status', 'active')
                     ->latest();
 
             $categories = JobCategory::where('status', 'active')->get();
+
+            if ($request->filled('employer_id')) {
+                $query->where('employer_id', $request->employer_id);
+            }
+    
             
             if ($request->has('keyword')) {  
-                
                 $query->where('title', 'LIKE', '%' . $request->keyword . '%');
             }
             
@@ -50,9 +52,14 @@ class JobsController extends Controller
                 $query->where('category_id', $request->category_id);
             }
             
-            if ($request->has('job_type') && !empty($request->job_type)) {
-                $query->whereIn('job_type', $request->job_type);
+            if ($request->has('job_type')) {
+                $jobTypes = is_array($request->job_type) ? $request->job_type : explode(',', $request->job_type);
+                
+                if (!empty($jobTypes)) {
+                    $query->whereIn('job_type', $jobTypes);
+                }
             }
+            
             
             if ($request->filled('date_posted')) {
                 $datePosted = (int) $request->date_posted;
@@ -93,6 +100,7 @@ class JobsController extends Controller
         // Fetch related jobs based on the same category
         $relatedJobs = Jobs::where('category_id', $job->category_id)
             ->where('id', '!=', $id) // Exclude the current job
+            ->where('status','active')
             ->with(['employer', 'jobAddress'])
             ->limit(4) // Show only 4 related jobs
             ->get();
@@ -100,60 +108,3 @@ class JobsController extends Controller
         return view('jobs.show', compact('job', 'relatedJobs'));
     }
 }
-//     // Show a specific job
-//     public function show($id)
-//     {
-//         // Example: find and return a specific job
-//         $job = Job::findOrFail($id);
-//         return view('jobs.show', compact('job'));
-//     }
-
-//     // Create a new job
-//     public function create()
-//     {
-//         return view('jobs.create');
-//     }
-
-//     // Store a newly created job
-//     public function store(Request $request)
-//     {
-//         $validated = $request->validate([
-//             'title' => 'required|string|max:255',
-//             'description' => 'required|string',
-//         ]);
-
-//         $job = Job::create($validated);
-
-//         return redirect()->route('jobs.index');
-//     }
-
-//     // Edit an existing job
-//     public function edit($id)
-//     {
-//         $job = Job::findOrFail($id);
-//         return view('jobs.edit', compact('job'));
-//     }
-
-//     // Update an existing job
-//     public function update(Request $request, $id)
-//     {
-//         $validated = $request->validate([
-//             'title' => 'required|string|max:255',
-//             'description' => 'required|string',
-//         ]);
-
-//         $job = Job::findOrFail($id);
-//         $job->update($validated);
-
-//         return redirect()->route('jobs.index');
-//     }
-
-//     // Delete a job
-//     public function destroy($id)
-//     {
-//         $job = Job::findOrFail($id);
-//         $job->delete();
-
-//         return redirect()->route('jobs.index');
-//     }
-// }

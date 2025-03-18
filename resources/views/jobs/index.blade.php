@@ -63,27 +63,33 @@
                 <span class="icon flaticon-briefcase"></span>
               </div>
             </div>
-
-            <!-- Switchbox - Job Type -->
             <div class="switchbox-outer">
               <h4>Job type</h4>
               <ul class="switchbox">
                 @php 
-                  $selectedJobTypes = (array) request('job_type', []);
+                    $selectedJobTypes = is_array(request('job_type')) 
+                                        ? request('job_type') 
+                                        : explode(',', request('job_type', ''));
                 @endphp
-                @foreach(['Freelance', 'Full-Time', 'Internship', 'Part-Time', 'Temporary'] as $type)
-                  <li>
-                    <label class="switch">
-                      <input type="checkbox" name="job_type[]" value="{{ $type }}" {{ in_array($type, $selectedJobTypes) ? 'checked' : '' }}>
-                      <span class="slider round"></span>
-                      <span class="title">{{ $type }}</span>
-                    </label>
-                  </li>
+            
+                @foreach($customJobTypes as $jobType)
+                    <li>
+                        <label class="switch">
+                            <input type="checkbox" 
+                                  name="job_type[]" 
+                                  value="{{ $jobType['name'] }}" 
+                                  {{ in_array($jobType['name'], $selectedJobTypes) ? 'checked' : '' }}>
+                            <span class="slider round"></span>
+                            <span class="title">{{ $jobType['name'] }}</span>
+                        </label>
+                    </li>
                 @endforeach
+            
               </ul>
             </div>
+          
 
-          <!-- Checkboxes - Date Posted -->
+          {{-- <!-- Checkboxes - Date Posted -->
             <div class="checkbox-outer">
               <h4>Date Posted</h4>
               <ul class="checkboxes">
@@ -135,11 +141,12 @@
                   </li>
                 @endforeach
               </ul>
-            </div>
-            <div class="filter-block">
-              <button type="submit" class="theme-btn btn-style-one">Apply Filters</button>
-              <a href="{{ route('jobs.list') }}" class="theme-btn btn-style-one">Reset Filters</a>
-            </div>
+            </div> --}}
+            <div class="filter-buttons">
+              <button type="submit" class="btn btn-primary">Apply</button>
+              <a href="{{ route('jobs.list') }}" class="btn btn-secondary">Reset</a>
+          </div>
+          
           </form>
         </div>
         </div>
@@ -160,7 +167,7 @@
           </div>
           </div>
 
-          <div class="sort-by">
+          <!-- <div class="sort-by">
           {{-- <select class="chosen-select">
             <option>New Jobs</option>
             <option>Freelance</option>
@@ -178,7 +185,7 @@
             <option>Show 50</option>
             <option>Show 60</option>
           </select>
-          </div>
+          </div> -->
         </div>
 
         <div class="row" id="job-list">

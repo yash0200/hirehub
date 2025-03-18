@@ -26,49 +26,55 @@
                     <div class="notification-widget ls-widget">
                         <div class="widget-title">
                             <h4>Notifications</h4>
-                            
+                            <div class="d-flex justify-content-end">
+                                <form action="{{ route('candidate.notifications.markAllAsRead') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary btn-sm">Mark All as Read</button>
+                                </form>
+                            </div>
                         </div>
+                
                         <div class="widget-content">
-                            
-                            <!-- <ul class="notification-list">
-                                <li><span class="icon flaticon-briefcase"></span> <strong>Wade Warren</strong> applied for a
-                                    job <span class="colored">Web Developer</span></li>
-                                <li><span class="icon flaticon-briefcase"></span> <strong>Henry Wilson</strong> applied for
-                                    a job <span class="colored">Senior Product Designer</span></li>
-                                <li class="success"><span class="icon flaticon-briefcase"></span> <strong>Raul
-                                        Costa</strong> applied
-                                    for a job <span class="colored">Product Manager, Risk</span></li>
-                                <li><span class="icon flaticon-briefcase"></span> <strong>Jack Milk</strong> applied for a
-                                    job <span class="colored">Technical Architect</span></li>
-                                <li class="success"><span class="icon flaticon-briefcase"></span> <strong>Michel
-                                        Arian</strong> applied
-                                    for a job <span class="colored">Software Engineer</span></li>
-                                <li><span class="icon flaticon-briefcase"></span> <strong>Ali Tufan</strong> applied for a
-                                    job <span class="colored">UI Designer</span></li>
-                            </ul> -->
-
                             <ul class="notification-list">
-                                @foreach($notifications as $notification)
+                                @forelse($notifications as $notification)
                                     @php
-                                        // Fetch the corresponding applicant's status
-                                        $applicant = \App\Models\Applicant::where('id', $notification->applicant_id)->first();
+                                        // Fetch corresponding applicant's status
+                                        $applicant = \App\Models\Applicant::where('id', $notification->candidate_id)->first();
                                         $statusClass = $applicant && $applicant->status == 'approved' ? 'success' : 
-                                                    ($applicant && $applicant->status == 'rejected' ? 'danger' : '');
+                                                       ($applicant && $applicant->status == 'rejected' ? 'danger' : '');
                                     @endphp
+                
+                                    <li class="d-flex justify-content-between align-items-center {{ $statusClass }}">
+                                        <div>
+                                            <span class="icon flaticon-briefcase"></span>
+                                            {{ $notification->message }}
+                                            <span class="colored">{{ $notification->created_at->diffForHumans() }}</span>
 
-                                    <li class="{{ $statusClass }}">
-                                        <span class="icon flaticon-briefcase"></span> 
-                                        {{ $notification->message }} 
-                                        @if($applicant)
-                                            <strong>{{ ucfirst($applicant->status) }}</strong>.
-                                        @endif
+                                        </div>
+                                        
+                                        <div class="d-flex">
+                                            @if(!$notification->is_read)
+                                                <form action="{{ route('candidate.notifications.read', $notification->id) }}" method="POST" class="d-inline " style="margin-right: 10px">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success btn-sm">Mark as Read</button>
+                                                </form>
+                                            @endif
+                
+                                            <form action="{{ route('candidate.notifications.destroy', $notification->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </div>
                                     </li>
-                                @endforeach
+                                @empty
+                                    <li>No notifications found.</li>
+                                @endforelse
                             </ul>
-
                         </div>
                     </div>
                 </div>
+                
 
             </div>
             <!-- Copyright -->

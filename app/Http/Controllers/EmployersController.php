@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Employer;
 use App\Models\JobCategory;
+use App\Models\Jobs;
 
 class EmployersController extends Controller
 {
     public function index(Request $request)
-    {
-        // $companySizes = Employer::select('company_size')->distinct()->pluck('company_size');
-        $query = Employer::latest();
+    {   // Get the jobs with pagination, 9 jobs per page
+        $jobs = Jobs::paginate(9);
+
+
+
+        $query = Employer::with(['address']) // Eager load address
+            ->withCount(['jobs' => function ($query) {
+                $query->where('status', 'active'); // Count only active jobs
+            }])
+            ->latest();
 
         // Apply keyword filter (search in company name and job title)
         if ($request->filled('keyword')) {
@@ -19,11 +27,11 @@ class EmployersController extends Controller
                 $q->where('company_name', 'like', '%' . $request->keyword . '%');
             });
         }
-    
+
         // Apply location filter
         if ($request->filled('location')) {
             $location = $request->location;
-        
+
             $query->whereHas('address', function ($q) use ($location) {
                 if (preg_match('/^\d{6}$/', $location)) {
                     // If input is a 6-digit number, filter by pincode
@@ -34,18 +42,20 @@ class EmployersController extends Controller
                 }
             });
         }
-    
-        // Apply category filter
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
+
+        // Apply industry filter
+        if ($request->filled('industry')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('industry', 'like', '%' . $request->industry . '%');
+            });
         }
-    
+
         $employers = $query->paginate(10); // Paginate results
-    
+
         // Fetch job categories
         $categories = JobCategory::where('status', 'active')->get();
-    
-        return view('employers.index', compact('employers','categories'));   
+
+        return view('employers.index', compact('employers', 'categories','jobs'));
     }
     public function dashboard()
     {
@@ -62,5 +72,31 @@ class EmployersController extends Controller
         // ]);
         return view('employers.dashboard');
     }
-   
+    public function show($id)
+    {
+        // Fetch employer details with address and active jobs count
+        $employer = Employer::with(['address', 'socialNetworks'])
+            ->withCount(['jobs' => function ($query) {
+                $query->where('status', 'active'); // Count only active jobs
+            }])
+            ->findOrFail($id); // Return 404 if not found
+
+        // Fetch employer's active jobs
+        $activeJobs = Jobs::where('employer_id', $id)
+            ->where('status', 'active')
+            ->get();
+
+        // Active job count for this employer
+        $jobCount = $employer->jobs_count;
+
+        // Total active jobs for all employers
+        $totalJobs = Jobs::where('status', 'active')->count();
+
+        // Jobs added today
+        $jobsToday = Jobs::whereDate('created_at', today())
+            ->where('status', 'active')
+            ->count();
+
+        return view('employers.show', compact('employer', 'jobCount', 'totalJobs', 'jobsToday', 'activeJobs'));
+    }
 }

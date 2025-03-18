@@ -184,7 +184,7 @@
                         <img src="{{ asset('storage/logos/'.$job->employer->logo ?? 'images/default-company.png') }}" alt="Company Logo">
                       </div>
                       <h5 class="company-name">{{ $job->employer->company_name ?? 'Unknown' }}</h5>
-                      <a href="{{ url("#") }}" class="profile-link">View company profile</a>
+                      <a href="{{ route('employers.details', $job->employer->id) }}" class="profile-link">View company profile</a>
                     </div>
 
                     <ul class="company-info">
@@ -254,7 +254,7 @@
                                 <img src="{{ asset('storage/logos/'.$relatedJob->employer->logo ?? '/images/default-company.png') }}" alt="">
                             </span>
                             <span class="company-name">{{ $relatedJob->employer->company_name ?? 'Unknown' }}</span>
-                            <h4><a href="{{ route('jobs.show', $relatedJob->id) }}">{{ $relatedJob->title }}</a></h4>
+                            <h4><a href="{{ route('jobs.details', $relatedJob->id) }}">{{ $relatedJob->title }}</a></h4>
                             <div class="location"><span class="icon flaticon-map-locator"></span> 
                                 {{ $relatedJob->jobAddress->state ?? 'Location Not Specified' }},{{ $relatedJob->jobAddress->country ?? 'Location Not Specified' }}
                             </div>

@@ -195,6 +195,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\UserTypeServiceProvider::class,
+        App\Providers\HeaderDataServiceProvider::class,
+        App\Providers\JobTypeServiceProvider::class,
 
 
     ],

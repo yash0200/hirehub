@@ -103,10 +103,10 @@
                       <div class="form-group">
                           <div class="field-outer">
                               <div class="input-group checkboxes square">
-                                  <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                  {{-- <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                   <label for="remember" class="remember">
                                       <span class="custom-checkbox"></span> Remember me
-                                  </label>
+                                  </label> --}}
                               </div>
                               <a href="{{ url('/forgot-password') }}" class="pwd">Forgot password?</a>
                           </div>

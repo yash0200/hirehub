@@ -17,7 +17,7 @@
       <div class="text">Ready to jump back in?</div>
     </div>
     <div class="row">
-      <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+      <div class="ui-block col-xl-4 col-lg-6 col-md-6 col-sm-12">
       <div class="ui-item">
         <div class="left">
         <i class="icon flaticon-briefcase"></i>
@@ -41,28 +41,75 @@
       </div>
       </div>
 
+      {{-- <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-yellow">
+          <div class="left">
+          <i class="icon la la-comment-o"></i>
+          </div>
+          <div class="right">
+          <h4>74</h4>
+          <p>Messages</p>
+          </div>
+        </div>
+      </div>
       <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
-      <div class="ui-item ui-yellow">
-        <div class="left">
-        <i class="icon la la-comment-o"></i>
+        <div class="ui-item ui-green">
+          <div class="left">
+          <i class="icon la la-bookmark-o"></i>
+          </div>
+          <div class="right">
+          <h4>32</h4>
+          <p>Shortlist</p>
+          </div>
         </div>
-        <div class="right">
-        <h4>74</h4>
-        <p>Messages</p>
+      </div> --}}
+      <div class="ui-block col-xl-4 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-green">
+            <div class="left">
+                <i class="icon la la-check-circle"></i>
+            </div>
+            <div class="right">
+                <h4>{{ $activeJobs }}</h4>
+                <p>Active Jobs</p>
+            </div>
         </div>
-      </div>
-      </div>
-      <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
-      <div class="ui-item ui-green">
-        <div class="left">
-        <i class="icon la la-bookmark-o"></i>
+    </div>
+
+    <div class="ui-block col-xl-4 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-yellow">
+            <div class="left">
+                <i class="icon la la-times-circle"></i>
+            </div>
+            <div class="right">
+                <h4>{{ $closedJobs }}</h4>
+                <p>Closed Jobs</p>
+            </div>
         </div>
-        <div class="right">
-        <h4>32</h4>
-        <p>Shortlist</p>
+    </div>
+
+    <div class="ui-block col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-purple">
+            <div class="left">
+                <i class="icon la la-ban"></i>
+            </div>
+            <div class="right">
+                <h4>{{ $inactiveJobs }}</h4>
+                <p>Inactive Jobs</p>
+            </div>
         </div>
-      </div>
-      </div>
+    </div>
+
+    <div class="ui-block col-xl-4 col-lg-6 col-md-6 col-sm-12">
+        <div class="ui-item ui-blue">
+            <div class="left">
+                <i class="icon la la-calendar-times-o"></i>
+            </div>
+            <div class="right">
+                <h4>{{ $expiredJobs }}</h4>
+                <p>Expired Jobs</p>
+            </div>
+        </div>
+    </div>
     </div>
 
     <div class="row">
@@ -135,25 +182,53 @@
             <figure class="image">
               <img src="{{ asset('/storage/profile_photos/' . $applicant->candidate->profile_photo) }}" alt="{{ $applicant->name }}">
             </figure>
-            <h4 class="name"><a href="#">{{ $applicant->candidate->full_name }}</a></h4>
+            <h4 class="name"><a href="{{ route('employer.applicant.profile', ['id' => $applicant->candidate_id]) }}">{{ $applicant->candidate->full_name }}</a></h4>
             <ul class="candidate-info">
               <li class="designation">{{ $applicant->resume->job_title }}</li>
               <li><span class="icon flaticon-map-locator"></span> {{ $applicant->candidate->address->city??''}} ,{{ $applicant->candidate->address->state??''}}</li>
               <li><span class="icon flaticon-money"></span> ${{ $applicant->job->salary }}</li>
             </ul>
-            {{-- {{dd($applicant)}} --}}
             <ul class="post-tags">
-              <li><a href="#">App</a></li>
-              <li><a href="#">Design</a></li>
-              <li><a href="#">Digital</a></li>
-            </ul>
+              @foreach ($applicant->resume->skills as $skill)
+                  <li><a href="#">{{ $skill }}</a></li>
+              @endforeach
+          </ul>
             </div>
             <div class="option-box">
-            <ul class="option-list">
-              <li><button data-text="View Application"><span class="la la-eye"></span></button></li>
-              <li><button data-text="Approve Application"><span class="la la-check"></span></button></li>
-              <li><button data-text="Reject Application"><span class="la la-times-circle"></span></button></li>
-              <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li>
+              <ul class="option-list">
+                <!-- Assuming the options are actions for managing applicants -->
+                <li>
+                    <a href="{{ route('employer.applicant.view', ['id' => $applicant->id]) }}"
+                        data-text="View Application">
+                        <span class="la la-eye"></span>
+                    </a>
+                </li>
+                @if ($applicant->status === 'Pending')
+                    <li>
+                        <button data-text="Approve Application"
+                            class="approve-btn"
+                            data-id="{{ $applicant->id }}">
+                            <span class="la la-check"></span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="reject-btn"
+                            data-id="{{ $applicant->id }}"
+                            data-text="Reject Application"><span
+                                class="la la-times-circle"></span>
+                        </button>
+                    </li>
+                @elseif ($applicant->status === 'approved')
+                    <li>
+                        <span class="status text-success">Approved</span>
+                    </li>
+                @elseif ($applicant->status === 'rejected')
+                    <li>
+                        <span class="status text-danger">Rejected</span>
+                    </li>
+                @endif
+
+                <!-- <li><button data-text="Delete Application"><span class="la la-trash"></span></button></li> -->
             </ul>
             </div>
             </div>

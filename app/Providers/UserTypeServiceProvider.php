@@ -19,11 +19,11 @@ class UserTypeServiceProvider extends ServiceProvider
             $userType = Auth::check() ? Auth::user()->user_type : null;
             $totalJobs = Jobs::where('status', 'active')->count();
             $addedToday = Jobs::where('status', 'active')
-                                ->whereDate('created_at', today())
-                                ->count();
+                ->whereDate('created_at', today())
+                ->count();
 
             $categories = JobCategory::where('status', 'active')
-        ->withCount(['jobs' => function ($query) {
+                ->withCount(['jobs' => function ($query) {
                     $query->where('status', 'active');
                 }])
                 ->get()
@@ -40,16 +40,16 @@ class UserTypeServiceProvider extends ServiceProvider
                     return $category;
                 });
 
-            $locations = ['Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune'];
-            $cities = [
-                ['name' => 'Delhi', 'jobs' => 96, 'image' => 'home22-city-1.png'],
-                ['name' => 'Mumbai', 'jobs' => 96, 'image' => 'home22-city-2.png'],
-                ['name' => 'Bangalore', 'jobs' => 96, 'image' => 'home22-city-4.png'],
-                ['name' => 'Hyderabad', 'jobs' => 96, 'image' => 'home22-city-5.png'],
-                ['name' => 'Chennai', 'jobs' => 96, 'image' => 'home22-city-6.png'],
-                ['name' => 'Pune', 'jobs' => 96, 'image' => 'home22-city-7.png'],
-            ];
-            $view->with(compact('userType', 'categories', 'locations', 'cities','addedToday','totalJobs'));
+            $locations = ['Delhi', 'Mumbai', 'Banglore', 'Hydrabad', 'Chennai', 'Pune'];
+            // $cities = [
+            //     ['name' => 'Delhi', 'jobs' => 96, 'image' => 'home22-city-1.png'],
+            //     ['name' => 'Mumbai', 'jobs' => 96, 'image' => 'home22-city-2.png'],
+            //     ['name' => 'Bangalore', 'jobs' => 96, 'image' => 'home22-city-4.png'],
+            //     ['name' => 'Hyderabad', 'jobs' => 96, 'image' => 'home22-city-5.png'],
+            //     ['name' => 'Chennai', 'jobs' => 96, 'image' => 'home22-city-6.png'],
+            //     ['name' => 'Pune', 'jobs' => 96, 'image' => 'home22-city-7.png'],
+            // ];
+            $view->with(compact('userType', 'categories', 'locations', 'addedToday', 'totalJobs'));
         });
     }
 

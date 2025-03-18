@@ -17,23 +17,53 @@
       <div class="job-block-seven">
         <div class="inner-box">
           <div class="content">
-            <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/5-1.png") }}" alt=""></span>
-            <h4><a href="{{ url("#") }}">Invision</a></h4>
+            <span class="company-logo">
+              <img src="{{ asset($employer->logo ? 'storage/logos/'.$employer->logo : '/images/resource/company-logo/default.png') }}" 
+                   alt="{{ $employer->company_name }}">
+            </span>
+            <h4>
+              <a href="{{ route('employers.details', ['id' => $employer->id]) }}">
+                  {{ $employer->company_name }}
+              </a>
+            </h4>
             <ul class="job-info">
-              <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-              <li><span class="icon flaticon-briefcase"></span> Accounting / Finance</li>
-              <li><span class="icon flaticon-telephone-1"></span> 123 456 7890</li>
-              <li><span class="icon flaticon-mail"></span> info@invision.com</li>
-            </ul>
-            <ul class="job-other-info">
-              <li class="time">Open Jobs – 3</li>
-            </ul>
+              <li>
+                  <span class="icon flaticon-map-locator"></span>
+                  {{ $employer->address->city ?? 'City not available' }}, 
+                  {{ $employer->address->state ?? 'State not available' }}
+              </li>
+      
+              <li>
+                  <span class="icon flaticon-briefcase"></span>
+                  {{ $employer->industry ?? 'Industry not available' }}
+              </li>
+      
+              <li>
+                  <span class="icon flaticon-telephone-1"></span>
+                  {{ $employer->phone ?? 'N/A' }}
+              </li>
+      
+              <li>
+                  <span class="icon flaticon-mail"></span>
+                  {{ $employer->user->email ?? 'N/A' }}
+              </li>
+          </ul>
+      
+          <ul class="job-other-info">
+              <li class="time">Open Jobs – {{ $employer->jobs_count ?? 0 }}</li>
+          </ul>
           </div>
 
           <div class="btn-box">
-            <a href="{{ url("#") }}" class="theme-btn btn-style-one">Apply For Job</a>
-            <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
-          </div>
+            <a href="{{ route('jobs.list', ['employer_id' => $employer->id]) }}" 
+               class="theme-btn btn-style-one">
+                View Jobs
+            </a>
+        
+            <button class="bookmark-btn">
+                <i class="flaticon-bookmark"></i>
+            </button>
+        </div>
         </div>
       </div>
     </div>
@@ -68,12 +98,13 @@
           <!-- Related Jobs -->
           <div class="related-jobs">
             <div class="title-box">
-              <h3>3 jobs at Invision</h3>
-              <div class="text">2020 jobs live - 293 added today.</div>
+              <h3>{{ $jobCount }} jobs at {{ $employer->company_name }}</h3>
+              <div class="text">{{ $totalJobs }} jobs live - {{ $jobsToday }} added today.</div>      
             </div>
+            
 
             <!-- Job Block -->
-            <div class="job-block">
+            {{-- <div class="job-block">
               <div class="inner-box">
                 <div class="content">
                   <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/1-3.png") }}" alt=""></span>
@@ -91,49 +122,64 @@
                   <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                 </div>
               </div>
-            </div>
-
-            <!-- Job Block -->
-            <div class="job-block">
-              <div class="inner-box">
-                <div class="content">
-                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/1-3.png") }}" alt=""></span>
-                  <h4><a href="{{ url("#") }}">Web Developer</a></h4>
-                  <ul class="job-info">
-                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                    <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                    <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                  </ul>
-                  <ul class="job-other-info">
-                    <li class="time">Part Time</li>
-                    <li class="required">Urgent</li>
-                  </ul>
-                  <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                </div>
+            </div> --}}
+            @foreach ($activeJobs as $job)
+              <!-- Job Block -->
+              <div class="job-block">
+                  <div class="inner-box">
+                      <div class="content">
+                          <span class="company-logo">
+                              <img src="{{ asset('storage/logos/'.$employer->logo ?? '/images/resource/company-logo/default.png') }}" alt="">
+                          </span>
+                          <h4>
+                              <a href="{{ route('jobs.details', $job->id) }}">{{ $job->title }}</a>
+                          </h4>
+                          <ul class="job-info">
+                              <li>
+                                  <span class="icon flaticon-briefcase"></span>
+                                  {{ $job->jobCategory->name }}
+                              </li>
+                              <li>
+                                  <span class="icon flaticon-map-locator"></span>
+                                  {{ optional($job->jobAddress)->city ?? 'City not available' }},
+                                  {{ optional($job->jobAddress)->state ?? 'State not available' }}
+                              </li>
+                              <li>
+                                  <span class="icon flaticon-clock-3"></span>
+                                  {{ $job->created_at->diffForHumans() }}
+                              </li>
+                              <li>
+                                  <span class="icon flaticon-money"></span>
+                                  {{ $job->salary ?? 'Salary not disclosed' }}
+                              </li>
+                          </ul>
+                          <ul class="job-other-info">
+                              <li class="time">{{ ucfirst($job->job_type) }}</li>
+                              @if($job->is_urgent)
+                                  <li class="required">Urgent</li>
+                              @endif
+                          </ul>
+                          @php
+                              $user = auth()->user();
+                              $candidate = $user ? $user->candidate : null;
+                              $isShortlisted = false;
+                          
+                              if ($candidate) {
+                                  $isShortlisted = \App\Models\ShortlistedJob::where('candidate_id', $candidate->id)
+                                      ->where('job_id', $job->id)
+                                      ->exists();
+                              }
+                          @endphp
+                            <button type="button" 
+                              class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
+                              data-job-id="{{ $job->id }}" 
+                              onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
+                              <i class="flaticon-bookmark"></i>
+                            </button>
+                      </div>
+                  </div>
               </div>
-            </div>
-
-            <!-- Job Block -->
-            <div class="job-block">
-              <div class="inner-box">
-                <div class="content">
-                  <span class="company-logo"><img src="{{ asset("/images/resource/company-logo/1-3.png") }}" alt=""></span>
-                  <h4><a href="{{ url("#") }}">Sr. Full Stack Engineer</a></h4>
-                  <ul class="job-info">
-                    <li><span class="icon flaticon-briefcase"></span> Segment</li>
-                    <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                    <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
-                    <li><span class="icon flaticon-money"></span> $35k - $45k</li>
-                  </ul>
-                  <ul class="job-other-info">
-                    <li class="time">Part Time</li>
-                  </ul>
-                  <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                </div>
-              </div>
-            </div>
-
+            @endforeach
           </div>
         </div>
 
@@ -143,27 +189,56 @@
               <div class="widget-content">
 
                 <ul class="company-info mt-0">
-                  <li>Primary industry: <span>Software</span></li>
-                  <li>Company size: <span>501-1,000</span></li>
-                  <li>Founded in: <span>2011</span></li>
-                  <li>Phone: <span>123 456 7890</span></li>
-                  <li>Email: <span>info@joio.com</span></li>
-                  <li>Location: <span>London, UK</span></li>
+                  <li>Primary industry: <span>{{ $employer->industry ?? 'N/A' }}</span></li>
+                  <li>Company size: <span>{{ $employer->company_size ?? 'N/A' }}</span></li>
+                  <li>Founded in: <span>{{ $employer->established_year ?? 'N/A' }}</span></li>
+                  <li>Phone: <span>{{ $employer->phone ?? 'N/A' }}</span></li>
+                  <li>Email: <span>{{ $employer->user->email ?? 'N/A' }}</span></li>
+
+                  <li>Location: 
+                      <span>
+                          {{ optional($employer->address)->city ?? 'City not available' }}, 
+                          {{ optional($employer->address)->state ?? 'State not available' }}
+                      </span>
+                  </li>
                   <li>Social media:
                     <div class="social-links">
-                      <a href="{{ url("#") }}"><i class="fab fa-facebook-f"></i></a>
-                      <a href="{{ url("#") }}"><i class="fab fa-twitter"></i></a>
-                      <a href="{{ url("#") }}"><i class="fab fa-instagram"></i></a>
-                      <a href="{{ url("#") }}"><i class="fab fa-linkedin-in"></i></a>
+                        @if($employer->socialNetworks)
+                            @if($employer->socialNetworks->facebook)
+                                <a href="{{ $employer->socialNetworks->facebook }}" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            @endif
+                
+                            @if($employer->socialNetworks->twitter)
+                                <a href="{{ $employer->socialNetworks->twitter }}" target="_blank">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            @endif
+                
+                            @if($employer->socialNetworks->linkedin)
+                                <a href="{{ $employer->socialNetworks->linkedin }}" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            @endif
+                        @else
+                            <span>No social links available</span>
+                        @endif
                     </div>
-                  </li>
+                </li>
+                
                 </ul>
-
-                <div class="btn-box"><a href="{{ url("#") }}" class="theme-btn btn-style-three">www.invisionapp.com</a></div>
+                <div class="btn-box">
+                  @if($employer->website)
+                      <a href="{{ $employer->website }}" target="_blank" class="theme-btn btn-style-three">
+                          {{ parse_url($employer->website, PHP_URL_HOST) }}
+                      </a>
+                  @endif
+                </div>
               </div>
             </div>
 
-            <div class="sidebar-widget">
+            {{-- <div class="sidebar-widget">
               <!-- Map Widget -->
               <h4 class="widget-title">Job Location</h4>
               <div class="widget-content">
@@ -172,7 +247,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> --}}
 
 
           </aside>

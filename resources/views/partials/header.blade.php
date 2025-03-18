@@ -35,11 +35,14 @@
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
                                     <h3>Jobs in demand</h3>
                                     <ul>
-                                        <li><a href="{{ url('job-list-v6.html') }}">Fresher jobs</a></li>
-                                        <li><a href="{{ url('job-list-v7.html') }}">MNC jobs</a></li>
-                                        <li><a href="{{ url('job-list-v8.html') }}">Work from home jobs</a></li>
-                                        <li><a href="{{ url('job-list-v9.html') }}">Walk-in jobs</a></li>
-                                        <li><a href="{{ url('job-list-v10.html') }}">Part-time jobs</a></li>
+                                        @foreach($customJobTypes as $jobType)
+                                            <li>
+                                                <a href="{{ route($jobType['route'], $jobType['param']) }}">
+                                                    {{ $jobType['name'] }} jobs
+                                                </a>
+                                            </li>
+                                        @endforeach
+
                                     </ul>
                                 </div>
 
@@ -57,9 +60,9 @@
                         </div>
                     </li>
 
-                    <li class="dropdown has-mega-menu" id="has-mega-menu">
+                    <li class=" has-mega-menu" id="has-mega-menu">
                         <span><a href="{{ url('/companies') }}">Companies</a></span>
-                        <div class="mega-menu">
+                        {{-- <div class="mega-menu">
                             <div class="mega-menu-bar row">
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
                                     <h3>Explore categories</h3>
@@ -93,7 +96,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </li>
 
                     @auth
@@ -105,7 +108,7 @@
                     @elseif(auth()->user()->user_type === 'candidate')
                     <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
                     <li><a href="{{ route('candidate.profile') }}">My Profile</a></li>
-                    <li><a href="{{ route('candidate.applications') }}">My Applications</a></li>
+                    <li><a href="{{ route('candidate.appliedjobs')  }}">My Applications</a></li>
 
                     @elseif(auth()->user()->user_type === 'employer')
                     <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
@@ -128,20 +131,40 @@
 
             @auth
 
-            <!-- Saved Jobs (Only for Candidates) -->
-            @if(auth()->user()->user_type === 'candidate')
+           <!-- Saved Jobs (Candidate Only) -->
+            @if($userType === 'candidate')
             <button class="menu-btn">
-                <span class="count"></span>
+                <span class="count">{{ $savedJobsCount > 0 ? $savedJobsCount : '' }}</span>
                 <span class="icon la la-heart-o"></span>
             </button>
             @endif
 
-            <!-- Notifications -->
+            <!-- Candidate Notifications -->
+            @if($userType === 'candidate')
+                <a href="{{ route('candidate.notifications') }}" class="menu-btn">
+                    <span class="icon la la-bell"></span>
+                    <span class="count">{{ $candidateUnreadNotificationsCount > 0 ? $candidateUnreadNotificationsCount : '' }}</span>
+                </a>
+            @endif
+
+
+            <!-- Employer Notifications -->
+            @if($userType === 'employer')
             <button class="menu-btn">
                 <span class="icon la la-bell"></span>
-                <span class="count"></span>
+                <span class="count">{{ $employerUnreadNotificationsCount > 0 ? $employerUnreadNotificationsCount : '' }}</span>
             </button>
-            
+            @endif
+
+            <!-- Admin Notifications -->
+            @if($userType === 'admin')
+                <a href="{{ route('admin.notifications') }}" class="menu-btn">
+                    <span class="icon la la-bell"></span>
+                    <span class="count">{{ $adminUnreadNotificationsCount > 0 ? $adminUnreadNotificationsCount : '' }}</span>
+                </a>
+            @endif
+
+
 
             <!-- Dashboard Option -->
             <div class="dropdown dashboard-option">
@@ -180,9 +203,9 @@
                     </li>
 
                     <!-- Manage Job Posts -->
-                    <li class="{{ request()->routeIs('admin.jobs') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.jobs') ? 'active' : '' }}">
                         <a href="{{ route('admin.jobs') }}"><i class="la la-briefcase"></i> Manage Job Posts</a>
-                    </li>
+                    </li> -->
 
                     <!-- Job Categories -->
                     <li class="{{ request()->routeIs('admin.categories') ? 'active' : '' }}">
@@ -190,14 +213,14 @@
                     </li>
 
                     <!-- Application Management -->
-                    <li class="{{ request()->routeIs('admin.applications') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.applications') ? 'active' : '' }}">
                         <a href="{{ route('admin.applications') }}"><i class="la la-file-invoice"></i> View Applications</a>
-                    </li>
+                    </li> -->
 
                     <!-- Payments -->
-                    <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
                         <a href="{{ route('admin.payments') }}"><i class="la la-credit-card"></i> Payments</a>
-                    </li>
+                    </li> -->
 
                     <!-- Notifications -->
                     <li class="{{ request()->routeIs('admin.notifications') ? 'active' : '' }}">
@@ -205,14 +228,14 @@
                     </li>
 
                     <!-- Reports -->
-                    <li class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
                         <a href="{{ route('admin.reports') }}"><i class="la la-chart-line"></i> Reports</a>
-                    </li>
+                    </li> -->
 
                     <!-- Site Settings -->
-                    <li class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
                         <a href="{{ route('admin.settings') }}"><i class="la la-cogs"></i> Site Settings</a>
-                    </li>
+                    </li> -->
 
                     <!-- Change Password -->
                     <li class="{{ request()->routeIs('admin.password.change') ? 'active' : '' }}">
@@ -225,9 +248,9 @@
                     </li>
 
                     <!-- Delete Admin Account -->
-                    <li class="{{ request()->routeIs('admin.profile.delete') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('admin.profile.delete') ? 'active' : '' }}">
                         <a href="{{ route('admin.profile.delete') }}"><i class="la la-trash"></i> Delete Account</a>
-                    </li>
+                    </li> -->
 
 
                     @elseif(auth()->user()->user_type === 'employer')
@@ -246,7 +269,7 @@
                     <li class="{{ request()->routeIs('employer.applicants') ? 'active' : '' }}">
                         <a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i>All Applicant</a>
                     </li>
-                    <li class="{{ request()->routeIs('employer.resumes') ? 'active' : '' }}">
+                    {{-- <li class="{{ request()->routeIs('employer.resumes') ? 'active' : '' }}">
                         <a href="{{ route('employer.resumes') }}"><i class="la la-bookmark-o"></i>Shortlisted Resume</a>
                     </li>
                     <li class="{{ request()->routeIs('employer.packages') ? 'active' : '' }}">
@@ -257,7 +280,7 @@
                     </li>
                     <li class="{{ request()->routeIs('employer.resume.alerts') ? 'active' : '' }}">
                         <a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i>Resume Alert</a>
-                    </li>
+                    </li> --}}
                     <li class="{{ request()->routeIs('employer.password.change') ? 'active' : '' }}">
                         <a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a>
                     </li>

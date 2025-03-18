@@ -17,11 +17,16 @@
                     <h4 class="widget-title">For Candidates</h4>
                     <div class="widget-content">
                       <ul class="list">
-                        <li><a href="{{ url('#') }}">Browse Jobs</a></li>
-                        <li><a href="{{ url('#') }}">Browse Categories</a></li>
-                        <li><a href="{{ url('#') }}">Candidate Dashboard</a></li>
-                        <li><a href="{{ url('#') }}">Job Alerts</a></li>
-                        <li><a href="{{ url('#') }}">My Bookmarks</a></li>
+                        <ul>
+                          @if(Auth::check() && $userType === 'candidate')
+                              <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
+                              <li><a href="{{ route('candidate.jobalerts') }}">Job Alerts</a></li>
+                              <li><a href="{{ route('candidate.shortlist') }}">My Bookmarks</a></li>
+                          @else
+                              <li><a href="{{ route('jobs.list') }}">Browse Jobs</a></li>
+                              <li><a href="#job-categories-section">Browse Categories</a></li>
+                          @endif
+                      </ul>                      
                       </ul>
                     </div>
                   </div>
@@ -31,10 +36,15 @@
                     <h4 class="widget-title">For compines</h4>
                     <div class="widget-content">
                       <ul class="list">
-                        <li><a href="{{ url('#') }}">Browse Candidates</a></li>
-                        <li><a href="{{ url('#') }}">Employer Dashboard</a></li>
-                        <li><a href="{{ url('#') }}">Add Job</a></li>
-                        <li><a href="{{ url('#') }}">Job Packages</a></li>
+                      <ul>
+    @if(Auth::check() && $userType === 'employer')
+        <!-- Employer Links (Only Visible When Logged In) -->
+        <li><a href="{{ route('candidates.list') }}">Browse Candidates</a></li>
+        <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
+        <li><a href="{{ route('employer.jobs.index') }}">Add Job</a></li>
+        <li><a href="{{ route('employer.packages') }}">Job Packages</a></li>
+    @endif
+</ul>
                       </ul>
                     </div>
                   </div>
@@ -44,11 +54,15 @@
                     <h4 class="widget-title">About Us</h4>
                     <div class="widget-content">
                       <ul class="list">
-                        <li><a href="{{ url('#') }}">Job Page</a></li>
-                        <li><a href="{{ url('#') }}">Job Page Alternative</a></li>
-                        <li><a href="{{ url('#') }}">Resume Page</a></li>
-                        <li><a href="{{ url('#') }}">Blog</a></li>
-                        <li><a href="{{ url('#') }}">Contact</a></li>
+                      @if(Auth::check()) 
+    <!-- Display when any user (candidate or employer) is logged in -->
+    <ul>
+        <li><a href="">Job Page</a></li>
+        <li><a href="">Job Page Alternative</a></li>
+        
+
+    </ul>
+@endif
                       </ul>
                     </div>
                   </div>

@@ -9,9 +9,21 @@ use App\Models\User;
 class UserController extends Controller
 {
     // Display all users except admin
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('is_admin', false)->where('user_type','candidate')->get();
+        $query = User::where('user_type', 'candidate');
+
+        // $users = User::where('is_admin', false)->where('user_type','candidate')->get();
+        if ($request->filled('keyword')) {
+            $query->where('name', 'LIKE', "%{$request->keyword}%")
+                  ->orWhere('email', 'LIKE', "%{$request->keyword}%");
+        }
+    
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+    
+        $users = $query->paginate(10);
         return view('admin.admin_manageuser', compact('users'));
     }
 
@@ -76,6 +88,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
+        return redirect()->back()->with('success', 'User deleted successfully.');
     }
 }

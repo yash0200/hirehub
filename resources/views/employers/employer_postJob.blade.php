@@ -163,7 +163,7 @@
                                             <label>Job Type</label>
                                             <select name="job_type" class="chosen-select form-control">
                                                 @php
-                                                    $jobTypes = ['Full-Time', 'Part-Time', 'Freelance', 'Internship'];
+                                                    $jobTypes = ['Full-Time', 'Part-Time', 'Fresher', 'Internship','Remote'];
                                                 @endphp
                                                 @foreach ($jobTypes as $jobType)
                                                     <option value="{{ $jobType }}" {{ old('job_type', $job->job_type ?? '') == $jobType ? 'selected' : '' }}>

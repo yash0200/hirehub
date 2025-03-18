@@ -96,6 +96,12 @@
                                             <option value="500 - 1000" {{ old('company_size', $employer->company_size ?? '') == "500 - 1000" ? 'selected' : '' }}>500 - 1000</option>
                                         </select>
                                     </div>
+                                    <div class="form-group col-lg-6 col-md-12">
+                                        <label>Industry</label>
+                                        <input type="text" name="industry"
+                                            value="{{ old('industry', $employer->industry ?? '') }}"
+                                            placeholder="Enter industry Name">
+                                    </div>
 
                                     <div class="form-group col-lg-12 col-md-12">
                                         <button class="theme-btn btn-style-one" type="submit">Save</button>

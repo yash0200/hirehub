@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Jobs;
 use App\Models\Applicant;
-use App\Models\Notification;
+use App\Models\CandidateNotification;
 use App\Models\Candidate;
 
 class ApplicantController extends Controller
@@ -16,69 +16,90 @@ class ApplicantController extends Controller
         // Get the logged-in employer's ID
         $employerId = auth()->user()->employer->id;
 
-        // Fetch the jobs posted by the logged-in employer
-        $jobs = Jobs::where('employer_id', $employerId)->get();
+        // Fetch employer's jobs with their related applicants
+        $jobs = Jobs::with([
+            'applicants' => function ($query) {
+                $query->with(['candidate', 'resume', 'candidate_address']);
+            }
+        ])->where('employer_id', $employerId)->get();
 
-        // Fetch the applicants for these jobs
-        // Assuming you have a 'job_id' field in the applicants table to link applicants to jobs
-        $applicants = Applicant::whereIn('job_id', $jobs->pluck('id'))->get();
+        // Fetch applicants with their statuses
+        $applicants = Applicant::with(['candidate', 'resume', 'candidate_address', 'job'])
+            ->whereIn('job_id', $jobs->pluck('id'))
+            ->get();
 
+        // Categorize applicants
+        $totals = $applicants;
+        $approved = $applicants->where('status', 'approved');
+        $rejected = $applicants->where('status', 'rejected');
 
-        // Pass the applicants and jobs to the view
-        return view('employers.employer_applicants', compact('applicants', 'jobs'));
+        return view('employers.employer_applicants', compact('applicants', 'jobs', 'totals', 'approved', 'rejected'));
     }
-    public function job()
-    {
-        return $this->belongsTo(Jobs::class);
-    }
-
     public function approveApplicant($id)
     {
         $applicant = Applicant::findOrFail($id);
-      
+
 
         // Update status
         $applicant->status = 'approved';
         $applicant->save();
 
-        // Create a notification
-        Notification::create([
-            'user_id' => $applicant->candidate_id, // Assuming candidate_id links to users
-            'message' => "Your application has been approved successfully.",
+        CandidateNotification::create([
+            'candidate_id' => $applicant->candidate_id,
+            'title'        => 'Application Approved',
+            'message'      => "Congratulations! Your application for the position '{$applicant->job->title}' has been approved successfully.",
+            'type'         => 'application_status',  // Add this field
+            'is_read'      => false,
         ]);
+
 
         return response()->json(['message' => 'Application approved successfully.']);
     }
-    public function viewApplicant($id)
+    public function viewProfile($id)
     {
         $candidate = Candidate::with(['resume', 'socialNetworks', 'address'])
-        ->where('id', $id)
-        ->firstOrFail();
-    
+            ->where('id', $id)
+            ->firstOrFail();
+
         return view('employers.candidate_profile', compact('candidate'));
     }
-    public function rejectApplicant($id)
-{
-    try {
-        $applicant = Applicant::find($id);
-        if (!$applicant) {
-            return response()->json(['error' => 'Applicant not found'], 404);
-        }
 
-        $applicant->status = 'rejected';
-        $applicant->save();
+    public function viewApplicant($id)
+    {
+        $application = Applicant::with(['job', 'candidate', 'resume'])->findOrFail($id);
+        // $application = Applicant::with([
+        //     'job.employer',
+        //     'candidate.user',
+        //     'resume'
+        // ])->findOrFail($id);
+        
 
-
-        Notification::create([
-            'user_id' => $applicant->candidate_id, // Ensure this field exists
-            'message' => "Your application has been rejected.",
-        ]);
-
-
-        return response()->json(['message' => 'Application rejected successfully.']);
-
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'Something went wrong.'], 500);
+        return view('applications.view_application', compact('application'));
     }
-}
+
+    public function rejectApplicant($id)
+    {
+        try {
+            $applicant = Applicant::find($id);
+            if (!$applicant) {
+                return response()->json(['error' => 'Applicant not found'], 404);
+            }
+
+            $applicant->status = 'rejected';
+            $applicant->save();
+
+            // Create rejection notification
+            CandidateNotification::create([
+                'candidate_id' => $applicant->candidate_id,
+                'title'        => 'Application Rejected',
+                'message'      => "Unfortunately, your application for the position '{$applicant->job->title}' has been rejected.",
+                'type'         => 'application_status',
+                'is_read'      => false,
+            ]);
+
+            return response()->json(['message' => 'Application rejected successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong.'], 500);
+        }
+    }
 }

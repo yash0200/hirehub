@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>@yield('title', 'HireHub')</title>
@@ -8,11 +9,12 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-    <link rel="shortcut icon"  href="{{ asset('images/hirehub-favicon.svg') }}" sizes="512x512" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/hirehub-favicon.svg') }}" sizes="512x512" type="image/x-icon">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+
 </head>
+
 <body data-anm=".anm">
 
     <div class="page-wrapper">
@@ -56,29 +58,31 @@
                 window.location.href = "{{ route('login') }}"; // Redirect to login page if user is not logged in
                 return;
             }
-    
+
             let jobId = button.getAttribute('data-job-id');
-    
+
             fetch("{{ route('candidate.shortlist.job') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                },
-                body: JSON.stringify({ job_id: jobId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'added') {
-                    button.classList.add("active"); // Add active class
-                } else if (data.status === 'removed') {
-                    button.classList.remove("active"); // Remove active class
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    },
+                    body: JSON.stringify({
+                        job_id: jobId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'added') {
+                        button.classList.add("active"); // Add active class
+                    } else if (data.status === 'removed') {
+                        button.classList.remove("active"); // Remove active class
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
         setTimeout(function() {
-                document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+            document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
         }, 3000);
 
         $(document).ready(function() {
@@ -121,10 +125,11 @@
                     }
                 });
             });
-            
+
         });
-  </script>
-  
+    </script>
+
 
 </body>
+
 </html>

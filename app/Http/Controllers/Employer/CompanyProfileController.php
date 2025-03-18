@@ -36,9 +36,10 @@ class CompanyProfileController extends Controller
                     'website' => 'nullable|url',
                     'established_year' => 'nullable|integer',
                     'company_size' => 'required|string|max:255',
+                    'industry'=>'required|string|max:255',
                 ]);
 
-                $validatedData = $request->only(['company_name', 'phone', 'website', 'established_year', 'company_size']);
+                $validatedData = $request->only(['company_name', 'phone', 'website', 'established_year', 'company_size','industry']);
 
                 // Handle File Upload
                 if ($request->hasFile('logo')) {

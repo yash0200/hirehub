@@ -10,7 +10,11 @@ use App\Models\Jobs;
 class EmployersController extends Controller
 {
     public function index(Request $request)
-    {
+    {   // Get the jobs with pagination, 9 jobs per page
+        $jobs = Jobs::paginate(9);
+
+
+
         $query = Employer::with(['address']) // Eager load address
             ->withCount(['jobs' => function ($query) {
                 $query->where('status', 'active'); // Count only active jobs
@@ -39,9 +43,11 @@ class EmployersController extends Controller
             });
         }
 
-        // Apply category filter
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
+        // Apply industry filter
+        if ($request->filled('industry')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('industry', 'like', '%' . $request->industry . '%');
+            });
         }
 
         $employers = $query->paginate(10); // Paginate results
@@ -49,7 +55,7 @@ class EmployersController extends Controller
         // Fetch job categories
         $categories = JobCategory::where('status', 'active')->get();
 
-        return view('employers.index', compact('employers', 'categories'));
+        return view('employers.index', compact('employers', 'categories','jobs'));
     }
     public function dashboard()
     {

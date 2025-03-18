@@ -161,7 +161,7 @@
           </div>
           </div>
 
-          <div class="sort-by">
+          <!-- <div class="sort-by">
           {{-- <select class="chosen-select">
             <option>New Jobs</option>
             <option>Freelance</option>
@@ -179,7 +179,7 @@
             <option>Show 50</option>
             <option>Show 60</option>
           </select>
-          </div>
+          </div> -->
         </div>
 
         <div class="row" id="job-list">

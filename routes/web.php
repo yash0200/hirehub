@@ -65,7 +65,7 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 
-// Route::get('/jobs',[JobsController::class, 'index']);
+// Route::get('/jobs',[JobsController::class, 'index']);    
 Route::get('/companies', [EmployersController::class, 'index']);
 // Middleware to check authentication before accessing dashboards
 Route::middleware(['auth'])->group(function () {

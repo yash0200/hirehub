@@ -87,7 +87,7 @@
 
           <div class="filter-buttons">
             <button type="submit" class="btn btn-primary">Apply</button>
-            <a href="{{ route('jobs.list') }}" class="btn btn-secondary">Reset</a>
+            <a href="{{ route('employers.list') }}" class="btn btn-secondary">Reset</a>
         </div>
       </form>
         </div>

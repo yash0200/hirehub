@@ -57,9 +57,9 @@
                         </div>
                     </li>
 
-                    <li class="dropdown has-mega-menu" id="has-mega-menu">
+                    <li class=" has-mega-menu" id="has-mega-menu">
                         <span><a href="{{ url('/companies') }}">Companies</a></span>
-                        <div class="mega-menu">
+                        {{-- <div class="mega-menu">
                             <div class="mega-menu-bar row">
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
                                     <h3>Explore categories</h3>
@@ -93,7 +93,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </li>
 
                     @auth

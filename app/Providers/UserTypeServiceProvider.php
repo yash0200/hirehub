@@ -41,15 +41,15 @@ class UserTypeServiceProvider extends ServiceProvider
                 });
 
             $locations = ['Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune'];
-            $cities = [
-                ['name' => 'Delhi', 'jobs' => 96, 'image' => 'home22-city-1.png'],
-                ['name' => 'Mumbai', 'jobs' => 96, 'image' => 'home22-city-2.png'],
-                ['name' => 'Bangalore', 'jobs' => 96, 'image' => 'home22-city-4.png'],
-                ['name' => 'Hyderabad', 'jobs' => 96, 'image' => 'home22-city-5.png'],
-                ['name' => 'Chennai', 'jobs' => 96, 'image' => 'home22-city-6.png'],
-                ['name' => 'Pune', 'jobs' => 96, 'image' => 'home22-city-7.png'],
-            ];
-            $view->with(compact('userType', 'categories', 'locations', 'cities','addedToday','totalJobs'));
+            // $cities = [
+            //     ['name' => 'Delhi', 'jobs' => 96, 'image' => 'home22-city-1.png'],
+            //     ['name' => 'Mumbai', 'jobs' => 96, 'image' => 'home22-city-2.png'],
+            //     ['name' => 'Bangalore', 'jobs' => 96, 'image' => 'home22-city-4.png'],
+            //     ['name' => 'Hyderabad', 'jobs' => 96, 'image' => 'home22-city-5.png'],
+            //     ['name' => 'Chennai', 'jobs' => 96, 'image' => 'home22-city-6.png'],
+            //     ['name' => 'Pune', 'jobs' => 96, 'image' => 'home22-city-7.png'],
+            // ];
+            $view->with(compact('userType', 'categories', 'locations','addedToday','totalJobs'));
         });
     }
 

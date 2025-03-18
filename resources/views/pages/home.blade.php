@@ -283,7 +283,7 @@
       </div>
     </div>
     <div class="row wow fadeInUp">
-      @foreach($cities as $city)
+      {{-- @foreach($cities as $city)
       <div class="col-sm-6 col-md-4">
         <div class="border-1 p20 bdrs12 d-flex align-items-center mb30">
           <div class="thumb mr20">
@@ -295,7 +295,20 @@
           </div>
         </div>
       </div>
-      @endforeach
+      @endforeach --}}
+      @foreach($cities as $city)
+      <div class="col-sm-6 col-md-4">
+          <div class="border-1 p20 bdrs12 d-flex align-items-center mb30">
+              <div class="thumb mr20">
+                  <img class="rounded-circle" src="{{ asset('/images/city/' . $city->image) }}" alt="">
+              </div>
+              <div class="details">
+                  <h5 class="mb-0 fz18 fw500"><a href="{{ route('jobs.list', ['location' => $city->city]) }}">{{ $city->city }}</a></h5>
+                  <p class="text">{{ $city->job_count }} Jobs</p>
+              </div>
+          </div>
+      </div>
+    @endforeach
     </div>
   </div>
   </div>
@@ -438,7 +451,7 @@
 <!-- End CTA Home 18 -->
 
 <!-- Testimonials Section -->
-<section class="layout-pt-120 layout-pb-120">
+{{-- <section class="layout-pt-120 layout-pb-120">
   <div class="auto-container">
     <div class="d-sm-flex align-items-center justify-content-sm-between wow fadeInUp mb-4 mb-sm-0">
       <div class="sec-title">
@@ -472,96 +485,69 @@
         </div>
       </div>
 
-      <!-- Job Block -->
-      <div class="candidate-block-four at-v7">
-        <div class="inner-box text-start">
-          <div class="d-flex align-items-center">
-            <span class="thumb mx-0 wa ha"><img class="w70" src="{{ asset('/images/testinomal/top-company-2.png') }}" alt=""></span>
-            <div class="ml15">
-              <h3 class="name"><a href="{{ url('#') }}">Darrell Steward</a></h3>
-              <span class="cat">UI Designer</span>
-            </div>
-          </div>
-          <ul class="job-info justify-content-start at-clv7 mt-2 mb-4">
-            <li class="ms-0"><span class="icon flaticon-briefcase"></span> Software</li>
-            <li><span class="icon fal fa-location-dot"></span> London, UK</li>
-            <li class="mx-0 ps-2"><span class="fal fa-users"></span> 10-50</li>
-          </ul>
-          <p class="text mb20">Netflix is the world's leading streaming entertainment service with over 195 million paid memberships...</p>
-          <div class="d-grid">
-            <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18">Follow <i class="fal fa-long-arrow-right"></i></a>
-          </div>
-        </div>
+    </div>
+  </div>
+</section> --}}
+<section class="layout-pt-120 layout-pb-120">
+  <div class="auto-container">
+    <div class="d-sm-flex align-items-center justify-content-sm-between wow fadeInUp mb-4 mb-sm-0">
+      <div class="sec-title">
+        <h2>Featured Companies Actively Hiring</h2>
+        <div class="text">Over 200 Million Jobs</div>
       </div>
+      <a href="{{ route('employers.list') }}" class="ud-btn-border-theme at-home18 mb-4">
+        View All Companies <i class="fal fa-long-arrow-right"></i>
+      </a>
+    </div>
 
-      <!-- Job Block -->
+    <div class="job-carousel wow fadeInUp owl-carousel owl-theme default-dots">
+      @foreach($employers as $employer)
       <div class="candidate-block-four at-v7">
         <div class="inner-box text-start">
           <div class="d-flex align-items-center">
-            <span class="thumb mx-0 wa ha"><img class="w70" src="{{ asset('/images/testinomal/top-company-3.png') }}" alt=""></span>
+            <span class="thumb mx-0 wa ha">
+              <img class="w70" src="{{ asset($employer->logo ? 'storage/logos/' . $employer->logo : 'images/resource/company-logo/1-1.png') }}">
+            </span>
             <div class="ml15">
-              <h3 class="name"><a href="{{ url('#') }}">Brooklyn Simmons</a></h3>
-              <span class="cat">UI Designer</span>
+              <h3 class="name">
+                <a href="{{ route('employers.details', $employer->id) }}">
+                  {{ $employer->company_name }}
+                </a>
+              </h3>
+              <span class="cat">{{ $employer->industry ?? 'Unknown Industry' }}</span>
             </div>
           </div>
-          <ul class="job-info justify-content-start at-clv7 mt-2 mb-4">
-            <li class="ms-0"><span class="icon flaticon-briefcase"></span> Software</li>
-            <li><span class="icon fal fa-location-dot"></span> London, UK</li>
-            <li class="mx-0 ps-2"><span class="fal fa-users"></span> 10-50</li>
-          </ul>
-          <p class="text mb20">Netflix is the world's leading streaming entertainment service with over 195 million paid memberships...</p>
-          <div class="d-grid">
-            <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18">Follow <i class="fal fa-long-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job Block -->
-      <div class="candidate-block-four at-v7">
-        <div class="inner-box text-start">
-          <div class="d-flex align-items-center">
-            <span class="thumb mx-0 wa ha"><img class="w70" src="{{ asset('/images/testinomal/top-company-4.png') }}" alt=""></span>
-            <div class="ml15">
-              <h3 class="name"><a href="{{ url('#') }}">Jane Cooper</a></h3>
-              <span class="cat">UI Designer</span>
-            </div>
-          </div>
           <ul class="job-info justify-content-start at-clv7 mt-2 mb-4">
-            <li class="ms-0"><span class="icon flaticon-briefcase"></span> Software</li>
-            <li><span class="icon fal fa-location-dot"></span> London, UK</li>
-            <li class="mx-0 ps-2"><span class="fal fa-users"></span> 10-50</li>
+            <li class="ms-0">
+              <span class="icon flaticon-briefcase"></span> {{ $employer->industry ?? 'N/A' }}
+            </li>
+            <li>
+              <span class="icon fal fa-location-dot"></span>
+              {{ $employer->address->city ?? 'City' }}, {{ $employer->address->state ?? 'State' }}
+            </li>
+            <li class="mx-0 ps-2">
+              <span class="fal fa-users"></span> {{ $employer->company_size ?? 'N/A' }}
+            </li>
           </ul>
-          <p class="text mb20">Netflix is the world's leading streaming entertainment service with over 195 million paid memberships...</p>
-          <div class="d-grid">
-            <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18">Follow <i class="fal fa-long-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job Block -->
-      <div class="candidate-block-four at-v7">
-        <div class="inner-box text-start">
-          <div class="d-flex align-items-center">
-            <span class="thumb mx-0 wa ha"><img class="w70" src="{{ asset('/images/testinomal/top-company-1.png') }}" alt=""></span>
-            <div class="ml15">
-              <h3 class="name"><a href="{{ url('#') }}">Ralph Edwards</a></h3>
-              <span class="cat">UI Designer</span>
-            </div>
-          </div>
-          <ul class="job-info justify-content-start at-clv7 mt-2 mb-4">
-            <li class="ms-0"><span class="icon flaticon-briefcase"></span> Software</li>
-            <li><span class="icon fal fa-location-dot"></span> London, UK</li>
-            <li class="mx-0 ps-2"><span class="fal fa-users"></span> 10-50</li>
-          </ul>
-          <p class="text mb20">Netflix is the world's leading streaming entertainment service with over 195 million paid memberships...</p>
+          <p class="text mb20">
+            {{ Str::limit($employer->description, 120, '...') }}
+          </p>
+
           <div class="d-grid">
-            <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18">Follow <i class="fal fa-long-arrow-right"></i></a>
+            <a href="{{ route('employers.details', $employer->id) }}" 
+               class="ud-btn-border-theme at-home18">
+               View Profile <i class="fal fa-long-arrow-right"></i>
+            </a>
           </div>
         </div>
       </div>
+      @endforeach
     </div>
   </div>
 </section>
+
 <!-- End Testimonials Section -->
 
 <!-- Subscribe Section -->

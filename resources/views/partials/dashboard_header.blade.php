@@ -61,7 +61,7 @@
                     </li>
 
                     <li class=" has-mega-menu" id="has-mega-menu">
-                        <span><a href="{{ url('/companies') }}">Companies</a></span>
+                        <span><a href="{{ url('/companies') }}" style="color:#202124;">Companies</a></span>
                         {{-- <div class="mega-menu">
                             <div class="mega-menu-bar row">
                                 <div class="column col-lg-3 col-md-3 col-sm-12">

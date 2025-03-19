@@ -23,9 +23,6 @@
             <li class="{{ request()->routeIs('candidate.shortlist') ? 'active' : '' }}">
                 <a href="{{ route('candidate.shortlist') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a>
             </li>
-            {{-- <li class="{{ request()->routeIs('candidate.messages') ? 'active' : '' }}">
-            <a href="{{ route('candidate.messages') }}"><i class="la la-comment-o"></i> Messages</a>
-            </li> --}}
             <li class="{{ request()->routeIs('candidate.password') ? 'active' : '' }}">
                 <a href="{{ route('candidate.password') }}"><i class="la la-lock"></i> Change Password</a>
             </li>

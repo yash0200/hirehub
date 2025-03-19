@@ -19,7 +19,21 @@
             <div class="widget-title">
               <h4>Add Resume</h4>
             </div>
-
+            @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li><b>{{ $error }}</b> </li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+             @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
             <div class="widget-content">
               <form action="{{ route('candidate.resume.store') }}" method="POST" enctype="multipart/form-data" class="default-form">
                 @csrf
@@ -81,8 +95,8 @@
                       <option value="full_time" {{ old('employment_type', $resume->employment_type ?? '') == 'full_time' ? 'selected' : '' }}>Full Time</option>
                       <option value="part_time" {{ old('employment_type', $resume->employment_type ?? '') == 'part_time' ? 'selected' : '' }}>Part Time</option>
                       <option value="internship" {{ old('employment_type', $resume->employment_type ?? '') == 'internship' ? 'selected' : '' }}>Internship</option>
-                      <option value="contract" {{ old('employment_type', $resume->employment_type ?? '') == 'contract' ? 'selected' : '' }}>Contract</option>
-                      <option value="freelance" {{ old('employment_type', $resume->employment_type ?? '') == 'freelance' ? 'selected' : '' }}>Freelance</option>
+                      <option value="fresher" {{ old('employment_type', $resume->employment_type ?? '') == 'fresher' ? 'selected' : '' }}>Fresher</option>
+                      <option value="remote" {{ old('employment_type', $resume->employment_type ?? '') == 'remote' ? 'selected' : '' }}>Work From Home</option>
                     </select>
                   </div>
                   <div class="form-group col-lg-6 col-md-12">
@@ -148,6 +162,28 @@
                       <option value="Personal Care" {{ in_array('Personal Care', old('skills', $resume->skills ?? [])) ? 'selected' : '' }}>Personal Care</option>
 
                     </select>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Current Salary</label>
+                    <select name="current_salary" class="chosen-select form-control">
+                                                <option>Select</option>
+                                                <option value="₹3,00,000 - ₹5,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹3,00,000 - ₹5,00,000' ? 'selected' : '' }}>₹3,00,000 - ₹5,00,000</option>
+                                            <option value="₹5,00,000 - ₹7,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹5,00,000 - ₹7,00,000' ? 'selected' : '' }}>₹5,00,000 - ₹7,00,000</option>
+                                            <option value="₹7,00,000 - ₹10,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹7,00,000 - ₹10,00,000' ? 'selected' : '' }}>₹7,00,000 - ₹10,00,000</option>
+                                            <option value="₹10,00,000 - ₹15,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹10,00,000 - ₹15,00,000' ? 'selected' : '' }}>₹10,00,000 - ₹15,00,000</option>
+                                            <option value="₹15,00,000 - ₹20,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹15,00,000 - ₹20,00,000' ? 'selected' : '' }}>₹15,00,000 - ₹20,00,000</option>
+                                            </select>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Expected Salary</label>
+                    <select name="expected_salary" class="chosen-select form-control">
+                                                <option>Select</option>
+                                                <option value="₹3,00,000 - ₹5,00,000" {{ old('expected_salary', $resume->expected_salary ?? '') == '₹3,00,000 - ₹5,00,000' ? 'selected' : '' }}>₹3,00,000 - ₹5,00,000</option>
+                                            <option value="₹5,00,000 - ₹7,00,000" {{ old('expected_salary', $resume->expected_salary ?? '') == '₹5,00,000 - ₹7,00,000' ? 'selected' : '' }}>₹5,00,000 - ₹7,00,000</option>
+                                            <option value="₹7,00,000 - ₹10,00,000" {{ old('expected_salary', $resume->expected_salary ?? '') == '₹7,00,000 - ₹10,00,000' ? 'selected' : '' }}>₹7,00,000 - ₹10,00,000</option>
+                                            <option value="₹10,00,000 - ₹15,00,000" {{ old('expected_salary', $resume->expected_salary ?? '') == '₹10,00,000 - ₹15,00,000' ? 'selected' : '' }}>₹10,00,000 - ₹15,00,000</option>
+                                            <option value="₹15,00,000 - ₹20,00,000" {{ old('expected_salary', $resume->expected_salary ?? '') == '₹15,00,000 - ₹20,00,000' ? 'selected' : '' }}>₹15,00,000 - ₹20,00,000</option>
+                                            </select>
                   </div>
                 </div>
                 <!-- Input -->

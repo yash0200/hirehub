@@ -20,6 +20,7 @@ class CandidateResumeController extends Controller
 
     public function store(Request $request)
     {
+        try{
         $user = auth()->user();
         $candidate = Auth::user()->candidate;
         if (!$candidate) {
@@ -30,7 +31,7 @@ class CandidateResumeController extends Controller
         $resume = Resume::firstOrNew(['candidate_id' => $candidate->id]);
 
         // Validate the request
-        $request->validate([
+       $validator = $request->validate([
             'description' => 'required|string',
             'degree_name' => 'nullable|string',
             'field_of_study' => 'nullable|string',
@@ -42,7 +43,11 @@ class CandidateResumeController extends Controller
             'employment_type' => 'nullable|string',
             'skills' => 'nullable|array',
             'resume_file' => 'nullable|file|mimes:pdf,jpeg,jpg,png|max:2048',
+            'current_salary' => 'nullable|string',
+            'expected_salary' => 'nullable|string',
         ]);
+
+       
 
         // Prepare the data for saving
         $data = $request->only([
@@ -56,6 +61,8 @@ class CandidateResumeController extends Controller
             'company_name',
             'employment_type',
             'skills',
+            'current_salary',
+            'expected_salary',
         ]);
 
         // Handle file upload
@@ -80,5 +87,9 @@ class CandidateResumeController extends Controller
         $user->updateResumeStatus();
 
         return redirect()->route('candidate.resumes')->with('success', 'Resume updated successfully!');
+    } 
+    catch (\Exception $e) {
+        return redirect()->route('candidate.resumes')->withErrors($e->getMessage());
     }
+}
 }

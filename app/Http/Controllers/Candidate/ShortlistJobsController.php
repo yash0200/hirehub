@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ShortlistedJob;
+use App\Models\Jobs;
 
 class ShortlistJobsController extends Controller
 {
@@ -62,6 +63,30 @@ class ShortlistJobsController extends Controller
         // }
         // return redirect()->route('candidate.shortlist')->with('success', 'Job shortlisted successfully!');
     }
+
+
+    public function viewJob(Jobs $job)
+    {
+        // Check if the job is inactive, closed, or expired
+        if ($job->status === 'inactive') {
+            return redirect()->back()->with('warning', 'This job is temporarily unavailable. Please check back later.');
+        }
+    
+        if ($job->status === 'closed') {
+            return redirect()->back()->with('error', 'This job is no longer taking applications.');
+        }
+    
+        if ($job->status === 'expired') {
+            return redirect()->back()->with('error', 'The job deadline has passed.');
+        }
+    
+        // Proceed to show the job details if it's active
+        return view('jobs.view', compact('job'));
+    }
+
+
+
+
     public function destroy($id)
 {
     // Find the saved job by ID

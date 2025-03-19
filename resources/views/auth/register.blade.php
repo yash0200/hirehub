@@ -186,7 +186,7 @@
                             </div>
                         </form>
 
-                        <div class="bottom-box">
+                        <!-- <div class="bottom-box">
                             <div class="divider"><span>or</span></div>
                             <div class="btn-box row">
                                 <div class="col-lg-6 col-md-12">
@@ -196,7 +196,7 @@
                                     <a href="#" class="theme-btn social-btn-two google-btn"><i class="fab fa-google"></i> Log In via Gmail</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- End Register Form -->

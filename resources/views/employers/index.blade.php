@@ -67,11 +67,11 @@
                 <div class="form-group">
                   <select class="chosen-select" name="company_size">
                     <option value="">Select Company Size</option>
-                    <option value="50-100" {{ request('company_size') == '50-100' ? 'selected' : '' }}>50-100 Members</option>
-                    <option value="100-150" {{ request('company_size') == '100-150' ? 'selected' : '' }}>100-150 Members</option>
-                    <option value="200-250" {{ request('company_size') == '200-250' ? 'selected' : '' }}>200-250 Members</option>
-                    <option value="300-350" {{ request('company_size') == '300-350' ? 'selected' : '' }}>300-350 Members</option>
-                    <option value="500-1000" {{ request('company_size') == '500-1000' ? 'selected' : '' }}>500-1000 Members</option>
+                    <option value="50 - 100" {{ request('company_size') == '50-100' ? 'selected' : '' }}>50-100 Members</option>
+                    <option value="100 - 150" {{ request('company_size') == '100-150' ? 'selected' : '' }}>100-150 Members</option>
+                    <option value="200 - 250" {{ request('company_size') == '200-250' ? 'selected' : '' }}>200-250 Members</option>
+                    <option value="300 - 350" {{ request('company_size') == '300-350' ? 'selected' : '' }}>300-350 Members</option>
+                    <option value="500 - 1000" {{ request('company_size') == '500-1000' ? 'selected' : '' }}>500-1000 Members</option>
                   </select>
                   <span class="icon flaticon-briefcase"></span>
                 </div>

@@ -136,9 +136,9 @@
               <div class="form-group">
                   <div class="field-outer">
                       <div class="input-group checkboxes square">
-                          <input type="checkbox" name="remember-me" id="remember">
-                          <label for="remember" class="remember">
-                              <span class="custom-checkbox"></span> Remember me
+                          <!-- <input type="checkbox" name="remember-me" id="remember">
+                          <label for="remember" class="remember"> -->
+                              <!-- <span class="custom-checkbox"></span> Remember me -->
                           </label>
                       </div>
                       <a href="{{ url('/forgot-password') }}" class="pwd">Forgot password?</a>
@@ -153,15 +153,15 @@
 
             <div class="bottom-box">
               <div class="text">Don't have an account? <a href="{{ url('/register') }}">Signup</a></div>
-              <div class="divider"><span>or</span></div>
-              <div class="btn-box row">
+              <!-- <div class="divider"><span>or</span></div> -->
+              <!-- <div class="btn-box row">
                 <div class="col-lg-6 col-md-12">
                   <a href="#" class="theme-btn social-btn-two facebook-btn"><i class="fab fa-facebook-f"></i> Log In via Facebook</a>
                 </div>
                 <div class="col-lg-6 col-md-12">
                   <a href="#" class="theme-btn social-btn-two google-btn"><i class="fab fa-google"></i> Log In via Gmail</a>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

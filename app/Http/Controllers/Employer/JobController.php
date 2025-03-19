@@ -167,9 +167,15 @@ class JobController extends Controller
     {
 
         // Prevent any modifications if the job is expired or closed
-        if (in_array($job->status, ['inactive', 'closed'])) {
+        if (in_array($job->status, ['expired','closed'])) {
             return redirect()->route('employer.jobs.manage')
                 ->with('error', 'This job is expired or closed and cannot be edited.');
+        }
+        
+        // Prevent any modification if the job in inactive 
+        if (in_array($job->status, ['inactive'])) {
+            return redirect()->route('employer.jobs.manage')
+                ->with('error', 'This job is inactive. Please Check back later.');
         }
         $categories = JobCategory::all();
         $job->load('jobAddresses');

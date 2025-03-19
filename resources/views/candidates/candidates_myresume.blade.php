@@ -95,8 +95,8 @@
                       <option value="full_time" {{ old('employment_type', $resume->employment_type ?? '') == 'full_time' ? 'selected' : '' }}>Full Time</option>
                       <option value="part_time" {{ old('employment_type', $resume->employment_type ?? '') == 'part_time' ? 'selected' : '' }}>Part Time</option>
                       <option value="internship" {{ old('employment_type', $resume->employment_type ?? '') == 'internship' ? 'selected' : '' }}>Internship</option>
-                      <option value="contract" {{ old('employment_type', $resume->employment_type ?? '') == 'contract' ? 'selected' : '' }}>Contract</option>
-                      <option value="freelance" {{ old('employment_type', $resume->employment_type ?? '') == 'freelance' ? 'selected' : '' }}>Freelance</option>
+                      <option value="fresher" {{ old('employment_type', $resume->employment_type ?? '') == 'fresher' ? 'selected' : '' }}>Fresher</option>
+                      <option value="remote" {{ old('employment_type', $resume->employment_type ?? '') == 'remote' ? 'selected' : '' }}>Work From Home</option>
                     </select>
                   </div>
                   <div class="form-group col-lg-6 col-md-12">

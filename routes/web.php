@@ -9,6 +9,7 @@ use App\Http\Controllers\Candidate\JobController as CandidateJob;
 use App\Http\Controllers\Candidate\CandidateResumeController;
 //changes
 use App\Http\Controllers\Common\AboutusController;
+use App\Http\Controllers\Common\FAQController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\Candidate\JobAlertController;
 use App\Http\Controllers\Employer\ResumeController as EmployerResume;
@@ -70,6 +71,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 
 Route::get('/about', [AboutusController::class, 'index'])->name('about');
+Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+
 
 // Route::get('/jobs',[JobsController::class, 'index']);    
 Route::get('/companies', [EmployersController::class, 'index']);

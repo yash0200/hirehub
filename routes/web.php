@@ -125,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
         Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
         Route::delete('/candidate/shortlist-job/{id}', [ShortlistJobsController::class, 'destroy'])->name('candidate.job.destroy');
+        Route::get('/candidate/jobs/{job}', [ShortlistJobsController::class, 'viewJob'])->name('jobs.view');
     });
 
     /** ================== Employer Routes ================== */

@@ -8,6 +8,8 @@ use App\Http\Controllers\Candidate\DashboardController as CandidateDashboard;
 use App\Http\Controllers\Candidate\JobController as CandidateJob;
 use App\Http\Controllers\Candidate\CandidateResumeController;
 //changes
+use App\Http\Controllers\Common\AboutusController;
+use App\Http\Controllers\Common\FAQController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\Candidate\JobAlertController;
 use App\Http\Controllers\Employer\ResumeController as EmployerResume;
@@ -67,6 +69,11 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 
+
+Route::get('/about', [AboutusController::class, 'index'])->name('about');
+Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+
+
 // Route::get('/jobs',[JobsController::class, 'index']);    
 Route::get('/companies', [EmployersController::class, 'index']);
 // Middleware to check authentication before accessing dashboards
@@ -121,6 +128,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
         Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
         Route::delete('/candidate/shortlist-job/{id}', [ShortlistJobsController::class, 'destroy'])->name('candidate.job.destroy');
+        Route::get('/candidate/jobs/{job}', [ShortlistJobsController::class, 'viewJob'])->name('jobs.view');
     });
 
     /** ================== Employer Routes ================== */
@@ -145,6 +153,7 @@ Route::middleware(['auth'])->group(function () {
         /** ================== notifications Routes ================== */
         Route::get('/employer/notifications', [EmployerNotificationController::class, 'index'])->name('employer.notifications');
         Route::post('/employer/notifications/{id}/read', [EmployerNotificationController::class, 'markAsRead'])->name('employer.notifications.read');
+        Route::post('/employer/notifications/mark-all-read', [EmployerNotificationController::class, 'markAllAsRead'])->name('employer.notifications.markAllAsRead');
         Route::delete('/employer/notifications/{id}', [EmployerNotificationController::class, 'destroy'])->name('employer.notifications.destroy');
 
 

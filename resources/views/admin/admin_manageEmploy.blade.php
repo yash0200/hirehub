@@ -107,7 +107,7 @@
                                                             </li> --}}
                                         
                                                             <!-- Delete User -->
-                                                            <li>
+                                                            <!-- <li>
                                                                 @if($employer->status === 'inactive' || $employer->status === 'suspended')
                                                                     <form action="{{ route('admin.users.delete', $employer->id) }}" method="POST" 
                                                                         onsubmit="return confirm('Are you sure you want to delete this employer?');">
@@ -119,7 +119,7 @@
                                                                     </form>
                                                                 @endif
                                                             </li>
-                                        
+                                         -->
                                                             <!-- Change User Status -->
                                                             <li>
                                                                 <form action="{{ route('admin.users.status', $employer->id) }}" method="POST">

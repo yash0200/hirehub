@@ -12,7 +12,7 @@ class Resume extends Model
     protected $table = 'resumes';
 
     protected $fillable = [
-        'user_id',
+        'candidate_id',
         'description',
         'degree_name',
         'field_of_study',
@@ -24,6 +24,8 @@ class Resume extends Model
         'employment_type',
         'skills',
         'resume_file',
+        'current_salary',
+        'expected_salary',
     ];
 
     protected $casts = [

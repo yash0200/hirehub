@@ -19,8 +19,8 @@
                             <div class="widget-title">
                                 <h4>Applicant</h4>
 
-                                <div class="chosen-outer">
-                                    <!--Tabs Box-->
+                                <!-- <div class="chosen-outer">
+                                    Tabs Box
                                     <select class="chosen-select">
                                         <option>Select Jobs</option>
                                         <option>Last 12 Months</option>
@@ -29,7 +29,7 @@
                                         <option>Last 5 year</option>
                                     </select>
 
-                                    <!--Tabs Box-->
+                                    Tabs Box
                                     <select class="chosen-select">
                                         <option>All Status</option>
                                         <option>Last 12 Months</option>
@@ -38,7 +38,7 @@
                                         <option>Last 5 year</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="widget-content">
                                 <div class="tabs-box">

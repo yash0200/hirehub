@@ -35,11 +35,9 @@
               <div class="chosen-outer">
                 <!--Tabs Box-->
                 <select class="chosen-select">
-                  <option>Last 6 Months</option>
-                  <option>Last 12 Months</option>
-                  <option>Last 16 Months</option>
-                  <option>Last 24 Months</option>
-                  <option>Last 5 year</option>
+                  <option>Ascending</option>
+                  <option>Descending</option>
+                 
                 </select>
               </div>
             </div>

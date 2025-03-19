@@ -44,8 +44,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/manage-employers', [EmployerController::class, 'index'])->name('admin.employers');
     Route::get('/admin/employer/{id}', [EmployerController::class, 'view'])->name('admin.employer.view');
-    Route::delete('/admin/employer/{id}', [EmployerController::class, 'destroy'])->name('admin.users.delete');
-    Route::patch('/admin/employer/{id}/status', [EmployerController::class, 'changeStatus'])->name('admin.users.status');
+    Route::delete('/admin/employer/{id}', [EmployerController::class, 'destroy'])->name('admin.employer.delete');
+    Route::patch('/admin/employer/{id}/status', [EmployerController::class, 'changeStatus'])->name('admin.employer.status');
 
     Route::get('/admin/manage-job-posts', [JobController::class, 'index'])->name('admin.jobs');
 

@@ -151,10 +151,10 @@
 
             <!-- Employer Notifications -->
             @if($userType === 'employer')
-            <button class="menu-btn">
+            <a href="{{ route('employer.notifications') }}" class="menu-btn">
                 <span class="icon la la-bell"></span>
                 <span class="count">{{ $employerUnreadNotificationsCount > 0 ? $employerUnreadNotificationsCount : '' }}</span>
-            </button>
+            </a>
             @endif
 
             <!-- Admin Notifications -->

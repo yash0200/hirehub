@@ -148,6 +148,7 @@ Route::middleware(['auth'])->group(function () {
         /** ================== notifications Routes ================== */
         Route::get('/employer/notifications', [EmployerNotificationController::class, 'index'])->name('employer.notifications');
         Route::post('/employer/notifications/{id}/read', [EmployerNotificationController::class, 'markAsRead'])->name('employer.notifications.read');
+        Route::post('/employer/notifications/mark-all-read', [EmployerNotificationController::class, 'markAllAsRead'])->name('employer.notifications.markAllAsRead');
         Route::delete('/employer/notifications/{id}', [EmployerNotificationController::class, 'destroy'])->name('employer.notifications.destroy');
 
 

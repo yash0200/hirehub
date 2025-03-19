@@ -13,7 +13,6 @@
     <!-- Header Span -->
     <span class="header-span"></span>
 
-
     <!-- Job Detail Section -->
     <section class="job-detail-section">
       <div class="job-detail-outer">

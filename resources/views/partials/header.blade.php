@@ -23,11 +23,11 @@
                                     <h3>Popular categories</h3>
                                     <ul>
                                         @foreach($categories as $category)
-                                            <li>
-                                                <a href="{{ route('jobs.list', ['category_id' => $category->id]) }}">
-                                                    {{ $category->name }} jobs
-                                                </a>
-                                            </li>
+                                        <li>
+                                            <a href="{{ route('jobs.list', ['category_id' => $category->id]) }}">
+                                                {{ $category->name }} jobs
+                                            </a>
+                                        </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -36,11 +36,11 @@
                                     <h3>Jobs in demand</h3>
                                     <ul>
                                         @foreach($customJobTypes as $jobType)
-                                            <li>
-                                                <a href="{{ route($jobType['route'], $jobType['param']) }}">
-                                                    {{ $jobType['name'] }} jobs
-                                                </a>
-                                            </li>
+                                        <li>
+                                            <a href="{{ route($jobType['route'], $jobType['param']) }}">
+                                                {{ $jobType['name'] }} jobs
+                                            </a>
+                                        </li>
                                         @endforeach
 
                                     </ul>
@@ -50,9 +50,9 @@
                                     <h3>Jobs by location</h3>
                                     <ul>
                                         @foreach($locations as $city)
-                                            <li>
-                                                <a href="{{ route('jobs.list', ['location' => $city]) }}">Jobs in {{ $city }}</a>
-                                            </li>
+                                        <li>
+                                            <a href="{{ route('jobs.list', ['location' => $city]) }}">Jobs in {{ $city }}</a>
+                                        </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -67,264 +67,265 @@
                                 <div class="column col-lg-3 col-md-3 col-sm-12">
                                     <h3>Explore categories</h3>
                                     <ul>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">Unicorn</a></li>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">MNC</a></li>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">Startup</a></li>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">Product Based</a></li>
-                                        <li><a href="{{ url('compines-list-v1.html') }}">Internet</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Explore collections</h3>
-                                    <ul>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Top companies</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">IT companies</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Fintech companies</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Sponsored companies</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Featured companies</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="column col-lg-3 col-md-3 col-sm-12">
-                                    <h3>Research companies</h3>
-                                    <ul>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Interview questions</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Company salaries</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Company reviews</a></li>
-                                        <li><a href="{{ url('compines-single-v1.html') }}">Salary calculator</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> --}}
+                                        <li><a href="{{ url('compines-list-v1.html') }}">Unicorn</a>
                     </li>
-
-                    @auth
-                    @if(auth()->user()->name === 'admin')
-                    <li><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
-                    <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
-                    <li><a href="{{ route('admin.settings') }}">Settings</a></li>
-
-                    @elseif(auth()->user()->user_type === 'candidate')
-                    <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
-                    <li><a href="{{ route('candidate.profile') }}">My Profile</a></li>
-                    <li><a href="{{ route('candidate.appliedjobs')  }}">My Applications</a></li>
-
-                    @elseif(auth()->user()->user_type === 'employer')
-                    <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
-                    @endif
-                    @endauth
+                    <li><a href="{{ url('compines-list-v1.html') }}">MNC</a></li>
+                    <li><a href="{{ url('compines-list-v1.html') }}">Startup</a></li>
+                    <li><a href="{{ url('compines-list-v1.html') }}">Product Based</a></li>
+                    <li><a href="{{ url('compines-list-v1.html') }}">Internet</a></li>
                 </ul>
-            </nav>
-            <!-- Main Menu End-->
         </div>
 
-        <div class="outer-box">
+        <div class="column col-lg-3 col-md-3 col-sm-12">
+            <h3>Explore collections</h3>
+            <ul>
+                <li><a href="{{ url('compines-single-v1.html') }}">Top companies</a></li>
+                <li><a href="{{ url('compines-single-v1.html') }}">IT companies</a></li>
+                <li><a href="{{ url('compines-single-v1.html') }}">Fintech companies</a></li>
+                <li><a href="{{ url('compines-single-v1.html') }}">Sponsored companies</a></li>
+                <li><a href="{{ url('compines-single-v1.html') }}">Featured companies</a></li>
+            </ul>
+        </div>
 
-            <!-- Show Login/Register & Post Job only when Logged Out -->
-            @guest
-            <div class="btn-box">
-                <a href="{{ route('login') }}" class="theme-btn btn-style-five">Login / Register</a>
-                <a href="{{ route('employer.jobs.index') }}" class="theme-btn btn-style-one">Post a Job</a>
-            </div>
-            @endguest
+        <div class="column col-lg-3 col-md-3 col-sm-12">
+            <h3>Research companies</h3>
+            <ul>
+                <li><a href="{{ url('compines-single-v1.html') }}">Interview questions</a></li>
+                <li><a href="{{ url('compines-single-v1.html') }}">Company salaries</a></li>
+                <li><a href="{{ url('compines-single-v1.html') }}">Company reviews</a></li>
+                <li><a href="{{ url('compines-single-v1.html') }}">Salary calculator</a></li>
+            </ul>
+        </div>
+    </div>
+    </div> --}}
+    </li>
 
-            @auth
+    @auth
+    @if(auth()->user()->name === 'admin')
+    <li><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
+    <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
+    <li><a href="{{ route('admin.settings') }}">Settings</a></li>
 
-           <!-- Saved Jobs (Candidate Only) -->
-            @if($userType === 'candidate')
-            <button class="menu-btn">
-                <span class="count">{{ $savedJobsCount > 0 ? $savedJobsCount : '' }}</span>
-                <span class="icon la la-heart-o"></span>
-            </button>
-            @endif
+    @elseif(auth()->user()->user_type === 'candidate')
+    <li><a href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a></li>
+    <li><a href="{{ route('candidate.profile') }}">My Profile</a></li>
+    <li><a href="{{ route('candidate.appliedjobs')  }}">My Applications</a></li>
 
-            <!-- Candidate Notifications -->
-            @if($userType === 'candidate')
-                <a href="{{ route('candidate.notifications') }}" class="menu-btn">
-                    <span class="icon la la-bell"></span>
-                    <span class="count">{{ $candidateUnreadNotificationsCount > 0 ? $candidateUnreadNotificationsCount : '' }}</span>
-                </a>
-            @endif
+    @elseif(auth()->user()->user_type === 'employer')
+    <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
+    @endif
+    @endauth
+    </ul>
+    </nav>
+    <!-- Main Menu End-->
+    </div>
+
+    <div class="outer-box">
+
+        <!-- Show Login/Register & Post Job only when Logged Out -->
+        @guest
+        <div class="btn-box">
+            <a href="{{ route('login') }}" class="theme-btn btn-style-five">Login / Register</a>
+            <a href="{{ route('employer.jobs.index') }}" class="theme-btn btn-style-one">Post a Job</a>
+        </div>
+        @endguest
+
+        @auth
+
+        <!-- Saved Jobs (Candidate Only) -->
+        @if($userType === 'candidate')
+        <button class="menu-btn">
+            <span class="count">{{ $savedJobsCount > 0 ? $savedJobsCount : '' }}</span>
+            <span class="icon la la-heart-o"></span>
+        </button>
+        @endif
+
+        <!-- Candidate Notifications -->
+        @if($userType === 'candidate')
+        <a href="{{ route('candidate.notifications') }}" class="menu-btn">
+            <span class="icon la la-bell"></span>
+            <span class="count">{{ $candidateUnreadNotificationsCount > 0 ? $candidateUnreadNotificationsCount : '' }}</span>
+        </a>
+        @endif
 
 
-            <!-- Employer Notifications -->
-            @if($userType === 'employer')
-            <button class="menu-btn">
-                <span class="icon la la-bell"></span>
-                <span class="count">{{ $employerUnreadNotificationsCount > 0 ? $employerUnreadNotificationsCount : '' }}</span>
-            </button>
-            @endif
+        <!-- Employer Notifications -->
+        @if($userType === 'employer')
+        <a href="{{ route('employer.notifications') }}" class="menu-btn">
+            <span class="icon la la-bell"></span>
+            <span class="count">{{ $employerUnreadNotificationsCount > 0 ? $employerUnreadNotificationsCount : '' }}</span>
+        </a>
+        @endif
 
-            <!-- Admin Notifications -->
-            @if($userType === 'admin')
-                <a href="{{ route('admin.notifications') }}" class="menu-btn">
-                    <span class="icon la la-bell"></span>
-                    <span class="count">{{ $adminUnreadNotificationsCount > 0 ? $adminUnreadNotificationsCount : '' }}</span>
-                </a>
-            @endif
+        <!-- Admin Notifications -->
+        @if($userType === 'admin')
+        <a href="{{ route('admin.notifications') }}" class="menu-btn">
+            <span class="icon la la-bell"></span>
+            <span class="count">{{ $adminUnreadNotificationsCount > 0 ? $adminUnreadNotificationsCount : '' }}</span>
+        </a>
+        @endif
 
 
 
-            <!-- Dashboard Option -->
-            <div class="dropdown dashboard-option">
-                <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-                    @php
-                    $user = auth()->user();
-                    $profilePhoto = asset('/images/resource/company-6.png'); // Default Image
+        <!-- Dashboard Option -->
+        <div class="dropdown dashboard-option">
+            <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                @php
+                $user = auth()->user();
+                $profilePhoto = asset('/images/resource/company-6.png'); // Default Image
 
-                    if ($user) {
-                    if ($user->user_type === 'candidate' && $user->candidate && $user->candidate->profile_photo) {
-                    $profilePhoto = asset('storage/profile_photos/' . $user->candidate->profile_photo);
-                    } elseif ($user->user_type === 'employer' && $user->employer && $user->employer->logo) {
-                    $profilePhoto = asset('storage/logos/' . $user->employer->logo);
-                    }
-                    }
-                    @endphp
-                    <img src="{{ $profilePhoto }}" alt="profile" class="thumb">
-                    <span class="name">{{ auth()->user()->name ?? 'My Account' }}</span>
-                </a>
+                if ($user) {
+                if ($user->user_type === 'candidate' && $user->candidate && $user->candidate->profile_photo) {
+                $profilePhoto = asset('storage/profile_photos/' . $user->candidate->profile_photo);
+                } elseif ($user->user_type === 'employer' && $user->employer && $user->employer->logo) {
+                $profilePhoto = asset('storage/logos/' . $user->employer->logo);
+                }
+                }
+                @endphp
+                <img src="{{ $profilePhoto }}" alt="profile" class="thumb">
+                <span class="name">{{ auth()->user()->name ?? 'My Account' }}</span>
+            </a>
 
-                <ul class="dropdown-menu">
-                    @if(auth()->user()->user_type === 'admin')
-                    <!-- Dashboard Link -->
-                    <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <a href="{{ route('admin.dashboard') }}"><i class="la la-home"></i> Dashboard</a>
-                    </li>
+            <ul class="dropdown-menu">
+                @if(auth()->user()->user_type === 'admin')
+                <!-- Dashboard Link -->
+                <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}"><i class="la la-home"></i> Dashboard</a>
+                </li>
 
-                    <!-- Manage Users -->
-                    <li class="{{ request()->routeIs('admin.users') ? 'active' : '' }}">
-                        <a href="{{ route('admin.users') }}"><i class="la la-users"></i> Manage Users</a>
-                    </li>
+                <!-- Manage Users -->
+                <li class="{{ request()->routeIs('admin.users') ? 'active' : '' }}">
+                    <a href="{{ route('admin.users') }}"><i class="la la-users"></i> Manage Users</a>
+                </li>
 
-                    <!-- Manage Employers -->
-                    <li class="{{ request()->routeIs('admin.employers') ? 'active' : '' }}">
-                        <a href="{{ route('admin.employers') }}"><i class="la la-user-tie"></i> Manage Employers</a>
-                    </li>
+                <!-- Manage Employers -->
+                <li class="{{ request()->routeIs('admin.employers') ? 'active' : '' }}">
+                    <a href="{{ route('admin.employers') }}"><i class="la la-user-tie"></i> Manage Employers</a>
+                </li>
 
-                    <!-- Manage Job Posts -->
-                    <!-- <li class="{{ request()->routeIs('admin.jobs') ? 'active' : '' }}">
+                <!-- Manage Job Posts -->
+                <!-- <li class="{{ request()->routeIs('admin.jobs') ? 'active' : '' }}">
                         <a href="{{ route('admin.jobs') }}"><i class="la la-briefcase"></i> Manage Job Posts</a>
                     </li> -->
 
-                    <!-- Job Categories -->
-                    <li class="{{ request()->routeIs('admin.categories') ? 'active' : '' }}">
-                        <a href="{{ route('admin.categories') }}"><i class="la la-tags"></i> Job Categories</a>
-                    </li>
+                <!-- Job Categories -->
+                <li class="{{ request()->routeIs('admin.categories') ? 'active' : '' }}">
+                    <a href="{{ route('admin.categories') }}"><i class="la la-tags"></i> Job Categories</a>
+                </li>
 
-                    <!-- Application Management -->
-                    <!-- <li class="{{ request()->routeIs('admin.applications') ? 'active' : '' }}">
+                <!-- Application Management -->
+                <!-- <li class="{{ request()->routeIs('admin.applications') ? 'active' : '' }}">
                         <a href="{{ route('admin.applications') }}"><i class="la la-file-invoice"></i> View Applications</a>
                     </li> -->
 
-                    <!-- Payments -->
-                    <!-- <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
+                <!-- Payments -->
+                <!-- <li class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
                         <a href="{{ route('admin.payments') }}"><i class="la la-credit-card"></i> Payments</a>
                     </li> -->
 
-                    <!-- Notifications -->
-                    <li class="{{ request()->routeIs('admin.notifications') ? 'active' : '' }}">
-                        <a href="{{ route('admin.notifications') }}"><i class="la la-bell"></i> Notifications</a>
-                    </li>
+                <!-- Notifications -->
+                <li class="{{ request()->routeIs('admin.notifications') ? 'active' : '' }}">
+                    <a href="{{ route('admin.notifications') }}"><i class="la la-bell"></i> Notifications</a>
+                </li>
 
-                    <!-- Reports -->
-                    <!-- <li class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+                <!-- Reports -->
+                <!-- <li class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
                         <a href="{{ route('admin.reports') }}"><i class="la la-chart-line"></i> Reports</a>
                     </li> -->
 
-                    <!-- Site Settings -->
-                    <!-- <li class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+                <!-- Site Settings -->
+                <!-- <li class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
                         <a href="{{ route('admin.settings') }}"><i class="la la-cogs"></i> Site Settings</a>
                     </li> -->
 
-                    <!-- Change Password -->
-                    <li class="{{ request()->routeIs('admin.password.change') ? 'active' : '' }}">
-                        <a href="{{ route('admin.password.change') }}"><i class="la la-lock"></i> Change Password</a>
-                    </li>
+                <!-- Change Password -->
+                <li class="{{ request()->routeIs('admin.password.change') ? 'active' : '' }}">
+                    <a href="{{ route('admin.password.change') }}"><i class="la la-lock"></i> Change Password</a>
+                </li>
 
-                    <!-- View Admin Profile -->
-                    <li class="{{ request()->routeIs('admin.profile') ? 'active' : '' }}">
-                        <a href="{{ route('admin.profile') }}"><i class="la la-user-alt"></i> View Profile</a>
-                    </li>
+                <!-- View Admin Profile -->
+                <li class="{{ request()->routeIs('admin.profile') ? 'active' : '' }}">
+                    <a href="{{ route('admin.profile') }}"><i class="la la-user-alt"></i> View Profile</a>
+                </li>
 
-                    <!-- Delete Admin Account -->
-                    <!-- <li class="{{ request()->routeIs('admin.profile.delete') ? 'active' : '' }}">
+                <!-- Delete Admin Account -->
+                <!-- <li class="{{ request()->routeIs('admin.profile.delete') ? 'active' : '' }}">
                         <a href="{{ route('admin.profile.delete') }}"><i class="la la-trash"></i> Delete Account</a>
                     </li> -->
 
 
-                    @elseif(auth()->user()->user_type === 'employer')
-                    <li class="{{ request()->routeIs('employer.dashboard') ? 'active' : '' }}">
-                        <a href="{{ route('employer.dashboard') }}"><i class="la la-home"></i> Employer Dashboard</a>
-                    </li>
-                    <li class="{{ request()->routeIs('employer.company.profile') ? 'active' : '' }}">
-                        <a href="{{ route('employer.company.profile') }}"><i class="la la-user-tie"></i> Company Profile</a>
-                    </li>
-                    <li class="{{ request()->routeIs('employer.jobs.index') ? 'active' : '' }}">
-                        <a href="{{ route('employer.jobs.index') }}"><i class="la la-paper-plane"></i> Post a New Job</a>
-                    </li>
-                    <li class="{{ request()->routeIs('employer.jobs.manage') ? 'active' : '' }}">
-                        <a href="{{ route('employer.jobs.manage') }}"><i class="la la-briefcase"></i>Manage Jobs</a>
-                    </li>
-                    <li class="{{ request()->routeIs('employer.applicants') ? 'active' : '' }}">
-                        <a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i>All Applicant</a>
-                    </li>
-                    {{-- <li class="{{ request()->routeIs('employer.resumes') ? 'active' : '' }}">
-                        <a href="{{ route('employer.resumes') }}"><i class="la la-bookmark-o"></i>Shortlisted Resume</a>
-                    </li>
-                    <li class="{{ request()->routeIs('employer.packages') ? 'active' : '' }}">
-                        <a href="{{ route('employer.packages') }}"><i class="la la-box"></i> Packages</a>
-                    </li>
-                    <li class="{{ request()->routeIs('employer.messages') ? 'active' : '' }}">
-                        <a href="{{ route('employer.messages') }}"><i class="la la-comment-o"></i> Messages</a>
-                    </li>
-                    <li class="{{ request()->routeIs('employer.resume.alerts') ? 'active' : '' }}">
-                        <a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i>Resume Alert</a>
-                    </li> --}}
-                    <li class="{{ request()->routeIs('employer.password.change') ? 'active' : '' }}">
-                        <a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a>
-                    </li>
+                @elseif(auth()->user()->user_type === 'employer')
+                <li class="{{ request()->routeIs('employer.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('employer.dashboard') }}"><i class="la la-home"></i> Employer Dashboard</a>
+                </li>
+                <li class="{{ request()->routeIs('employer.company.profile') ? 'active' : '' }}">
+                    <a href="{{ route('employer.company.profile') }}"><i class="la la-user-tie"></i> Company Profile</a>
+                </li>
+                <li class="{{ request()->routeIs('employer.jobs.index') ? 'active' : '' }}">
+                    <a href="{{ route('employer.jobs.index') }}"><i class="la la-paper-plane"></i> Post a New Job</a>
+                </li>
+                <li class="{{ request()->routeIs('employer.jobs.manage') ? 'active' : '' }}">
+                    <a href="{{ route('employer.jobs.manage') }}"><i class="la la-briefcase"></i>Manage Jobs</a>
+                </li>
+                <li class="{{ request()->routeIs('employer.applicants') ? 'active' : '' }}">
+                    <a href="{{ route('employer.applicants') }}"><i class="la la-file-invoice"></i>All Applicant</a>
+                </li>
+                {{-- <li class="{{ request()->routeIs('employer.resumes') ? 'active' : '' }}">
+                <a href="{{ route('employer.resumes') }}"><i class="la la-bookmark-o"></i>Shortlisted Resume</a>
+                </li>
+                <li class="{{ request()->routeIs('employer.packages') ? 'active' : '' }}">
+                    <a href="{{ route('employer.packages') }}"><i class="la la-box"></i> Packages</a>
+                </li>
+                <li class="{{ request()->routeIs('employer.messages') ? 'active' : '' }}">
+                    <a href="{{ route('employer.messages') }}"><i class="la la-comment-o"></i> Messages</a>
+                </li>
+                <li class="{{ request()->routeIs('employer.resume.alerts') ? 'active' : '' }}">
+                    <a href="{{ route('employer.resume.alerts') }}"><i class="la la-bell"></i>Resume Alert</a>
+                </li> --}}
+                <li class="{{ request()->routeIs('employer.password.change') ? 'active' : '' }}">
+                    <a href="{{ route('employer.password.change') }}"><i class="la la-lock"></i> Change Password</a>
+                </li>
 
-                    @elseif(auth()->user()->user_type === 'candidate')
-                    <li class="{{ request()->routeIs('candidate.dashboard') ? 'active' : '' }}">
-                        <a href="{{ route('candidate.dashboard') }}"> <i class="la la-home"></i> Dashboard</a>
-                    </li>
-                    <li class="{{ request()->routeIs('candidate.profile') ? 'active' : '' }}">
-                        <a href="{{ route('candidate.profile') }}"><i class="la la-user-alt"></i>My Profile</a>
-                    </li>
-                    <li class="{{ request()->routeIs('candidate.resumes') ? 'active' : '' }}">
-                        <a href="{{ route('candidate.resumes') }}"><i class="la la-file-invoice"></i> My Resume</a>
-                    </li>
-                    <li class="{{ request()->routeIs('candidate.appliedjobs') ? 'active' : '' }}">
-                        <a href="{{ route('candidate.appliedjobs') }}"><i class="la la-briefcase"></i> Applied Jobs</a>
-                    </li>
-                    <li class="{{ request()->routeIs('candidate.jobalerts') ? 'active' : '' }}">
-                        <a href="{{ route('candidate.jobalerts') }}"><i class="la la-bell"></i> Job Alerts</a>
-                    </li>
-                    <li class="{{ request()->routeIs('candidate.shortlist') ? 'active' : '' }}">
-                        <a href="{{ route('candidate.shortlist') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a>
-                    </li>
-                    <li class="{{ request()->routeIs('candidate.messages') ? 'active' : '' }}">
-                        <a href="{{ route('candidate.messages') }}"><i class="la la-comment-o"></i> Messages</a>
-                    </li>
-                    <li class="{{ request()->routeIs('candidate.password.change') ? 'active' : '' }}">
-                        <a href="{{ route('candidate.password.change') }}"><i class="la la-lock"></i> Change Password</a>
-                    </li>
-                    @endif
+                @elseif(auth()->user()->user_type === 'candidate')
+                <li class="{{ request()->routeIs('candidate.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('candidate.dashboard') }}"> <i class="la la-home"></i> Dashboard</a>
+                </li>
+                <li class="{{ request()->routeIs('candidate.profile') ? 'active' : '' }}">
+                    <a href="{{ route('candidate.profile') }}"><i class="la la-user-alt"></i>My Profile</a>
+                </li>
+                <li class="{{ request()->routeIs('candidate.resumes') ? 'active' : '' }}">
+                    <a href="{{ route('candidate.resumes') }}"><i class="la la-file-invoice"></i> My Resume</a>
+                </li>
+                <li class="{{ request()->routeIs('candidate.appliedjobs') ? 'active' : '' }}">
+                    <a href="{{ route('candidate.appliedjobs') }}"><i class="la la-briefcase"></i> Applied Jobs</a>
+                </li>
+                <li class="{{ request()->routeIs('candidate.jobalerts') ? 'active' : '' }}">
+                    <a href="{{ route('candidate.jobalerts') }}"><i class="la la-bell"></i> Job Alerts</a>
+                </li>
+                <li class="{{ request()->routeIs('candidate.shortlist') ? 'active' : '' }}">
+                    <a href="{{ route('candidate.shortlist') }}"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a>
+                </li>
+                <li class="{{ request()->routeIs('candidate.messages') ? 'active' : '' }}">
+                    <a href="{{ route('candidate.messages') }}"><i class="la la-comment-o"></i> Messages</a>
+                </li>
+                <li class="{{ request()->routeIs('candidate.password.change') ? 'active' : '' }}">
+                    <a href="{{ route('candidate.password.change') }}"><i class="la la-lock"></i> Change Password</a>
+                </li>
+                @endif
 
-                    <!-- Logout -->
-                    <li>
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="la la-sign-out"></i> Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
-            </div>
-            @endauth
+                <!-- Logout -->
+                <li>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="la la-sign-out"></i> Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+            </ul>
         </div>
+        @endauth
+    </div>
     </div>
 
     <!-- Mobile Header -->

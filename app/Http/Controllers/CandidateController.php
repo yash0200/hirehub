@@ -15,8 +15,8 @@ class CandidateController extends Controller
             $query->where('status', 'active');
         })
         ->with(['address', 'resume']) // Eager load address and resume
-        ->get();
-        
+        ->paginate(2);
+
     return view('pages.candidate-list', compact('candidates'));
     }
 }

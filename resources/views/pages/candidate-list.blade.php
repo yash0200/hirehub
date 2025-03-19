@@ -239,11 +239,29 @@
 @endforeach
 
               <!-- Listing Show More -->
-              <div class="ls-show-more">
-                <p>Showing 36 of 497 Jobs</p>
-                <div class="bar"><span class="bar-inner" style="width: 40%"></span></div>
-                <button class="show-more">Show More</button>
-              </div>
+              <nav class="ls-pagination mb-5">
+            <ul>
+              @if ($candidates->onFirstPage())
+              <li class="prev disabled"><span><i class="fa fa-arrow-left"></i></span></li>
+              @else
+              <li class="prev"><a href="{{ $candidates->previousPageUrl() }}"><i class="fa fa-arrow-left"></i></a></li>
+              @endif
+
+              @foreach ($candidates->getUrlRange(1, $candidates->lastPage()) as $page => $url)
+              <li>
+                <a href="{{ $url }}" class="{{ $candidates->currentPage() == $page ? 'current-page' : '' }}">
+                  {{ $page }}
+                </a>
+              </li>
+              @endforeach
+
+              @if ($candidates->hasMorePages())
+              <li class="next"><a href="{{ $candidates->nextPageUrl() }}"><i class="fa fa-arrow-right"></i></a></li>
+              @else
+              <li class="next disabled"><span><i class="fa fa-arrow-right"></i></span></li>
+              @endif
+            </ul>
+          </nav>
             </div>
           </div>
         </div>

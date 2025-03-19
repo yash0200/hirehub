@@ -94,7 +94,7 @@
                                                         <ul class="option-list">
                                                             <!-- View Profile -->
                                                             <li>
-                                                                <a href="{{ route('admin.users.view', $employer->id) }}" target="_blank" data-text="View Employer Profile">
+                                                                <a href="{{ route('admin.employer.view', $employer->employer->id) }}" target="_blank" data-text="View Employer Profile">
                                                                     <span class="la la-eye"></span>
                                                                 </a>
                                                             </li>

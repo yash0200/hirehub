@@ -7,7 +7,7 @@
               <div class="footer-column about-widget">
                 <div class="logo"><a href="{{ url('#') }}"><img style="height: 55px;width: 152px;" src="{{ asset('/images/hirehub-logo-3.svg') }}" alt=""></a></div>
                 <p class="phone-num"><span>Call us </span><a href="{{ url("thebeehost%40support.html") }}">123 456 7890</a></p>
-                <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a href="{{ url("mailto:support@Hirehub.com") }}" class="email">support@Hirehub.com</a></p>
+                <p class="address">329 Queensberry Street, North Melbourne VIC<br> 3051, Australia. <br><a href="{{ url("mailto:support@Hirehub.com") }}" class="email">hirehub40@gmail.com</a></p>
               </div>
             </div>
             <div class="big-column col-xl-9 col-lg-9 col-md-12">
@@ -51,16 +51,14 @@
                 </div>
                 <div class="footer-column col-lg-2 col-md-6 col-sm-12">
                   <div class="footer-widget links-widget">
-                  <h4 class="widget-title"><a href="{{ route('about') }}">About Us</a></h4>
+                  <h4 class="widget-title"><a href="{{ route('about') }}" style="color:#ffffff">About Us</a></h4>
                     <div class="widget-content">
                       <ul class="list">
                       @if(Auth::check()) 
     <!-- Display when any user (candidate or employer) is logged in -->
     <ul>
         <li><a href="">Contact us</a></li>
-        <li><a href="">Job Page Alternative</a></li>
-        
-
+        <li><a href="">FAQ's</a></li>
     </ul>
 @endif
                       </ul>

@@ -112,6 +112,7 @@
     <li><a href="{{ route('candidate.appliedjobs')  }}">My Applications</a></li>
 
     @elseif(auth()->user()->user_type === 'employer')
+    <li><a href="{{ route('candidates.list') }}">Candidates</a></li>
     <li><a href="{{ route('employer.dashboard') }}">Employer Dashboard</a></li>
     @endif
     @endauth

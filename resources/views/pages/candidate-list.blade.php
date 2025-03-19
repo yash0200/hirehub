@@ -199,221 +199,44 @@
 
 
               <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-1.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Darlene Robertson</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-2.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Wade Warren</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-3.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Leslie Alexander</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-4.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Floyd Miles</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-5.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Jerome Bell</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-6.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Cameron Williamson</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-7.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Robert Fox</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-8.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Esther Howard</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Candidate block three -->
-              <div class="candidate-block-three">
-                <div class="inner-box">
-                  <div class="content">
-                    <figure class="image"><img src="{{ asset("/images/resource/candidate-9.png") }}" alt=""></figure>
-                    <h4 class="name"><a href="{{ url("#") }}">Annette Black</a></h4>
-                    <ul class="candidate-info">
-                      <li class="designation">UI Designer</li>
-                      <li><span class="icon flaticon-map-locator"></span> London, UK</li>
-                      <li><span class="icon flaticon-money"></span> $99 / hour</li>
-                    </ul>
-                    <ul class="post-tags">
-                      <li><a href="{{ url("#") }}">App</a></li>
-                      <li><a href="{{ url("#") }}">Design</a></li>
-                      <li><a href="{{ url("#") }}">Digital</a></li>
-                    </ul>
-                  </div>
-                  <div class="btn-box">
-                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                    <a href="{{ url("#") }}" class="theme-btn btn-style-three"><span class="btn-title">View Profile</span></a>
-                  </div>
-                </div>
-              </div>
-
+              @foreach ($candidates as $candidate)
+    <div class="candidate-block-three">
+        <div class="inner-box">
+            <div class="content">
+                <figure class="image">
+                <img src="{{ asset('/storage/profile_photos/' . $candidate->profile_photo) }}">
+                </figure>
+                <h4 class="name">
+                    <a href="{{ route('candidate.profile', $candidate->id) }}">{{ $candidate->full_name }}</a>
+                </h4>
+                <ul class="candidate-info">
+                    <li class="designation">{{ $candidate->designation }}</li>
+                    <li>
+                        <span class="icon flaticon-map-locator"></span> 
+                        {{ $candidate->address->city ?? 'N/A' }}, {{ $candidate->address->country ?? 'N/A' }}
+                    </li>
+                    <li>
+                        <span class="icon flaticon-money"></span> 
+                        ${{ $candidate->hourly_rate }} / hour
+                    </li>
+                </ul>
+                <ul class="post-tags">
+                    @foreach(explode(',', $candidate->skills) as $skill)
+                        <li><a href="#">{{ trim($skill) }}</a></li>
+                    @endforeach
+                </ul>
+                <p><strong>Education:</strong> {{ $candidate->resume->degree_name ?? 'Not Available' }} - {{ $candidate->resume->institution_name ?? 'N/A' }}</p>
+                <p><strong>Work:</strong> {{ $candidate->resume->job_title ?? 'N/A' }} at {{ $candidate->resume->company_name ?? 'N/A' }}</p>
+            </div>
+            <div class="btn-box">
+                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                <a href="{{ route('candidate.profile', $candidate->id) }}" class="theme-btn btn-style-three">
+                    <span class="btn-title">View Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+@endforeach
 
               <!-- Listing Show More -->
               <div class="ls-show-more">

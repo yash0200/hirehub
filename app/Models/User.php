@@ -47,6 +47,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(SocialNetwork::class);
     }
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');  // One user has one admin profile
+    }
     
 
 

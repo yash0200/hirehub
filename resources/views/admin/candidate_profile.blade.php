@@ -198,21 +198,21 @@
                                     <h4 class="widget-title">Social media</h4>
                                     <div class="widget-content">
                                         <div class="social-links">
-                                            @if($user->socialNetworks)
-                                                @if($user->socialNetworks->facebook)
-                                                    <a href="{{ $user->socialNetworks->facebook }}" target="_blank">
+                                            @if($user->socialNetwork)
+                                                @if($user->socialNetwork->facebook)
+                                                    <a href="{{ $user->socialNetwork->facebook }}" target="_blank">
                                                         <i class="fab fa-facebook-f"></i>
                                                     </a>
                                                 @endif
 
-                                                @if($user->socialNetworks->twitter)
-                                                    <a href="{{ $user->socialNetworks->twitter }}" target="_blank">
+                                                @if($user->socialNetwork->twitter)
+                                                    <a href="{{ $user->socialNetwork->twitter }}" target="_blank">
                                                         <i class="fab fa-twitter"></i>
                                                     </a>
                                                 @endif
 
-                                                @if($user->socialNetworks->linkedin)
-                                                    <a href="{{ $user->socialNetworks->linkedin }}" target="_blank">
+                                                @if($user->socialNetwork->linkedin)
+                                                    <a href="{{ $user->socialNetwork->linkedin }}" target="_blank">
                                                         <i class="fab fa-linkedin-in"></i>
                                                     </a>
                                                 @endif

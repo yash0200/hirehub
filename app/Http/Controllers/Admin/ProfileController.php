@@ -23,9 +23,9 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
         $request->validate([
-            'admin_name' => 'required|string|max:255',
+            'admin_name' => 'required|string|regex:/^[a-zA-Z\s]+$/|max:255',
             'email' => 'required|email|unique:users,email,' . Auth::id(),
-            'phone' => 'required|string|max:10',
+            'phone' => 'required|string|digits:10', // Ensures exactly 10 digits for phone
             'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 

@@ -53,6 +53,9 @@
                                         <input type="text" name="admin_name"
                                             value="{{ old('admin_name', $user->name ?? '') }}"
                                             placeholder="Enter Admin Name">
+                                            @error('admin_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                     </div>
                             
                                     <div class="form-group col-lg-6 col-md-12">
@@ -60,6 +63,9 @@
                                         <input type="email" name="email"
                                             value="{{ old('email', $user->email ?? '') }}"
                                             placeholder="Enter Email Address">
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                     </div>
                             
                                     <div class="form-group col-lg-6 col-md-12">
@@ -67,11 +73,17 @@
                                         <input type="text" name="phone"
                                             value="{{ old('phone', $admin->contact ?? '') }}"
                                             placeholder="Enter Phone Number">
+                                            @error('phone')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                     </div>
                             
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>Profile Picture</label>
                                         <input type="file" name="profile_photo" class="form-control">
+                                        @error('profile_photo')
+                                                <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                             
                                     <div class="form-group col-lg-12 col-md-12">

@@ -176,11 +176,13 @@
                 $profilePhoto = asset('/images/resource/company-6.png'); // Default Image
 
                 if ($user) {
-                if ($user->user_type === 'candidate' && $user->candidate && $user->candidate->profile_photo) {
-                $profilePhoto = asset('storage/profile_photos/' . $user->candidate->profile_photo);
-                } elseif ($user->user_type === 'employer' && $user->employer && $user->employer->logo) {
-                $profilePhoto = asset('storage/logos/' . $user->employer->logo);
-                }
+                    if ($user->user_type === 'candidate' && $user->candidate && $user->candidate->profile_photo) {
+                        $profilePhoto = asset('storage/profile_photos/' . $user->candidate->profile_photo);
+                    } elseif ($user->user_type === 'employer' && $user->employer && $user->employer->logo) {
+                        $profilePhoto = asset('storage/logos/' . $user->employer->logo);
+                    }else {
+                        $profilePhoto = asset('storage/' . $user->admin->photo);
+                    }
                 }
                 @endphp
                 <img src="{{ $profilePhoto }}" alt="profile" class="thumb">

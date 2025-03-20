@@ -20,10 +20,10 @@
 
           <div class="chosen-outer">
           <!--Tabs Box-->
-          <select class="chosen-select">
+          <!-- <select class="chosen-select">
             <option>Ascending</option>
           <option>Descending</option>
-          </select>
+          </select> -->
         </div>
       </div>
 

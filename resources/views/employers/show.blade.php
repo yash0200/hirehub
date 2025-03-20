@@ -60,9 +60,9 @@
                 View Jobs
             </a>
         
-            <button class="bookmark-btn">
+            <!-- <button class="bookmark-btn">
                 <i class="flaticon-bookmark"></i>
-            </button>
+            </button> -->
         </div>
         </div>
       </div>

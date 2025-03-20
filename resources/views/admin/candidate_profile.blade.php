@@ -18,7 +18,7 @@
                                 <img src="{{ asset('/images/resource/default-profile.png') }}" alt="Default Profile">
                             @endif
                         </figure>
-                        <h4 class="name"><a href="{{ url('#') }}">{{ $user->full_name }}</a></h4>
+                        <h4 class="name"><a href="{{ url('#') }}">{{ $user->candidate->full_name }}</a></h4>
                         <ul class="candidate-info">
                             <li class="designation">
                                 {{ $user->candidate->resume->job_title ?? 'N/A' }} 
@@ -26,8 +26,8 @@
                             </li>
                             <li>
                                 <span class="icon flaticon-map-locator"></span>
-                                {{ $user->address->state ?? 'N/A' }}, 
-                                {{ $user->address->city ?? 'N/A' }}
+                                {{ $user->candidate->address->state ?? 'N/A' }}, 
+                                {{ $user->candidate->address->city ?? 'N/A' }}
                             </li>
                             <li><span class="icon flaticon-money"></span> {{$user->candidate->resume->current_salary??'Not Provided'}}</li>
                             <li>
@@ -43,7 +43,7 @@
                              Download CV
                          </a>
                          
-                        <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
+                        <!-- <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                     <div class="job-detail">
                         <h4>Candidates About</h4>
                         <p>
-                            {{ $user->description ?? 'No information available.' }}
+                            {{ $user->candidate->description ?? 'No information available.' }}
                         </p>
 
                         <!-- Resume / Education -->
@@ -121,7 +121,7 @@
                                         </div>
                                     </div>
                                     <div class="text">
-                                        {{ $user->description ?? 'No description provided.' }}
+                                        {{ $user->candidate->description ?? 'No description provided.' }}
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                                             <li>
                                                 <i class="icon icon-expiry"></i>
                                                 <h5>Age:</h5>
-                                                <span>{{$user->age_range}}</span>
+                                                <span>{{$user->candidate->age_range}}</span>
                                             </li>
 
                                             <li>
@@ -176,19 +176,19 @@
                                             <li>
                                                 <i class="icon icon-user-2"></i>
                                                 <h5>Gender:</h5>
-                                                <span>{{$user->gender}}</span>
+                                                <span>{{$user->candidate->gender}}</span>
                                             </li>
 
                                             <li>
                                                 <i class="icon icon-language"></i>
                                                 <h5>Language:</h5>
-                                                <span>{{$user->languages}}</span>
+                                                <span>{{$user->candidate->languages}}</span>
                                             </li>
 
                                             <li>
                                                 <i class="icon icon-degree"></i>
                                                 <h5>Education Level:</h5>
-                                                <span>{{$user->education_levels}}</span>
+                                                <span>{{$user->candidate->education_levels}}</span>
                                             </li>
                                         </ul>
                                     </div>

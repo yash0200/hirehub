@@ -180,7 +180,7 @@
                         $profilePhoto = asset('storage/profile_photos/' . $user->candidate->profile_photo);
                     } elseif ($user->user_type === 'employer' && $user->employer && $user->employer->logo) {
                         $profilePhoto = asset('storage/logos/' . $user->employer->logo);
-                    }else {
+                    }elseif($user->user_type === 'admin' && $user->admin && $user->admin->photo) {
                         $profilePhoto = asset('storage/' . $user->admin->photo);
                     }
                 }

@@ -9,8 +9,7 @@
                   src="{{ asset('/images/hirehub-logo-3.svg') }}" alt=""></a></div>
             <p class="phone-num"><span>Call us </span>123 456 7890
             </p>  
-            <p class="address">128 Citadel, Galaxy Circle, Pal Road, Surat, Gujarat.<br> 3051, India. <br><a href="{{ url("
-                mailto:support@Hirehub.com") }}" class="email">hirehub40@gmail.com</a></p>
+            <p class="address">128 Citadel, Galaxy Circle, Pal Road, Surat, Gujarat.<br> 3051, India. <br><a class="email">hirehub40@gmail.com</a></p>
           </div>
         </div>
         <div class="big-column col-xl-9 col-lg-9 col-md-12">

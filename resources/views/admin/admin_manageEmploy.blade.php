@@ -63,7 +63,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Name</th>
+                                                <th>Company Name</th>
                                                 <th>Email</th>
                                                 <th>Register Date</th>
                                                 <th>Status</th>
@@ -78,7 +78,7 @@
                                                     {{ ($employers->currentPage() - 1) * $employers->perPage() + $index + 1 }}
                                                 </td>
                                                 
-                                                <td>{{ $employer->name }}</td>
+                                                <td>{{ $employer->employer->company_name }}</td>
                                                 <td>{{ $employer->email }}</td>
                                                 <td>{{ $employer->created_at->format('d-m-Y') }}</td>
                                                 <td>

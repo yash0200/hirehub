@@ -8,79 +8,78 @@
 
 <!-- Listing Section -->
 <section class="ls-section style-two">
-<div class="auto-container"></div>
-<div class="row">
-
+  <div class="auto-container"></div>
+    <div class="row">
           <!-- Filters Column -->
           <div class="filters-column col-lg-4 col-md-12 col-sm-12">
             <div class="inner-column pd-right">
               <div class="filters-outer">
                 <form action="{{ route('candidates.list') }}" method="GET">
-                <!-- Filter Block -->
-                <div class="filter-block">
-                  <h4>Search by Keywords</h4>
-                  <div class="form-group">
-                    <input type="text" name="listing-search" placeholder="keywords">
-                    <span class="icon flaticon-search-3"></span>
+                  <!-- Filter Block -->
+                  <div class="filter-block">
+                    <h4>Search by Keywords</h4>
+                    <div class="form-group">
+                      <input type="text" name="listing-search" placeholder="keywords">
+                      <span class="icon flaticon-search-3"></span>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Filter Block -->
-                <div class="filter-block">
-                  <h4>Location</h4>
-                  <div class="form-group">
-                    <input type="text" name="listing-search" placeholder="City or postcode">
-                    <span class="icon flaticon-map-locator"></span>
+                  <!-- Filter Block -->
+                  <div class="filter-block">
+                    <h4>Location</h4>
+                    <div class="form-group">
+                      <input type="text" name="listing-search" placeholder="City or postcode">
+                      <span class="icon flaticon-map-locator"></span>
+                    </div>
                   </div>
-                </div>
 
 
 
-                <!-- Filter Block -->
-                <div class="filter-block">
-                  <h4>Candidate Gender</h4>
-                  <div class="form-group">
-                    <select class="chosen-select">
-                      <option>Male</option>
-                      <option>Female</option>
-                    </select>
-                    <span class="icon flaticon-man"></span>
+                  <!-- Filter Block -->
+                  <div class="filter-block">
+                    <h4>Candidate Gender</h4>
+                    <div class="form-group">
+                      <select class="chosen-select">
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                      <span class="icon flaticon-man"></span>
+                    </div>
                   </div>
-                </div>
 
 
 
-                <!-- Checkboxes Ouer -->
-                <div class="checkbox-outer">
-                  <h4>Experience</h4>
-                  <ul class="checkboxes square">
-                    <li>
-                      <input id="check-l" type="checkbox" name="check">
-                      <label for="check-l">0-2 Years</label>
-                    </li>
-                    <li>
-                      <input id="check-m" type="checkbox" name="check">
-                      <label for="check-m">10-12 Years</label>
-                    </li>
-                    <li>
-                      <input id="check-n" type="checkbox" name="check">
-                      <label for="check-n">12-16 Years</label>
-                    </li>
-                    <li>
-                      <input id="check-o" type="checkbox" name="check">
-                      <label for="check-o">16-20 Years</label>
-                    </li>
-                    <li>
-                      <input id="check-p" type="checkbox" name="check">
-                      <label for="check-p">20-25 Years</label>
-                    </li>
-                  </ul>
-                </div>
-                <div class="filter-buttons">
-                <button type="submit" class="btn btn-primary">Apply</button>
-                <a href="{{ route('candidates.list') }}" class="btn btn-secondary">Reset</a>
-              </div>
-</form>
+                  <!-- Checkboxes Ouer -->
+                  <div class="checkbox-outer">
+                    <h4>Experience</h4>
+                    <ul class="checkboxes square">
+                      <li>
+                        <input id="check-l" type="checkbox" name="check">
+                        <label for="check-l">0-2 Years</label>
+                      </li>
+                      <li>
+                        <input id="check-m" type="checkbox" name="check">
+                        <label for="check-m">10-12 Years</label>
+                      </li>
+                      <li>
+                        <input id="check-n" type="checkbox" name="check">
+                        <label for="check-n">12-16 Years</label>
+                      </li>
+                      <li>
+                        <input id="check-o" type="checkbox" name="check">
+                        <label for="check-o">16-20 Years</label>
+                      </li>
+                      <li>
+                        <input id="check-p" type="checkbox" name="check">
+                        <label for="check-p">20-25 Years</label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="filter-buttons">
+                  <button type="submit" class="btn btn-primary">Apply</button>
+                  <a href="{{ route('candidates.list') }}" class="btn btn-secondary">Reset</a>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -120,72 +119,71 @@
 
               <!-- Candidate block three -->
               @foreach ($candidates as $candidate)
-    <div class="candidate-block-three">
-        <div class="inner-box">
-            <div class="content">
-                <figure class="image">
-                <img src="{{ asset('/storage/profile_photos/' . $candidate->profile_photo) }}">
-                </figure>
-                <h4 class="name">
-                    <a href="{{ route('employer.applicant.profile', $candidate->id) }}">{{ $candidate->full_name }}</a>
-                </h4>
-                <ul class="candidate-info">
-                    <li class="designation">{{ $candidate->designation }}</li>
-                    <li>
-                        <span class="icon flaticon-map-locator"></span> 
-                        {{ $candidate->address->city ?? 'N/A' }}, {{ $candidate->address->country ?? 'N/A' }}
-                    </li>
-                    <li>
-                        <span class="icon flaticon-money"></span> 
-                        {{ $candidate->resume->current_salary??'N/A' }} 
-                    </li>
-                </ul>
-                <ul class="post-tags">
-                    @foreach(explode(',', $candidate->skills) as $skill)
-                        <li><a href="#">{{ trim($skill) }}</a></li>
-                    @endforeach
-                </ul>
-                <p><strong>Education:</strong> {{ $candidate->resume->degree_name ?? 'Not Available' }} - {{ $candidate->resume->institution_name ?? 'N/A' }}</p>
-                <p><strong>Work:</strong> {{ $candidate->resume->job_title ?? 'N/A' }} at {{ $candidate->resume->company_name ?? 'N/A' }}</p>
-            </div>
-            <div class="btn-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                <a href="{{ route('employer.applicant.profile', $candidate->id) }}" class="theme-btn btn-style-three">
-                    <span class="btn-title">View Profile</span>
-                </a>
-            </div>
-        </div>
-    </div>
-@endforeach
+                <div class="candidate-block-three">
+                    <div class="inner-box">
+                        <div class="content">
+                            <figure class="image">
+                            <img src="{{ asset('/storage/profile_photos/' . $candidate->profile_photo) }}">
+                            </figure>
+                            <h4 class="name">
+                                <a href="{{ route('candidate.profile', $candidate->id) }}">{{ $candidate->full_name }}</a>
+                            </h4>
+                            <ul class="candidate-info">
+                                <li class="designation">{{ $candidate->designation }}</li>
+                                <li>
+                                    <span class="icon flaticon-map-locator"></span> 
+                                    {{ $candidate->address->city ?? 'N/A' }}, {{ $candidate->address->country ?? 'N/A' }}
+                                </li>
+                                <li>
+                                    <span class="icon flaticon-money"></span> 
+                                    {{ $candidate->resume->current_salary??'N/A' }} 
+                                </li>
+                            </ul>
+                            <ul class="post-tags">
+                                @foreach(explode(',', $candidate->skills) as $skill)
+                                    <li><a href="#">{{ trim($skill) }}</a></li>
+                                @endforeach
+                            </ul>
+                            <p><strong>Education:</strong> {{ $candidate->resume->degree_name ?? 'Not Available' }} - {{ $candidate->resume->institution_name ?? 'N/A' }}</p>
+                            <p><strong>Work:</strong> {{ $candidate->resume->job_title ?? 'N/A' }} at {{ $candidate->resume->company_name ?? 'N/A' }}</p>
+                        </div>
+                        <div class="btn-box">
+                            <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                            <a href="{{ route('candidate.profile', $candidate->id) }}" class="theme-btn btn-style-three">
+                                <span class="btn-title">View Profile</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+              @endforeach
 
               <!-- Listing Show More -->
               <nav class="ls-pagination mb-5">
-            <ul>
-              @if ($candidates->onFirstPage())
-              <li class="prev disabled"><span><i class="fa fa-arrow-left"></i></span></li>
-              @else
-              <li class="prev"><a href="{{ $candidates->previousPageUrl() }}"><i class="fa fa-arrow-left"></i></a></li>
-              @endif
+                <ul>
+                  @if ($candidates->onFirstPage())
+                  <li class="prev disabled"><span><i class="fa fa-arrow-left"></i></span></li>
+                  @else
+                  <li class="prev"><a href="{{ $candidates->previousPageUrl() }}"><i class="fa fa-arrow-left"></i></a></li>
+                  @endif
 
-              @foreach ($candidates->getUrlRange(1, $candidates->lastPage()) as $page => $url)
-              <li>
-                <a href="{{ $url }}" class="{{ $candidates->currentPage() == $page ? 'current-page' : '' }}">
-                  {{ $page }}
-                </a>
-              </li>
-              @endforeach
+                  @foreach ($candidates->getUrlRange(1, $candidates->lastPage()) as $page => $url)
+                  <li>
+                    <a href="{{ $url }}" class="{{ $candidates->currentPage() == $page ? 'current-page' : '' }}">
+                      {{ $page }}
+                    </a>
+                  </li>
+                  @endforeach
 
-              @if ($candidates->hasMorePages())
-              <li class="next"><a href="{{ $candidates->nextPageUrl() }}"><i class="fa fa-arrow-right"></i></a></li>
-              @else
-              <li class="next disabled"><span><i class="fa fa-arrow-right"></i></span></li>
-              @endif
-            </ul>
-          </nav>
+                  @if ($candidates->hasMorePages())
+                  <li class="next"><a href="{{ $candidates->nextPageUrl() }}"><i class="fa fa-arrow-right"></i></a></li>
+                  @else
+                  <li class="next disabled"><span><i class="fa fa-arrow-right"></i></span></li>
+                  @endif
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
-    
- </section>
+</section>
 
 @endsection

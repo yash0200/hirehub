@@ -58,7 +58,6 @@
             <!-- Login/Register -->
             <div class="btn-box">
               <a href="{{ url('/register') }}" class="theme-btn btn-style-three">Register</a>
-              <a href="{{ route('employer.jobs.index') }}" class="theme-btn btn-style-one"><span class="btn-title">Job Post</span></a>
             </div>
           </div>
         </div>

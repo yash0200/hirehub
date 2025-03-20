@@ -85,7 +85,6 @@
                     <div class="outer-box">
                         <div class="btn-box">
                             <a href="{{ url('/login') }}" class="theme-btn btn-style-three">Login</a>
-                            <a href="{{ url('/post-job') }}" class="theme-btn btn-style-one"><span class="btn-title">Job Post</span></a>
                         </div>
                     </div>
                 </div>

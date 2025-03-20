@@ -185,7 +185,7 @@
                     <figure class="image">
                       <img src="{{ asset('/storage/profile_photos/' . $applicant->candidate->profile_photo) }}" alt="{{ $applicant->name }}">
                     </figure>
-                    <h4 class="name"><a href="{{ route('employer.applicant.profile', ['id' => $applicant->candidate_id]) }}">{{ $applicant->candidate->full_name }}</a></h4>
+                    <h4 class="name"><a href="{{ route('candidate.profile', ['id' => $applicant->candidate_id]) }}">{{ $applicant->candidate->full_name }}</a></h4>
                     <ul class="candidate-info">
                       <li class="designation">{{ $applicant->resume->job_title }}</li>
                       <li><span class="icon flaticon-map-locator"></span> {{ $applicant->candidate->address->city??''}} ,{{ $applicant->candidate->address->state??''}}</li>

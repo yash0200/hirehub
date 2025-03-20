@@ -72,8 +72,6 @@
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>Profile Picture</label>
                                         <input type="file" name="profile_photo" class="form-control">
-                                        
-                                    
                                     </div>
                             
                                     <div class="form-group col-lg-12 col-md-12">

@@ -49,10 +49,8 @@ class User extends Authenticatable
     }
     public function admin()
     {
-        return $this->hasOne(Admin::class, 'user_id');  // One user has one admin profile
+        return $this->hasOne(Admin::class, 'user_id');
     }
-    
-
 
     /**
      * The attributes that should be hidden for serialization.

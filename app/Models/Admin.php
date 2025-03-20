@@ -10,6 +10,9 @@ class Admin extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'admins';
+
+
     protected $fillable = ['user_id', 'contact', 'photo'];
 
     // Relationship with the 'users' table

@@ -69,11 +69,11 @@
                                                                 <div class="content">
                                                                     <figure class="image">
                                                                         <!-- Display applicant image (You can add a dynamic image URL) -->
-                                                                        <img src="{{ asset('/images/resource/candidate-1.png') }}"
+                                                                        <img src="{{ asset('storage/profile_photos/'.$applicant->candidate->profile_photo) }}"
                                                                             alt="">
                                                                     </figure>
                                                                     <h4 class="name">
-                                                                        <a href="{{ route('employer.applicant.profile', ['id' => $applicant->candidate_id]) }}">
+                                                                        <a href="{{ route('candidate.viewprofile', ['id' => $applicant->candidate_id]) }}">
                                                                             {{ $applicant->candidate->full_name }}
                                                                         </a>
                                                                     </h4>

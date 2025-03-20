@@ -43,7 +43,7 @@
                              Download CV
                          </a>
                          
-                        <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
+                        <!-- <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button> -->
                     </div>
                 </div>
             </div>

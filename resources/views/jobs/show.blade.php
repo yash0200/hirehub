@@ -119,9 +119,9 @@
               <div class="other-options">
                 <div class="social-share">
                   <h5>Share this job</h5>
-                  <a href="{{ url("#") }}" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                  <a href="{{ url("#") }}" class="twitter"><i class="fab fa-twitter"></i> Twitter</a>
-                  <a href="{{ url("#") }}" class="google"><i class="fab fa-google"></i> Google+</a>
+                  <a href="{{ $job->employer->user->socialNetwork->facebook??''}}" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                  <a href="{{ $job->employer->user->socialNetwork->twitter??''}}" class="twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                  <a href="{{ $job->employer->user->socialNetwork->linkedin??''}}" class="google"><i class="fab fa-linkedin-in"></i>Linkedin</a>
                 </div>
               </div>
             </div>
@@ -173,13 +173,14 @@
                               ->exists();
                       }
                   @endphp
+                  @if($user->user_type === 'candidate')
                     <button type="button" 
                       class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
                       data-job-id="{{ $job->id }}" 
                       onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
                       <i class="flaticon-bookmark"></i>
                     </button>
-              
+              @endif
                 </div>
                 <div class="sidebar-widget company-widget">
                   <div class="widget-content">
@@ -200,10 +201,10 @@
                       <li>Location: <span>{{ $job->jobAddress->state ?? 'N/A' }},{{ $job->jobAddress->country }}</span></li>
                       <li>Social media:
                         <div class="social-links">
-                          <a href="{{ url("#") }}"><i class="fab fa-facebook-f"></i></a>
-                          <a href="{{ url("#") }}"><i class="fab fa-twitter"></i></a>
+                          <a href="{{ $job->employer->user->socialNetwork->facebook??''}}"><i class="fab fa-facebook-f"></i></a>
+                          <a href="{{ $job->employer->user->socialNetwork->twitter??''}}"><i class="fab fa-twitter"></i></a>
                           {{-- <a href="{{ url("#") }}"><i class="fab fa-instagram"></i></a> --}}
-                          <a href="{{ url("#") }}"><i class="fab fa-linkedin-in"></i></a>
+                          <a href="{{ $job->employer->user->socialNetwork->linkedin??''}}"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                       </li>
                     </ul>

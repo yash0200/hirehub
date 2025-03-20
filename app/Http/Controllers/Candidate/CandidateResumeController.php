@@ -54,15 +54,15 @@ class CandidateResumeController extends Controller
                 'field_of_study' => 'required|string|max:255',
                 'institution_name' => 'required|string|regex:/^[a-zA-Z\s]+$/',
                 'start_year' => 'required|integer|min:1900|max:' . date('Y'), // Start year should not be in future
-                'end_year'   => 'required|integer|min:1900|max:' . date('Y'), // End year should be within valid range
+                'end_year'   => 'required|integer|min:1900', // End year should be within valid range
                 'job_title' => 'required|string|max:255',
                 'company_name' => 'required|string|max:255',
                 'employment_type' => 'required|string',
                 'skills' => 'required|array|min:1',
                 'skills.*' => 'string|max:255',
-                'resume_file' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'current_salary'  => 'required|min:0',
-                'expected_salary' => 'required|min:0',
+                'resume_file' => 'required|file|mimes:pdf|max:2048',
+                'current_salary'  => 'required',
+                'expected_salary' => 'required',
             ]);
 
             // Custom validation for minimum 3-year gap between start and end year
@@ -95,9 +95,6 @@ class CandidateResumeController extends Controller
             } else {
                 $resumePath = null;
             }
-
-
-
             // Prepare the data for saving
             $data = $request->only([
                 'description',

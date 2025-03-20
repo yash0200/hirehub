@@ -103,7 +103,6 @@
             @foreach ($employers as $employer)
             <div class="company-block-four col-xl-4 col-lg-6 col-md-6 col-sm-12">
               <div class="inner-box">
-                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
                 @if($employer->is_featured)
                 <span class="featured">Featured</span>
                 @endif

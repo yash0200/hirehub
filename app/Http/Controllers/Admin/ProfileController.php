@@ -43,7 +43,6 @@ class ProfileController extends Controller
             $path = $request->file('profile_photo')->store('admin_photos', 'public');
             $admin->photo = $path;
         }
-
         $admin->contact = $request->phone;
         $admin->save();
 

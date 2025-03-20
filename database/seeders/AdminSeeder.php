@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\hash;
-
+use App\Models\Admin;
 class AdminSeeder extends Seeder
 {
     /**
@@ -17,13 +17,23 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::updateOrCreate(
+        // Create or update the admin user
+        $user = User::updateOrCreate(
             ['email' => 'admin@gmail.com'], // Check if this email exists
             [
                 'name' => 'Admin',
                 'password' => Hash::make('admin123'),
-                'user_type' => 'admin', // Optional if you're using user_type
-                'is_admin' => true, // Mark as admin
+                'user_type' => 'admin',
+                'is_admin' => true,
+            ]
+        );
+
+        // Create corresponding 'admin' entry if missing
+        Admin::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'contact' => '1234567890', // Add a default phone number
+                'photo' => 'default.jpg', // Add a default photo if needed
             ]
         );
     }

@@ -9,13 +9,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
 class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        $candidate = Candidate::where('user_id', auth()->id())->with('address','user.socialNetwork')->firstOrNew();
+        $candidate = Candidate::where('user_id', auth()->id())->with('address', 'user.socialNetwork')->firstOrNew();
         return view('candidates.candidates_profile', compact('candidate'));
     }
     public function update(Request $request)
@@ -32,19 +33,51 @@ class ProfileController extends Controller
 
             if ($formType === 'my_profile') {
                 // Validate input
-                $request->validate([
+                // $request->validate([
+                //     'full_name' => 'required|string|max:255',
+                //     'phone' => 'nullable|string|max:20',
+                //     'dob' => ['required', 'date', 'before:today'],
+                //     'website' => 'nullable|url',
+                //     'gender' => 'nullable|in:male,female',
+                //     'marital_status' => 'nullable|in:single,married,divorced,widowed',
+                //     'age_range' => 'nullable|string|max:20',
+                //     'education_levels' => 'nullable|string|max:255',
+                //     'languages' => 'nullable|string|max:255',
+                //     'description' => 'nullable|string',
+                //     'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+                // ]);
+
+                $validator = Validator::make($request->all(), [
                     'full_name' => 'required|string|max:255',
-                    'phone' => 'nullable|string|max:20',
-                    'dob' => ['required', 'date', 'before:today'],
+                    'phone' => 'required|numeric|digits:10',
+                    'dob' => ['required', 'date', 'before:' . \Carbon\Carbon::now()->subYears(18)->toDateString()],
                     'website' => 'nullable|url',
-                    'gender' => 'nullable|in:male,female',
+                    'gender' => 'required|in:male,female',
                     'marital_status' => 'nullable|in:single,married,divorced,widowed',
-                    'age_range' => 'nullable|string|max:20',
-                    'education_levels' => 'nullable|string|max:255',
-                    'languages' => 'nullable|string|max:255',
-                    'description' => 'nullable|string',
+                    'age_range' => 'required|string|max:20|in:18 - 22 years,23 - 25 years,26 - 30 years,31 - 40 years,41 - 60 years',
+                    'education_levels' => 'nullable|string|min:5|max:255',
+                    'languages' => 'nullable|string|regex:/^[a-zA-Z\s,\'-]+$/|max:255',
+                    'description' => 'nullable|string|min:250',
                     'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
                 ]);
+                $dob = Carbon::parse($request->dob);
+                $age = $dob->age;
+                if ($request->age_range) {
+                    // Remove "years" from the selected range and split the string by the hyphen
+                    $ageRange = str_replace(' years', '', $request->age_range);
+                    list($minAge, $maxAge) = explode(' - ', $ageRange);
+
+                    // Check if the age falls within the specified range (inclusive)
+                    if ($age < $minAge || $age > $maxAge) {
+                        return redirect()->back()->withErrors([
+                            'age_range' => "Your age ($age) is not within the specified range ($minAge - $maxAge years)."
+                        ])->withInput();
+                    }
+                }
+                // If validation fails, return with errors
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
 
                 // Update profile fields
                 $profile->full_name = $request->full_name;
@@ -74,11 +107,16 @@ class ProfileController extends Controller
 
             if ($formType === 'social_network') {
                 // Validate input
-                $request->validate([
+                $validator = Validator::make($request->all(), [
                     'facebook' => 'nullable|url',
                     'twitter' => 'nullable|url',
                     'linkedin' => 'nullable|url',
                 ]);
+
+                // If validation fails, return with errors
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
 
                 // Update or create social links for the logged-in user
                 $user->socialNetwork()->updateOrCreate(
@@ -92,16 +130,23 @@ class ProfileController extends Controller
             }
 
 
+
             if ($formType === 'contact_information') {
-                $request->validate([
-                    'country' => 'nullable|string|max:255',
-                    'state' => 'nullable|string|max:255',
-                    'city' => 'nullable|string|max:255',
-                    'postal_code' => 'nullable|string|max:10',
-                    'street' => 'nullable|string|max:500',
+                // Validate input
+                $validator = Validator::make($request->all(), [
+                    'country' => 'required|string|max:255',
+                    'state' => 'required|string|max:255',
+                    'city' => 'required|string|max:255',
+                    'postal_code' => 'required|numeric|max:10',
+                    'street' => 'required|string|max:100',
                 ]);
 
-                // Update or create address
+                // If validation fails, return with errors
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
+
+                // Update or create address for the profile
                 $profile->address()->updateOrCreate(
                     ['candidate_id' => $profile->id], // Search for an existing address by candidate_id
                     [
@@ -113,6 +158,7 @@ class ProfileController extends Controller
                     ]
                 );
             }
+
 
             $profile->save();
 

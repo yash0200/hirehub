@@ -186,7 +186,7 @@ Route::get('/employers/{id}', [EmployersController::class, 'show'])->name('emplo
 Route::get('/employers', [EmployersController::class, 'index'])->name('employers.list');
 
 Route::get('/candidates', [CandidateController::class, 'index'])->name('candidates.list');
-Route::get('/candidate/{id}', [CandidateController::class, 'viewProfile'])->name('candidate.profile');
+Route::get('/candidate/{id}', [CandidateController::class, 'viewProfile'])->name('candidate.viewprofile');
 
 
 

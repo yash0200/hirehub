@@ -95,7 +95,7 @@
                 <div class="showing-result">
                   <div class="text">Showing <strong>41-60</strong> of <strong>944</strong> jobs</div>
                 </div>
-                <div class="sort-by">
+                <!-- <div class="sort-by">
                   <select class="chosen-select">
                     <option>New Jobs</option>
                     <option>Freelance</option>
@@ -113,7 +113,7 @@
                     <option>Show 50</option>
                     <option>Show 60</option>
                   </select>
-                </div>
+                </div> -->
               </div>
 
 
@@ -126,7 +126,7 @@
                             <img src="{{ asset('/storage/profile_photos/' . $candidate->profile_photo) }}">
                             </figure>
                             <h4 class="name">
-                                <a href="{{ route('candidate.profile', $candidate->id) }}">{{ $candidate->full_name }}</a>
+                                <a href="{{ route('candidate.viewprofile', $candidate->id) }}">{{ $candidate->full_name }}</a>
                             </h4>
                             <ul class="candidate-info">
                                 <li class="designation">{{ $candidate->designation }}</li>
@@ -149,7 +149,7 @@
                         </div>
                         <div class="btn-box">
                             <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
-                            <a href="{{ route('candidate.profile', $candidate->id) }}" class="theme-btn btn-style-three">
+                            <a href="{{ route('candidate.viewprofile', $candidate->id) }}" class="theme-btn btn-style-three">
                                 <span class="btn-title">View Profile</span>
                             </a>
                         </div>

@@ -13,7 +13,7 @@ class EmployerController extends Controller
     public function index(Request $request)
     {
         // $employers = User::where('is_admin', false)->where('user_type','employer')->get();
-        $query = User::where('user_type', 'employer');
+        $query = User::where('user_type', 'employer')->with('employer');
 
         // Combined Search by Name or Email
         if ($request->filled('keyword')) {

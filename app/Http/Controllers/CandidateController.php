@@ -19,4 +19,12 @@ class CandidateController extends Controller
 
     return view('pages.candidate-list', compact('candidates'));
     }
+    public function viewProfile($id)
+    {
+        $candidate = Candidate::with(['resume', 'socialNetworks', 'address'])
+            ->where('id', $id)
+            ->firstOrFail();
+
+        return view('pages.candidate_profile', compact('candidate'));
+    }
 }

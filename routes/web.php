@@ -164,7 +164,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/employer/applicants/{id}/approve', [EmployerApplicantController::class, 'approveApplicant'])->name('employer.applicant.approve');
         Route::post('/employer/applicants/{id}/reject', [EmployerApplicantController::class, 'rejectApplicant'])->name('employer.applicant.reject');
         Route::get('/employer/applicants/{id}/view', [EmployerApplicantController::class, 'viewApplicant'])->name('employer.applicant.view');
-        Route::get('/employer/application/{id}', [EmployerApplicantController::class, 'viewProfile'])->name('employer.applicant.profile');
 
 
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
@@ -187,6 +186,8 @@ Route::get('/employers/{id}', [EmployersController::class, 'show'])->name('emplo
 Route::get('/employers', [EmployersController::class, 'index'])->name('employers.list');
 
 Route::get('/candidates', [CandidateController::class, 'index'])->name('candidates.list');
+Route::get('/candidate/{id}', [CandidateController::class, 'viewProfile'])->name('candidate.profile');
+
 
 
 Route::get('/categories', [JobCategoryController::class, 'index'])->name('categories.list');

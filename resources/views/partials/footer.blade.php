@@ -9,7 +9,7 @@
                   src="{{ asset('/images/hirehub-logo-3.svg') }}" alt=""></a></div>
             <p class="phone-num"><span>Call us </span><a href="{{ url("thebeehost%40support.html") }}">123 456 7890</a>
             </p>
-            <p class="address"><br> 3051, India. <br><a href="{{ url("
+            <p class="address">128 Citadel, Galaxy Circle, Pal Road, Surat, Gujarat.<br> 3051, India. <br><a href="{{ url("
                 mailto:support@Hirehub.com") }}" class="email">hirehub40@gmail.com</a></p>
           </div>
         </div>

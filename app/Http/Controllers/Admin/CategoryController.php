@@ -15,13 +15,14 @@ class CategoryController extends Controller
         $query = JobCategory::query();
 
         // Check if search term is provided
-        if ($request->filled('s')) {
-            $query->where('name', 'LIKE', '%' . $request->s . '%')
-                ->orWhere('slug', 'LIKE', '%' . $request->s . '%');
+        if ($request->filled('search')) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('slug', 'LIKE', '%' . $request->search . '%');
         }
 
-        $categories = $query->get(); // Fetch filtered or all categories
-        return view('admin.categories', compact('categories'));
+        $admin_categories = $query->get(); // Fetch filtered or all categories
+        // dd($categories);
+        return view('admin.categories', compact('admin_categories'));
     }
 
     public function create()

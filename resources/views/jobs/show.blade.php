@@ -174,7 +174,7 @@
                   ->exists();
                   }
                   @endphp
-                  @if($user->user_type === 'candidate')
+                  @if($userType === 'candidate')
                     <button type="button" 
                       class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}" 
                       data-job-id="{{ $job->id }}" 
@@ -182,12 +182,12 @@
                       <i class="flaticon-bookmark"></i>
                     </button>
               @endif
-                  <button type="button"
+                  {{-- <button type="button"
                     class="bookmark-btn {{ $isShortlisted ? 'active' : '' }}"
                     data-job-id="{{ $job->id }}"
                     onclick="toggleBookmark(this, {{ $user ? 'true' : 'false' }})">
                     <i class="flaticon-bookmark"></i>
-                  </button>
+                  </button> --}}
 
                 </div>
                 <div class="sidebar-widget company-widget">

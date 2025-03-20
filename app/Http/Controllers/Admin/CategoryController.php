@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\JobCategory;
 
@@ -30,17 +31,24 @@ class CategoryController extends Controller
     }
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:job_categories,slug',
-            // 'status' => 'required|in:active,inactive',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s,\'-]+$/|unique:job_categories,name',
+            'slug' => 'required|string|max:255|regex:/^[a-zA-Z\s,\'-]+$/|unique:job_categories,slug',
         ]);
 
+        // If validation fails, return with errors
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Optionally, you can perform further custom validation here (for example, you might want to check if the 'name' field is unique or format the slug)
+
+        // Create a new JobCategory record in the database
         JobCategory::create([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            // 'status' => $validated['status'],
+            'name' => $request->name,
+            'slug' => $request->slug,
         ]);
+
 
         return redirect()->route('admin.categories')->with('success', 'Category added successfully!');
     }

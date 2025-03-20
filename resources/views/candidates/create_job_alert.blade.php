@@ -11,7 +11,7 @@
             <div class="text">Set your job alert preferences below</div>
         </div>
 
-        @if ($errors->any())
+        <!-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -19,8 +19,12 @@
                 @endforeach
             </ul>
         </div>
+        @endif -->
+        @if ($errors->has('error'))
+        <div class="alert alert-danger">
+            {{ $errors->first('error') }}
+        </div>
         @endif
-
         <div class="row">
             <div class="col-lg-12">
                 <!-- Job Alert Widget -->
@@ -43,16 +47,16 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                                                
+
                                     <!-- Location -->
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label for="location">Location</label>
-                                        <input type="text" id="location" name="location" class="form-control" value="{{ old('location') }}" required placeholder="Enter job location">
+                                        <input type="text" id="location" name="location" class="form-control" value="{{ old('location') }}" placeholder="Enter job location">
                                         @error('location')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                            
+
                                     <!-- Job Category -->
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>Job Category</label>
@@ -68,7 +72,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                            
+
                                     <!-- Salary Range -->
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label for="salary_range">Salary Range</label>
@@ -77,7 +81,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                            
+
                                     <!-- Job Type -->
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>Job Type</label>
@@ -91,7 +95,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                            
+
                                     {{-- <!-- Experience Level -->
                                     <div class="form-group col-lg-6 col-md-12">
                                         <label>Experience Level</label>
@@ -102,21 +106,21 @@
                                         </select>
                                         @error('experience_level')
                                         <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div> --}}
-                            
-                                    <!-- Submit Button -->
-                                    <div class="form-group col-lg-12 col-md-12">
-                                        <button type="submit" class="theme-btn btn-style-one">Save preferences</button>
-                                    </div>
+                                    @enderror
+                                </div> --}}
+
+                                <!-- Submit Button -->
+                                <div class="form-group col-lg-12 col-md-12">
+                                    <button type="submit" class="theme-btn btn-style-one">Save preferences</button>
                                 </div>
-                            </form>
                         </div>
+                        </form>
                     </div>
                 </div>
-                <!-- End Job Alert Widget -->
             </div>
+            <!-- End Job Alert Widget -->
         </div>
+    </div>
     </div>
 </section>
 <!-- End Dashboard -->

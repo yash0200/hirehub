@@ -48,14 +48,14 @@ class ProfileController extends Controller
                 // ]);
 
                 $validator = Validator::make($request->all(), [
-                    'full_name' => 'required|string|max:255',
+                    'full_name' => 'required|string|regex:/^[a-zA-Z\s,\'-]+$/|max:255',
                     'phone' => 'required|numeric|digits:10',
                     'dob' => ['required', 'date', 'before:' . \Carbon\Carbon::now()->subYears(18)->toDateString()],
                     'website' => 'nullable|url',
                     'gender' => 'required|in:male,female',
                     'marital_status' => 'nullable|in:single,married,divorced,widowed',
                     'age_range' => 'required|string|max:20|in:18 - 22 years,23 - 25 years,26 - 30 years,31 - 40 years,41 - 60 years',
-                    'education_levels' => 'nullable|string|min:5|max:255',
+                    'education_levels' => 'nullable|string|regex:/^[a-zA-Z\s,\'-]+$/|min:5|max:255',
                     'languages' => 'nullable|string|regex:/^[a-zA-Z\s,\'-]+$/|max:255',
                     'description' => 'nullable|string|min:250',
                     'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
@@ -134,11 +134,11 @@ class ProfileController extends Controller
             if ($formType === 'contact_information') {
                 // Validate input
                 $validator = Validator::make($request->all(), [
-                    'country' => 'required|string|max:255',
-                    'state' => 'required|string|max:255',
-                    'city' => 'required|string|max:255',
-                    'postal_code' => 'required|numeric|max:10',
-                    'street' => 'required|string|max:100',
+                    'country' => 'required|string|regex:/^[a-zA-Z\s,\'-]+$/|max:255',
+                    'state' => 'required|string|regex:/^[a-zA-Z\s,\'-]+$/|max:255',
+                    'city' => 'required|string|regex:/^[a-zA-Z\s,\'-]+$/|max:255',
+                    'postal_code' => 'required|numeric|digits:6',
+                    'street' => 'required|string|max:100',  
                 ]);
 
                 // If validation fails, return with errors

@@ -322,7 +322,7 @@
       <div class="sec-title mb-0">
         <h2>Looking to Post a Job</h2>
         <div class="text mb-4">Find professionals from arround the world and <br class="d-none d-lg-block"> across all skills.</div>
-        <a href="{{ url('#') }}" class="ud-btn-border-theme at-home18 dark-style">Post Your Job For Free <i class="fal fa-long-arrow-right"></i></a>
+        <a href="{{ route('employer.jobs.index') }}" class="ud-btn-border-theme at-home18 dark-style">Post Your Job For Free <i class="fal fa-long-arrow-right"></i></a>
       </div>
     </div>
     <img src="{{ asset('/images/about-1.jpg') }}" alt="" class="cta-home18-img-2 d-none d-lg-block wow fadeInLeft">

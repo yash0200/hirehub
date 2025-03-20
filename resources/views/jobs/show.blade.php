@@ -12,7 +12,12 @@
 
     <!-- Header Span -->
     <span class="header-span"></span>
-
+    @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ session('success') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
     <!-- Job Detail Section -->
     <section class="job-detail-section">
       <div class="job-detail-outer">
@@ -203,7 +208,7 @@
                       </li>
                     </ul>
 
-                    <div class="btn-box"><a href="{{ url("#") }}" class="theme-btn btn-style-three">www.invisionapp.com</a></div>
+                    <div class="btn-box"><a target="_blank" href="{{ $job->employer->website ?? '#' }}" class="theme-btn btn-style-three">{{ $job->employer->website ?? 'N/A' }}</a></div>
                   </div>
                 </div>
 

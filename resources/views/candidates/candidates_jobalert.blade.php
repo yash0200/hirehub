@@ -143,7 +143,7 @@
                                                 <div class="option-box">
                                                     <ul class="option-list">
                                                         <li>
-                                                            <a href="{{ route('jobs.show', $alert->job->id) }}" data-text="View Job">
+                                                            <a href="{{ route('jobs.details', $alert->job->id) }}" data-text="View Job">
                                                                 <span class="la la-eye"></span>
                                                             </a>
                                                         </li>

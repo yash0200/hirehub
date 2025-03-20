@@ -70,7 +70,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/view-profile', [ProfileController::class, 'index'])->name('admin.profile');
     Route::get('/admin/delete-profile', [ProfileController::class, 'delete'])->name('admin.profile.delete');
-    Route::post('/admin/profile-update', [ProfileController::class, 'update'])->name('admin.profile.update');
+    Route::post('/admin/profile-update', [ProfileController::class, 'updateProfile'])->name('admin.profile.update');
     // Route::post('/admin/change-password', [ProfileController::class, 'changePassword'])->name('admin.change.password');
 
 

@@ -34,9 +34,9 @@
                                     <div class="step"><span class="icon flaticon-briefcase"></span>
                                         <h5>Job Detail</h5>
                                     </div>
-                                    <div class="step"><span class="icon flaticon-money"></span>
+                                    <!-- <div class="step"><span class="icon flaticon-money"></span>
                                         <h5>Package & Payments</h5>
-                                    </div>
+                                    </div> -->
                                     <div class="step"><span class="icon flaticon-checked"></span>
                                         <h5>Confirmation</h5>
                                     </div>

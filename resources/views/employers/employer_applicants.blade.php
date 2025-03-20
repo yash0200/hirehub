@@ -37,8 +37,8 @@
                                         <option>Last 24 Months</option>
                                         <option>Last 5 year</option>
                                     </select>
-                                </div>
-                            </div> -->
+                                </div> -->
+                            </div>
 
                             <div class="widget-content">
                                 <div class="tabs-box">

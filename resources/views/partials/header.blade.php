@@ -135,10 +135,10 @@
 
         <!-- Saved Jobs (Candidate Only) -->
         @if($userType === 'candidate')
-        <button class="menu-btn">
+        <a href="{{ route('candidate.shortlist') }}" class="menu-btn">
             <span class="count">{{ $savedJobsCount > 0 ? $savedJobsCount : '' }}</span>
             <span class="icon la la-heart-o"></span>
-        </button>
+        </a>
         @endif
 
         <!-- Candidate Notifications -->

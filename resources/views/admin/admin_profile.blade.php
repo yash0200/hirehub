@@ -73,8 +73,7 @@
                                         <label>Profile Picture</label>
                                         <input type="file" name="profile_photo" class="form-control">
                                         
-                                            <img src="{{ asset('storage/admin_photos'.$admin->photo ?? 'default.png') }}" alt="Profile Photo" width="100">
-                                        
+                                    
                                     </div>
                             
                                     <div class="form-group col-lg-12 col-md-12">

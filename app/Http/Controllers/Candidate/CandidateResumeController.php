@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Resume; // Assuming you have a Resume model
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class CandidateResumeController extends Controller
 {
@@ -20,76 +21,97 @@ class CandidateResumeController extends Controller
 
     public function store(Request $request)
     {
-        try{
-        $user = auth()->user();
-        $candidate = Auth::user()->candidate;
-        if (!$candidate) {
-            return redirect()->back()->with('error', 'Candidate profile not found.');
-        }
-
-        // Ensure a resume exists or create a new one
-        $resume = Resume::firstOrNew(['candidate_id' => $candidate->id]);
-
-        // Validate the request
-       $validator = $request->validate([
-            'description' => 'required|string',
-            'degree_name' => 'nullable|string',
-            'field_of_study' => 'nullable|string',
-            'institution_name' => 'nullable|string',
-            'start_year' => 'nullable|integer',
-            'end_year' => 'nullable|integer',
-            'job_title' => 'nullable|string',
-            'company_name' => 'nullable|string',
-            'employment_type' => 'nullable|string',
-            'skills' => 'nullable|array',
-            'resume_file' => 'nullable|file|mimes:pdf,jpeg,jpg,png|max:2048',
-            'current_salary' => 'nullable|string',
-            'expected_salary' => 'nullable|string',
-        ]);
-
-       
-
-        // Prepare the data for saving
-        $data = $request->only([
-            'description',
-            'degree_name',
-            'field_of_study',
-            'institution_name',
-            'start_year',
-            'end_year',
-            'job_title',
-            'company_name',
-            'employment_type',
-            'skills',
-            'current_salary',
-            'expected_salary',
-        ]);
-
-        // Handle file upload
-        if ($request->hasFile('resume_file')) {
-            // Delete old resume if it exists
-            if ($resume->resume_file) {
-                Storage::delete('public/resumes/' . $resume->resume_file);
+        try {
+            $user = auth()->user();
+            $candidate = Auth::user()->candidate;
+            if (!$candidate) {
+                return redirect()->back()->with('error', 'Candidate profile not found.');
             }
 
-            // Store the new resume file
-            $file = $request->file('resume_file');
-            $filename = 'resume-' . $candidate->id . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/resumes', $filename); // Save in 'storage/app/public/resumes'
+            // Ensure a resume exists or create a new one
+            $resume = Resume::firstOrNew(['candidate_id' => $candidate->id]);
 
-            $data['resume_file'] = $filename;
+            // Validate the request
+            //    $validator = $request->validate([
+            //         'description' => 'required|string',
+            //         'degree_name' => 'nullable|string',
+            //         'field_of_study' => 'nullable|string',
+            //         'institution_name' => 'nullable|string',
+            //         'start_year' => 'nullable|integer',
+            //         'end_year' => 'nullable|integer',
+            //         'job_title' => 'nullable|string',
+            //         'company_name' => 'nullable|string',
+            //         'employment_type' => 'nullable|string',
+            //         'skills' => 'nullable|array',
+            //         'resume_file' => 'nullable|file|mimes:pdf,jpeg,jpg,png|max:2048',
+            //         'current_salary' => 'nullable|string',
+            //         'expected_salary' => 'nullable|string',
+            //     ]);/
+
+            $validator = Validator::make($request->all(), [
+                'description' => 'required|string|min:10|max:1000',
+                'degree_name' => 'required|string|max:255',
+                'field_of_study' => 'required|string|max:255',
+                'institution_name' => 'nullable|string',
+                'start_year' => 'required|integer|min:1900|max:' . date('Y'),
+                'end_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+                'job_title' => 'required|string|max:255',
+                'company_name' => 'required|string|max:255',
+                'employment_type' => 'nullable|string',
+                'skills' => 'required|array|min:1',
+                'skills.*' => 'string|max:255',
+                'resume_file' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+                'current_salary' => 'nullable|string',
+                'expected_salary' => 'nullable|string',
+            ]);
+
+            // If validation fails, return with errors
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+
+
+            // Prepare the data for saving
+            $data = $request->only([
+                'description',
+                'degree_name',
+                'field_of_study',
+                'institution_name',
+                'start_year',
+                'end_year',
+                'job_title',
+                'company_name',
+                'employment_type',
+                'skills',
+                'current_salary',
+                'expected_salary',
+            ]);
+
+            // Handle file upload
+            if ($request->hasFile('resume_file')) {
+                // Delete old resume if it exists
+                if ($resume->resume_file) {
+                    Storage::delete('public/resumes/' . $resume->resume_file);
+                }
+
+                // Store the new resume file
+                $file = $request->file('resume_file');
+                $filename = 'resume-' . $candidate->id . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('public/resumes', $filename); // Save in 'storage/app/public/resumes'
+
+                $data['resume_file'] = $filename;
+            }
+
+            // Save the resume
+            $resume->fill($data);
+            $resume->candidate_id = $candidate->id;
+            $resume->save();
+            $user->updateResumeStatus();
+
+            return redirect()->route('candidate.resumes')->with('success', 'Resume updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('candidate.resumes')->withErrors($e->getMessage());
         }
-
-        // Save the resume
-        $resume->fill($data);
-        $resume->candidate_id = $candidate->id;
-        $resume->save();
-        $user->updateResumeStatus();
-
-        return redirect()->route('candidate.resumes')->with('success', 'Resume updated successfully!');
-    } 
-    catch (\Exception $e) {
-        return redirect()->route('candidate.resumes')->withErrors($e->getMessage());
     }
-}
 }

@@ -29,7 +29,7 @@
                                 {{ $candidate->address->state ?? 'N/A' }}, 
                                 {{ $candidate->address->city ?? 'N/A' }}
                             </li>
-                            <li><span class="icon flaticon-money"></span> {{$candidate->resume->current_salary}}</li>
+                            <li><span class="icon flaticon-money"></span> {{$candidate->resume->current_salary??'Not Provided'}}</li>
                             <li>
                                 <span class="icon flaticon-clock"></span>
                                 Member Since, {{ $candidate->created_at->format('M d, Y') ?? 'N/A' }}

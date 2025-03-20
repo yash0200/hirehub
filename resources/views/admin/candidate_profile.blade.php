@@ -164,13 +164,13 @@
                                             <li>
                                                 <i class="icon icon-rate"></i>
                                                 <h5>Current Salary:</h5>
-                                                <span>{{$user->candidate->resume->current_salary}}</span>
+                                                <span>{{$user->candidate->resume->current_salary?? 'Not provided'}}</span>
                                             </li>
 
                                             <li>
                                                 <i class="icon icon-salary"></i>
                                                 <h5>Expected Salary:</h5>
-                                                <span>{{$user->candidate->resume->expected_salary}}</span>
+                                                <span>{{$user->candidate->resume->expected_salary?? 'Not provided'}}</span>
                                             </li>
 
                                             <li>

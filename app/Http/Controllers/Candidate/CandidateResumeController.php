@@ -46,28 +46,54 @@ class CandidateResumeController extends Controller
             //         'resume_file' => 'nullable|file|mimes:pdf,jpeg,jpg,png|max:2048',
             //         'current_salary' => 'nullable|string',
             //         'expected_salary' => 'nullable|string',
-            //     ]);/
+            //     ]);
 
             $validator = Validator::make($request->all(), [
                 'description' => 'required|string|min:10|max:1000',
-                'degree_name' => 'required|string|max:255',
+                'degree_name' => 'required|string|regex:/^[a-zA-Z\s]+$/|max:255',
                 'field_of_study' => 'required|string|max:255',
-                'institution_name' => 'nullable|string',
-                'start_year' => 'required|integer|min:1900|max:' . date('Y'),
-                'end_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+                'institution_name' => 'required|string|regex:/^[a-zA-Z\s]+$/',
+                'start_year' => 'required|integer|min:1900|max:' . date('Y'), // Start year should not be in future
+                'end_year'   => 'required|integer|min:1900|max:' . date('Y'), // End year should be within valid range
                 'job_title' => 'required|string|max:255',
                 'company_name' => 'required|string|max:255',
-                'employment_type' => 'nullable|string',
+                'employment_type' => 'required|string',
                 'skills' => 'required|array|min:1',
                 'skills.*' => 'string|max:255',
-                'resume_file' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'current_salary' => 'nullable|string',
-                'expected_salary' => 'nullable|string',
+                'resume_file' => 'required|file|mimes:pdf,jpg,png|max:2048',
+                'current_salary'  => 'required|min:0',
+                'expected_salary' => 'required|min:0',
             ]);
+
+            // Custom validation for minimum 3-year gap between start and end year
+            $validator->after(function ($validator) use ($request) {
+                if (!empty($request->start_year) && !empty($request->end_year)) {
+                    if ($request->end_year < ($request->start_year + 3)) {
+                        $validator->errors()->add('end_year', 'End year must be at least 3 years after the start year.');
+                    }
+                }
+            });
+
+            // Custom validation rule to check expected salary > current salary
+            $validator->after(function ($validator) use ($request) {
+                if (!empty($request->current_salary) && !empty($request->expected_salary)) {
+                    if ($request->expected_salary <= $request->current_salary) {
+                        $validator->errors()->add('expected_salary', 'Expected salary must be greater than current salary.');
+                    }
+                }
+            });
+
 
             // If validation fails, return with errors
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            // Handle file upload if provided
+            if ($request->hasFile('resume_file')) {
+                $resumePath = $request->file('resume_file')->store('resumes', 'public');
+            } else {
+                $resumePath = null;
             }
 
 

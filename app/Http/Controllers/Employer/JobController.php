@@ -50,6 +50,7 @@ class JobController extends Controller
 
         $messages = [
             'title.required' => 'The job title is required.',
+            'title.regex' => 'The job title must be only alpahabets and spaces.',
             'description.required' => 'The job description is required.',
             'category_id.required' => 'Please select a valid job category.',
             'category_id.exists' => 'The selected category is invalid.',
@@ -68,25 +69,48 @@ class JobController extends Controller
             'city.string' => 'City must be a valid string.',
             'postcode.string' => 'Postcode must be a valid string.',
             'address.string' => 'Address must be a valid string.',
+            'country.regex' => 'The country must contain only alphabets.',
+            'state.regex' => 'The state must contain only alphabets.',
+            'city.regex' => 'The city must contain only alphabets.',
+            'postcode.regex' => 'The post code must contain only 6 digits.',
+
         ];
         $id = auth()->user()->employer->id;
 
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
+            'title' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
+            'description' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $wordCount = str_word_count($value);
+                    if ($wordCount < 50) {
+                        $fail('The job description must be at least 50 words.');
+                    }
+                }
+            ],
             'category_id' => 'required|exists:job_categories,id',
             'experience' => 'required|string',
             'salary' => 'required|string',
             'job_type' => 'required|string',
-            'qualification' => 'required|string',
+            'qualification' => ['required', 'string', 'min:2', 'max:255'],
             'email' => 'required|email',
-            'deadline' => 'nullable|date',
-            'skills' => 'nullable|string', // Changed to string
-            'country' => 'required|string',
-            'state' => 'required|string',
-            'city' => 'required|string',
-            'postcode' => 'required|string',
+            'deadline' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    if (empty($value)) {
+                        $fail('Please select a deadline date.');
+                    } elseif (strtotime($value) < strtotime('+1 day')) {
+                        $fail('The deadline must be at least one day in the future.');
+                    }
+                }
+            ],
+            'skills' => 'required|string|regex:/^[A-Za-z\s]+$/', // Changed to string
+            'country' => 'required|string|regex:/^[A-Za-z\s]+$/',
+            'state' => 'required|string|regex:/^[A-Za-z\s]+$/',
+            'city' => 'required|string|regex:/^[A-Za-z\s]+$/',
+            'postcode' => 'required|string|regex:/^[0-9]{6}$/',
             'address' => 'required|string',
         ], $messages);
 
@@ -167,11 +191,11 @@ class JobController extends Controller
     {
 
         // Prevent any modifications if the job is expired or closed
-        if (in_array($job->status, ['expired','closed'])) {
+        if (in_array($job->status, ['expired', 'closed'])) {
             return redirect()->route('employer.jobs.manage')
                 ->with('error', 'This job is expired or closed and cannot be edited.');
         }
-        
+
         // Prevent any modification if the job in inactive 
         if (in_array($job->status, ['inactive'])) {
             return redirect()->route('employer.jobs.manage')
@@ -209,16 +233,34 @@ class JobController extends Controller
         ];
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
+            'title' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
+            'description' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $wordCount = str_word_count($value);
+                    if ($wordCount < 50) {
+                        $fail('The job description must be at least 50 words.');
+                    }
+                }
+            ],
             'category_id' => 'required|exists:job_categories,id',
             'experience' => 'required|string',
             'salary' => 'required|string',
             'job_type' => 'required|string',
-            'qualification' => 'required|string',
+            'qualification' => ['required', 'string', 'min:2', 'max:255'],
             'email' => 'required|email',
-            'deadline' => 'nullable|date',
-            'skills' => 'nullable|string',
+            'deadline' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    if (empty($value)) {
+                        $fail('Please select a deadline date.');
+                    } elseif (strtotime($value) < strtotime('+1 day')) {
+                        $fail('The deadline must be at least one day in the future.');
+                    }
+                }
+            ],
+            'skills' => 'required|string', // Changed to string
             'country' => 'required|string',
             'state' => 'required|string',
             'city' => 'required|string',
@@ -254,6 +296,8 @@ class JobController extends Controller
 
         return redirect()->route('employer.jobs.manage')->with('success', 'Job updated successfully.');
     }
+
+
     public function destroy(Jobs $job)
     {
         if (in_array($job->status, ['closed', 'expired'])) {
@@ -327,7 +371,7 @@ class JobController extends Controller
 
         return view('employer.candidate-profile', compact('candidate'));
     }
-    
+
     //new changes
     public function alternative()
     {

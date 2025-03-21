@@ -11,7 +11,7 @@
                 <h3 class="dark-color">{{ isset($job) ? 'Edit Job' : 'Post a New Job!' }}</h3>
                 <p class="text-color">Ready to {{ isset($job) ? 'update' : 'create' }} your job listing?</p>
             </div>
-            @if ($errors->any())
+            <!-- @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -19,7 +19,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif
+        @endif -->
         
             <div class="row">
                 <div class="col-lg-12">
@@ -50,8 +50,7 @@
                                     <div class="row">
                                         <div class="form-group col-lg-12">
                                             <label>Job Title</label>
-                                            <input type="text" name="title" class="form-control" placeholder="Title"
-                                            value="{{ old('title', $job->title ?? '') }}">
+                                            <input type="text" name="title" class="form-control" placeholder="Title" value="{{ old('title', $job->title ?? '') }}">
                                             @error('title')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -118,7 +117,7 @@
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Application Deadline Date</label>
                                             <input type="date" name="deadline" class="form-control"
-                                            value="{{ old('deadline', isset($job) ? $job->deadline?->format('Y-m-d') : '') }}">
+                                            value="{{ old('deadline', isset($job) ? $job->deadline?->format('Y-m-d') : '') }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}">
                                             @error('deadline')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror

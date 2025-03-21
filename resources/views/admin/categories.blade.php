@@ -35,13 +35,13 @@
                                 <form method="GET" class="default-form form-inline" action="{{ route('admin.categories') }}">
                                     <div class="row">
                                         <div class="form-group mb-0 mr-2 col-lg-6">
-                                            <input type="text" name="s" value="{{ request()->s }}" placeholder="Search by name" class="form-control">
+                                            <input type="text" name="search" value="{{ request()->search }}" placeholder="Search by name" class="form-control">
                                         </div>
                                         <div class="col-lg-3">
                                             <button type="submit" class="theme-btn btn-style-one">Search</button>
                                         </div>
                                         <div class="col-lg-3">
-                                            @if(request()->has('s'))
+                                            @if(request()->has('search'))
                                                 <a href="{{ route('admin.categories') }}" class="theme-btn btn-style-one">Clear</a>
                                             @endif
 
@@ -66,12 +66,12 @@
                                     </thead>
                                     <tbody>
                                       
-                                        @if($categories->isEmpty())
+                                        @if($admin_categories->isEmpty())
                                         <tr>
                                             <td colspan="4">There is no category</td>
                                         </tr>
                                         @else
-                                        @foreach ($categories as $category)
+                                        @foreach ($admin_categories as $category)
                                         
                                         <tr>
                                             <td class="title">{{ $category->name }}</td>

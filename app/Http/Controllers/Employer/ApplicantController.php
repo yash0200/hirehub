@@ -55,14 +55,7 @@ class ApplicantController extends Controller
 
         return response()->json(['message' => 'Application approved successfully.']);
     }
-    public function viewProfile($id)
-    {
-        $candidate = Candidate::with(['resume', 'socialNetworks', 'address'])
-            ->where('id', $id)
-            ->firstOrFail();
-
-        return view('employers.candidate_profile', compact('candidate'));
-    }
+    
 
     public function viewApplicant($id)
     {

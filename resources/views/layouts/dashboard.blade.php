@@ -236,8 +236,9 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (response) {
-                        Swal.fire('Success!', response.success, 'success');
-                        location.reload(); // Refresh page to reflect changes
+                        Swal.fire('Success!', response.success, 'success').then(() => {
+                        location.reload(); // Reload the page only after the user closes the alert
+                    });
                     },
                     error: function (response) {
                         Swal.fire('Error!', response.responseJSON.error, 'error');

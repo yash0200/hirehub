@@ -10,16 +10,14 @@ class Admin extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $guard = 'admin';
+    protected $table = 'admins';
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $fillable = ['user_id', 'contact', 'photo'];
+
+    // Relationship with the 'users' table
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

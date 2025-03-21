@@ -29,7 +29,7 @@
                                 {{ $candidate->address->state ?? 'N/A' }}, 
                                 {{ $candidate->address->city ?? 'N/A' }}
                             </li>
-                            <li><span class="icon flaticon-money"></span> $99 / hour</li>
+                            <li><span class="icon flaticon-money"></span> {{$candidate->resume->current_salary??'Not Provided'}}</li>
                             <li>
                                 <span class="icon flaticon-clock"></span>
                                 Member Since, {{ $candidate->created_at->format('M d, Y') ?? 'N/A' }}
@@ -43,7 +43,7 @@
                              Download CV
                          </a>
                          
-                        <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
+                        <!-- <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                             <!-- Resume BLock -->
                             <div class="resume-block">
                                 <div class="inner">
-                                    <span class="name">{{ strtoupper(substr($candidate->resume->degree_name, 0, 1)) }}</span>
+                                    <!-- <span class="name">{{ strtoupper(substr($candidate->resume->degree_name, 0, 1)) }}</span> -->
                                     <div class="title-box">
                                         <div class="info-box">
                                             <h3>{{ $candidate->resume->degree_name ?? 'N/A' }}</h3>
@@ -82,7 +82,7 @@
                             </div>
 
                             <!-- Resume BLock -->
-                            <div class="resume-block">
+                            <!-- <div class="resume-block">
                                 <div class="inner">
                                     <span class="name">H</span>
                                     <div class="title-box">
@@ -97,17 +97,17 @@
                                     <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Resume / Work & Experience -->
-                        <div class="resume-outer theme-blue">
+                        <div class="resume-outer theme-blue" style="margin-top:30px">
                             <div class="upper-title">
                                 <h4>Work & Experience</h4>
                             </div>
                             <!-- Resume BLock -->
                             <div class="resume-block">
                                 <div class="inner">
-                                    <span class="name">{{ strtoupper(substr($candidate->job_title ?? 'N/A', 0, 1)) }}</span>
+                                    <!-- <span class="name">{{ strtoupper(substr($candidate->job_title ?? 'N/A', 0, 1)) }}</span> -->
                                     <div class="title-box">
                                         <div class="info-box">
                                             <h3>{{ $candidate->resume->job_title ?? 'Position Not Available' }}</h3>
@@ -127,7 +127,7 @@
                             </div>
 
                             <!-- Resume BLock -->
-                            <div class="resume-block">
+                            <!-- <div class="resume-block">
                                 <div class="inner">
                                     <span class="name">D</span>
                                     <div class="title-box">
@@ -142,9 +142,9 @@
                                     <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante<br> ipsum primis in faucibus.</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
+                        <div class="sidebar-column col-lg-4 col-md-12 col-sm-12" style="margin-top:30px">
                             <aside class="sidebar">
                                 <div class="sidebar-widget">
                                     <div class="widget-content">
@@ -164,13 +164,13 @@
                                             <li>
                                                 <i class="icon icon-rate"></i>
                                                 <h5>Current Salary:</h5>
-                                                <span>11K - 15K</span>
+                                                <span>{{$candidate->resume->current_salary}}</span>
                                             </li>
 
                                             <li>
                                                 <i class="icon icon-salary"></i>
                                                 <h5>Expected Salary:</h5>
-                                                <span>26K - 30K</span>
+                                                <span>{{$candidate->resume->expected_salary}}</span>
                                             </li>
 
                                             <li>

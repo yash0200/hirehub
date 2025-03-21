@@ -31,21 +31,16 @@ class UserController extends Controller
     public function show($id)
     {
         
-        $candidate = User::where('id', $id)->firstOrFail();
-        return view('admin.candidate_profile', compact('candidate'));
+        // $candidate = User::where('id', $id)->with('candidate.resume')->firstOrFail();
+        $user = User::where('id', $id)
+        ->with([
+            'candidate.resume',      // Load Resume
+            'candidate.address',     // Load Address (Fixed)
+            'socialNetwork' // Load Social Networks
+        ])->firstOrFail();
+
+        return view('admin.candidate_profile', compact('user'));
     }
-    // public function showCandidate($id)
-    // {
-    //     $candidate = User::where('id', $id)->where('user_type', 'candidate')->firstOrFail();
-    //     return view('admin.candidate_profile', compact('candidate'));
-    // }
-
-    // public function showEmployer($id)
-    // {
-    //     $employer = User::where('id', $id)->where('user_type', 'employer')->firstOrFail();
-    //     return view('admin.employer_profile', compact('employer'));
-    // }
-
 
     // Edit user
     public function edit($id)

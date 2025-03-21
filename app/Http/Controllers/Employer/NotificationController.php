@@ -16,7 +16,7 @@ class NotificationController extends Controller
             ->latest()
             ->get();
 
-        return view('employer.notifications.index', compact('notifications'));
+        return view('employers.notification', compact('notifications'));
     }
 
     // Mark notification as read

@@ -47,8 +47,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(SocialNetwork::class);
     }
-    
-
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

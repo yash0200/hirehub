@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use App\Models\Applicant;
 use Illuminate\Http\Request;
+use App\Models\EmployerNotification;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Jobs;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,11 @@ class DashboardController extends Controller
                 'applications' => $jobPerformance->pluck('application_count')->toArray(),
             ];
         }
+        $notifications = EmployerNotification::where('employer_id', Auth::user()->employer->id)
+            ->latest()
+            ->limit(6)
+            ->get();
 
-        return view('employers.dashboard', compact('user', 'jobCount', 'applications', 'applicants', 'chartData', 'activeJobs', 'closedJobs', 'inactiveJobs', 'expiredJobs'));
+        return view('employers.dashboard', compact('user','notifications','jobCount', 'applications', 'applicants', 'chartData', 'activeJobs', 'closedJobs', 'inactiveJobs', 'expiredJobs'));
     }
 }

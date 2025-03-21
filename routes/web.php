@@ -8,9 +8,9 @@ use App\Http\Controllers\Candidate\DashboardController as CandidateDashboard;
 use App\Http\Controllers\Candidate\JobController as CandidateJob;
 use App\Http\Controllers\Candidate\CandidateResumeController;
 //changes
+use App\Http\Controllers\Common\AboutusController;
+use App\Http\Controllers\Common\FAQController;
 use App\Http\Controllers\CandidateController;
-
-
 use App\Http\Controllers\Candidate\JobAlertController;
 use App\Http\Controllers\Employer\ResumeController as EmployerResume;
 use App\Http\Controllers\Candidate\ProfileController;
@@ -69,6 +69,11 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 
+
+Route::get('/about', [AboutusController::class, 'index'])->name('about');
+Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+
+
 // Route::get('/jobs',[JobsController::class, 'index']);    
 Route::get('/companies', [EmployersController::class, 'index']);
 // Middleware to check authentication before accessing dashboards
@@ -108,7 +113,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/candidate/notifications/{id}', [CandidateNotificationController::class, 'destroy'])->name('candidate.notifications.destroy');
 
 
-
         Route::get('/candidate/messages', [MessageController::class, 'index'])->name('candidate.messages');
         Route::get('/candidate/change-password', [ChangePasswordController::class, 'candidateIndex'])->name('candidate.password');
         Route::post('/candidate/change-password', [ChangePasswordController::class, 'candidateChangePassword'])->name('candidate.password.change');
@@ -124,6 +128,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/candidate/shortlistjobs', [ShortlistJobsController::class, 'index'])->name('candidate.shortlist');
         Route::post('/candidate/shortlist-job', [ShortlistJobsController::class, 'shortlistJob'])->name('candidate.shortlist.job');
         Route::delete('/candidate/shortlist-job/{id}', [ShortlistJobsController::class, 'destroy'])->name('candidate.job.destroy');
+        Route::get('/candidate/jobs/{job}', [ShortlistJobsController::class, 'viewJob'])->name('jobs.view');
     });
 
     /** ================== Employer Routes ================== */
@@ -148,6 +153,7 @@ Route::middleware(['auth'])->group(function () {
         /** ================== notifications Routes ================== */
         Route::get('/employer/notifications', [EmployerNotificationController::class, 'index'])->name('employer.notifications');
         Route::post('/employer/notifications/{id}/read', [EmployerNotificationController::class, 'markAsRead'])->name('employer.notifications.read');
+        Route::post('/employer/notifications/mark-all-read', [EmployerNotificationController::class, 'markAllAsRead'])->name('employer.notifications.markAllAsRead');
         Route::delete('/employer/notifications/{id}', [EmployerNotificationController::class, 'destroy'])->name('employer.notifications.destroy');
 
 
@@ -158,7 +164,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/employer/applicants/{id}/approve', [EmployerApplicantController::class, 'approveApplicant'])->name('employer.applicant.approve');
         Route::post('/employer/applicants/{id}/reject', [EmployerApplicantController::class, 'rejectApplicant'])->name('employer.applicant.reject');
         Route::get('/employer/applicants/{id}/view', [EmployerApplicantController::class, 'viewApplicant'])->name('employer.applicant.view');
-        Route::get('/employer/application/{id}', [EmployerApplicantController::class, 'viewProfile'])->name('employer.applicant.profile');
 
 
         Route::get('/employer/resumes', [EmployerResume::class, 'shortlisted'])->name('employer.resumes');
@@ -181,6 +186,8 @@ Route::get('/employers/{id}', [EmployersController::class, 'show'])->name('emplo
 Route::get('/employers', [EmployersController::class, 'index'])->name('employers.list');
 
 Route::get('/candidates', [CandidateController::class, 'index'])->name('candidates.list');
+Route::get('/candidate/{id}', [CandidateController::class, 'viewProfile'])->name('candidate.viewprofile');
+
 
 
 Route::get('/categories', [JobCategoryController::class, 'index'])->name('categories.list');

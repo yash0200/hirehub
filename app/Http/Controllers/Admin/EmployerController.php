@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Jobs;
 
 class EmployerController extends Controller
 {
     public function index(Request $request)
     {
         // $employers = User::where('is_admin', false)->where('user_type','employer')->get();
-        $query = User::where('user_type', 'employer');
+        $query = User::where('user_type', 'employer')->with('employer');
 
         // Combined Search by Name or Email
         if ($request->filled('keyword')) {
@@ -32,9 +34,30 @@ class EmployerController extends Controller
     // View Employer Profile
     public function view($id)
     {
-        $employer = User::where('user_type', 'employer')->findOrFail($id);
+        // Fetch employer details with address and active jobs count
+        $employer = Employer::with(['address', 'socialNetworks'])
+            ->withCount(['jobs' => function ($query) {
+                $query->where('status', 'active'); // Count only active jobs
+            }])
+            ->findOrFail($id); // Return 404 if not found
 
-        return view('admin.admin_viewemployer', compact('employer'));
+        // Fetch employer's active jobs
+        $activeJobs = Jobs::where('employer_id', $id)
+            ->where('status', 'active')
+            ->get();
+
+        // Active job count for this employer
+        $jobCount = $employer->jobs_count;
+
+        // Total active jobs for all employers
+        $totalJobs = Jobs::where('status', 'active')->count();
+
+        // Jobs added today
+        $jobsToday = Jobs::whereDate('created_at', today())
+            ->where('status', 'active')
+            ->count();
+
+        return view('employers.show', compact('employer', 'jobCount', 'totalJobs', 'jobsToday', 'activeJobs'));
     }
 
     // Delete Employer (Only if inactive or suspended)

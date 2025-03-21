@@ -19,8 +19,8 @@
                             <div class="widget-title">
                                 <h4>Applicant</h4>
 
-                                <div class="chosen-outer">
-                                    <!--Tabs Box-->
+                                <!-- <div class="chosen-outer">
+                                    Tabs Box
                                     <select class="chosen-select">
                                         <option>Select Jobs</option>
                                         <option>Last 12 Months</option>
@@ -29,7 +29,7 @@
                                         <option>Last 5 year</option>
                                     </select>
 
-                                    <!--Tabs Box-->
+                                    Tabs Box
                                     <select class="chosen-select">
                                         <option>All Status</option>
                                         <option>Last 12 Months</option>
@@ -37,7 +37,7 @@
                                         <option>Last 24 Months</option>
                                         <option>Last 5 year</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="widget-content">
@@ -69,11 +69,11 @@
                                                                 <div class="content">
                                                                     <figure class="image">
                                                                         <!-- Display applicant image (You can add a dynamic image URL) -->
-                                                                        <img src="{{ asset('/images/resource/candidate-1.png') }}"
+                                                                        <img src="{{ asset('storage/profile_photos/'.$applicant->candidate->profile_photo) }}"
                                                                             alt="">
                                                                     </figure>
                                                                     <h4 class="name">
-                                                                        <a href="{{ route('employer.applicant.profile', ['id' => $applicant->candidate_id]) }}">
+                                                                        <a href="{{ route('candidate.viewprofile', ['id' => $applicant->candidate_id]) }}">
                                                                             {{ $applicant->candidate->full_name }}
                                                                         </a>
                                                                     </h4>

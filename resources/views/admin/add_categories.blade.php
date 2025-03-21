@@ -13,7 +13,7 @@
         <form method="POST" action="{{ isset($category) ? route('admin.categories.update', $category->id) : route('admin.categories.store') }}" class="default-form">
             @csrf <!-- CSRF Token -->
             @if(isset($category))
-                @method('POST')
+            @method('POST')
             @endif
 
             <input type="hidden" name="id" value="">
@@ -38,14 +38,18 @@
                             </div>
                             <div class="widget-content">
                                 <div class="form-group">
-                                    <label>Name <span class="required">*</span></label>
+                                    <label>Name <span class="required"></span></label>
                                     <input type="text" value="{{ isset($category) ? $category->name : '' }}" placeholder="Category name" name="name" required class="form-control">
+                                    @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Slug</label>
-                                    <div>
-                                        <input type="text" value="{{ isset($category) ? $category->slug : '' }}" placeholder="Slug name" name="slug" required class="form-control">
-                                    </div>
+                                    <input type="text" value="{{ isset($category) ? $category->slug : '' }}" placeholder="Slug name" name="slug" required class="form-control">
+                                    @error('slug')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 {{-- <div class="form-group">
                                     <label class="control-label">Status</label>

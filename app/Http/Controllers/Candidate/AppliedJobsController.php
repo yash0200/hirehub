@@ -24,7 +24,7 @@ class AppliedJobsController extends Controller
     {
         $application = Applicant::findOrFail($id);
 
-        if ($application->status === 'pending' || $application->status === 'rejected') {
+        if ($application->status === 'Pending' || $application->status === 'rejected') {
             $application->delete();
             return response()->json(['success' => 'Application deleted successfully.']);
         }

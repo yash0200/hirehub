@@ -14,7 +14,8 @@ class CandidateResumeController extends Controller
     public function show()
     {
         // Fetch the authenticated user's resume
-        $resume = Resume::where('candidate_id', Auth::id())->first();
+        
+        $resume = Resume::where('candidate_id', Auth::user()->candidate->id)->first();
 
         return view('candidates.candidates_myresume', compact('resume'));
     }

@@ -41,14 +41,14 @@
                         <div class="widget-title">
                             <h4>My Job Listings</h4>
 
-                            <div class="chosen-outer">
+                            {{-- <div class="chosen-outer">
                                 <!-- Tabs Box -->
                                 <select class="chosen-select">
                                     <option>Ascending</option>
                                     <option>Descending</option>
                                    
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="widget-content">

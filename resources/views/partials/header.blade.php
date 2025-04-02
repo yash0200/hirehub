@@ -181,7 +181,7 @@
                     } elseif ($user->user_type === 'employer' && $user->employer && $user->employer->logo) {
                         $profilePhoto = asset('storage/logos/' . $user->employer->logo);
                     }else {
-                        $profilePhoto = asset('storage/' . $user->admin->photo);
+                        $profilePhoto = asset('storage/' . ($user->admin->photo??$profilePhoto));
                     }
                 }
                 @endphp

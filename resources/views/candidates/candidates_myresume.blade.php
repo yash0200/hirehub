@@ -45,6 +45,9 @@
                     <span
                       class="uploadButton-file-name">{{ isset($resume->resume_file) ? basename($resume->resume_file) : '' }}</span>
                   </div>
+                  @error('resume_file')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
                 <!-- About your self -->
 

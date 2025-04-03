@@ -211,7 +211,6 @@
                       <option value="₹5,00,000 - ₹7,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹5,00,000 - ₹7,00,000' ? 'selected' : '' }}>₹5,00,000 - ₹7,00,000</option>
                       <option value="₹7,00,000 - ₹10,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹7,00,000 - ₹10,00,000' ? 'selected' : '' }}>₹7,00,000 - ₹10,00,000</option>
                       <option value="₹10,00,000 - ₹15,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹10,00,000 - ₹15,00,000' ? 'selected' : '' }}>₹10,00,000 - ₹15,00,000</option>
-                      <option value="₹15,00,000 - ₹20,00,000" {{ old('current_salary', $resume->current_salary ?? '') == '₹15,00,000 - ₹20,00,000' ? 'selected' : '' }}>₹15,00,000 - ₹20,00,000</option>
                     </select>
                     @error('current_salary')
                     <small class="text-danger">{{ $message }}</small>

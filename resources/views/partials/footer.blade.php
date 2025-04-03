@@ -70,7 +70,7 @@
             </div>
             <div class="footer-column col-lg-4 col-md-12 col-sm-12">
               <div class="footer-widget">
-                <h4 class="widget-title">Join Us On</h4>
+                {{-- <h4 class="widget-title">Join Us On</h4>
                 <div class="widget-content">
                   <div class="newsletter-form">
                     <div class="text-white">We don’t send spam so don’t worry.</div>
@@ -85,7 +85,7 @@
                       </div>
                     </form>
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
           </div>

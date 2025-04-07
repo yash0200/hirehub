@@ -57,7 +57,7 @@ class ProfileController extends Controller
                     'age_range' => 'required|string|max:20|in:18 - 22 years,23 - 25 years,26 - 30 years,31 - 40 years,41 - 60 years',
                     'education_levels' => 'nullable|string|regex:/^[a-zA-Z\s,\'-]+$/|min:5|max:255',
                     'languages' => 'nullable|string|regex:/^[a-zA-Z\s,\'-]+$/|max:255',
-                    'description' => 'nullable|string|min:250',
+                    'description' => 'nullable|string|min:100',
                     'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
                 ]);
                 $dob = Carbon::parse($request->dob);

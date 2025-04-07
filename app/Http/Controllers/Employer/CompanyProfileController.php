@@ -77,6 +77,7 @@ class CompanyProfileController extends Controller
                 }
 
                 $employer->update($validatedData);
+                // $this->checkProfileCompletion();
             } elseif ($formType === 'social_network') {
                 $validator = Validator::make($request->all(), [
                     'facebook' => 'nullable|url',
@@ -128,9 +129,11 @@ class CompanyProfileController extends Controller
                     ['employer_id' => $employer->id],
                     $request->only(['country', 'state', 'city', 'street', 'postal_code'])
                 );
+                // $this->checkProfileCompletion();
             } else {
                 return redirect()->route('employer.company.profile')->withErrors(['general' => 'Invalid form type.']);
             }
+            $this->checkProfileCompletion();
 
             return redirect()->route('employer.company.profile')->with('success', 'Profile updated successfully!');
         } catch (\Exception $e) {
